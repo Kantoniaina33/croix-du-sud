@@ -1,0 +1,19 @@
+.cont {
+    /* background-color: rgba(127, 255, 212, 0.541); */
+    text-align: center;
+    padding: auto;
+}
+#signup {
+    padding-top: 3%;
+    padding-bottom: 10%;
+    /* background-color: cornflowerblue; */
+}
+.input{
+    margin-top: 5%;
+}
+#button{
+    margin-top: 5%;
+}
+#foot{
+    text-align: left;
+}

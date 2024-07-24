@@ -1,0 +1,36 @@
+.cont {
+    text-align: center;
+    padding: 5%;
+}
+#back{
+    background-color: #636fa4;
+    padding-top: 1%;
+    border-radius: 5px;
+}
+#login {
+    padding: 5% 0 15% 0;
+    background-color: white;
+}
+.input{
+    margin-top: 5%;
+}
+#button{
+    margin-top: 5%;
+}
+#foot{
+    text-align: left;
+}
+body, html{
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(to right, #74edb5, #acb6e5); */
+    /* background: linear-gradient(to right, #d9a7c7, #fffcdc); */
+    background: linear-gradient(to right, #e8cbc0, #636fa4);
+    /* background: linear-gradient(to right, #dad299, #b0dab9); */
+    background-color: #8EC5FC;
+    /* background-image: linear-gradient(62deg,#8EC5FC 0%, #E0C3FC 100%); */
+}
+.title{
+    font-size: 20px;
+    color: #5b6697;
+}
