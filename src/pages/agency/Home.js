@@ -1,13 +1,12 @@
 import LoginComponent from "../../components/agency/Login/LoginComponent";
+import MyHeader from "../../components/util/MyHeader";
 
 function Login(){
     return (
         <div>
-            <LoginComponent
-                url='http://localhost:3030/login'
-            />
+            <MyHeader/>
+            <div>Hello</div>
         </div>
     )
 }
 export default Login;
-

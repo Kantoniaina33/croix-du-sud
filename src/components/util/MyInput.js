@@ -9,9 +9,9 @@ export default function MyInput(props){
           label={label}
           type={type}
           size='small'
-          InputLabelProps={{
-            shrink: true,
-          }}
+          // InputLabelProps={{
+          //   shrink: true,
+          // }}
           placeholder={placeholder}
           sx={{width: width}}
           onChange={onChange}
