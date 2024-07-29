@@ -5,7 +5,7 @@ import { AccountCircle } from '@mui/icons-material';
 import React from 'react';
 
 export default function MyInput(props){
-    const {id,label,type,placeholder,width,onChange,required} = props
+    const {id,label,type,placeholder,width,onChange,required,variant} = props
     return (
       <TextField
         id={id}
@@ -20,7 +20,7 @@ export default function MyInput(props){
             height: "100%",
           },
         }}
-        variant="standard"
+        variant={variant}
         onChange={onChange}
         required={required}
         // InputProps={{

@@ -60,6 +60,7 @@ export default function Signup() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required={true}
+                    variant="standard"
                   />
                 </div>
                 <div className="input-row">
@@ -72,6 +73,7 @@ export default function Signup() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required={true}
+                      variant="standard"
                     />
                   </div>
                   <div className="inputS">
@@ -83,6 +85,7 @@ export default function Signup() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required={true}
+                      variant="standard"
                     />
                   </div>
                 </div>
@@ -108,6 +111,7 @@ export default function Signup() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required={true}
+                    variant="standard"
                   />
                 </div>
                 <div id="buttonS">
