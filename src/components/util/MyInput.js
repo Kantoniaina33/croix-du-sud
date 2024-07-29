@@ -1,4 +1,7 @@
-import { TextField } from '@mui/material';
+import { TextField, InputAdornment } from '@mui/material';
+import AlternateEmailTwoToneIcon from '@mui/icons-material/AlternateEmailTwoTone';
+
+import { AccountCircle } from '@mui/icons-material'; 
 import React from 'react';
 
 export default function MyInput(props){
@@ -12,13 +15,21 @@ export default function MyInput(props){
         placeholder={placeholder}
         sx={{
           width: width,
-          height: "40px", 
+          height: "40px",
           "& .MuiInputBase-root": {
             height: "100%",
           },
         }}
+        variant="standard"
         onChange={onChange}
         required={required}
+        // InputProps={{
+        //   startAdornment: (
+        //     <InputAdornment position="start">
+        //       <AlternateEmailTwoToneIcon />
+        //     </InputAdornment>
+        //   ),
+        // }}
       />
     );
 }

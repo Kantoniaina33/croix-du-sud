@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MyInput from "../../../components/util/MyInput";
 import MyButton from "../../../components/util/MyButton";
 import MyHeader from "../../../components/util/MyHeader";
-import "./style.css";
+import "./styleSignup.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -29,11 +29,11 @@ export default function Signup() {
       });
 
       if (!response.ok) {
-          setMessage("Signup failed");
+        setMessage("Signup failed");
         return;
       }
 
-      navigate('/Home');
+      navigate("/Home");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -45,87 +45,92 @@ export default function Signup() {
   return (
     <div>
       <MyHeader />
-      <Container maxWidth="sm" className="contS">
-        <div id="back">
-          <div id="signup" variant="outlined">
-            <p className="title">INSCRIPTION</p>
-            <form onSubmit={handleSignup}>
-              <div className="inputS">
-                <MyInput
-                  id="name"
-                  label="Nom"
-                  type="text"
-                  width="250px"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required={true}
-                />
+      <div id="body">
+        <Container maxWidth="sm" className="contS">
+          <div id="back">
+            <div id="signup" variant="outlined">
+              <p className="titleS">INSCRIPTION</p>
+              <form onSubmit={handleSignup}>
+                <div className="inputS">
+                  <MyInput
+                    id="name"
+                    label="Nom"
+                    type="text"
+                    width="350px"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required={true}
+                  />
+                </div>
+                <div className="input-row">
+                  <div className="inputS">
+                    <MyInput
+                      id="email"
+                      label="Adresse email"
+                      type="email"
+                      width="220px"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required={true}
+                    />
+                  </div>
+                  <div className="inputS">
+                    <MyInput
+                      id="phone"
+                      label="Telephone"
+                      type="number"
+                      width="120px"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required={true}
+                    />
+                  </div>
+                </div>
+                <div className="inputS">
+                  <TextField
+                    id="description"
+                    label="Description"
+                    multiline
+                    rows={2}
+                    sx={{ width: 350 }}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required={false}
+                    variant="standard"
+                  />
+                </div>
+                <div className="inputS">
+                  <MyInput
+                    id="password"
+                    label="Mot de passe"
+                    type="password"
+                    width="350px"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required={true}
+                  />
+                </div>
+                <div id="buttonS">
+                  <Button
+                    variant="contained"
+                    sx={{ width: "350px" }}
+                    style={buttonStyle}
+                    type="submit"
+                  >
+                    S'inscrire
+                  </Button>
+                </div>
+              </form>
+              <br />
+              <div>
+                <a href="/" style={{ color: "grey" }}>
+                  Se connecter
+                </a>
               </div>
-              <div className="inputS">
-                <MyInput
-                  id="email"
-                  label="Adresse email"
-                  type="email"
-                  width="250px"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required={true}
-                />
-              </div>
-              <div className="inputS">
-                <MyInput
-                  id="phone"
-                  label="Telephone"
-                  type="number"
-                  width="250px"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required={true}
-                />
-              </div>
-              <div className="inputS">
-                <TextField
-                  id="description"
-                  label="Description"
-                  multiline
-                  rows={1}
-                  sx={{ width: 250 }}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required={false}
-                />
-              </div>
-              <div className="inputS">
-                <MyInput
-                  id="password"
-                  label="Mot de passe"
-                  type="password"
-                  width="250px"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required={true}
-                />
-              </div>
-              <div id="button">
-                <Button
-                  variant="contained"
-                  sx={{ width: "250px" }}
-                  style={buttonStyle}
-                  type="submit"
-                >
-                  S'inscrire
-                </Button>
-              </div>
-            </form>
-            <br />
-            <div>
-              <a href="/" style={{ color: "grey" }}>
-                Se connecter
-              </a>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }

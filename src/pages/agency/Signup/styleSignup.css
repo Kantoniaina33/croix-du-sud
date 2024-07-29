@@ -1,40 +1,35 @@
-.cont {
+.contS {
     text-align: center;
-    padding: 5%;
+    padding: 3%;
 }
-#back{
-    background-color: #636fa4;
-    padding-top: 1%;
-    border-radius: 5px;
-}
-#login {
-    background-color: #5b6697;
-    padding: 5% 0 10% 0;
+#signup {
+    padding: 2% 0 7% 0;
     background-color: white;
     box-shadow: 8px 8px 8px rgba(214, 214, 214, 0.5);
 }
-.input{
+.inputS{
     margin-top: 3%;
 }
-#button{
-    margin-top: 5%;
+#buttonS{
+    margin-top: 12%;
 }
 #foot{
-    text-align: center;
+    text-align: left;
 }
 body, html{
     align-items: center;
     justify-content: center;
     background-color: #f5f5f5;
 }
-#body{
-    background-color: #f5f5f5;
-    margin-top: 0.5%;
-}
-.title{
+.titleS{
     font-size: 20px;
     color: #5b6697;
+    margin-top: 3%;
 }
+#body{
+    background-color: #f5f5f5;
+}
+
 .input-row {
   display: flex;
   justify-content: center;
@@ -62,24 +57,3 @@ body, html{
   flex-direction: column;
   align-items: center;
 }
-
-/* #button {
-  display: flex;
-  justify-content: center;
-  margin-top: 5%;
-} */
-
-.inputL {
-  display: flex;
-  /* align-items: center; */
-  /* margin-top: 7%; */
-}
-.inputL span {
-  /* margin-right: 10px; Adjust this as needed */
-  /* display: flex;
-  align-items: center; */
-  margin-top: 20px;
-  /* height: 90px; Same height as the input field */
-}
-
-
