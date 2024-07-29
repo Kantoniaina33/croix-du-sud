@@ -4,7 +4,8 @@ function Login(){
     return (
         <div>
             <LoginComponent
-                url='http://localhost:3030/login'
+                urlLogin='http://localhost:3030/agency/login'
+                home='Home'
             />
         </div>
     )
