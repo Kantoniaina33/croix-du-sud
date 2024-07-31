@@ -1,7 +1,4 @@
 import { TextField, InputAdornment } from '@mui/material';
-import AlternateEmailTwoToneIcon from '@mui/icons-material/AlternateEmailTwoTone';
-
-import { AccountCircle } from '@mui/icons-material'; 
 import React from 'react';
 
 export default function MyInput(props){
@@ -23,13 +20,6 @@ export default function MyInput(props){
         variant={variant}
         onChange={onChange}
         required={required}
-        // InputProps={{
-        //   startAdornment: (
-        //     <InputAdornment position="start">
-        //       <AlternateEmailTwoToneIcon />
-        //     </InputAdornment>
-        //   ),
-        // }}
       />
     );
 }

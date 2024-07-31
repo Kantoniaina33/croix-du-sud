@@ -1,10 +1,11 @@
-import LoginComponent from "../../components/agency/Login/LoginComponent";
 import MyHeader from "../../components/util/MyHeader";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useAuth from "../../utils/useAuth";
 
 function Login() {
+  useAuth();
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
