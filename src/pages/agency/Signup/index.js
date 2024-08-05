@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../assets/css/nucleo-icons.css";
-import "../../../assets/css/nucleo-svg.css";
-import "../../../assets/css/soft-ui-dashboard.css?v=1.0.7";
+// import "../../../assets/css/soft-ui-dashboard.css";
+import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -85,7 +84,7 @@ function Login() {
                   </div>
                   <div className="card-body">
                     {message && <span className="error">{message}</span>}
-                    <form role="form text-left" onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin}>
                       <div className="mb-3">
                         <input
                           type="email"
@@ -135,4 +134,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default Signup;

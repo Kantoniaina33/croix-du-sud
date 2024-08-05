@@ -5,6 +5,9 @@ Icon colors
 
 -------------------------------- */
 
+#test{
+  background-color: #7ea6f6;
+}
 .icon {
   display: inline-block;
   /* icon primary color */
