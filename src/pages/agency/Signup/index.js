@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "../../../assets/css/soft-ui-dashboard.css";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 
