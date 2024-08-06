@@ -1,7 +1,7 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 
-function Log() {
+function InfoAgency() {
   return (
     <div>
       <link
@@ -36,7 +36,7 @@ function Log() {
                         </div>
                         <div className="mb-3">
                           <label for="formFile" className="form-label">
-                            Logo
+                            InfoAgencyo
                           </label>
                           <input
                             className="form-control"
@@ -81,4 +81,4 @@ function Log() {
     </div>
   );
 }
-export default Log;
+export default InfoAgency;
