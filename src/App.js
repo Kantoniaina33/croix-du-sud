@@ -4,6 +4,10 @@ import Signup from "./pages/agency/Signup";
 import InfoAgency from "./pages/agency/Signup/infoAgency";
 import Login from "./pages/agency/Login";
 import Home from "./pages/agency/Home";
+import ListHotel from "./pages/hotel/ListHotel";
+import ListRoom from "./pages/room/ListRoom";
+import ListMeal from "./pages/meal/ListMeal";
+import ListExcursion from "./pages/excursion/ListExcursion";
 
 
 function App() {
@@ -15,6 +19,10 @@ function App() {
           <Route path="/info" element={<InfoAgency />} />
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/hotels" element={<ListHotel />} />
+          <Route path="/rooms" element={<ListRoom />} />
+          <Route path="/meals" element={<ListMeal />} />
+          <Route path="/excursions" element={<ListExcursion />} />
         </Routes>
       </div>
     </Router>
