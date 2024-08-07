@@ -1,0 +1,89 @@
+      <tr>
+        <td>
+          <div className="d-flex px-2">
+            <Coffee02Icon size={24} color={"#000000"} variant={"stroke"} />
+          </div>
+        </td>
+        <td>
+          <div className="d-flex px-2">
+            <div className="my-auto">
+              <h6 className="mb-0 text-sm">Petit déjeuner</h6>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className="d-flex px-2">
+            <div className="my-auto">
+              <h6 className="mb-0 text-sm">{breakfast_price}</h6>
+            </div>
+          </div>
+        </td>
+        <td className="align-middle text-center">
+          <span className="text-secondary text-xs font-weight-bold">
+            <a href="#">
+              <Edit02Icon color="blue" size={20} />
+            </a>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div className="d-flex px-2">
+            <SpoonAndKnifeIcon size={24} color={"#000000"} variant={"stroke"} />
+          </div>
+        </td>
+        <td>
+          <div className="d-flex px-2">
+            <div className="my-auto">
+              <h6 className="mb-0 text-sm">Déjeuner</h6>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className="d-flex px-2">
+            <div className="my-auto">
+              <h6 className="mb-0 text-sm">{lunch_price}</h6>
+            </div>
+          </div>
+        </td>
+        <td className="align-middle text-center">
+          <span className="text-secondary text-xs font-weight-bold">
+            <a href="#">
+              <Edit02Icon color="blue" size={20} />
+            </a>
+          </span>
+        </td>
+      </tr>
+
+
+
+      {/* <Modal
+        show={show}
+        onHide={handleClose}
+        id="basicModal"
+        dialogClassName="custom-small-modal"
+      >
+        <div class="">
+          <div class="card">
+            <div class="card-header mx-4 p-3 text-center">
+              <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
+                <i class="fas fa-landmark opacity-10"></i>
+              </div>
+            </div>
+            <div class="card-body pt-0 p-3 text-center">
+              <h6 class="text-center mb-0">Salary</h6>
+              <span class="text-xs">Belong Interactive</span>
+              <hr class="horizontal dark my-3" />
+              <h5 class="mb-0">+$2000</h5>
+            </div>
+          </div>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </div>
+      </Modal> */}

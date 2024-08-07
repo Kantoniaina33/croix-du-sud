@@ -27,15 +27,15 @@ export default function TrRoom(props) {
       <td className="align-middle text-center">
         <p className="text-sm font-weight-bold mb-0">{total}</p>
       </td>
-      <td class="align-middle text-center">
-        <span class="text-secondary text-xs font-weight-bold">
+      <td className="align-middle text-center">
+        <span className="text-secondary text-xs font-weight-bold">
           <a href="#">
             <Edit02Icon color="blue" size={20} />
           </a>
         </span>
       </td>
-      <td class="align-middle text-center">
-        <span class="text-secondary text-xs font-weight-bold">
+      <td className="align-middle text-center">
+        <span className="text-secondary text-xs font-weight-bold">
           <a href="#">
             <Delete02Icon color="red" size={23} />
           </a>

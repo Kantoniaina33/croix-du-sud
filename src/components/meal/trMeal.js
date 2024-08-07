@@ -1,94 +1,78 @@
 import React from "react";
-import { Coffee02Icon, Delete02Icon, Edit02Icon, NoodlesIcon, SpoonAndKnifeIcon } from "hugeicons-react";
+import "./style.css";
+import { useState } from "react";
+import {
+  Edit02Icon,
+  Tick02Icon,
+} from "hugeicons-react";
 
 export default function TrMeal(props) {
-  const { breakfast_price, lunch_price, dinner_price } = props;
+  const { icon: Icon, meal, price } = props;
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedPrice, setEditedPrice] = useState(price);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    console.log("edit");
+  };
+  const handleSaveClick = () => {
+    setIsEditing(false);
+  };
+
+  const handlePriceChange = (e) => setEditedPrice(e.target.value);
+
   return (
-    <tbody>
-      <tr>
-        <td>
-          <div className="d-flex px-2">
-            <Coffee02Icon size={24} color={"#000000"} variant={"stroke"} />
+    <tr>
+      <td>
+        <div className="d-flex px-2">
+          <Icon size={24} color={"#000000"} />
+        </div>
+      </td>
+      <td>
+        <div className="d-flex px-2">
+          <div className="my-auto">
+            <h6 className="mb-0 text-sm">{meal}</h6>
           </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">Petit déjeuner</h6>
-            </div>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex px-2">
+          <div className="my-auto">
+            {isEditing ? (
+              <input
+                type="text"
+                value={editedPrice}
+                onChange={handlePriceChange}
+                onBlur={handleSaveClick}
+                className="form-control"
+                id="priceInput"
+                autoFocus
+              />
+            ) : (
+              <h6 className="mb-0 text-sm">{editedPrice}</h6>
+            )}
           </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">{breakfast_price}</h6>
-            </div>
-          </div>
-        </td>
-        <td class="align-middle text-center">
-          <span class="text-secondary text-xs font-weight-bold">
-            <a href="#">
+        </div>
+      </td>
+      <td className="align-middle text-center">
+        <span className="text-secondary text-xs font-weight-bold">
+          {isEditing ? (
+            <button
+              style={{ backgroundColor: "white", border: "none" }}
+              onClick={handleEditClick}
+            >
+              <Tick02Icon size={30} color="blue" />
+            </button>
+          ) : (
+            <button
+              style={{ backgroundColor: "white", border: "none" }}
+              onClick={handleEditClick}
+            >
               <Edit02Icon color="blue" size={20} />
-            </a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div className="d-flex px-2">
-            <SpoonAndKnifeIcon size={24} color={"#000000"} variant={"stroke"} />
-          </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">Déjeuner</h6>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">{lunch_price}</h6>
-            </div>
-          </div>
-        </td>
-        <td class="align-middle text-center">
-          <span class="text-secondary text-xs font-weight-bold">
-            <a href="#">
-              <Edit02Icon color="blue" size={20} />
-            </a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div className="d-flex px-2">
-            <NoodlesIcon size={24} color={"#000000"} variant={"stroke"} />
-          </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">Dîner</h6>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div className="d-flex px-2">
-            <div className="my-auto">
-              <h6 className="mb-0 text-sm">{dinner_price}</h6>
-            </div>
-          </div>
-        </td>
-        <td class="align-middle text-center">
-          <span class="text-secondary text-xs font-weight-bold">
-            <a href="#">
-              <Edit02Icon color="blue" size={20} />
-            </a>
-          </span>
-        </td>
-      </tr>
-    </tbody>
+            </button>
+          )}
+        </span>
+      </td>
+    </tr>
   );
 }

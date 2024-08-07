@@ -1,8 +1,9 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Call02Icon, Mail01Icon, StarIcon } from "hugeicons-react";
+import { Call02Icon, Coffee02Icon, Mail01Icon, NoodlesIcon, SpoonAndKnifeIcon, StarIcon } from "hugeicons-react";
 import TrMeal from "../../../components/meal/trMeal";
+import HeadHotel from "../../../components/hotel/headHotel";
 
 export default function ListRoom() {
   const star = 3;
@@ -20,83 +21,43 @@ export default function ListRoom() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
           rel="stylesheet"
         />
-        <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
-          <div class="container-fluid py-1">
+        <nav className="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
+          <div className="container-fluid py-1">
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
-                <li class="breadcrumb-item text-sm">
+              <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
+                <li className="breadcrumb-item text-sm">
                   <span style={{ color: "white" }}>Pages</span>
                 </li>
                 <li
-                  class="breadcrumb-item text-sm text-white active"
+                  className="font-weight-bold breadcrumb-item text-sm text-white active"
                   aria-current="page"
                 >
-                  Profile
+                  Chambres
                 </li>
               </ol>
-              <h6 class="text-white font-weight-bolder ms-2">Profile</h6>
             </nav>
             <div
-              class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2"
+              className="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2"
               id="navbar"
             ></div>
           </div>
         </nav>
-        <div class="container-fluid">
+        <div className="container-fluid">
           <div
-            class="page-header border-radius-xl mt-4"
+            className="page-header border-radius-xl mt-4"
             style={{ minHeight: "150px" }}
           >
-            <span class="mask opacity-6" id="background"></span>
+            <span className="mask opacity-6" id="background"></span>
           </div>
-          <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
-            <div class="row gx-4">
-              <div class="col-auto">
-                <div class="avatar avatar-xl position-relative">
-                  <img
-                    src="/carlton.png"
-                    alt="profile_image"
-                    class="w-100 border-radius-lg shadow-sm"
-                  />
-                </div>
-              </div>
-              <div class="col-auto my-auto">
-                <div class="h-100">
-                  <h5 class="mb-1">Carlton</h5>
-                  <p class="mb-0 font-weight-bold text-xs">
-                    adresse Carlton | Antanarivo
-                  </p>
-                  <span>
-                    {starsArray.map((color, index) => (
-                      <StarIcon
-                        key={index}
-                        color={color}
-                        size={17}
-                        style={{ margin: "1%" }}
-                      />
-                    ))}
-                  </span>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                <div class="nav-wrapper position-relative end-0">
-                  <ul
-                    class="nav nav-pills nav-fill p-1 bg-transparent"
-                    role="tablist"
-                  >
-                    <li class="nav-item">
-                      <Call02Icon size={24} color="grey" variant={"stroke"} />
-                      <span class="ms-1">034 34 334 34</span>
-                    </li>
-                    <li class="nav-item">
-                      <Mail01Icon size={24} color="grey" variant={"stroke"} />
-                      <span class="ms-1">carlton@gmail.com</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HeadHotel
+            logo="/carlton.png"
+            name="Carlton"
+            email="carlton@gmail.com"
+            phone="034 34 334 34"
+            star="5"
+            address="carlton adresse"
+            city="Antananarivo"
+          />
         </div>
         <div className="container-fluid py-4">
           <div className="row">
@@ -121,9 +82,19 @@ export default function ListRoom() {
                         </tr>
                       </thead>
                       <TrMeal
-                        breakfast_price="2000 Ar"
-                        lunch_price="3000 Ar"
-                        dinner_price="1500 Ar"
+                        icon={Coffee02Icon}
+                        meal="Petit déjeuner"
+                        price="10500 Ar"
+                      />
+                      <TrMeal
+                        icon={SpoonAndKnifeIcon}
+                        meal="Déjeuner"
+                        price="2000 Ar"
+                      />
+                      <TrMeal
+                        icon={NoodlesIcon}
+                        meal="Diner"
+                        price="1500 Ar"
                       />
                     </table>
                   </div>
