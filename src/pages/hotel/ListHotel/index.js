@@ -2,8 +2,15 @@ import TrHotel from "../../../components/hotel/trHotel";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
+import FormHotel from "../../../components/hotel/formHotel";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 export default function ListHotel() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
       <Aside></Aside>
@@ -56,10 +63,13 @@ export default function ListHotel() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard"
+                    onClick={handleShow}
                   >
                     Ajouter un nouvel hotel
                   </a>
+                  <Modal show={show} onHide={handleClose}>
+                    <FormHotel title="Ajouter un nouvel hotel" />
+                  </Modal>
                 </li>
               </ul>
             </div>

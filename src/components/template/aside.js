@@ -33,7 +33,7 @@ export default function Aside(props) {
             className="navbar-brand-img h-100"
             alt="main_logo"
           />
-          <span className="ms-1 font-weight-bold">Agence Name</span>
+          <span className="ms-1 font-weight-bold">Nom Agence</span>
         </a>
       </div>
       <hr className="horizontal dark mt-0" />

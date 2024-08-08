@@ -83,7 +83,7 @@ function Signup() {
                   </div>
                   <div className="card-body">
                     {message && <span className="error">{message}</span>}
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin} style={{marginTop:"-10%"}}>
                       <div className="mb-3">
                         <input
                           type="email"
@@ -101,6 +101,18 @@ function Signup() {
                           type="password"
                           className="form-control"
                           placeholder="Mot de passe"
+                          aria-label="Password"
+                          aria-describedby="password-addon"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <input
+                          type="password"
+                          className="form-control"
+                          placeholder="Confirmer votre mot de passe"
                           aria-label="Password"
                           aria-describedby="password-addon"
                           value={password}

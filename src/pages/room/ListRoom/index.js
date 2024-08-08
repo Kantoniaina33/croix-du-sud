@@ -1,16 +1,18 @@
-import TrHotel from "../../../components/hotel/trHotel";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Call02Icon, Mail01Icon, StarIcon } from "hugeicons-react";
 import TrRoom from "../../../components/room/trRoom";
 import HeadHotel from "../../../components/hotel/headHotel";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
+import FormRoom from "../../../components/room/formRoom";
 
 export default function ListRoom() {
   const star = 3;
-  const starsArray = Array.from({ length: 3 }, (v, i) =>
-    i < star ? "#ffc400" : "grey"
-  );
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
       <Aside></Aside>
@@ -65,9 +67,20 @@ export default function ListRoom() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <div className="card-header pb-0">
+                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Liste de chambres</h6>
+                  <a
+                    className="btn btn-outline-primary btn-sm mb-0"
+                    target="blank"
+                    onClick={handleShow}
+                  >
+                    Ajouter des chambres
+                  </a>
+                  <Modal show={show} onHide={handleClose}>
+                    <FormRoom title="AJouter des chambres" />
+                  </Modal>
                 </div>
+
                 <div className="card-body px-0 pt-0 pb-2">
                   <div className="table-responsive p-0">
                     <table className="table align-items-center mb-0">

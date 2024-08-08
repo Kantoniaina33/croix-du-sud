@@ -1,49 +1,98 @@
 import React from "react";
-import { StarIcon, Call02Icon, Mail01Icon } from "hugeicons-react";
+import { BedDoubleIcon } from "hugeicons-react";
+import { useState } from "react";
 
 export default function FormRoom(props) {
-  const { logo, name, address, city, phone, email, star } = props;
-  const starsArray = Array.from({ length: star }, (v, i) =>
-    i < star ? "#ffc400" : "grey"
-  );
+  const { title, type, capacity, price_category, price, total } = props;
+
+  const [formValues, setFormValues] = useState({
+    type: type || "",
+    capacity: capacity || "",
+    price_category: price_category || "",
+    price: price || "",
+    total: total || ""
+  });
+
+  const handleChange = (e) => {
+    const { type, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [type]: value,
+    }));
+  };
+
   return (
     <div className="card card-plain mt-1" id="infoBack">
       <div className="card-header pb-0 text-left bg-transparent">
         <h4 className="" id="infoTitle">
-          Chambre
+          <BedDoubleIcon
+            size={40}
+            color="#273385"
+            variant={"stroke"}
+            style={{
+              marginTop: "-1%",
+              boxShadow: "0px 5px 5px 0 rgba(0, 0, 0, 0.082)",
+              padding: "2%",
+              borderRadius: "5px",
+            }}
+          />
+          <span style={{ marginLeft: "3%" }}>{title}</span>
         </h4>
       </div>
       <div className="card-body">
         <form role="form">
-          <label>Type</label>
-          <div className="mb-3">
-            <input type="text" className="form-control" />
+          <div className="row mb-3">
+            <div className="col-md-8">
+              <label>Type</label>
+              <select
+                className="form-control"
+                value={formValues.type}
+                onChange={handleChange}
+              >
+                <option value="antananarivo">Double</option>
+                <option value="toamasina">Twin</option>
+              </select>
+            </div>
+            <div className="col-md-4">
+              <label>Capacite</label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.capacity}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <label>Capacité</label>
           <div className="mb-3">
-            <input type="text" className="form-control" />
-          </div>
-          <label>Catégorie de prix</label>
+              <label>Categorie de prix</label>
+              <select
+                className="form-control"
+                value={formValues.price_category}
+                onChange={handleChange}
+              >
+                <option value="antananarivo">Premier</option>
+                <option value="toamasina">Second</option>
+              </select>
+            </div>
           <div className="mb-3">
-            <textarea className="form-control" />
-          </div>
+              <label>Tarif par nuit</label>
+              <input
+              type="text"
+              className="form-control"
+              value={formValues.price}
+              onChange={handleChange}
+            />
+            </div>
           <div className="mb-3">
             <label for="formFile" className="form-label">
-              Tarif par nuit
+              Nombre total
             </label>
-            <input className="form-control" type="file" id="formFile" />
-          </div>
-          <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Total
-            </label>
-            <input className="form-control" type="file" id="formFile" />
-          </div>
-          <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Étoiles
-            </label>
-            <input className="form-control" type="file" id="formFile" />
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.total}
+              onChange={handleChange}
+            />
           </div>
           <div className="text-center">
             <button type="button" className="btn w-100 mt-4 mb-0" id="saveInfo">
