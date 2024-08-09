@@ -1,0 +1,14 @@
+#titleFormHotel{
+    background: linear-gradient(90deg,  #7580cf, #273385);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+#saveHotel{
+    background:linear-gradient(to right, #7580cf, #273385) ;
+    color: white;
+    padding-bottom: -50%;
+}
+#formHotel{
+    margin-top: 3%;
+}

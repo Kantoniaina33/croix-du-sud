@@ -1,6 +1,7 @@
 import React from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
+import "./style.css";
 
 export default function FormHotel(props) {
   const { title, logo, name, address, city, phone, email, star } = props;
@@ -23,9 +24,9 @@ export default function FormHotel(props) {
   };
 
   return (
-    <div className="card card-plain mt-1" id="infoBack">
-      <div className="card-header pb-0 text-left bg-transparent">
-        <h4 className="" id="infoTitle">
+    <div className="card card-plain mt-1">
+      <div className="card-header pb-0 text-left" id="formHotel">
+        <h4 className="" id="titleFormHotel">
           <Hotel01Icon
             size={40}
             color="#273385"
@@ -115,7 +116,7 @@ export default function FormHotel(props) {
             <input className="form-control" type="file" id="formFile" />
           </div>
           <div className="text-center">
-            <button type="button" className="btn w-100 mt-4 mb-0" id="saveInfo">
+            <button type="button" className="btn w-100 mt-4 mb-0" id="saveHotel">
               Enregistrer
             </button>
           </div>
