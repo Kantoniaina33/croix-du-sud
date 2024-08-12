@@ -2,8 +2,11 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import OneExcursion from "../../../components/excursion/oneExcursion";
 import { useState, useEffect } from "react";
+import { Modal } from "react-bootstrap";
+import FormExcursion from "../../../components/excursion/formExcursion";
 
 export default function ListExcursion() {
+  const [show, setShow] = useState(false);
   const [excursions, setExcursions] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -37,6 +40,9 @@ export default function ListExcursion() {
   useEffect(() => {
     fetchExcursions();
   }, []);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div>
       <Aside></Aside>
@@ -89,10 +95,14 @@ export default function ListExcursion() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard"
+                    // href="#"
+                    onClick={handleShow}
                   >
                     Ajouter une nouvelle excursion
                   </a>
+                  <Modal show={show} onHide={handleClose}>
+                    <FormExcursion title="Ajouter une nouvelle excursion" />
+                  </Modal>
                 </li>
               </ul>
             </div>

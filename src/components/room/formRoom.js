@@ -3,22 +3,49 @@ import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
 
 export default function FormRoom(props) {
-  const { title, type, capacity, price_category, price, total } = props;
+  const { title, room_type, capacity, price_category, price, number_of_rooms } = props;
+  const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
-    type: type || "",
+    room_type: room_type || "",
     capacity: capacity || "",
     price_category: price_category || "",
     price: price || "",
-    total: total || ""
+    number_of_rooms: number_of_rooms || ""
   });
 
   const handleChange = (e) => {
-    const { type, value } = e.target;
+    const { room_type, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [type]: value,
+      [room_type]: value,
     }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch("http://localhost:3030/rooms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ room_type, capacity, price_category, price, number_of_rooms }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Probleme");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -46,7 +73,7 @@ export default function FormRoom(props) {
               <label>Type</label>
               <select
                 className="form-control"
-                value={formValues.type}
+                value={formValues.room_type}
                 onChange={handleChange}
               >
                 <option value="antananarivo">Double</option>
@@ -85,17 +112,17 @@ export default function FormRoom(props) {
             </div>
           <div className="mb-3">
             <label for="formFile" className="form-label">
-              Nombre total
+              Nombre number_of_rooms
             </label>
             <input
               type="number"
               className="form-control"
-              value={formValues.total}
+              value={formValues.number_of_rooms}
               onChange={handleChange}
             />
           </div>
           <div className="text-center">
-            <button type="button" className="btn w-100 mt-4 mb-0" id="saveInfo">
+            <button type="button"onClick={handleSave}  className="btn w-100 mt-4 mb-0" id="saveInfo">
               Enregistrer
             </button>
           </div>

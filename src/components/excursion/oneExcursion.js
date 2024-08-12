@@ -1,8 +1,25 @@
 import React from "react";
 import { DollarCircleIcon } from "hugeicons-react";
+import FormExcursion from "./formExcursion";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 export default function OneExcursion(props) {
   const { logo, place_name, city, price, description } = props;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleDeleteClick = () => {
+    const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer cet hotel ?");
+    if (confirmed) {
+      console.log("Élément supprimé !");
+    } else {
+      console.log("Suppression annulée.");
+    }
+  };
+
   return (
     <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
       <div class="card card-blog card-plain">
@@ -33,9 +50,19 @@ export default function OneExcursion(props) {
             {description}
           </p>
           <div class="d-flex align-items-center justify-content-between">
-            <button type="button" class="btn btn-outline-primary btn-sm mb-0">
+            <button onClick={handleShow} type="button" class="btn btn-outline-primary btn-sm mb-0">
               Modifier
             </button>
+            <Modal show={show} onHide={handleClose}>
+            <FormExcursion
+              title="Modifier une excursion"
+                logo={logo}
+                place_name={place_name}
+                description={description}
+                city={city}
+                price={price}
+              />
+            </Modal>
           </div>
         </div>
       </div>

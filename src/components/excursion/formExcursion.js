@@ -1,26 +1,23 @@
 import React from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
-import "./style.css";
 
-export default function FormHotel(props) {
-  const { title, logo, name, address, city, phone, email, star } = props;
+export default function FormExcursion(props) {
+  const { title, logo, place_name, description, price, city } = props;
   const [message, setMessage] = useState("");
-  
+
   const [formValues, setFormValues] = useState({
-    name: name || "",
-    address: address || "",
+    place_name: place_name || "",
+    description: description || "",
     city: city || "",
-    phone: phone || "",
-    email: email || "",
-    star: star || 0,
+    price: price || "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { place_name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [place_name]: value,
     }));
   };
 
@@ -29,12 +26,12 @@ export default function FormHotel(props) {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:3030/hotels", {
+      const response = await fetch("http://localhost:3030/excursions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, address, city, phone, email, star }),
+        body: JSON.stringify({ place_name, description, price, city }),
       });
 
       if (!response.ok) {
@@ -71,36 +68,16 @@ export default function FormHotel(props) {
       <div className="card-body">
         <form role="form">
           <div className="row mb-3">
-            <div className="col-md-10">
-              <label>Nom</label>
+            <div className="col-md-8">
+              <label>Nom du lieu</label>
               <input
                 type="text"
                 className="form-control"
-                value={formValues.name}
+                value={formValues.place_name}
                 onChange={handleChange}
               />
             </div>
-            <div className="col-md-2">
-              <label>Etoiles</label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.star}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <label>Adresse</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.address}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label>Ville</label>
               <select
                 className="form-control"
@@ -115,24 +92,20 @@ export default function FormHotel(props) {
             </div>
           </div>
           <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
+            <label>Descritption</label>
+            <textarea
+              type="text"
               className="form-control"
-              value={formValues.email}
+              value={formValues.description}
               onChange={handleChange}
             />
           </div>
           <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Téléphone
-            </label>
+            <label>Prix</label>
             <input
               type="text"
               className="form-control"
-              value={formValues.phone}
+              value={formValues.price}
               onChange={handleChange}
             />
           </div>
@@ -143,7 +116,12 @@ export default function FormHotel(props) {
             <input className="form-control" type="file" id="formFile" />
           </div>
           <div className="text-center">
-            <button type="button" onClick={handleSave} className="btn w-100 mt-4 mb-0" id="saveHotel">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="btn w-100 mt-4 mb-0"
+              id="saveHotel"
+            >
               Enregistrer
             </button>
           </div>
