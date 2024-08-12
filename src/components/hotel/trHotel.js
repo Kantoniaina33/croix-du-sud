@@ -8,7 +8,6 @@ import {
 import FormHotel from "./formHotel";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import ConfirmDeleteButton from "./alert";
 
 export default function TrHotel(props) {
   const { logo, name, address, city, phone, email, star } = props;

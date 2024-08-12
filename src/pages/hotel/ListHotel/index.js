@@ -3,11 +3,44 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormHotel from "../../../components/hotel/formHotel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
+  const [hotels, setHotels] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const fetchHotels = async () => {
+    setMessage("");
+    try {
+      const response = await fetch("http://localhost:3030/hotels", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch hotels");
+        return;
+      }
+
+      const data = await response.json();
+      const hotelsArray = Object.keys(data).map((key) => ({
+        ...data[key],
+      }));
+      setHotels(hotelsArray);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching hotels");
+    }
+  };
+
+  useEffect(() => {
+    fetchHotels();
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -83,65 +116,45 @@ export default function ListHotel() {
                   <h6>Liste d'hotels</h6>
                 </div>
                 <div className="card-body px-0 pt-0 pb-2">
-                  <div className="table-responsive p-0">
-                    <table className="table align-items-center mb-0">
-                      <thead>
-                        <tr>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Hotel
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Contacts
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Etoiles
-                          </th>
-                          <th className="text-secondary opacity-7"></th>
-                          <th className="text-secondary opacity-7"></th>
-                          <th className="text-secondary opacity-7"></th>
-                          <th className="text-secondary opacity-7"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <TrHotel
-                          name="Carlton"
-                          address="adresse Carlton"
-                          email="carlton@gmail.com"
-                          phone="034 34 334 34"
-                          city="Antanarivo"
-                          logo="/carlton.png"
-                          star="5"
-                        />
-                        <TrHotel
-                          name="Ravintsara"
-                          address="adresse Ravintsara"
-                          email="ravintsara@gmail.com"
-                          phone="034 34 334 34"
-                          city="Toamasina"
-                          logo="/ravintsara.png"
-                          star="3"
-                        />
-                        <TrHotel
-                          name="Carlton"
-                          address="adresse Carlton"
-                          email="carlton@gmail.com"
-                          phone="034 34 334 34"
-                          city="Antanarivo"
-                          logo="/carlton.png"
-                          star="4"
-                        />
-                        <TrHotel
-                          name="Ravintsara"
-                          address="adresse Ravintsara"
-                          email="ravintsara@gmail.com"
-                          phone="034 34 334 34"
-                          city="Toamasina"
-                          logo="/ravintsara.png"
-                          star="2"
-                        />
-                      </tbody>
-                    </table>
-                  </div>
+                  {hotels.length > 0 ? (
+                    <div className="table-responsive p-0">
+                      <table className="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Hotel
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Contacts
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Etoiles
+                            </th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {hotels.map((hotel) => (
+                            <TrHotel
+                              // key={hotel.agencyId}
+                              name={hotel.name}
+                              address={hotel.address}
+                              email={hotel.email}
+                              phone={hotel.phone}
+                              city={hotel.city}
+                              star={hotel.star}
+                              // logo={hotel.star}
+                            />
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <p style={{marginLeft:"2.5%"}}>Aucun hotel</p>
+                  )}
                 </div>
               </div>
             </div>

@@ -36,7 +36,7 @@ function InfoAgency() {
                         </div>
                         <div className="mb-3">
                           <label for="formFile" className="form-label">
-                            InfoAgencyo
+                            Logo
                           </label>
                           <input
                             className="form-control"

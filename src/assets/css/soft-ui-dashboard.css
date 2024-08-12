@@ -2774,7 +2774,7 @@ progress {
   background-color: #fff;
   border-color: #273385;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #273385;
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -2932,7 +2932,7 @@ textarea.form-control-lg {
 .form-select:focus {
   border-color: #273385;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #273385;
 }
 
 .form-select[multiple],
@@ -3130,11 +3130,11 @@ textarea.form-control-lg {
 }
 
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #273385;
 }
 
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #273385;
 }
 
 .form-range::-moz-focus-outer {
@@ -21587,7 +21587,7 @@ fieldset:disabled .btn {
 }
 
 .focused {
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #273385;
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 

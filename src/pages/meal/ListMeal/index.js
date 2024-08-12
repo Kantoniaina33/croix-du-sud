@@ -4,12 +4,42 @@ import Aside from "../../../components/template/aside";
 import { Call02Icon, Coffee02Icon, Mail01Icon, NoodlesIcon, SpoonAndKnifeIcon, StarIcon } from "hugeicons-react";
 import TrMeal from "../../../components/meal/trMeal";
 import HeadHotel from "../../../components/hotel/headHotel";
+import { useEffect, useState } from "react";
 
 export default function ListRoom() {
-  const star = 3;
-  const starsArray = Array.from({ length: 3 }, (v, i) =>
-    i < star ? "#ffc400" : "grey"
-  );
+  const [meals, setMeals] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const fetchMeals = async () => {
+    setMessage("");
+    try {
+      const response = await fetch("http://localhost:3030/meals", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch meals");
+        return;
+      }
+
+      const data = await response.json();
+      const mealsArray = Object.keys(data).map((key) => ({
+        ...data[key],
+      }));
+      setMeals(mealsArray);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching meals");
+    }
+  };
+
+  useEffect(() => {
+    fetchMeals();
+  }, []);
   return (
     <div>
       <Aside></Aside>

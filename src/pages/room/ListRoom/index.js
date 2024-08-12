@@ -3,13 +3,45 @@ import "./style.css";
 import Aside from "../../../components/template/aside";
 import TrRoom from "../../../components/room/trRoom";
 import HeadHotel from "../../../components/hotel/headHotel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import FormRoom from "../../../components/room/formRoom";
 
 export default function ListRoom() {
-  const star = 3;
   const [show, setShow] = useState(false);
+  const [rooms, setRooms] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const fetchRooms = async () => {
+    setMessage("");
+    try {
+      const response = await fetch("http://localhost:3030/rooms", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch rooms");
+        return;
+      }
+
+      const data = await response.json();
+      const roomsArray = Object.keys(data).map((key) => ({
+        ...data[key],
+      }));
+      setRooms(roomsArray);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching rooms");
+    }
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -82,54 +114,46 @@ export default function ListRoom() {
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
-                  <div className="table-responsive p-0">
-                    <table className="table align-items-center mb-0">
-                      <thead>
-                        <tr>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Type
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Capacite
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Categorie de prix
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Tarif par nuit
-                          </th>
-                          <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Nombre total
-                          </th>
-                          <th className="text-secondary opacity-7"></th>
-                          <th className="text-secondary opacity-7"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <TrRoom
-                          type="Double"
-                          capacity="2"
-                          price_category="Premier"
-                          price="2000 Ar"
-                          total="10"
-                        />
-                        <TrRoom
-                          type="Twin"
-                          capacity="2"
-                          price_category="Premier"
-                          price="2500 Ar"
-                          total="7"
-                        />
-                        <TrRoom
-                          type="Twin"
-                          capacity="2"
-                          price_category="Second"
-                          price="3500 Ar"
-                          total="7"
-                        />
-                      </tbody>
-                    </table>
-                  </div>
+                  {rooms.length > 0 ? (
+                    <div className="table-responsive p-0">
+                      <table className="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Type
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Capacite
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Categorie de prix
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Tarif par nuit
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Nombre total
+                            </th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rooms.map((room) => (
+                            <TrRoom
+                              type={room.type}
+                              capacity={room.capacity}
+                              price_category={room.price_category}
+                              price={room.price}
+                              total={room.total}
+                            />
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <p style={{ marginLeft: "2.5%" }}>Aucune chambre</p>
+                  )}
                 </div>
               </div>
             </div>

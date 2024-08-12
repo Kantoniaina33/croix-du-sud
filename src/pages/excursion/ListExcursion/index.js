@@ -1,14 +1,42 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
-// import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Call02Icon, Mail01Icon, StarIcon } from "hugeicons-react";
 import OneExcursion from "../../../components/excursion/oneExcursion";
+import { useState, useEffect } from "react";
 
-export default function ListRoom() {
-  const star = 3;
-  const starsArray = Array.from({ length: 3 }, (v, i) =>
-    i < star ? "#ffc400" : "grey"
-  );
+export default function ListExcursion() {
+  const [excursions, setExcursions] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const fetchExcursions = async () => {
+    setMessage("");
+    try {
+      const response = await fetch("http://localhost:3030/excursions", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch excursions");
+        return;
+      }
+
+      const data = await response.json();
+      const excursionsArray = Object.keys(data).map((key) => ({
+        ...data[key],
+      }));
+      setExcursions(excursionsArray); 
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching excursions");
+    }
+  };
+
+  useEffect(() => {
+    fetchExcursions();
+  }, []);
   return (
     <div>
       <Aside></Aside>
@@ -80,10 +108,20 @@ export default function ListRoom() {
                 </div>
                 <div className="card-body p-3">
                   <div className="row">
-                    <OneExcursion></OneExcursion>
-                    <OneExcursion></OneExcursion>
-                    <OneExcursion></OneExcursion>
-                    <OneExcursion></OneExcursion>
+                    {excursions.length > 0 ? (
+                      excursions.map((excursion) => (
+                        <OneExcursion
+                          // key={excursion.agencyId}
+                          // logo={excursion.logo}
+                          place_name={excursion.place_name}
+                          city={excursion.city}
+                          price={excursion.price}
+                          description={excursion.description}
+                        />
+                      ))
+                    ) : (
+                      <p>Aucune excursion</p>
+                    )}
                   </div>
                 </div>
               </div>
