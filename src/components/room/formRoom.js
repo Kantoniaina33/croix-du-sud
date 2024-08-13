@@ -3,7 +3,16 @@ import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
 
 export default function FormRoom(props) {
-  const { title, room_type, capacity, price_category, price, number_of_rooms } = props;
+  const {
+    title,
+    method,
+    room_type,
+    capacity,
+    price_category,
+    price,
+    number_of_rooms,
+  } = props;
+
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
@@ -11,7 +20,7 @@ export default function FormRoom(props) {
     capacity: capacity || "",
     price_category: price_category || "",
     price: price || "",
-    number_of_rooms: number_of_rooms || ""
+    number_of_rooms: number_of_rooms || "",
   });
 
   const handleChange = (e) => {
@@ -25,6 +34,7 @@ export default function FormRoom(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
+    // const id = method === "PUT" ? `/${agencyId}` : "";
 
     try {
       const response = await fetch("http://localhost:3030/rooms", {
@@ -32,7 +42,13 @@ export default function FormRoom(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ room_type, capacity, price_category, price, number_of_rooms }),
+        body: JSON.stringify({
+          room_type,
+          capacity,
+          price_category,
+          price,
+          number_of_rooms,
+        }),
       });
 
       if (!response.ok) {
@@ -91,25 +107,25 @@ export default function FormRoom(props) {
             </div>
           </div>
           <div className="mb-3">
-              <label>Categorie de prix</label>
-              <select
-                className="form-control"
-                value={formValues.price_category}
-                onChange={handleChange}
-              >
-                <option value="antananarivo">Premier</option>
-                <option value="toamasina">Second</option>
-              </select>
-            </div>
+            <label>Categorie de prix</label>
+            <select
+              className="form-control"
+              value={formValues.price_category}
+              onChange={handleChange}
+            >
+              <option value="antananarivo">Premier</option>
+              <option value="toamasina">Second</option>
+            </select>
+          </div>
           <div className="mb-3">
-              <label>Tarif par nuit</label>
-              <input
+            <label>Tarif par nuit</label>
+            <input
               type="text"
               className="form-control"
               value={formValues.price}
               onChange={handleChange}
             />
-            </div>
+          </div>
           <div className="mb-3">
             <label for="formFile" className="form-label">
               Nombre number_of_rooms
@@ -122,7 +138,12 @@ export default function FormRoom(props) {
             />
           </div>
           <div className="text-center">
-            <button type="button"onClick={handleSave}  className="btn w-100 mt-4 mb-0" id="saveInfo">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="btn w-100 mt-4 mb-0"
+              id="saveInfo"
+            >
               Enregistrer
             </button>
           </div>

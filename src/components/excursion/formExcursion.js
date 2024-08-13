@@ -3,35 +3,70 @@ import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
 
 export default function FormExcursion(props) {
-  const { title, logo, place_name, description, price, city } = props;
+  const {
+    title,
+    method,
+    imageUrl,
+    place_name,
+    description,
+    price,
+    city,
+    agencyId,
+  } = props;
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
     place_name: place_name || "",
     description: description || "",
-    city: city || "",
+    city: city || "Antananarivo",
     price: price || "",
+    agencyId: agencyId || "",
+    imageUrl: imageUrl || null,
   });
 
   const handleChange = (e) => {
-    const { place_name, value } = e.target;
+    const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [place_name]: value,
+      [name]: value,
     }));
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
+    const id = method === "PUT" ? `/${agencyId}` : "";
+    
+    const formData = new FormData();
+
+    // formData.append("imageUrl", imageUrl);
+    // formData.append("place_name", place_name);
+    // formData.append("description", description);
+    // formData.append("city", city);
+    // formData.append("price", price);
+
+    if (formValues.imageUrl) {
+      formData.append("imageUrl", formValues.imageUrl);
+    }
+    // Ajouter toutes les autres valeurs
+    formData.append("place_name", formValues.place_name);
+    formData.append("description", formValues.description);
+    formData.append("city", formValues.city);
+    formData.append("price", formValues.price);
+    formData.append("agencyId", formValues.agencyId);
+
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
 
     try {
-      const response = await fetch("http://localhost:3030/excursions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ place_name, description, price, city }),
+      const response = await fetch(`http://localhost:3030/excursions${id}`, {
+        method: method,
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(formValues),
+        body: formData
       });
 
       if (!response.ok) {
@@ -66,12 +101,18 @@ export default function FormExcursion(props) {
         </h4>
       </div>
       <div className="card-body">
-        <form role="form">
+        <form>
+          <input
+            type="text"
+            name="agencyId"
+            value={formValues.agencyId}
+          ></input>
           <div className="row mb-3">
             <div className="col-md-8">
               <label>Nom du lieu</label>
               <input
                 type="text"
+                name="place_name"
                 className="form-control"
                 value={formValues.place_name}
                 onChange={handleChange}
@@ -83,11 +124,14 @@ export default function FormExcursion(props) {
                 className="form-control"
                 value={formValues.city}
                 onChange={handleChange}
+                name="city"
               >
-                <option value="antananarivo">Antananarivo</option>
-                <option value="toamasina">Toamasina</option>
-                <option value="mahajanga">Mahajanga</option>
-                <option value="fianarantsoa">Fianarantsoa</option>
+                <option value="Antananarivo" selected>
+                  Antananarivo
+                </option>
+                <option value="Toamasina">Toamasina</option>
+                <option value="Mahajanga">Mahajanga</option>
+                <option value="Fianarantsoa">Fianarantsoa</option>
               </select>
             </div>
           </div>
@@ -95,6 +139,7 @@ export default function FormExcursion(props) {
             <label>Descritption</label>
             <textarea
               type="text"
+              name="description"
               className="form-control"
               value={formValues.description}
               onChange={handleChange}
@@ -103,7 +148,8 @@ export default function FormExcursion(props) {
           <div className="mb-3">
             <label>Prix</label>
             <input
-              type="text"
+              type="number"
+              name="price"
               className="form-control"
               value={formValues.price}
               onChange={handleChange}
@@ -113,7 +159,13 @@ export default function FormExcursion(props) {
             <label for="formFile" className="form-label">
               Logo/image
             </label>
-            <input className="form-control" type="file" id="formFile" />
+            <input
+              className="form-control"
+              name="imageUrl"
+              type="file"
+              id="formFile"
+              onChange={handleChange}
+            />
           </div>
           <div className="text-center">
             <button

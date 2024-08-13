@@ -30,7 +30,7 @@ export default function ListExcursion() {
       const excursionsArray = Object.keys(data).map((key) => ({
         ...data[key],
       }));
-      setExcursions(excursionsArray); 
+      setExcursions(excursionsArray);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching excursions");
@@ -94,14 +94,16 @@ export default function ListExcursion() {
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    // href="#"
                     onClick={handleShow}
                   >
                     Ajouter une nouvelle excursion
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormExcursion title="Ajouter une nouvelle excursion" />
+                    <FormExcursion
+                      agencyId="-O3WSamdq3Vy44hqbzQy" //a modifier
+                      method="POST"
+                      title="Ajouter une nouvelle excursion"
+                    />
                   </Modal>
                 </li>
               </ul>
@@ -121,8 +123,8 @@ export default function ListExcursion() {
                     {excursions.length > 0 ? (
                       excursions.map((excursion) => (
                         <OneExcursion
-                          // key={excursion.agencyId}
                           // logo={excursion.logo}
+                          agencyId={excursion.agencyId}
                           place_name={excursion.place_name}
                           city={excursion.city}
                           price={excursion.price}

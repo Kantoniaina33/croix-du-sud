@@ -4,9 +4,10 @@ import { useState } from "react";
 import "./style.css";
 
 export default function FormHotel(props) {
-  const { title, logo, name, address, city, phone, email, star } = props;
+  const { title, method, image, name, address, city, phone, email, star, agencyId } =
+    props;
   const [message, setMessage] = useState("");
-  
+
   const [formValues, setFormValues] = useState({
     name: name || "",
     address: address || "",
@@ -14,6 +15,8 @@ export default function FormHotel(props) {
     phone: phone || "",
     email: email || "",
     star: star || 0,
+    image: image || null,
+    agencyId: agencyId || 0,
   });
 
   const handleChange = (e) => {
@@ -23,18 +26,35 @@ export default function FormHotel(props) {
       [name]: value,
     }));
   };
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      image: file, 
+    }));
+  };
+
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("name", name);
+  formData.append("address", address);
+  formData.append("city", city);
+  formData.append("image", image);
+
 
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
+    const id = method === "PUT" ? `/${agencyId}` : "";
 
     try {
-      const response = await fetch("http://localhost:3030/hotels", {
-        method: "POST",
+      const response = await fetch(`http://localhost:3030/hotels${id}`, {
+        method: method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, address, city, phone, email, star }),
+        body: JSON.stringify(formValues),
       });
 
       if (!response.ok) {
@@ -69,7 +89,12 @@ export default function FormHotel(props) {
         </h4>
       </div>
       <div className="card-body">
-        <form role="form">
+        <form>
+          <input
+            type="hidden"
+            name="agencyId"
+            value={formValues.agencyId}
+          ></input>
           <div className="row mb-3">
             <div className="col-md-10">
               <label>Nom</label>
@@ -78,6 +103,7 @@ export default function FormHotel(props) {
                 className="form-control"
                 value={formValues.name}
                 onChange={handleChange}
+                name="name"
               />
             </div>
             <div className="col-md-2">
@@ -87,6 +113,7 @@ export default function FormHotel(props) {
                 className="form-control"
                 value={formValues.star}
                 onChange={handleChange}
+                name="star"
               />
             </div>
           </div>
@@ -98,6 +125,7 @@ export default function FormHotel(props) {
                 className="form-control"
                 value={formValues.address}
                 onChange={handleChange}
+                name="address"
               />
             </div>
             <div className="col-md-6">
@@ -106,6 +134,7 @@ export default function FormHotel(props) {
                 className="form-control"
                 value={formValues.city}
                 onChange={handleChange}
+                name="city"
               >
                 <option value="antananarivo">Antananarivo</option>
                 <option value="toamasina">Toamasina</option>
@@ -123,6 +152,7 @@ export default function FormHotel(props) {
               className="form-control"
               value={formValues.email}
               onChange={handleChange}
+              name="email"
             />
           </div>
           <div className="mb-3">
@@ -134,16 +164,28 @@ export default function FormHotel(props) {
               className="form-control"
               value={formValues.phone}
               onChange={handleChange}
+              name="phone"
             />
           </div>
           <div className="mb-3">
             <label for="formFile" className="form-label">
               Logo/image
             </label>
-            <input className="form-control" type="file" id="formFile" />
+            <input
+              className="form-control"
+              name="image"
+              type="file"
+              id="formFile"
+              onChange={handleImageChange}
+            />
           </div>
           <div className="text-center">
-            <button type="button" onClick={handleSave} className="btn w-100 mt-4 mb-0" id="saveHotel">
+            <button
+              type="button"
+              onClick={handleSave}
+              className="btn w-100 mt-4 mb-0"
+              id="saveHotel"
+            >
               Enregistrer
             </button>
           </div>
