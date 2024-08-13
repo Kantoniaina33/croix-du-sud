@@ -6,74 +6,90 @@ export default function FormExcursion(props) {
   const {
     title,
     method,
-    imageUrl,
+    image,
     place_name,
     description,
     price,
     city,
     agencyId,
   } = props;
+
   const [message, setMessage] = useState("");
 
+  // Initialisation des valeurs du formulaire avec les props ou des valeurs par défaut
   const [formValues, setFormValues] = useState({
     place_name: place_name || "",
     description: description || "",
     city: city || "Antananarivo",
     price: price || "",
     agencyId: agencyId || "",
-    imageUrl: imageUrl || null,
+    image: image || null, // image initialisée à null si non fournie
   });
 
+  // Gestionnaire de changement pour mettre à jour l'état des valeurs du formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+
+    // Si l'utilisateur change l'image, stocker l'objet fichier dans le state
+    if (name === "image" && e.target.files.length > 0) {
+      // Mettre à jour avec le fichier sélectionné
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        image: e.target.files[0], // Récupérer l'objet fichier sélectionné
+      }));
+    } else {
+      // Mettre à jour avec la valeur saisie
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
   };
 
+  // Gestionnaire pour sauvegarder les données du formulaire
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
+
+    // Construction de l'URL avec l'ID de l'agence si en mode PUT (mise à jour)
     const id = method === "PUT" ? `/${agencyId}` : "";
-    
+
+    // Utilisation de FormData pour inclure le fichier image et les autres données du formulaire
     const formData = new FormData();
 
-    // formData.append("imageUrl", imageUrl);
-    // formData.append("place_name", place_name);
-    // formData.append("description", description);
-    // formData.append("city", city);
-    // formData.append("price", price);
-
-    if (formValues.imageUrl) {
-      formData.append("imageUrl", formValues.imageUrl);
+    // Ajouter l'image au formData si elle existe
+    if (formValues.image) {
+      formData.append("image", formValues.image);
     }
-    // Ajouter toutes les autres valeurs
+
+    // Ajouter les autres champs du formulaire à formData
     formData.append("place_name", formValues.place_name);
     formData.append("description", formValues.description);
     formData.append("city", formValues.city);
     formData.append("price", formValues.price);
     formData.append("agencyId", formValues.agencyId);
 
+    // Debugging: Afficher les paires clé-valeur dans la console
     for (let pair of formData.entries()) {
       console.log(`${pair[0]}: ${pair[1]}`);
     }
 
     try {
+      // Envoyer les données au serveur en utilisant la méthode spécifiée (POST ou PUT)
       const response = await fetch(`http://localhost:3030/excursions${id}`, {
         method: method,
         // headers: {
-        //   "Content-Type": "application/json",
+        //   "Content-Type": "application/json", // Commenté car FormData gère les en-têtes
         // },
-        // body: JSON.stringify(formValues),
-        body: formData
+        body: formData // Envoi des données avec FormData
       });
 
+      // Vérification de la réponse du serveur
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problème d'authentification");
         } else {
-          setMessage("Failed");
+          setMessage("Échec de la sauvegarde");
         }
         return;
       }
@@ -106,6 +122,7 @@ export default function FormExcursion(props) {
             type="text"
             name="agencyId"
             value={formValues.agencyId}
+            readOnly // Rendre le champ non modifiable
           ></input>
           <div className="row mb-3">
             <div className="col-md-8">
@@ -126,9 +143,7 @@ export default function FormExcursion(props) {
                 onChange={handleChange}
                 name="city"
               >
-                <option value="Antananarivo" selected>
-                  Antananarivo
-                </option>
+                <option value="Antananarivo">Antananarivo</option>
                 <option value="Toamasina">Toamasina</option>
                 <option value="Mahajanga">Mahajanga</option>
                 <option value="Fianarantsoa">Fianarantsoa</option>
@@ -161,7 +176,7 @@ export default function FormExcursion(props) {
             </label>
             <input
               className="form-control"
-              name="imageUrl"
+              name="image"
               type="file"
               id="formFile"
               onChange={handleChange}
@@ -177,10 +192,9 @@ export default function FormExcursion(props) {
               Enregistrer
             </button>
           </div>
-          <br></br>
-          <br></br>
         </form>
       </div>
     </div>
   );
 }
+
