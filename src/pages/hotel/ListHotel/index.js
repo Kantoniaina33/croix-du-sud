@@ -32,6 +32,7 @@ export default function ListHotel() {
         ...data[key],
       }));
       setHotels(hotelsArray);
+
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching hotels");
@@ -101,7 +102,7 @@ export default function ListHotel() {
                     Ajouter un nouvel hotel
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormHotel title="Ajouter un nouvel hotel" />
+                    <FormHotel method="POST" title="Ajouter un nouvel hotel" />
                   </Modal>
                 </li>
               </ul>
@@ -139,14 +140,14 @@ export default function ListHotel() {
                         <tbody>
                           {hotels.map((hotel) => (
                             <TrHotel
-                              // key={hotel.agencyId}
+                              agencyId={hotel.agencyId}
                               name={hotel.name}
                               address={hotel.address}
                               email={hotel.email}
                               phone={hotel.phone}
                               city={hotel.city}
                               star={hotel.star}
-                              // logo={hotel.star}
+                              logo={hotel.image}
                             />
                           ))}
                         </tbody>

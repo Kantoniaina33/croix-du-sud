@@ -11,50 +11,52 @@ export default function FormHotel(props) {
   const [formValues, setFormValues] = useState({
     name: name || "",
     address: address || "",
-    city: city || "",
+    city: city || "Antananarivo",
     phone: phone || "",
     email: email || "",
     star: star || 0,
     image: image || null,
-    agencyId: agencyId || 0,
+    agencyId: agencyId || "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+    if (name === "image" && e.target.files.length > 0) {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        image: e.target.files[0],
+      }));
+    } else {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
   };
   
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      image: file, 
-    }));
-  };
-
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("name", name);
-  formData.append("address", address);
-  formData.append("city", city);
-  formData.append("image", image);
-
-
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
     const id = method === "PUT" ? `/${agencyId}` : "";
 
+    const formData = new FormData();
+
+    if (formValues.image) {
+      formData.append("image", formValues.image);
+    }
+
+    formData.append("name", formValues.name);
+    formData.append("address", formValues.address);
+    formData.append("city", formValues.city);
+    formData.append("phone", formValues.phone);
+    formData.append("email", formValues.email);
+    formData.append("star", formValues.star);
+    formData.append("agencyId", formValues.agencyId);
+
     try {
       const response = await fetch(`http://localhost:3030/hotels${id}`, {
         method: method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -176,7 +178,7 @@ export default function FormHotel(props) {
               name="image"
               type="file"
               id="formFile"
-              onChange={handleImageChange}
+              onChange={handleChange}
             />
           </div>
           <div className="text-center">

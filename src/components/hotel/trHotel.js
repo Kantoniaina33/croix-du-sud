@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react-bootstrap";
 import {
   Delete02Icon,
   Edit02Icon,
@@ -8,6 +8,7 @@ import {
 import FormHotel from "./formHotel";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
+import AlertDelete from "../util/alertDelete";
 
 export default function TrHotel(props) {
   const { logo, name, address, city, phone, email, star } = props;
@@ -15,18 +16,12 @@ export default function TrHotel(props) {
     i < star ? "#ffc400" : "grey"
   );
   const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const handleDeleteClick = () => {
-    const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer cet hotel ?");
-    if (confirmed) {
-      console.log("Élément supprimé !");
-    } else {
-      console.log("Suppression annulée.");
-    }
-  };
+  const handleAlert = () => setAlert(true);
+  const handleCloseAlert = () => setAlert(false);
 
   return (
     <>
@@ -92,7 +87,8 @@ export default function TrHotel(props) {
             </button>
             <Modal show={show} onHide={handleClose}>
               <FormHotel
-              title="Modifier un hotel"
+                title="Modifier un hotel"
+                method="PUT"
                 logo={logo}
                 name={name}
                 address={address}
@@ -108,10 +104,17 @@ export default function TrHotel(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleDeleteClick}
+              onClick={handleAlert}
             >
               <Delete02Icon color="red" size={23} />
             </button>
+            <AlertDelete
+              alertMessage="Êtes-vous sûr de vouloir supprimer cet hôtel ?"
+              alertDetail="Toutes les chambres et repas associés seront également supprimés."
+              url="http://localhost:3000/hotels/${}"
+              show={alert}
+              handleClose={handleCloseAlert}
+            />
           </span>
         </td>
       </tr>

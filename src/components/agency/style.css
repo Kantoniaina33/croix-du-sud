@@ -1,0 +1,24 @@
+#saveInfo{
+    background:linear-gradient(to right, #7580cf, #273385) ;
+    color: white;
+}
+#infoTitle{
+     background: linear-gradient(90deg,  #7580cf, #273385);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 4%;
+}
+
+#md6{
+    background-color: aqua;
+    padding-bottom: 20%;
+}
+
+#oblique{
+    height: 10px;
+    background: linear-gradient(90deg,  #7580cf, #273385);
+}
+
+#textOblique{
+    margin-left: -30%;
+}

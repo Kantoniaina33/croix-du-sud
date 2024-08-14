@@ -14,7 +14,7 @@ function Login() {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:3030/agency/login", {
+      const response = await fetch("http://localhost:3030/agencies/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ function Login() {
 
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      navigate("/Home");
+      navigate("/info");
     } catch (error) {
       console.error("Error:", error);
     }

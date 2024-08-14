@@ -14,7 +14,7 @@ function Signup() {
     setMessage("");
 
     try {
-      const response = await fetch("http://localhost:3030/agency/login", {
+      const response = await fetch("http://localhost:3030/agencies/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,14 +26,12 @@ function Signup() {
         if (response.status === 401) {
           setMessage("Email ou mot de passe invalide");
         } else {
-          setMessage("Login failed");
+          setMessage("Signup failed");
         }
         return;
       }
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      navigate("/Home");
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -92,6 +90,7 @@ function Signup() {
                           aria-label="Email"
                           aria-describedby="email-addon"
                           value={email}
+                          name="email"
                           onChange={(e) => setEmail(e.target.value)}
                           required
                         />
@@ -104,6 +103,7 @@ function Signup() {
                           aria-label="Password"
                           aria-describedby="password-addon"
                           value={password}
+                          name="password"
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
