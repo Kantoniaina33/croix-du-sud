@@ -1,6 +1,7 @@
 import React from "react";
 import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function FormRoom(props) {
   const {
@@ -11,23 +12,24 @@ export default function FormRoom(props) {
     price_category,
     price,
     number_of_rooms,
+    id
   } = props;
-
+  const { hotelId } = useParams();
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
-    room_type: room_type || "",
-    capacity: capacity || "",
-    price_category: price_category || "",
+    room_type: room_type || "Double",
+    capacity: capacity || 1,
+    price_category: price_category || "Premier",
     price: price || "",
-    number_of_rooms: number_of_rooms || "",
+    number_of_rooms: number_of_rooms || 1,
   });
 
   const handleChange = (e) => {
-    const { room_type, value } = e.target;
+    const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [room_type]: value,
+      [name]: value,
     }));
   };
 
@@ -37,19 +39,16 @@ export default function FormRoom(props) {
     // const id = method === "PUT" ? `/${agencyId}` : "";
 
     try {
-      const response = await fetch("http://localhost:3030/rooms", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          room_type,
-          capacity,
-          price_category,
-          price,
-          number_of_rooms,
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/rooms/${id}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues)
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -67,7 +66,7 @@ export default function FormRoom(props) {
   return (
     <div className="card card-plain mt-1" id="infoBack">
       <div className="card-header pb-0 text-left bg-transparent">
-        <h4 className="" id="infoTitle">
+        <h5 className="" id="infoTitle">
           <BedDoubleIcon
             size={40}
             color="#273385"
@@ -80,61 +79,68 @@ export default function FormRoom(props) {
             }}
           />
           <span style={{ marginLeft: "3%" }}>{title}</span>
-        </h4>
+        </h5>
       </div>
       <div className="card-body">
         <form role="form">
           <div className="row mb-3">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <label>Type</label>
               <select
                 className="form-control"
                 value={formValues.room_type}
                 onChange={handleChange}
+                name="room_type"
               >
-                <option value="antananarivo">Double</option>
-                <option value="toamasina">Twin</option>
+                <option value="Double">Double</option>
+                <option value="Twin">Twin</option>
               </select>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-6">
               <label>Capacite</label>
               <input
                 type="number"
                 className="form-control"
                 value={formValues.capacity}
                 onChange={handleChange}
+                name="capacity"
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-md-6">
+              <label>Categorie de prix</label>
+              <select
+                className="form-control"
+                value={formValues.price_category}
+                onChange={handleChange}
+                name="price_category"
+              >
+                <option value="Premier">Premier</option>
+                <option value="Second">Second</option>
+              </select>
+            </div>
+            <div className="col-md-6">
+              <label>Tarif par nuit</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.price}
+                onChange={handleChange}
+                name="price"
               />
             </div>
           </div>
           <div className="mb-3">
-            <label>Categorie de prix</label>
-            <select
-              className="form-control"
-              value={formValues.price_category}
-              onChange={handleChange}
-            >
-              <option value="antananarivo">Premier</option>
-              <option value="toamasina">Second</option>
-            </select>
-          </div>
-          <div className="mb-3">
-            <label>Tarif par nuit</label>
-            <input
-              type="text"
-              className="form-control"
-              value={formValues.price}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3">
             <label for="formFile" className="form-label">
-              Nombre number_of_rooms
+              Nombre total
             </label>
             <input
               type="number"
               className="form-control"
               value={formValues.number_of_rooms}
               onChange={handleChange}
+              name="number_of_rooms"
             />
           </div>
           <div className="text-center">

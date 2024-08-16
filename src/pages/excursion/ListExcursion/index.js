@@ -100,7 +100,6 @@ export default function ListExcursion() {
                   </a>
                   <Modal show={show} onHide={handleClose}>
                     <FormExcursion
-                      agencyId="-O3WSamdq3Vy44hqbzQy" //a modifier
                       method="POST"
                       title="Ajouter une nouvelle excursion"
                     />
@@ -124,7 +123,6 @@ export default function ListExcursion() {
                       excursions.map((excursion) => (
                         <OneExcursion
                           logo={excursion.image}
-                          agencyId={excursion.agencyId}
                           place_name={excursion.place_name}
                           city={excursion.city}
                           price={excursion.price}

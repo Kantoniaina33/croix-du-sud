@@ -18,7 +18,7 @@ export default function ListHotel() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -139,22 +139,24 @@ export default function ListHotel() {
                         </thead>
                         <tbody>
                           {hotels.map((hotel) => (
-                            <TrHotel
-                              agencyId={hotel.agencyId}
-                              name={hotel.name}
-                              address={hotel.address}
-                              email={hotel.email}
-                              phone={hotel.phone}
-                              city={hotel.city}
-                              star={hotel.star}
-                              logo={hotel.image}
-                            />
+                            <>
+                              <TrHotel
+                                hotelId={hotel.key}
+                                name={hotel.name}
+                                address={hotel.address}
+                                email={hotel.email}
+                                phone={hotel.phone}
+                                city={hotel.city}
+                                star={hotel.star}
+                                logo={hotel.image}
+                              />
+                            </>
                           ))}
                         </tbody>
                       </table>
                     </div>
                   ) : (
-                    <p style={{marginLeft:"2.5%"}}>Aucun hotel</p>
+                    <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>
                   )}
                 </div>
               </div>

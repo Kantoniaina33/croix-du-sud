@@ -6,8 +6,10 @@ import HeadHotel from "../../../components/hotel/headHotel";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import FormRoom from "../../../components/room/formRoom";
+import { useParams } from "react-router-dom";
 
 export default function ListRoom() {
+  const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [message, setMessage] = useState("");
@@ -15,13 +17,15 @@ export default function ListRoom() {
   const fetchRooms = async () => {
     setMessage("");
     try {
-      const response = await fetch("http://localhost:3030/rooms", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/rooms`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         setMessage("Failed to fetch rooms");
@@ -109,7 +113,7 @@ export default function ListRoom() {
                     Ajouter des chambres
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormRoom title="AJouter des chambres" />
+                    <FormRoom method="POST" title="AJOUTER DES CHAMBRES" />
                   </Modal>
                 </div>
 
@@ -141,11 +145,12 @@ export default function ListRoom() {
                         <tbody>
                           {rooms.map((room) => (
                             <TrRoom
-                              type={room.type}
+                              id={room.key}
+                              room_type={room.room_type}
                               capacity={room.capacity}
                               price_category={room.price_category}
                               price={room.price}
-                              total={room.total}
+                              total={room.number_of_rooms}
                             />
                           ))}
                         </tbody>

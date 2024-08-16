@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
 
 export default function TrHotel(props) {
-  const { logo, name, address, city, phone, email, star } = props;
+  const { hotelId, logo, name, address, city, phone, email, star } = props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
@@ -63,7 +63,7 @@ export default function TrHotel(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-xs">
-            <a href="/rooms">
+            <a href={`/hotels/${hotelId}/rooms`}>
               <span style={{ textDecoration: "underline" }}>Chambres</span>
               <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
             </a>
@@ -71,7 +71,7 @@ export default function TrHotel(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-xs">
-            <a href="/meals">
+            <a href={`/hotels/${hotelId}/meals`}>
               <span style={{ textDecoration: "underline" }}>Repas</span>
               <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
             </a>
@@ -109,7 +109,7 @@ export default function TrHotel(props) {
               <Delete02Icon color="red" size={23} />
             </button>
             <AlertDelete
-              alertMessage="Êtes-vous sûr de vouloir supprimer cet hôtel ?"
+              alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
               alertDetail="Toutes les chambres et repas associés seront également supprimés."
               url="http://localhost:3000/hotels/${}"
               show={alert}

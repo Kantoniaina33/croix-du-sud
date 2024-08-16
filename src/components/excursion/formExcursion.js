@@ -11,7 +11,6 @@ export default function FormExcursion(props) {
     description,
     price,
     city,
-    agencyId,
   } = props;
 
   const [message, setMessage] = useState("");
@@ -21,7 +20,6 @@ export default function FormExcursion(props) {
     description: description || "",
     city: city || "Antananarivo",
     price: price || "",
-    agencyId: agencyId || "",
     image: image || null, 
   });
 
@@ -44,7 +42,7 @@ export default function FormExcursion(props) {
     e.preventDefault();
     setMessage("");
 
-    const id = method === "PUT" ? `/${agencyId}` : "";
+    // const id = method === "PUT" ? `/${agencyId}` : "";
 
     const formData = new FormData();
 
@@ -56,10 +54,9 @@ export default function FormExcursion(props) {
     formData.append("description", formValues.description);
     formData.append("city", formValues.city);
     formData.append("price", formValues.price);
-    formData.append("agencyId", formValues.agencyId);
 
     try {
-      const response = await fetch(`http://localhost:3030/excursions${id}`, {
+      const response = await fetch(`http://localhost:3030/excursions`, {
         method: method,
         body: formData
       });
@@ -97,12 +94,6 @@ export default function FormExcursion(props) {
       </div>
       <div className="card-body">
         <form>
-          <input
-            type="hidden"
-            name="agencyId"
-            value={formValues.agencyId}
-            readOnly
-          ></input>
           <div className="row mb-3">
             <div className="col-md-8">
               <label>Nom du lieu</label>

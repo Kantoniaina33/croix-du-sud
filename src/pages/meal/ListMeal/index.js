@@ -1,25 +1,30 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Call02Icon, Coffee02Icon, Mail01Icon, NoodlesIcon, SpoonAndKnifeIcon, StarIcon } from "hugeicons-react";
+import { Coffee02Icon, NoodlesIcon, SpoonAndKnifeIcon } from "hugeicons-react";
 import TrMeal from "../../../components/meal/trMeal";
 import HeadHotel from "../../../components/hotel/headHotel";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function ListRoom() {
+  const { hotelId } = useParams();
   const [meals, setMeals] = useState([]);
+  const icons = [Coffee02Icon, SpoonAndKnifeIcon, NoodlesIcon];
   const [message, setMessage] = useState("");
 
   const fetchMeals = async () => {
     setMessage("");
     try {
-      const response = await fetch("http://localhost:3030/meals", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/meals`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         setMessage("Failed to fetch meals");
@@ -111,21 +116,14 @@ export default function ListRoom() {
                           <th className="text-secondary opacity-7"></th>
                         </tr>
                       </thead>
-                      <TrMeal
-                        icon={Coffee02Icon}
-                        meal="Petit déjeuner"
-                        price="10500 Ar"
-                      />
-                      <TrMeal
-                        icon={SpoonAndKnifeIcon}
-                        meal="Déjeuner"
-                        price="2000 Ar"
-                      />
-                      <TrMeal
-                        icon={NoodlesIcon}
-                        meal="Diner"
-                        price="1500 Ar"
-                      />
+                      {meals.map((meal, index) => (
+                        <TrMeal
+                          id={meal.key}
+                          icon={icons[index % icons.length]}
+                          meal={meal.meal}
+                          price={meal.price}
+                        />
+                      ))}
                     </table>
                   </div>
                 </div>

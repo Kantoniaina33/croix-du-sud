@@ -5,7 +5,7 @@ import { Modal } from "react-bootstrap";
 import FormRoom from "./formRoom";
 
 export default function TrRoom(props) {
-  const { type, capacity, price_category, price, total } = props;
+  const { room_type, capacity, price_category, price, total, id } = props;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,7 +25,7 @@ export default function TrRoom(props) {
       <td>
         <div className="d-flex px-2">
           <div className="my-auto">
-            <h6 className="mb-0 text-sm">{type}</h6>
+            <h6 className="mb-0 text-sm">{room_type}</h6>
           </div>
         </div>
       </td>
@@ -51,12 +51,14 @@ export default function TrRoom(props) {
           </button>
           <Modal show={show} onHide={handleClose}>
             <FormRoom
-              title="Modifier des chambres"
-              type={type}
+              title="MODIFIER DES CHAMBRES"
+              method="PUT"
+              id={id}
+              room_type={room_type}
               capacity={capacity}
               price_category={price_category}
               price={price}
-              total={total}
+              number_of_rooms={total}
             />
           </Modal>
         </span>

@@ -1,25 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
-import { useState } from "react";
-import {
-  Edit02Icon,
-  Tick02Icon,
-} from "hugeicons-react";
+import { Edit02Icon, Tick02Icon } from "hugeicons-react";
+import { useParams } from "react-router-dom";
 
 export default function TrMeal(props) {
-  const { icon: Icon, meal, price } = props;
+  const { hotelId } = useParams();
+  const { icon: Icon, meal, price, id } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editedPrice, setEditedPrice] = useState(price);
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setEditedPrice(e.target.value);
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/meals/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ price: editedPrice }),
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Probleme");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
-    console.log("edit");
   };
-  const handleSaveClick = () => {
-    setIsEditing(false);
-  };
-
-  const handlePriceChange = (e) => setEditedPrice(e.target.value);
 
   return (
     <tr>
@@ -42,8 +70,8 @@ export default function TrMeal(props) {
               <input
                 type="text"
                 value={editedPrice}
-                onChange={handlePriceChange}
-                onBlur={handleSaveClick}
+                onChange={handleChange}
+                onBlur={handleSave}
                 className="form-control"
                 id="priceInput"
                 autoFocus
@@ -59,7 +87,7 @@ export default function TrMeal(props) {
           {isEditing ? (
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleEditClick}
+              onClick={handleSave}
             >
               <Tick02Icon size={30} color="blue" />
             </button>

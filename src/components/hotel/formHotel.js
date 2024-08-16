@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
 import "./style.css";
 
 export default function FormHotel(props) {
-  const { title, method, image, name, address, city, phone, email, star, agencyId } =
-    props;
+  const {
+    title,
+    method,
+    image,
+    name,
+    address,
+    city,
+    phone,
+    email,
+    star,
+  } = props;
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
@@ -16,7 +25,6 @@ export default function FormHotel(props) {
     email: email || "",
     star: star || 0,
     image: image || null,
-    agencyId: agencyId || "",
   });
 
   const handleChange = (e) => {
@@ -33,11 +41,11 @@ export default function FormHotel(props) {
       }));
     }
   };
-  
+
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    const id = method === "PUT" ? `/${agencyId}` : "";
+    // const id = method === "PUT" ? `/${agencyId}` : "";
 
     const formData = new FormData();
 
@@ -51,11 +59,13 @@ export default function FormHotel(props) {
     formData.append("phone", formValues.phone);
     formData.append("email", formValues.email);
     formData.append("star", formValues.star);
-    formData.append("agencyId", formValues.agencyId);
 
     try {
-      const response = await fetch(`http://localhost:3030/hotels${id}`, {
+      const response = await fetch(`http://localhost:3030/hotels`, {
         method: method,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: formData,
       });
 
@@ -92,11 +102,6 @@ export default function FormHotel(props) {
       </div>
       <div className="card-body">
         <form>
-          <input
-            type="hidden"
-            name="agencyId"
-            value={formValues.agencyId}
-          ></input>
           <div className="row mb-3">
             <div className="col-md-10">
               <label>Nom</label>

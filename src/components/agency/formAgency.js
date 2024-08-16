@@ -3,7 +3,7 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 
 function FormAgency(props) {
-  const { method, name, phone, description, logo, agencyId } = props;
+  const { method, name, phone, description, logo } = props;
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
@@ -13,7 +13,6 @@ function FormAgency(props) {
     phone: phone || "",
     description: description || "",
     logo: logo || null,
-    agencyId: agencyId || "",
   });
 
   const handleChange = (e) => {
@@ -35,7 +34,7 @@ function FormAgency(props) {
     e.preventDefault();
     setMessage("");
 
-    const id = method === "PUT" ? `/${agencyId}` : "";
+    // const id = method === "PUT" ? `/${agencyId}` : "";
 
     const formData = new FormData();
 
@@ -46,10 +45,9 @@ function FormAgency(props) {
     formData.append("name", formValues.name);
     formData.append("phone", formValues.phone);
     formData.append("description", formValues.description);
-    formData.append("agencyId", formValues.agencyId);
 
     try {
-      const response = await fetch(`http://localhost:3030/agencies${id}`, {
+      const response = await fetch(`http://localhost:3030/agencies`, {
         method: method,
         body: formData,
       });
@@ -89,13 +87,6 @@ function FormAgency(props) {
                     <div className="card-body">
                       <form role="form">
                         <label>Nom</label>
-                        <input
-                          type="hidden"
-                          name="agencyId"
-                          value={formValues.agencyId}
-                          className="form-control"
-                          readOnly
-                        />
                         <div className="mb-3">
                           <input
                             type="text"

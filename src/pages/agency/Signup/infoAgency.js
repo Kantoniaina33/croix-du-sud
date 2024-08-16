@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import FormAgency from "../../../components/agency/formAgency";
@@ -7,8 +6,7 @@ import FormAgency from "../../../components/agency/formAgency";
 export default function InfoAgency() {
   return (
     <>
-      <p>Helloooooooooooooooooo</p>
-      <FormAgency agencyId="-O4FR67hBP4AzalGaCg8" method="POST" />;
+      <FormAgency method="POST" />;
     </>
   );
 }

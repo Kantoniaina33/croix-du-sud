@@ -33,7 +33,11 @@ function Login() {
 
       const data = await response.json();
       localStorage.setItem("token", data.token);
-      navigate("/info");
+      if (data.isSetInfo) {
+        navigate("/home");
+      } else {
+        navigate("/info");
+      }
     } catch (error) {
       console.error("Error:", error);
     }

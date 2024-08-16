@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function OneExcursion(props) {
-  const { logo, place_name, city, price, description, agencyId } = props;
+  const { logo, place_name, city, price, description } = props;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -64,7 +64,6 @@ export default function OneExcursion(props) {
                 description={description}
                 city={city}
                 price={price}
-                agencyId={agencyId}
               />
             </Modal>
           </div>
