@@ -14,6 +14,7 @@ export default function FormHotel(props) {
     phone,
     email,
     star,
+    hotelId,
   } = props;
   const [message, setMessage] = useState("");
 
@@ -45,7 +46,6 @@ export default function FormHotel(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    // const id = method === "PUT" ? `/${agencyId}` : "";
 
     const formData = new FormData();
 
@@ -61,7 +61,9 @@ export default function FormHotel(props) {
     formData.append("star", formValues.star);
 
     try {
-      const response = await fetch(`http://localhost:3030/hotels`, {
+      const idUrl = method === "PUT" ? `/${hotelId}` : "";
+
+      const response = await fetch(`http://localhost:3030/hotels${idUrl}`, {
         method: method,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -150,29 +152,31 @@ export default function FormHotel(props) {
               </select>
             </div>
           </div>
-          <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              value={formValues.email}
-              onChange={handleChange}
-              name="email"
-            />
-          </div>
-          <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Téléphone
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              value={formValues.phone}
-              onChange={handleChange}
-              name="phone"
-            />
+          <div className="row mb-3">
+            <div className="col-md-6">
+              <label for="formFile" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                value={formValues.email}
+                onChange={handleChange}
+                name="email"
+              />
+            </div>
+            <div className="col-md-6">
+              <label for="formFile" className="form-label">
+                Téléphone
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.phone}
+                onChange={handleChange}
+                name="phone"
+              />
+            </div>
           </div>
           <div className="mb-3">
             <label for="formFile" className="form-label">

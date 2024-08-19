@@ -17,7 +17,7 @@ export default function ListExcursion() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -101,7 +101,7 @@ export default function ListExcursion() {
                   <Modal show={show} onHide={handleClose}>
                     <FormExcursion
                       method="POST"
-                      title="Ajouter une nouvelle excursion"
+                      title="AJOUTER UNE EXCURSION"
                     />
                   </Modal>
                 </li>
@@ -122,6 +122,7 @@ export default function ListExcursion() {
                     {excursions.length > 0 ? (
                       excursions.map((excursion) => (
                         <OneExcursion
+                          excursionId={excursion.key}
                           logo={excursion.image}
                           place_name={excursion.place_name}
                           city={excursion.city}
@@ -133,8 +134,6 @@ export default function ListExcursion() {
                       <p>Aucune excursion</p>
                     )}
                   </div>
-                  <br />
-                  <br />
                 </div>
               </div>
             </div>

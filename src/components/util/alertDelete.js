@@ -4,13 +4,12 @@ import "./style.css";
 import { AlertCircleIcon } from "hugeicons-react";
 
 export default function AlertDelete(props) {
-  const { alertMessage, alertDetail, url, show, handleClose, handleConfirm } =
-    props;
+  const { alertMessage, alertDetail, url, show, setAlert } = props;
   const [message, setMessage] = useState("");
+
   const handleDelete = async (e) => {
     e.preventDefault();
     setMessage("");
-
     try {
       const response = await fetch(url, {
         method: "DELETE",
@@ -31,6 +30,9 @@ export default function AlertDelete(props) {
       console.error("Error:", error);
     }
   };
+
+  const handleClose = () => setAlert(false);
+
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="alert">
       <div className="iconAlert">

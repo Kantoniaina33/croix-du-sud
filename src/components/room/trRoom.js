@@ -3,22 +3,19 @@ import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import FormRoom from "./formRoom";
+import { useParams } from "react-router-dom";
+import AlertDelete from "../util/alertDelete";
 
 export default function TrRoom(props) {
   const { room_type, capacity, price_category, price, total, id } = props;
+  const { hotelId } = useParams();
   const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const handleAlert = () => setAlert(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleDeleteClick = () => {
-    const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer cet élément ?");
-    if (confirmed) {
-      console.log("Élément supprimé !");
-    } else {
-      console.log("Suppression annulée.");
-    }
-  };
 
   return (
     <tr>
@@ -67,10 +64,16 @@ export default function TrRoom(props) {
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}
-            onClick={handleDeleteClick}
+            onClick={handleAlert}
           >
             <Delete02Icon color="red" size={23} />
           </button>
+          <AlertDelete
+              alertMessage={`Êtes-vous sûr de vouloir supprimer les chambres ${room_type}?`}
+              show={alert}
+              setAlert={setAlert}
+              url={`http://localhost:3030/hotels/${hotelId}/rooms/${id}`}
+            />
         </span>
       </td>
     </tr>

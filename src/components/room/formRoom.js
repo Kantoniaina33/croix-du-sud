@@ -36,11 +36,11 @@ export default function FormRoom(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    // const id = method === "PUT" ? `/${agencyId}` : "";
+    const idUrl = method === "PUT" ? `/${id}` : "";
 
     try {
       const response = await fetch(
-        `http://localhost:3030/hotels/${hotelId}/rooms/${id}`,
+        `http://localhost:3030/hotels/${hotelId}/rooms/${idUrl}`,
         {
           method: method,
           headers: {

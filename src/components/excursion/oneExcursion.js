@@ -1,26 +1,18 @@
 import React from "react";
-import { DollarCircleIcon } from "hugeicons-react";
+import { Delete02Icon, DollarCircleIcon } from "hugeicons-react";
 import FormExcursion from "./formExcursion";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
+import AlertDelete from "../util/alertDelete";
 
 export default function OneExcursion(props) {
-  const { logo, place_name, city, price, description } = props;
+  const { excursionId, logo, place_name, city, price, description } = props;
   const [show, setShow] = useState(false);
-
+  const [alert, setAlert] = useState(false);
+  
+  const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const handleDeleteClick = () => {
-    const confirmed = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cet hotel ?"
-    );
-    if (confirmed) {
-      console.log("Élément supprimé !");
-    } else {
-      console.log("Suppression annulée.");
-    }
-  };
 
   return (
     <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
@@ -57,8 +49,9 @@ export default function OneExcursion(props) {
             </button>
             <Modal show={show} onHide={handleClose}>
               <FormExcursion
-                title="Modifier une excursion"
+                title="MODIFIER UNE EXCURSION"
                 method="PUT"
+                excursionId={excursionId}
                 logo={logo}
                 place_name={place_name}
                 description={description}
@@ -66,6 +59,18 @@ export default function OneExcursion(props) {
                 price={price}
               />
             </Modal>
+            <button
+              style={{ backgroundColor: "white", border: "none" }}
+              onClick={handleAlert}
+            >
+              <Delete02Icon color="red" size={23} />
+            </button>
+            <AlertDelete
+              alertMessage={`Êtes-vous sûr de vouloir supprimer ${place_name} ?`}
+              show={alert}
+              setAlert={setAlert}
+              url={`http://localhost:3030/excursions/${excursionId}`}
+            />
           </div>
         </div>
       </div>

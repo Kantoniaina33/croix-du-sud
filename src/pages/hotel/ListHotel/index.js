@@ -102,7 +102,7 @@ export default function ListHotel() {
                     Ajouter un nouvel hotel
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormHotel method="POST" title="Ajouter un nouvel hotel" />
+                    <FormHotel method="POST" title="AJOUTER UN NOUVEL HOTEL" />
                   </Modal>
                 </li>
               </ul>

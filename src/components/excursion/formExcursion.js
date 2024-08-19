@@ -11,6 +11,7 @@ export default function FormExcursion(props) {
     description,
     price,
     city,
+    excursionId,
   } = props;
 
   const [message, setMessage] = useState("");
@@ -20,7 +21,7 @@ export default function FormExcursion(props) {
     description: description || "",
     city: city || "Antananarivo",
     price: price || "",
-    image: image || null, 
+    image: image || null,
   });
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ export default function FormExcursion(props) {
     if (name === "image" && e.target.files.length > 0) {
       setFormValues((prevValues) => ({
         ...prevValues,
-        image: e.target.files[0], 
+        image: e.target.files[0],
       }));
     } else {
       setFormValues((prevValues) => ({
@@ -42,8 +43,6 @@ export default function FormExcursion(props) {
     e.preventDefault();
     setMessage("");
 
-    // const id = method === "PUT" ? `/${agencyId}` : "";
-
     const formData = new FormData();
 
     if (formValues.image) {
@@ -54,12 +53,19 @@ export default function FormExcursion(props) {
     formData.append("description", formValues.description);
     formData.append("city", formValues.city);
     formData.append("price", formValues.price);
-
     try {
-      const response = await fetch(`http://localhost:3030/excursions`, {
-        method: method,
-        body: formData
-      });
+      const idUrl = method === "PUT" ? `/${excursionId}` : "";
+
+      const response = await fetch(
+        `http://localhost:3030/excursions${idUrl}`,
+        {
+          method: method,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -167,4 +173,3 @@ export default function FormExcursion(props) {
     </div>
   );
 }
-

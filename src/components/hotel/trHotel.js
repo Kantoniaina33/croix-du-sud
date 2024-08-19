@@ -15,13 +15,14 @@ export default function TrHotel(props) {
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
-  const [show, setShow] = useState(false);
-  const [alert, setAlert] = useState(false);
 
+
+  const [show, setShow] = useState(false);
+
+  const [alert, setAlert] = useState(false);
+  const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleAlert = () => setAlert(true);
-  const handleCloseAlert = () => setAlert(false);
 
   return (
     <>
@@ -87,8 +88,9 @@ export default function TrHotel(props) {
             </button>
             <Modal show={show} onHide={handleClose}>
               <FormHotel
-                title="Modifier un hotel"
+                title="MODIFIER UN HOTEL"
                 method="PUT"
+                hotelId={hotelId}
                 logo={logo}
                 name={name}
                 address={address}
@@ -111,9 +113,9 @@ export default function TrHotel(props) {
             <AlertDelete
               alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
               alertDetail="Toutes les chambres et repas associés seront également supprimés."
-              url="http://localhost:3000/hotels/${}"
               show={alert}
-              handleClose={handleCloseAlert}
+              setAlert={setAlert}
+              url={`http://localhost:3030/hotels/${hotelId}`}
             />
           </span>
         </td>
