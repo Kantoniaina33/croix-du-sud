@@ -11,7 +11,7 @@ export default function MyPagination() {
   const fetchItems = async (reset = false) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/hotels/pagination?startAfterKey=${
+        `http://localhost:3000/hotels?lastKey=${
           reset ? "" : lastKey
         }&limit=${limit}`
       );
@@ -61,7 +61,7 @@ export default function MyPagination() {
           disabled={page === 1}
         />
 
-        <Pagination.Item active>{page}</Pagination.Item>
+        <Pagination.Item active className="pageActive">{page}</Pagination.Item>
 
         <Pagination.Next
           onClick={() => handlePageChange(page + 1)}

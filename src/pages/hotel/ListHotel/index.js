@@ -5,6 +5,7 @@ import Aside from "../../../components/template/aside";
 import FormHotel from "../../../components/hotel/formHotel";
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import MyPagination from "../../../components/util/myPagination";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
@@ -14,25 +15,23 @@ export default function ListHotel() {
   const fetchHotels = async () => {
     setMessage("");
     try {
-      const response = await fetch("http://localhost:3030/hotels", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(
+        // "http://localhost:3030/hotels?lastKey=-O4dXv3uzBorryOwMNq0",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setMessage("Failed to fetch hotels");
         return;
       }
-
       const data = await response.json();
-      const hotelsArray = Object.keys(data).map((key) => ({
-        ...data[key],
-      }));
-      setHotels(hotelsArray);
-
+      setHotels(data);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching hotels");
@@ -117,7 +116,7 @@ export default function ListHotel() {
                   <h6>Liste d'hotels</h6>
                 </div>
                 <div className="card-body px-0 pt-0 pb-2">
-                  {hotels.length > 0 ? (
+                  {hotels.data ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
@@ -138,7 +137,7 @@ export default function ListHotel() {
                           </tr>
                         </thead>
                         <tbody>
-                          {hotels.map((hotel) => (
+                          {hotels.data.map((hotel) => (
                             <>
                               <TrHotel
                                 hotelId={hotel.key}
@@ -154,6 +153,9 @@ export default function ListHotel() {
                           ))}
                         </tbody>
                       </table>
+                      <div style={{ width: "fit-content", marginLeft: "2%" }}>
+                        {/* <MyPagination /> */}
+                      </div>
                     </div>
                   ) : (
                     <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>

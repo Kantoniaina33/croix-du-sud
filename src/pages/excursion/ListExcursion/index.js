@@ -122,7 +122,7 @@ export default function ListExcursion() {
                     {excursions.length > 0 ? (
                       excursions.map((excursion) => (
                         <OneExcursion
-                          excursionId={excursion.key}
+                          excursionId={excursion.id}
                           logo={excursion.image}
                           place_name={excursion.place_name}
                           city={excursion.city}

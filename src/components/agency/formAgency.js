@@ -49,6 +49,9 @@ function FormAgency(props) {
     try {
       const response = await fetch(`http://localhost:3030/agencies`, {
         method: method,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: formData,
       });
 

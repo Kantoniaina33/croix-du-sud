@@ -5,7 +5,8 @@ import MyPagination from "../../components/util/myPagination";
 function Home() {
   return (
     <div>
-      <Aside />
+      {/* <Aside /> */}
+      Hellooo
       <MyPagination></MyPagination>
     </div>
   );
