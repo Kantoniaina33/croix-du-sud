@@ -11,12 +11,13 @@ export default function ListHotel() {
   const [show, setShow] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [message, setMessage] = useState("");
+  const [lastVisible, setLastVisible] = useState(null);
 
-  const fetchHotels = async () => {
+  const fetchHotels = async (pageNumber = 1) => {
     setMessage("");
     try {
       const response = await fetch(
-        // "http://localhost:3030/hotels?lastKey=-O4dXv3uzBorryOwMNq0",
+        `http://localhost:3030/hotels?page=${pageNumber}`,
         {
           method: "GET",
           headers: {
@@ -25,22 +26,28 @@ export default function ListHotel() {
           },
         }
       );
-
+  
       if (!response.ok) {
         setMessage("Failed to fetch hotels");
         return;
       }
       const data = await response.json();
       setHotels(data);
+      setLastVisible(data.lastVisible); // Assurez-vous que `data` contient `lastVisible`
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching hotels");
     }
   };
+  
 
   useEffect(() => {
     fetchHotels();
   }, []);
+
+  const handlePageChange = (newStartAfterDoc) => {
+    fetchHotels(newStartAfterDoc);
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -116,7 +123,7 @@ export default function ListHotel() {
                   <h6>Liste d'hotels</h6>
                 </div>
                 <div className="card-body px-0 pt-0 pb-2">
-                  {hotels.data ? (
+                  {hotels.hotels ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
@@ -137,10 +144,10 @@ export default function ListHotel() {
                           </tr>
                         </thead>
                         <tbody>
-                          {hotels.data.map((hotel) => (
+                          {hotels.hotels.map((hotel) => (
                             <>
                               <TrHotel
-                                hotelId={hotel.key}
+                                hotelId={hotel.id}
                                 name={hotel.name}
                                 address={hotel.address}
                                 email={hotel.email}
@@ -154,7 +161,10 @@ export default function ListHotel() {
                         </tbody>
                       </table>
                       <div style={{ width: "fit-content", marginLeft: "2%" }}>
-                        {/* <MyPagination /> */}
+                        <MyPagination
+                          onPageChange={handlePageChange}
+                          lastVisible={lastVisible}
+                        />
                       </div>
                     </div>
                   ) : (

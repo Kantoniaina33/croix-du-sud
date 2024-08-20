@@ -40,7 +40,7 @@ export default function FormRoom(props) {
 
     try {
       const response = await fetch(
-        `http://localhost:3030/hotels/${hotelId}/rooms/${idUrl}`,
+        `http://localhost:3030/hotels/${hotelId}/rooms${idUrl}`,
         {
           method: method,
           headers: {

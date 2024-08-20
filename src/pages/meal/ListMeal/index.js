@@ -118,7 +118,7 @@ export default function ListRoom() {
                       </thead>
                       {meals.map((meal, index) => (
                         <TrMeal
-                          id={meal.key}
+                          id={meal.id}
                           icon={icons[index % icons.length]}
                           meal={meal.meal}
                           price={meal.price}

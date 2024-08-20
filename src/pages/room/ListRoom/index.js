@@ -145,7 +145,7 @@ export default function ListRoom() {
                         <tbody>
                           {rooms.map((room) => (
                             <TrRoom
-                              id={room.key}
+                              id={room.id}
                               room_type={room.room_type}
                               capacity={room.capacity}
                               price_category={room.price_category}
