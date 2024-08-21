@@ -1,25 +1,19 @@
 import React from "react";
 import { Pagination } from "react-bootstrap";
 
-export default function MyPagination({ onPageChange, lastVisible }) {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [hasMore, setHasMore] = React.useState(true);
-
-  React.useEffect(() => {
-    if (!lastVisible) {
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-  }, [lastVisible]);
-
+export default function MyPagination({
+  onPageChange,
+  lastVisible,
+  currentPage,
+}) {
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    onPageChange(pageNumber); // Passe le numéro de page ici
+    if (pageNumber < 1) return;
+    const startAfterDoc = pageNumber === 1 ? null : lastVisible;
+    onPageChange(startAfterDoc);
   };
 
   return (
-    <Pagination>
+    <Pagination id="pagination">
       <Pagination.First
         onClick={() => handlePageChange(1)}
         disabled={currentPage === 1}
@@ -31,11 +25,11 @@ export default function MyPagination({ onPageChange, lastVisible }) {
       <Pagination.Item active className="pageActive">{currentPage}</Pagination.Item>
       <Pagination.Next
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={!hasMore}
+        disabled={!lastVisible}
       />
       <Pagination.Last
         onClick={() => handlePageChange(currentPage + 1)}
-        disabled={!hasMore}
+        disabled={!lastVisible}
       />
     </Pagination>
   );

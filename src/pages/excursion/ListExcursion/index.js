@@ -4,42 +4,54 @@ import OneExcursion from "../../../components/excursion/oneExcursion";
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import FormExcursion from "../../../components/excursion/formExcursion";
+import MyPagination from "../../../components/util/myPagination";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
   const [excursions, setExcursions] = useState([]);
   const [message, setMessage] = useState("");
+  const [next, setNext] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchExcursions = async () => {
+  const fetchExcursions = async (nextDoc = null) => {
+    setLoading(true);
     setMessage("");
     try {
-      const response = await fetch("http://localhost:3030/excursions", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3030/excursions?next=${nextDoc || ""}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setMessage("Failed to fetch excursions");
         return;
       }
-
       const data = await response.json();
-      const excursionsArray = Object.keys(data).map((key) => ({
-        ...data[key],
-      }));
-      setExcursions(excursionsArray);
+      setExcursions(data.excursions);
+      setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching excursions");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchExcursions();
   }, []);
+
+  const handlePageChange = (nextDoc) => {
+    fetchExcursions(nextDoc);
+    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -118,22 +130,33 @@ export default function ListExcursion() {
                   <p className="text-sm"> </p>
                 </div>
                 <div className="card-body p-3">
-                  <div className="row">
-                    {excursions.length > 0 ? (
-                      excursions.map((excursion) => (
-                        <OneExcursion
-                          excursionId={excursion.id}
-                          logo={excursion.image}
-                          place_name={excursion.place_name}
-                          city={excursion.city}
-                          price={excursion.price}
-                          description={excursion.description}
-                        />
-                      ))
-                    ) : (
-                      <p>Aucune excursion</p>
-                    )}
-                  </div>
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : excursions.length > 0 ? (
+                    excursions.map((excursion) => (
+                      <>
+                        <div className="row">
+                          <OneExcursion
+                            excursionId={excursion.id}
+                            logo={excursion.image}
+                            place_name={excursion.place_name}
+                            city={excursion.city}
+                            price={excursion.price}
+                            description={excursion.description}
+                          />
+                        </div>
+                        <div style={{ marginTop: "2%" }}>
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        </div>
+                      </>
+                    ))
+                  ) : (
+                    <p>Aucune excursion</p>
+                  )}
                 </div>
               </div>
             </div>

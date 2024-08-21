@@ -28,9 +28,10 @@ export default function OneExcursion(props) {
           </a>
         </div>
         <div class="card-body px-1 pb-0">
+          {/* <p class="text-gradient text-dark mb-2 text-sm">{city}</p> */}
           <a href="#">
-            <h5 style={{ marginBottom: -8 }}>{place_name}</h5>
-            <span classN="text-gradient text-dark mb-2 text-sm">{city}</span>
+            <h5>{place_name}</h5>
+            <span classN="text-gradient text-dark mb-2 text-sm"></span>
           </a>
           <p classN="font-weight-bold  mb-2 text-md">
             <span>
@@ -38,7 +39,6 @@ export default function OneExcursion(props) {
             </span>
             <span style={{ color: "blue", margin: "5px" }}>{price}</span>
           </p>
-          <p class="mb-4 text-sm">{description}</p>
           <div class="d-flex align-items-center justify-content-between">
             <button
               onClick={handleShow}
@@ -60,7 +60,7 @@ export default function OneExcursion(props) {
               />
             </Modal>
             <button
-              style={{ backgroundColor: "white", border: "none" }}
+              style={{ backgroundColor: "white", border: "solid 1px red", borderRadius:"8px", padding:"3px 10px" }}
               onClick={handleAlert}
             >
               <Delete02Icon color="red" size={23} />

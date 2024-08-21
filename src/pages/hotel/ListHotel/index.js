@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import TrHotel from "../../../components/hotel/trHotel";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormHotel from "../../../components/hotel/formHotel";
-import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 
@@ -11,13 +11,16 @@ export default function ListHotel() {
   const [show, setShow] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [message, setMessage] = useState("");
-  const [lastVisible, setLastVisible] = useState(null);
+  const [next, setNext] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchHotels = async (pageNumber = 1) => {
+  const fetchHotels = async (nextDoc = null) => {
+    setLoading(true);
     setMessage("");
     try {
       const response = await fetch(
-        `http://localhost:3030/hotels?page=${pageNumber}`,
+        `http://localhost:3030/hotels?next=${nextDoc || ""}`,
         {
           method: "GET",
           headers: {
@@ -26,37 +29,40 @@ export default function ListHotel() {
           },
         }
       );
-  
+
       if (!response.ok) {
         setMessage("Failed to fetch hotels");
         return;
       }
       const data = await response.json();
-      setHotels(data);
-      setLastVisible(data.lastVisible); // Assurez-vous que `data` contient `lastVisible`
+      setHotels(data.hotels);
+      setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching hotels");
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     fetchHotels();
   }, []);
 
-  const handlePageChange = (newStartAfterDoc) => {
-    fetchHotels(newStartAfterDoc);
+  const handlePageChange = (nextDoc) => {
+    fetchHotels(nextDoc);
+    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <div>
-      <Aside></Aside>
+      <Aside />
       <main
         id="listHotel"
-        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg "
+        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <link
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -98,7 +104,7 @@ export default function ListHotel() {
                   />
                 </div>
               </div>
-              <ul className="navbar-nav  justify-content-end">
+              <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
@@ -123,7 +129,9 @@ export default function ListHotel() {
                   <h6>Liste d'hotels</h6>
                 </div>
                 <div className="card-body px-0 pt-0 pb-2">
-                  {hotels.hotels ? (
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : hotels.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
@@ -144,26 +152,26 @@ export default function ListHotel() {
                           </tr>
                         </thead>
                         <tbody>
-                          {hotels.hotels.map((hotel) => (
-                            <>
-                              <TrHotel
-                                hotelId={hotel.id}
-                                name={hotel.name}
-                                address={hotel.address}
-                                email={hotel.email}
-                                phone={hotel.phone}
-                                city={hotel.city}
-                                star={hotel.star}
-                                logo={hotel.image}
-                              />
-                            </>
+                          {hotels.map((hotel) => (
+                            <TrHotel
+                              key={hotel.id}
+                              hotelId={hotel.id}
+                              name={hotel.name}
+                              address={hotel.address}
+                              email={hotel.email}
+                              phone={hotel.phone}
+                              city={hotel.city}
+                              star={hotel.star}
+                              logo={hotel.image}
+                            />
                           ))}
                         </tbody>
                       </table>
-                      <div style={{ width: "fit-content", marginLeft: "2%" }}>
+                      <div style={{ margin: "2% 0 0 2%" }}>
                         <MyPagination
                           onPageChange={handlePageChange}
-                          lastVisible={lastVisible}
+                          lastVisible={next}
+                          currentPage={currentPage}
                         />
                       </div>
                     </div>
@@ -177,5 +185,5 @@ export default function ListHotel() {
         </div>
       </main>
     </div>
-  );
+  );  
 }
