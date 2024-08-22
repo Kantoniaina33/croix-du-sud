@@ -56,16 +56,13 @@ export default function FormExcursion(props) {
     try {
       const idUrl = method === "PUT" ? `/${excursionId}` : "";
 
-      const response = await fetch(
-        `http://localhost:3030/excursions${idUrl}`,
-        {
-          method: method,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`http://localhost:3030/excursions${idUrl}`, {
+        method: method,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -114,7 +111,7 @@ export default function FormExcursion(props) {
             <div className="col-md-4">
               <label>Ville</label>
               <select
-                className="form-control"
+                className="form-select"
                 value={formValues.city}
                 onChange={handleChange}
                 name="city"

@@ -133,9 +133,9 @@ export default function ListExcursion() {
                   {loading ? (
                     <p>Loading...</p>
                   ) : excursions.length > 0 ? (
-                    excursions.map((excursion) => (
-                      <>
-                        <div className="row">
+                    <>
+                      <div className="row">
+                        {excursions.map((excursion) => (
                           <OneExcursion
                             excursionId={excursion.id}
                             logo={excursion.image}
@@ -144,16 +144,16 @@ export default function ListExcursion() {
                             price={excursion.price}
                             description={excursion.description}
                           />
-                        </div>
-                        <div style={{ marginTop: "2%" }}>
-                          <MyPagination
-                            onPageChange={handlePageChange}
-                            lastVisible={next}
-                            currentPage={currentPage}
-                          />
-                        </div>
-                      </>
-                    ))
+                        ))}
+                      </div>
+                      <div style={{ marginTop: "2%" }}>
+                        <MyPagination
+                          onPageChange={handlePageChange}
+                          lastVisible={next}
+                          currentPage={currentPage}
+                        />
+                      </div>
+                    </>
                   ) : (
                     <p>Aucune excursion</p>
                   )}

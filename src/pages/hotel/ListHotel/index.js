@@ -14,13 +14,15 @@ export default function ListHotel() {
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sort, setSort] = useState("name");
 
-  const fetchHotels = async (nextDoc = null) => {
+  const fetchHotels = async (nextDoc = null, sort = "name") => {
     setLoading(true);
     setMessage("");
     try {
       const response = await fetch(
-        `http://localhost:3030/hotels?next=${nextDoc || ""}`,
+        //
+        `http://localhost:3030/hotels?next=${nextDoc || ""}&&orderBy=${sort}`,
         {
           method: "GET",
           headers: {
@@ -46,16 +48,20 @@ export default function ListHotel() {
   };
 
   useEffect(() => {
-    fetchHotels();
-  }, []);
+    fetchHotels(null, sort);
+  }, [sort]);
 
   const handlePageChange = (nextDoc) => {
-    fetchHotels(nextDoc);
+    fetchHotels(nextDoc, sort);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSort = (value) => {
+    setSort(value);
+  };
 
   return (
     <div>
@@ -125,9 +131,22 @@ export default function ListHotel() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <div className="card-header pb-0">
-                  <h6>Liste d'hotels</h6>
+                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
+                  <h6>Liste d'hôtels</h6>
+                  <div className="col-md-2">
+                    <select
+                    style={{color:"grey"}}
+                      className="form-select"
+                      // value={formValues.room_type}
+                      // onChange={handleChange}
+                      name="room_type"
+                    >
+                      <option value="" disabled selected>Filtrer par ville</option>
+                      <option value="Twin">Twin</option>
+                    </select>
+                  </div>
                 </div>
+
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
                     <p>Loading...</p>
@@ -142,7 +161,10 @@ export default function ListHotel() {
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Contacts
                             </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th
+                              className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                              onClick={() => handleSort("star")}
+                            >
                               Etoiles
                             </th>
                             <th className="text-secondary opacity-7"></th>
@@ -153,17 +175,20 @@ export default function ListHotel() {
                         </thead>
                         <tbody>
                           {hotels.map((hotel) => (
-                            <TrHotel
-                              key={hotel.id}
-                              hotelId={hotel.id}
-                              name={hotel.name}
-                              address={hotel.address}
-                              email={hotel.email}
-                              phone={hotel.phone}
-                              city={hotel.city}
-                              star={hotel.star}
-                              logo={hotel.image}
-                            />
+                            <>
+                              {/* <p>{hotel.id}</p> */}
+                              <TrHotel
+                                key={hotel.id}
+                                hotelId={hotel.id}
+                                name={hotel.name}
+                                address={hotel.address}
+                                email={hotel.email}
+                                phone={hotel.phone}
+                                city={hotel.city}
+                                star={hotel.star}
+                                logo={hotel.image}
+                              />
+                            </>
                           ))}
                         </tbody>
                       </table>
@@ -185,5 +210,5 @@ export default function ListHotel() {
         </div>
       </main>
     </div>
-  );  
+  );
 }

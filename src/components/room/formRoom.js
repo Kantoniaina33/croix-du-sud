@@ -12,7 +12,7 @@ export default function FormRoom(props) {
     price_category,
     price,
     number_of_rooms,
-    id
+    id,
   } = props;
   const { hotelId } = useParams();
   const [message, setMessage] = useState("");
@@ -46,7 +46,7 @@ export default function FormRoom(props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formValues)
+          body: JSON.stringify(formValues),
         }
       );
 
@@ -87,7 +87,7 @@ export default function FormRoom(props) {
             <div className="col-md-6">
               <label>Type</label>
               <select
-                className="form-control"
+                className="form-select"
                 value={formValues.room_type}
                 onChange={handleChange}
                 name="room_type"
@@ -111,7 +111,7 @@ export default function FormRoom(props) {
             <div className="col-md-6">
               <label>Categorie de prix</label>
               <select
-                className="form-control"
+                className="form-select"
                 value={formValues.price_category}
                 onChange={handleChange}
                 name="price_category"

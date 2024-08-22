@@ -140,7 +140,7 @@ export default function FormHotel(props) {
             <div className="col-md-6">
               <label>Ville</label>
               <select
-                className="form-control"
+                className="form-select"
                 value={formValues.city}
                 onChange={handleChange}
                 name="city"
