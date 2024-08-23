@@ -36,7 +36,7 @@ export default function AlertDelete(props) {
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="alert">
       <div className="iconAlert">
-        <AlertCircleIcon size={30} color="red" />
+        <AlertCircleIcon size={30} color="rgb(219, 1, 1)" />
       </div>
       <div className="bodyAlert">
         <div>{alertMessage}</div>

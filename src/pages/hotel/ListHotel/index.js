@@ -6,6 +6,8 @@ import Aside from "../../../components/template/aside";
 import FormHotel from "../../../components/hotel/formHotel";
 import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
+import SelectCities from "../../../components/util/selectCities";
+import { ArrowUpDownIcon } from "hugeicons-react";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
@@ -15,22 +17,31 @@ export default function ListHotel() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState("name");
+  const [search, setSearch] = useState("");
+  const [searchField, setSearchField] = useState("");
+  const [order, setOrder] = useState("asc");
 
-  const fetchHotels = async (nextDoc = null, sort = "name") => {
+  const fetchHotels = async (
+    nextDoc = null,
+    sort = "name",
+    order = "asc",
+    search = "",
+    searchField = ""
+  ) => {
     setLoading(true);
     setMessage("");
     try {
-      const response = await fetch(
-        //
-        `http://localhost:3030/hotels?next=${nextDoc || ""}&&orderBy=${sort}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const url = `http://localhost:3030/hotels?next=${
+        nextDoc || ""
+      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if (!response.ok) {
         setMessage("Failed to fetch hotels");
@@ -47,20 +58,27 @@ export default function ListHotel() {
     }
   };
 
-  useEffect(() => {
-    fetchHotels(null, sort);
-  }, [sort]);
-
-  const handlePageChange = (nextDoc) => {
-    fetchHotels(nextDoc, sort);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
-  };
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSort = (value) => {
+    setCurrentPage(1);
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
     setSort(value);
+  };
+
+  const handleSelectCity = (e) => {
+    setSearchField("city");
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    fetchHotels(null, sort, order, search, searchField);
+  }, [sort, order, search, searchField]);
+
+  const handlePageChange = (nextDoc) => {
+    fetchHotels(nextDoc, sort, order, search, searchField);
+    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
   return (
@@ -134,16 +152,13 @@ export default function ListHotel() {
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Liste d'hôtels</h6>
                   <div className="col-md-2">
-                    <select
-                    style={{color:"grey"}}
-                      className="form-select"
-                      // value={formValues.room_type}
-                      // onChange={handleChange}
+                    <SelectCities
+                      disabledOption="Filtrer par ville"
+                      onChange={handleSelectCity}
                       name="room_type"
-                    >
-                      <option value="" disabled selected>Filtrer par ville</option>
-                      <option value="Twin">Twin</option>
-                    </select>
+                      specificOption="Toutes les villes"
+                      specificOptionValue=""
+                    />
                   </div>
                 </div>
 
@@ -161,11 +176,14 @@ export default function ListHotel() {
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Contacts
                             </th>
-                            <th
-                              className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                              onClick={() => handleSort("star")}
-                            >
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Etoiles
+                              <ArrowUpDownIcon
+                                id="sortIcon"
+                                size={18}
+                                onClick={() => handleSort("star")}
+                                style={{ marginLeft: "5px", marginTop: "-5px" }}
+                              />
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
@@ -176,7 +194,6 @@ export default function ListHotel() {
                         <tbody>
                           {hotels.map((hotel) => (
                             <>
-                              {/* <p>{hotel.id}</p> */}
                               <TrHotel
                                 key={hotel.id}
                                 hotelId={hotel.id}

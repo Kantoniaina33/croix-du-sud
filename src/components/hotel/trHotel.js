@@ -108,7 +108,7 @@ export default function TrHotel(props) {
               style={{ backgroundColor: "white", border: "none" }}
               onClick={handleAlert}
             >
-              <Delete02Icon color="red" size={23} />
+              <Delete02Icon color="rgb(219, 1, 1)" size={23} />
             </button>
             <AlertDelete
               alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}

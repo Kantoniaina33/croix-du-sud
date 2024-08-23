@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import FormExcursion from "../../../components/excursion/formExcursion";
 import MyPagination from "../../../components/util/myPagination";
+import SelectCities from "../../../components/util/selectCities";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -13,6 +14,8 @@ export default function ListExcursion() {
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [searchField, setSearchField] = useState("");
 
   const fetchExcursions = async (nextDoc = null) => {
     setLoading(true);
@@ -55,6 +58,11 @@ export default function ListExcursion() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSelectCity = (e) => {
+    setSearchField("city");
+    setSearch(e.target.value);
+  };
   return (
     <div>
       <Aside></Aside>
@@ -125,16 +133,24 @@ export default function ListExcursion() {
           <div className="row">
             <div className="col-12 mt-4">
               <div className="card mb-4">
-                <div className="card-header pb-0 p-3">
-                  <h6 className="mb-1">Liste d'excursions</h6>
-                  <p className="text-sm"> </p>
+                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
+                  <h6>Liste d'excursions</h6>
+                  <div className="col-md-2">
+                    <SelectCities
+                      disabledOption="Filtrer par ville"
+                      onChange={handleSelectCity}
+                      name="room_type"
+                      specificOption="Toutes les villes"
+                      specificOptionValue=""
+                    />
+                  </div>
                 </div>
                 <div className="card-body p-3">
                   {loading ? (
                     <p>Loading...</p>
                   ) : excursions.length > 0 ? (
                     <>
-                      <div className="row">
+                      <div className="row" id="excursions">
                         {excursions.map((excursion) => (
                           <OneExcursion
                             excursionId={excursion.id}
@@ -146,7 +162,7 @@ export default function ListExcursion() {
                           />
                         ))}
                       </div>
-                      <div style={{ marginTop: "2%" }}>
+                      <div style={{ marginTop: "4%" }}>
                         <MyPagination
                           onPageChange={handlePageChange}
                           lastVisible={next}

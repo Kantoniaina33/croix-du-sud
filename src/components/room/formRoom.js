@@ -2,6 +2,8 @@ import React from "react";
 import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import SelectRoomTypes from "../util/selectRoomTypes";
+import SelectPriceCategories from "../util/selectPriceCategories";
 
 export default function FormRoom(props) {
   const {
@@ -18,7 +20,7 @@ export default function FormRoom(props) {
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
-    room_type: room_type || "Double",
+    room_type: room_type || "Single",
     capacity: capacity || 1,
     price_category: price_category || "Premier",
     price: price || "",
@@ -82,19 +84,15 @@ export default function FormRoom(props) {
         </h5>
       </div>
       <div className="card-body">
-        <form role="form">
+        <form>
           <div className="row mb-3">
             <div className="col-md-6">
               <label>Type</label>
-              <select
-                className="form-select"
+              <SelectRoomTypes
                 value={formValues.room_type}
                 onChange={handleChange}
                 name="room_type"
-              >
-                <option value="Double">Double</option>
-                <option value="Twin">Twin</option>
-              </select>
+              />
             </div>
             <div className="col-md-6">
               <label>Capacite</label>
@@ -110,15 +108,11 @@ export default function FormRoom(props) {
           <div className="row mb-3">
             <div className="col-md-6">
               <label>Categorie de prix</label>
-              <select
-                className="form-select"
+              <SelectPriceCategories
                 value={formValues.price_category}
                 onChange={handleChange}
                 name="price_category"
-              >
-                <option value="Premier">Premier</option>
-                <option value="Second">Second</option>
-              </select>
+              />
             </div>
             <div className="col-md-6">
               <label>Tarif par nuit</label>

@@ -9,4 +9,9 @@ body {
 .input-group:focus-within .input-group-text {
   border-color: transparent !important;
 }
+#sortIcon{
+  margin-left: "50px"; 
+  margin-top:"-5px";
+  color: rgb(37, 44, 44);
+}
 

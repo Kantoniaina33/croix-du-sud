@@ -44,7 +44,7 @@ export default function TrRoom(props) {
             style={{ backgroundColor: "white", border: "none" }}
             onClick={handleShow}
           >
-            <Edit02Icon color="blue" size={20} />
+            <Edit02Icon color="#273385" size={20} />
           </button>
           <Modal show={show} onHide={handleClose}>
             <FormRoom
@@ -66,14 +66,14 @@ export default function TrRoom(props) {
             style={{ backgroundColor: "white", border: "none" }}
             onClick={handleAlert}
           >
-            <Delete02Icon color="red" size={23} />
+            <Delete02Icon color="rgb(219, 1, 1)" size={23} />
           </button>
           <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer les chambres ${room_type}?`}
-              show={alert}
-              setAlert={setAlert}
-              url={`http://localhost:3030/hotels/${hotelId}/rooms/${id}`}
-            />
+            alertMessage={`Êtes-vous sûr de vouloir supprimer les chambres ${room_type}?`}
+            show={alert}
+            setAlert={setAlert}
+            url={`http://localhost:3030/hotels/${hotelId}/rooms/${id}`}
+          />
         </span>
       </td>
     </tr>
