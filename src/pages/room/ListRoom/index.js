@@ -7,25 +7,41 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import FormRoom from "../../../components/room/formRoom";
 import { useParams } from "react-router-dom";
+import SelectPriceCategories from "../../../components/util/selectPriceCategories";
+import SelectRoomTypes from "../../../components/util/selectRoomTypes";
+import { ArrowUpDownIcon } from "hugeicons-react";
 
 export default function ListRoom() {
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [searchType, setSearchType] = useState("");
+  const [searchTypeField, setSearchTypeField] = useState("");
+  const [searchPriceCat, setSearchPriceCat] = useState("");
+  const [searchPriceCatField, setSearchPriceCatField] = useState("");
+  const [sort, setSort] = useState("capacity");
+  const [order, setOrder] = useState("asc");
 
-  const fetchRooms = async () => {
+  const fetchRooms = async (
+    sort = "capacity",
+    order = "asc",
+    searchType = "",
+    searchTypeField = "",
+    searchPriceCat = "",
+    searchPriceCatField = ""
+  ) => {
+    setLoading(true);
     setMessage("");
     try {
-      const response = await fetch(
-        `http://localhost:3030/hotels/${hotelId}/rooms`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const url = `http://localhost:3030/hotels/${hotelId}/rooms?orderBy=${sort}&&order=${order}&&searchTypeField=${searchTypeField}&&searchType=${searchType}&&searchPriceCatField=${searchPriceCatField}&&searchPriceCat=${searchPriceCat}`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         setMessage("Failed to fetch rooms");
@@ -40,15 +56,47 @@ export default function ListRoom() {
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching rooms");
+    } finally {
+      setLoading(false);
     }
   };
 
+  const handleSelectRoomType = (e) => {
+    setSearchTypeField("room_type");
+    setSearchType(e.target.value);
+  };
+
+  const handleSelectPriceCat = (e) => {
+    setSearchPriceCatField("price_category");
+    setSearchPriceCat(e.target.value);
+  };
+
+  const handleSort = (value) => {
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    setSort(value);
+  };
+
   useEffect(() => {
-    fetchRooms();
-  }, []);
+    fetchRooms(
+      sort,
+      order,
+      searchType,
+      searchTypeField,
+      searchPriceCat,
+      searchPriceCatField
+    );
+  }, [
+    sort,
+    order,
+    searchType,
+    searchTypeField,
+    searchPriceCat,
+    searchPriceCatField,
+  ]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <div>
       <Aside></Aside>
@@ -79,7 +127,23 @@ export default function ListRoom() {
             <div
               className="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2"
               id="navbar"
-            ></div>
+            >
+              <ul className="navbar-nav ms-auto">
+                <li className="nav-item d-flex align-items-center">
+                  <a
+                    className="btn btn-outline-primary btn-sm mb-0 me-3"
+                    target="blank"
+                    onClick={handleShow}
+                    id="addRoom"
+                  >
+                    Ajouter des chambres
+                  </a>
+                  <Modal show={show} onHide={handleClose}>
+                    <FormRoom method="POST" title="AJOUTER DES CHAMBRES" />
+                  </Modal>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
         <div className="container-fluid">
@@ -89,15 +153,7 @@ export default function ListRoom() {
           >
             <span className="mask opacity-6" id="background"></span>
           </div>
-          <HeadHotel
-            logo="/carlton.png"
-            name="Carlton"
-            email="carlton@gmail.com"
-            phone="034 34 334 34"
-            star="5"
-            address="carlton adresse"
-            city="Antananarivo"
-          />
+          <HeadHotel />
         </div>
         <div className="container-fluid py-4">
           <div className="row">
@@ -105,21 +161,35 @@ export default function ListRoom() {
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Liste de chambres</h6>
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0"
-                    target="blank"
-                    onClick={handleShow}
-                  >
-                    Ajouter des chambres
-                  </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormRoom method="POST" title="AJOUTER DES CHAMBRES" />
-                  </Modal>
+                  <div className="w-55">
+                    <div className="row">
+                      <div className="col">
+                        <SelectRoomTypes
+                          disabledOption="Filtrer par type de chambre"
+                          specificOption="Tout"
+                          specificOptionValue=""
+                          onChange={handleSelectRoomType}
+                        />
+                      </div>
+                      <div className="col">
+                        <SelectPriceCategories
+                          disabledOption="Filtrer par catégorie de prix"
+                          specificOption="Tout"
+                          specificOptionValue=""
+                          onChange={handleSelectPriceCat}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
-                  {rooms.length > 0 ? (
+                {loading ? (
+                    <p>Loading...</p>
+                  ) : 
+                  rooms.length > 0 ? (
                     <div className="table-responsive p-0">
+                      <br />
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
@@ -128,15 +198,33 @@ export default function ListRoom() {
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Capacite
+                              <ArrowUpDownIcon
+                                id="sortIcon"
+                                size={16}
+                                onClick={() => handleSort("capacity")}
+                                style={{ marginLeft: "5px", marginTop: "-5px" }}
+                              />
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Categorie de prix
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Tarif par nuit
+                              <ArrowUpDownIcon
+                                id="sortIcon"
+                                size={16}
+                                onClick={() => handleSort("price")}
+                                style={{ marginLeft: "5px", marginTop: "-5px" }}
+                              />
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Nombre total
+                              <ArrowUpDownIcon
+                                id="sortIcon"
+                                size={16}
+                                onClick={() => handleSort("number_of_rooms")}
+                                style={{ marginLeft: "5px", marginTop: "-5px" }}
+                              />
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>

@@ -1,30 +1,26 @@
-import React from "react";
-import { BedDoubleIcon } from "hugeicons-react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import SelectRoomTypes from "../util/selectRoomTypes";
-import SelectPriceCategories from "../util/selectPriceCategories";
+import "./style.css";
 
-export default function FormRoom(props) {
+export default function FormProgram(props) {
   const {
     title,
     method,
-    room_type,
-    capacity,
-    price_category,
-    price,
-    number_of_rooms,
-    id,
+    departure,
+    arrival,
+    distance,
+    duration,
+    description,
+    programId,
   } = props;
-  const { hotelId } = useParams();
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
-    room_type: room_type || "Single",
-    capacity: capacity || 1,
-    price_category: price_category || "Premier",
-    price: price || "",
-    number_of_rooms: number_of_rooms || 1,
+    departure: departure || "",
+    arrival: arrival || "",
+    distance: distance || 1,
+    duration: duration || 1,
+    description: description || "",
   });
 
   const handleChange = (e) => {
@@ -38,19 +34,19 @@ export default function FormRoom(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    const idUrl = method === "PUT" ? `/${id}` : "";
 
     try {
-      const response = await fetch(
-        `http://localhost:3030/hotels/${hotelId}/rooms${idUrl}`,
-        {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
+      const idUrl = method === "PUT" ? `/${programId}` : "";
+
+      const response = await fetch(`http://localhost:3030/programs${idUrl}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formValues),
+      
+      });
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -66,10 +62,10 @@ export default function FormRoom(props) {
   };
 
   return (
-    <div className="card card-plain mt-1" id="infoBack">
-      <div className="card-header pb-0 text-left bg-transparent">
-        <h5 className="" id="infoTitle">
-          <BedDoubleIcon
+    <div className="card card-plain mt-1">
+      <div className="card-header pb-0 text-left" id="formProgram">
+        <h4 className="" id="titleFormProgram">
+          {/* <Program01Icon
             size={40}
             color="#273385"
             variant={"stroke"}
@@ -79,62 +75,68 @@ export default function FormRoom(props) {
               padding: "2%",
               borderRadius: "5px",
             }}
-          />
+          /> */}
           <span style={{ marginLeft: "3%" }}>{title}</span>
-        </h5>
+        </h4>
       </div>
       <div className="card-body">
         <form>
           <div className="row mb-3">
             <div className="col-md-6">
-              <label>Type</label>
-              <SelectRoomTypes
-                value={formValues.room_type}
+              <label>Depart</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.departure}
                 onChange={handleChange}
-                name="room_type"
+                name="departure"
               />
             </div>
             <div className="col-md-6">
-              <label>Capacite</label>
+              <label>Arrive</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                value={formValues.capacity}
+                value={formValues.arrival}
                 onChange={handleChange}
-                name="capacity"
+                name="arrival"
               />
             </div>
           </div>
           <div className="row mb-3">
             <div className="col-md-6">
-              <label>Categorie de prix</label>
-              <SelectPriceCategories
-                value={formValues.price_category}
-                onChange={handleChange}
-                name="price_category"
-              />
-            </div>
-            <div className="col-md-6">
-              <label>Tarif par nuit</label>
+              <label for="formFile" className="form-label">
+                Distance du trajet (Km)
+              </label>
               <input
                 type="number"
                 className="form-control"
-                value={formValues.price}
+                value={formValues.distance}
                 onChange={handleChange}
-                name="price"
+                name="distance"
+              />
+            </div>
+            <div className="col-md-6">
+              <label for="formFile" className="form-label">
+                Duree du trajet (h)
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.duration}
+                onChange={handleChange}
+                name="duration"
               />
             </div>
           </div>
           <div className="mb-3">
-            <label for="formFile" className="form-label">
-              Nombre total
-            </label>
-            <input
-              type="number"
+            <label>Descritption</label>
+            <textarea
+              type="text"
+              name="description"
               className="form-control"
-              value={formValues.number_of_rooms}
+              value={formValues.description}
               onChange={handleChange}
-              name="number_of_rooms"
             />
           </div>
           <div className="text-center">
@@ -142,7 +144,7 @@ export default function FormRoom(props) {
               type="button"
               onClick={handleSave}
               className="btn w-100 mt-4 mb-0"
-              id="saveInfo"
+              id="saveProgram"
             >
               Enregistrer
             </button>

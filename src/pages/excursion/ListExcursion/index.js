@@ -17,20 +17,26 @@ export default function ListExcursion() {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
 
-  const fetchExcursions = async (nextDoc = null) => {
+  const fetchExcursions = async (
+    nextDoc = null,
+    search = "",
+    searchField = ""
+  ) => {
     setLoading(true);
     setMessage("");
     try {
-      const response = await fetch(
-        `http://localhost:3030/excursions?next=${nextDoc || ""}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const url = `http://localhost:3030/excursions?next=${
+        nextDoc || ""
+      }&&searchField=${searchField}&&search=${search}`;
+
+      console.log(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if (!response.ok) {
         setMessage("Failed to fetch excursions");
@@ -47,22 +53,24 @@ export default function ListExcursion() {
     }
   };
 
-  useEffect(() => {
-    fetchExcursions();
-  }, []);
-
-  const handlePageChange = (nextDoc) => {
-    fetchExcursions(nextDoc);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
-  };
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSelectCity = (e) => {
     setSearchField("city");
     setSearch(e.target.value);
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    fetchExcursions(null,search, searchField);
+  }, [search, searchField]);
+
+  const handlePageChange = (nextDoc) => {
+    fetchExcursions(nextDoc, search, searchField);
+    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
+  };
+
   return (
     <div>
       <Aside></Aside>
@@ -139,7 +147,6 @@ export default function ListExcursion() {
                     <SelectCities
                       disabledOption="Filtrer par ville"
                       onChange={handleSelectCity}
-                      name="room_type"
                       specificOption="Toutes les villes"
                       specificOptionValue=""
                     />

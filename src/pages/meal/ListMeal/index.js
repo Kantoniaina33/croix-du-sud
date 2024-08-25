@@ -84,15 +84,7 @@ export default function ListRoom() {
           >
             <span className="mask opacity-6" id="background"></span>
           </div>
-          <HeadHotel
-            logo="/carlton.png"
-            name="Carlton"
-            email="carlton@gmail.com"
-            phone="034 34 334 34"
-            star="5"
-            address="carlton adresse"
-            city="Antananarivo"
-          />
+          <HeadHotel />
         </div>
         <div className="container-fluid py-4">
           <div className="row">

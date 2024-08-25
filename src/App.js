@@ -8,6 +8,8 @@ import ListHotel from "./pages/hotel/ListHotel";
 import ListRoom from "./pages/room/ListRoom";
 import ListMeal from "./pages/meal/ListMeal";
 import ListExcursion from "./pages/excursion/ListExcursion";
+import ListProgram from "./pages/program/ListProgram";
+import ListCircuit from "./pages/circuit/ListCircuit";
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />
+          <Route path="/programs" element={<ListProgram />} />
+          <Route path="/circuits" element={<ListCircuit />} />
         </Routes>
       </div>
     </Router>

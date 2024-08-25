@@ -21,10 +21,7 @@ export default function SelectPriceCategories(props) {
       }
 
       const data = await response.json();
-      const price_CategoriesArray = Object.keys(data).map((key) => ({
-        ...data[key],
-      }));
-      setPrice_Categories(price_CategoriesArray);
+      setPrice_Categories(data);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching price_Categories");
@@ -43,7 +40,12 @@ export default function SelectPriceCategories(props) {
       name={name}
     >
       {disabledOption && (
-        <option value="" disabled selected>
+        <option
+          value=""
+          disabled
+          selected
+          style={{ backgroundColor: "rgb(209, 209, 209)", color: "white" }}
+        >
           {disabledOption}
         </option>
       )}

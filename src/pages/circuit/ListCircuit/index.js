@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import TrHotel from "../../../components/hotel/trHotel";
+import TrCircuit from "../../../components/circuit/trCircuit";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import FormHotel from "../../../components/hotel/formHotel";
+import FormCircuit from "../../../components/circuit/formCircuit";
 import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 
-export default function ListHotel() {
+export default function ListCircuit() {
   const [show, setShow] = useState(false);
-  const [hotels, setHotels] = useState([]);
+  const [circuits, setCircuits] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function ListHotel() {
   const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
 
-  const fetchHotels = async (
+  const fetchCircuits = async (
     nextDoc = null,
     sort = "name",
     order = "asc",
@@ -31,7 +31,7 @@ export default function ListHotel() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/hotels?next=${
+      const url = `http://localhost:3030/circuits?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -44,15 +44,15 @@ export default function ListHotel() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch hotels");
+        setMessage("Failed to fetch circuits");
         return;
       }
       const data = await response.json();
-      setHotels(data.hotels);
+      setCircuits(data.circuits);
       setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching hotels");
+      setMessage("Error fetching circuits");
     } finally {
       setLoading(false);
     }
@@ -73,11 +73,11 @@ export default function ListHotel() {
   };
 
   useEffect(() => {
-    fetchHotels(null, sort, order, search, searchField);
+    fetchCircuits(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
   const handlePageChange = (nextDoc) => {
-    fetchHotels(nextDoc, sort, order, search, searchField);
+    fetchCircuits(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
@@ -85,7 +85,7 @@ export default function ListHotel() {
     <div>
       <Aside />
       <main
-        id="listHotel"
+        id="listCircuit"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <link
@@ -101,7 +101,7 @@ export default function ListHotel() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Hotels</span>
+                  <span>Circuits</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -124,7 +124,7 @@ export default function ListHotel() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Rechercher un hotel..."
+                    placeholder="Rechercher un circuit..."
                   />
                 </div>
               </div>
@@ -135,10 +135,13 @@ export default function ListHotel() {
                     target="blank"
                     onClick={handleShow}
                   >
-                    Ajouter un nouvel hotel
+                    Ajouter un nouveau circuit
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormHotel method="POST" title="AJOUTER UN NOUVEL HOTEL" />
+                    <FormCircuit
+                      method="POST"
+                      title="AJOUTER UN NOUVEAU CIRCUIT"
+                    />
                   </Modal>
                 </li>
               </ul>
@@ -150,59 +153,39 @@ export default function ListHotel() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'hôtels</h6>
-                  <div className="col-md-2">
+                  <h6>Liste de circuits</h6>
+                  {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
                       onChange={handleSelectCity}
                       specificOption="Toutes les villes"
                       specificOptionValue=""
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
                     <p>Loading...</p>
-                  ) : hotels.length > 0 ? (
+                  ) : circuits.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Hotel
+                              Nom
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Contacts
-                            </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Etoiles
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={18}
-                                onClick={() => handleSort("star")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
-                            </th>
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {hotels.map((hotel) => (
+                          {circuits.map((circuit) => (
                             <>
-                              <TrHotel
-                                key={hotel.id}
-                                hotelId={hotel.id}
-                                name={hotel.name}
-                                address={hotel.address}
-                                email={hotel.email}
-                                phone={hotel.phone}
-                                city={hotel.city}
-                                star={hotel.star}
-                                logo={hotel.image}
+                              <TrCircuit
+                                key={circuit.id}
+                                circuitId={circuit.id}
+                                name={circuit.name}
                               />
                             </>
                           ))}
@@ -217,7 +200,7 @@ export default function ListHotel() {
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>
+                    <p style={{ marginLeft: "2.5%" }}>Aucun circuit</p>
                   )}
                 </div>
               </div>

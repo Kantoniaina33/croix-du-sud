@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import TrHotel from "../../../components/hotel/trHotel";
+import TrProgram from "../../../components/program/trProgram";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import FormHotel from "../../../components/hotel/formHotel";
+import FormProgram from "../../../components/program/formProgram";
 import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 
-export default function ListHotel() {
+export default function ListProgram() {
   const [show, setShow] = useState(false);
-  const [hotels, setHotels] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("name");
+  const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
 
-  const fetchHotels = async (
+  const fetchPrograms = async (
     nextDoc = null,
     sort = "name",
     order = "asc",
@@ -31,7 +31,7 @@ export default function ListHotel() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/hotels?next=${
+      const url = `http://localhost:3030/programs?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -44,15 +44,15 @@ export default function ListHotel() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch hotels");
+        setMessage("Failed to fetch programs");
         return;
       }
       const data = await response.json();
-      setHotels(data.hotels);
+      setPrograms(data.programs);
       setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching hotels");
+      setMessage("Error fetching programs");
     } finally {
       setLoading(false);
     }
@@ -73,11 +73,11 @@ export default function ListHotel() {
   };
 
   useEffect(() => {
-    fetchHotels(null, sort, order, search, searchField);
+    fetchPrograms(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
   const handlePageChange = (nextDoc) => {
-    fetchHotels(nextDoc, sort, order, search, searchField);
+    fetchPrograms(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
@@ -85,7 +85,7 @@ export default function ListHotel() {
     <div>
       <Aside />
       <main
-        id="listHotel"
+        id="listProgram"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <link
@@ -101,7 +101,7 @@ export default function ListHotel() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Hotels</span>
+                  <span>Programmes</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -124,7 +124,7 @@ export default function ListHotel() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Rechercher un hotel..."
+                    placeholder="Rechercher un programme..."
                   />
                 </div>
               </div>
@@ -135,10 +135,13 @@ export default function ListHotel() {
                     target="blank"
                     onClick={handleShow}
                   >
-                    Ajouter un nouvel hotel
+                    Ajouter un nouveau programme
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormHotel method="POST" title="AJOUTER UN NOUVEL HOTEL" />
+                    <FormProgram
+                      method="POST"
+                      title="AJOUTER UN NOUVEAU PROGRAMME"
+                    />
                   </Modal>
                 </li>
               </ul>
@@ -150,33 +153,33 @@ export default function ListHotel() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'hôtels</h6>
-                  <div className="col-md-2">
+                  <h6>Liste de programmes</h6>
+                  {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
                       onChange={handleSelectCity}
                       specificOption="Toutes les villes"
                       specificOptionValue=""
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
                     <p>Loading...</p>
-                  ) : hotels.length > 0 ? (
+                  ) : programs.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Hotel
+                              Itineraire
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Contacts
+                              Distance
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Etoiles
+                              Duree
                               <ArrowUpDownIcon
                                 id="sortIcon"
                                 size={18}
@@ -186,23 +189,19 @@ export default function ListHotel() {
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {hotels.map((hotel) => (
+                          {programs.map((program) => (
                             <>
-                              <TrHotel
-                                key={hotel.id}
-                                hotelId={hotel.id}
-                                name={hotel.name}
-                                address={hotel.address}
-                                email={hotel.email}
-                                phone={hotel.phone}
-                                city={hotel.city}
-                                star={hotel.star}
-                                logo={hotel.image}
+                              <TrProgram
+                                key={program.id}
+                                programId={program.id}
+                                departure={program.departure}
+                                arrival={program.arrival}
+                                distance={program.distance}
+                                duration={program.duration}
+                                description={program.description}
                               />
                             </>
                           ))}
@@ -217,7 +216,7 @@ export default function ListHotel() {
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>
+                    <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
                   )}
                 </div>
               </div>

@@ -41,7 +41,12 @@ export default function SelectRoomTypes(props) {
       name={name}
     >
       {disabledOption && (
-        <option value="" disabled>
+        <option
+          value=""
+          disabled
+          selected
+          style={{ backgroundColor: "rgb(209, 209, 209)", color: "white" }}
+        >
           {disabledOption}
         </option>
       )}
