@@ -6,23 +6,23 @@ import {
   LinkSquare02Icon,
   PlusSignSquareIcon,
 } from "hugeicons-react";
-import FormCircuit from "./formCircuit";
+import FormRole from "./formRole";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
-import AddProgram from "./addProgram";
+import AddEmployee from "./addEmployee";
 
-export default function TrCircuit(props) {
-  const { circuitId, name } = props;
+export default function TrRole(props) {
+  const { roleId, name, hourlyWage } = props;
 
   const [show, setShow] = useState(false);
-  const [showAddProgram, setShowAddProgram] = useState(false);
+  const [showAddEmployee, setShowAddEmployee] = useState(false);
 
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShowAddProgram = () => setShowAddProgram(true);
+  const handleShowAddEmployee = () => setShowAddEmployee(true);
 
   return (
     <>
@@ -37,23 +37,17 @@ export default function TrCircuit(props) {
             </div>
           </div>
         </td>
+        <td>{hourlyWage} Ar</td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowAddProgram}
+              onClick={handleShowAddEmployee}
             >
-              <PlusSignSquareIcon
-                size={23}
-                color={"green"}
-                variant={"stroke"}
-              />
+              Ajouter un {name}
             </button>
-            <Modal show={showAddProgram} onHide={handleClose}>
-              <AddProgram
-                title={`AJOUTER UN PROGRAMME AU CIRCUIT ${name}`}
-                circuitId={circuitId}
-              />
+            <Modal show={showAddEmployee} onHide={handleClose}>
+              <AddEmployee title={`AJOUTER UN ${name}`} method="POST" roleId={roleId} />
             </Modal>
           </span>
         </td>
@@ -66,11 +60,12 @@ export default function TrCircuit(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal show={show} onHide={handleClose}>
-              <FormCircuit
+              <FormRole
                 title="MODIFIER UN CIRCUIT"
                 method="PUT"
-                circuitId={circuitId}
+                roleId={roleId}
                 name={name}
+                hourlyWage={hourlyWage}
               />
             </Modal>
           </span>
@@ -84,10 +79,10 @@ export default function TrCircuit(props) {
               <Delete02Icon color="rgb(219, 1, 1)" size={23} />
             </button>
             <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer le circuit ${name} ?`}
+              alertMessage={`Êtes-vous sûr de vouloir supprimer l'emploi ${name}' ?`}
               show={alert}
               setAlert={setAlert}
-              url={`http://localhost:3030/circuits/${circuitId}`}
+              url={`http://localhost:3030/roles/${roleId}`}
             />
           </span>
         </td>

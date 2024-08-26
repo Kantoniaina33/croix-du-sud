@@ -38,3 +38,77 @@
   transform: scale(1.02);
 }
 
+.excursion-sheet {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.excursion-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.excursion-details {
+  display: flex;
+  gap: 20px;
+}
+
+.excursion-image img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+}
+
+.excursion-info {
+  flex-grow: 1;
+}
+
+.excursion-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.excursion-info-item span {
+  margin-left: 10px;
+  font-size: 1em;
+  color: #333;
+}
+
+.excursion-description p {
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.excursion-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.edit-button {
+  background-color: #273385;
+  color: white;
+}
+
+.delete-button {
+  background-color: rgb(219, 1, 1);
+  color: white;
+}
+
+

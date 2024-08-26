@@ -58,9 +58,6 @@ export default function ListCircuit() {
     }
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const handleSort = (value) => {
     setCurrentPage(1);
     setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
@@ -80,6 +77,9 @@ export default function ListCircuit() {
     fetchCircuits(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>

@@ -10,6 +10,7 @@ import ListMeal from "./pages/meal/ListMeal";
 import ListExcursion from "./pages/excursion/ListExcursion";
 import ListProgram from "./pages/program/ListProgram";
 import ListCircuit from "./pages/circuit/ListCircuit";
+import ListRole from "./pages/role/ListRole";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/excursions" element={<ListExcursion />} />
           <Route path="/programs" element={<ListProgram />} />
           <Route path="/circuits" element={<ListCircuit />} />
+          <Route path="/roles" element={<ListRole />} />
         </Routes>
       </div>
     </Router>

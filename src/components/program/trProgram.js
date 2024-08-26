@@ -4,6 +4,7 @@ import {
   Edit02Icon,
   StarIcon,
   LinkSquare02Icon,
+  MapsLocation01Icon,
 } from "hugeicons-react";
 import FormProgram from "./formProgram";
 import { useState } from "react";
@@ -25,11 +26,21 @@ export default function TrProgram(props) {
       <tr>
         <td>
           <div className="d-flex px-2 py-1">
+            <div>
+              <MapsLocation01Icon
+                size={20}
+                color={"#344767"}
+                variant={"stroke"}
+                style={{margin:"3px 0 0 5px"}}
+              />
+            </div>
             <div
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
-              <h6 className="mb-0 text-sm">{departure} - {arrival}</h6>
+              <h6 className="mb-0 text-sm">
+                {departure} - {arrival}
+              </h6>
             </div>
           </div>
         </td>

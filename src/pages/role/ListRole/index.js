@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from "react";
-import TrProgram from "../../../components/program/trProgram";
 import "../../../assets/css/soft-ui-dashboard.min.css";
-import "./style.css";
 import Aside from "../../../components/template/aside";
-import FormProgram from "../../../components/program/formProgram";
+import TrRole from "../../../components/role/trRole";
+import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import FormRole from "../../../components/role/formRole";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
-import { ArrowUpDownIcon } from "hugeicons-react";
 
-export default function ListProgram() {
+export default function ListRole() {
   const [show, setShow] = useState(false);
-  const [programs, setPrograms] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("departure");
+  const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
 
-  const fetchPrograms = async (
+  const fetchRoles = async (
     nextDoc = null,
-    sort = "departure",
+    sort = "name",
     order = "asc",
     search = "",
     searchField = ""
@@ -31,10 +29,11 @@ export default function ListProgram() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs?next=${
+      const url = `http://localhost:3030/roles?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
+      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -44,15 +43,15 @@ export default function ListProgram() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch programs");
+        setMessage("Failed to fetch roles");
         return;
       }
       const data = await response.json();
-      setPrograms(data.programs);
+      setRoles(data.roles);
       setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching programs");
+      setMessage("Error fetching roles");
     } finally {
       setLoading(false);
     }
@@ -70,23 +69,25 @@ export default function ListProgram() {
   const handleSelectCity = (e) => {
     setSearchField("city");
     setSearch(e.target.value);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
-    fetchPrograms(null, sort, order, search, searchField);
+    fetchRoles(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
+
   const handlePageChange = (nextDoc) => {
-    fetchPrograms(nextDoc, sort, order, search, searchField);
+    fetchRoles(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
   return (
     <div>
-      <Aside />
+      <Aside></Aside>
       <main
-        id="listProgram"
-        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+        id="listHotel"
+        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg "
       >
         <link
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -101,7 +102,7 @@ export default function ListProgram() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Programmes</span>
+                  <span>Emploi</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -116,7 +117,7 @@ export default function ListProgram() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-35">
                 <div className="input-group">
                   <span className="input-group-text text-body">
                     <i className="fas fa-search" aria-hidden="true"></i>
@@ -124,24 +125,20 @@ export default function ListProgram() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Rechercher un programme..."
+                    placeholder="Rechercher une role..."
                   />
                 </div>
               </div>
-              <ul className="navbar-nav justify-content-end">
+              <ul className="navbar-nav  justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
                     onClick={handleShow}
                   >
-                    Ajouter un nouveau programme
+                    Ajouter un nouvel emploi
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormProgram
-                      method="POST"
-                      title="AJOUTER UN NOUVEAU PROGRAMME"
-                    />
+                    <FormRole method="POST" title="AJOUTER UNE EXCURSION" />
                   </Modal>
                 </li>
               </ul>
@@ -153,7 +150,7 @@ export default function ListProgram() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste de programmes</h6>
+                  <h6>Liste d'emplois</h6>
                   {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -167,41 +164,30 @@ export default function ListProgram() {
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
                     <p>Loading...</p>
-                  ) : programs.length > 0 ? (
+                  ) : roles.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Itineraire
+                              Emploi
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Distance
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Salaire horaire
                             </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Duree
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={18}
-                                onClick={() => handleSort("star")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
-                            </th>
+                            <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {programs.map((program) => (
+                          {roles.map((role) => (
                             <>
-                              <TrProgram
-                                key={program.id}
-                                programId={program.id}
-                                departure={program.departure}
-                                arrival={program.arrival}
-                                distance={program.distance}
-                                duration={program.duration}
-                                description={program.description}
+                              <TrRole
+                                key={role.id}
+                                roleId={role.id}
+                                name={role.name}
+                                hourlyWage={role.hourlyWage}
                               />
                             </>
                           ))}
@@ -216,7 +202,7 @@ export default function ListProgram() {
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
+                    <p style={{ marginLeft: "2.5%" }}>Aucun emploi</p>
                   )}
                 </div>
               </div>
