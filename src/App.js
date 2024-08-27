@@ -13,6 +13,8 @@ import ListCircuit from "./pages/circuit/ListCircuit";
 import ListRole from "./pages/role/ListRole";
 import ListEmployee from "./pages/employee/ListEmployee";
 import ListEmployeeByRole from "./pages/employee/ListEmployee/listEmployeeByRole";
+import Register from "./pages/customer/Register";
+import NewReservation from "./pages/reservation/NewReservation";
 
 
 function App() {
@@ -31,8 +33,13 @@ function App() {
           <Route path="/programs" element={<ListProgram />} />
           <Route path="/circuits" element={<ListCircuit />} />
           <Route path="/roles" element={<ListRole />} />
-          <Route path="/roles/:roleId/employees" element={<ListEmployeeByRole />} />
+          <Route
+            path="/roles/:roleId/employees"
+            element={<ListEmployeeByRole />}
+          />
           <Route path="/employees" element={<ListEmployee />} />
+          <Route path="customer/register" element={<Register />} />
+          <Route path="customer/reservation" element={<NewReservation />} />
         </Routes>
       </div>
     </Router>

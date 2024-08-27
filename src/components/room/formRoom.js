@@ -23,7 +23,7 @@ export default function FormRoom(props) {
     room_type: room_type || "Single",
     capacity: capacity || 1,
     price_category: price_category || "Premier",
-    price: price || "",
+    price: price,
     number_of_rooms: number_of_rooms || 1,
   });
 

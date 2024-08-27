@@ -20,7 +20,7 @@ export default function FormExcursion(props) {
     place_name: place_name || "",
     description: description || "",
     city: city || "Antananarivo",
-    price: price || "",
+    price: price,
     image: image || null,
   });
 

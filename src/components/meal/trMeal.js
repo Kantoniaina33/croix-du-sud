@@ -68,7 +68,7 @@ export default function TrMeal(props) {
           <div className="my-auto">
             {isEditing ? (
               <input
-                type="text"
+                type="number"
                 value={editedPrice}
                 onChange={handleChange}
                 onBlur={handleSave}

@@ -31,7 +31,7 @@ export default function ListCircuit() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/circuits?next=${
+      const url = `http://localhost:3030/circuits/paginated?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
