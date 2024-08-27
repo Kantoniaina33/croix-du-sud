@@ -1,39 +1,42 @@
+import React, { useState, useEffect } from "react";
+import TrEmployee from "../../../components/employee/trEmployee";
 import "../../../assets/css/soft-ui-dashboard.min.css";
+import "./style.css";
 import Aside from "../../../components/template/aside";
-import TrRole from "../../../components/role/trRole";
-import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import FormRole from "../../../components/role/formRole";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
+import { ArrowUpDownIcon } from "hugeicons-react";
+import FormEmployee from "../../../components/employee/formEmployee";
+import { useParams } from "react-router-dom";
 
-export default function ListRole() {
+export default function ListEmployeeByRole() {
+  const { roleId } = useParams();
   const [show, setShow] = useState(false);
-  const [roles, setRoles] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("name");
+  const [search, setSearch] = useState(roleId);
+  const [searchField, setSearchField] = useState("roleId");
+  const [sort, setSort] = useState("firstName");
   const [order, setOrder] = useState("asc");
 
-  const fetchRoles = async (
+  const fetchEmployees = async (
     nextDoc = null,
-    sort = "name",
+    sort = "firstName",
     order = "asc",
-    search = "",
-    searchField = ""
+    search = roleId,
+    searchField = "roleId"
   ) => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/roles/paginated?next=${
+      const url = `http://localhost:3030/employees?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
-      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -43,22 +46,19 @@ export default function ListRole() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch roles");
+        setMessage("Failed to fetch employees");
         return;
       }
       const data = await response.json();
-      setRoles(data.roles);
+      setEmployees(data.employees);
       setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching roles");
+      setMessage("Error fetching employees");
     } finally {
       setLoading(false);
     }
   };
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -66,28 +66,24 @@ export default function ListRole() {
     setSort(value);
   };
 
-  const handleSelectCity = (e) => {
-    setSearchField("city");
-    setSearch(e.target.value);
-    setCurrentPage(1);
-  };
-
   useEffect(() => {
-    fetchRoles(null, sort, order, search, searchField);
+    fetchEmployees(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
-
   const handlePageChange = (nextDoc) => {
-    fetchRoles(nextDoc, sort, order, search, searchField);
+    fetchEmployees(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div>
-      <Aside></Aside>
+      <Aside />
       <main
-        id="listHotel"
-        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg "
+        id="listEmployee"
+        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <link
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -102,7 +98,7 @@ export default function ListRole() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Emploi</span>
+                  <span>Employees</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -117,7 +113,7 @@ export default function ListRole() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-35">
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
                 <div className="input-group">
                   <span className="input-group-text text-body">
                     <i className="fas fa-search" aria-hidden="true"></i>
@@ -125,20 +121,24 @@ export default function ListRole() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Rechercher une role..."
+                    placeholder="Rechercher un employee..."
                   />
                 </div>
               </div>
-              <ul className="navbar-nav  justify-content-end">
+              <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
+                    target="blank"
                     onClick={handleShow}
                   >
-                    Ajouter un nouvel emploi
+                    Ajouter un nouvel employe
                   </a>
                   <Modal show={show} onHide={handleClose}>
-                    <FormRole method="POST" title="AJOUTER UNE EXCURSION" />
+                    <FormEmployee
+                      method="POST"
+                      title="AJOUTER UN NOUVEL EMPLOYE"
+                    />
                   </Modal>
                 </li>
               </ul>
@@ -150,7 +150,7 @@ export default function ListRole() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'emplois</h6>
+                  <h6>Liste des employes</h6>
                   {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -164,30 +164,43 @@ export default function ListRole() {
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
                     <p>Loading...</p>
-                  ) : roles.length > 0 ? (
+                  ) : employees.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Emploi
+                              Nom
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Salaire horaire
+                              Prenom
                             </th>
-                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              genre
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              contact
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              emploi
+                            </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {roles.map((role) => (
+                          {employees.map((employee) => (
                             <>
-                              <TrRole
-                                key={role.id}
-                                roleId={role.id}
-                                name={role.name}
-                                hourlyWage={role.hourlyWage}
+                              <TrEmployee
+                                key={employee.id}
+                                employeeId={employee.id}
+                                firstName={employee.firstName}
+                                name={employee.name}
+                                birthDate={employee.birthDate}
+                                genre={employee.genre}
+                                contact={employee.contact}
+                                role={employee.role}
+                                roleId={employee.roleId}
                               />
                             </>
                           ))}
@@ -202,7 +215,7 @@ export default function ListRole() {
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun emploi</p>
+                    <p style={{ marginLeft: "2.5%" }}>Aucun employe</p>
                   )}
                 </div>
               </div>

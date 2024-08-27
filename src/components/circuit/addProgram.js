@@ -89,13 +89,13 @@ export default function AddProgram(props) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({programId: programId}),
+          body: JSON.stringify({ programId: programId }),
         }
       );
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problem");
         } else {
           setMessage("Failed");
         }

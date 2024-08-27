@@ -6,14 +6,14 @@ import {
   LinkSquare02Icon,
   PlusSignSquareIcon,
 } from "hugeicons-react";
-import FormRole from "./formRole";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
-import FormEmployee from "../employee/formEmployee";
+import FormEmployee from "./formEmployee";
 
-export default function TrRole(props) {
-  const { roleId, name, hourlyWage } = props;
+export default function TrEmployee(props) {
+  const { EmployeeId, firstName, name, birthDate, genre, contact, role, roleId, employeeId } =
+    props;
 
   const [show, setShow] = useState(false);
   const [showFormEmployee, setShowFormEmployee] = useState(false);
@@ -33,35 +33,37 @@ export default function TrRole(props) {
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
+              <h6 className="mb-0 text-sm">{firstName}</h6>
+            </div>
+          </div>
+        </td>
+        <td className="align-middle text-center">
+          <div className="d-flex px-2 py-1">
+            <div className="d-flex flex-column justify-content-center">
               <h6 className="mb-0 text-sm">{name}</h6>
             </div>
           </div>
         </td>
-        <td>{hourlyWage} Ar</td>
         <td className="align-middle text-center">
-          <span className="text-secondary text-xs font-weight-bold">
-            <button
-              style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowFormEmployee}
-            >
-              Ajouter un {name}
-            </button>
-            <Modal show={showFormEmployee} onHide={handleClose}>
-              <FormEmployee
-                title={`AJOUTER UN ${name}`}
-                method="POST"
-                roleId={roleId}
-                isRoleIdDefined={true}
-              />
-            </Modal>
-          </span>
+          <div className="d-flex px-2 py-1">
+            <div className="d-flex flex-column justify-content-center">
+              <h6 className="mb-0 text-sm">{genre}</h6>
+            </div>
+          </div>
         </td>
         <td className="align-middle text-center">
-          <span className="text-secondary text-xs font-weight-bold">
-            <a href={`roles/${roleId}/employees`}>
-              Liste des employes
-            </a>
-          </span>
+          <div className="d-flex px-2 py-1">
+            <div className="d-flex flex-column justify-content-center">
+              <h6 className="mb-0 text-sm">{contact}</h6>
+            </div>
+          </div>
+        </td>
+        <td className="align-middle text-center">
+          <div className="d-flex px-2 py-1">
+            <div className="d-flex flex-column justify-content-center">
+              <h6 className="mb-0 text-sm">{role}</h6>
+            </div>
+          </div>
         </td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
@@ -72,12 +74,16 @@ export default function TrRole(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal show={show} onHide={handleClose}>
-              <FormRole
-                title="MODIFIER UN CIRCUIT"
+              <FormEmployee
+                title="MODIFIER LES INFORMATIONS D'UN EMPLOYE"
                 method="PUT"
-                roleId={roleId}
+                firstName={firstName}
                 name={name}
-                hourlyWage={hourlyWage}
+                birthDate={birthDate}
+                genre={genre}
+                contact={contact}
+                roleId={roleId}
+                employeeId={employeeId}
               />
             </Modal>
           </span>
@@ -91,10 +97,10 @@ export default function TrRole(props) {
               <Delete02Icon color="rgb(219, 1, 1)" size={23} />
             </button>
             <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer l'emploi ${name}' ?`}
+              alertMessage={`Êtes-vous sûr de vouloir supprimer l'employé ${name} ?`}
               show={alert}
               setAlert={setAlert}
-              url={`http://localhost:3030/roles/${roleId}`}
+              url={`http://localhost:3030/Employees/${employeeId}`}
             />
           </span>
         </td>

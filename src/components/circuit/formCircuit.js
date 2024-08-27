@@ -36,7 +36,7 @@ export default function FormCircuit(props) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problem");
         } else {
           setMessage("Failed");
         }

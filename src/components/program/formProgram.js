@@ -45,12 +45,11 @@ export default function FormProgram(props) {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(formValues),
-      
       });
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problem");
         } else {
           setMessage("Failed");
         }

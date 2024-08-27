@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
 import { CircleIcon } from "hugeicons-react";
+import SelectRoles from "../util/selectRoles";
 
-export default function AddEmployee(props) {
+export default function FormEmployee(props) {
   const {
     title,
     method,
@@ -12,57 +13,13 @@ export default function AddEmployee(props) {
     birthDate,
     genre,
     contact,
-    employeeId,
     roleId,
+    employeeId,
+    isRoleIdDefined,
   } = props;
 
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
-  const [roles, setRoles] = useState([]);
-  const [next, setNext] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("name");
-  const [order, setOrder] = useState("asc");
-
-  const fetchRoles = async (
-    nextDoc = null,
-    sort = "name",
-    order = "asc",
-    search = "",
-    searchField = ""
-  ) => {
-    setLoading(true);
-    setMessage("");
-    try {
-      const url = `http://localhost:3030/roles?next=${
-        nextDoc || ""
-      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
-
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        setMessage("Failed to fetch roles");
-        return;
-      }
-      const data = await response.json();
-      setRoles(data.roles);
-      setNext(data.next);
-    } catch (error) {
-      console.error("Error:", error);
-      setMessage("Error fetching roles");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const [formValues, setFormValues] = useState({
     firstName: firstName || "",
@@ -70,6 +27,7 @@ export default function AddEmployee(props) {
     birthDate: birthDate || "",
     genre: genre || "Homme",
     contact: contact,
+    roleId: roleId,
   });
 
   const handleChange = (e) => {
@@ -80,46 +38,24 @@ export default function AddEmployee(props) {
     }));
   };
 
-  const handleSort = (value) => {
-    setCurrentPage(1);
-    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-    setSort(value);
-  };
-
-  const handleSelectCity = (e) => {
-    setSearchField("city");
-    setSearch(e.target.value);
-  };
-
-  useEffect(() => {
-    fetchRoles(null, sort, order, search, searchField);
-  }, [sort, order, search, searchField]);
-
-  const handlePageChange = (nextDoc) => {
-    fetchRoles(nextDoc, sort, order, search, searchField);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
-  };
-
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
     const idUrl = method === "PUT" ? `/${employeeId}` : "";
     console.log(formValues);
     try {
-      const response = await fetch(
-        `http://localhost:3030/roles/${roleId}/employees${idUrl}`,
-        {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
+      const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formValues),
+      });
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problem");
         } else {
           setMessage("Failed");
         }
@@ -206,23 +142,16 @@ export default function AddEmployee(props) {
               name="contact"
             />
           </div>
-          {/* <div className="mb-3">
-            <label>Emploi</label>
-            <select
-              className="form-select"
-              value={roleId}
-              onChange={handleChange}
-              name="roleId"
-            >
-              {roles.map((role) => (
-                <>
-                  <option value={role.id}>
-                    {role.departure} -{role.arrival}
-                  </option>
-                </>
-              ))}
-            </select>
-          </div> */}
+          {!isRoleIdDefined && (
+            <div className="mb-3">
+              <label>Poste</label>
+              <SelectRoles
+                value={formValues.roleId}
+                onChange={handleChange}
+                name="roleId"
+              />
+            </div>
+          )}
           <div className="text-center">
             <button
               type="button"

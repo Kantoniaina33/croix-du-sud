@@ -1,0 +1,17 @@
+body {
+    background-color:  rgb(245, 245, 245);
+}
+.input-group:focus-within {
+  box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
+}
+
+.input-group:focus-within .form-control,
+.input-group:focus-within .input-group-text {
+  border-color: transparent !important;
+}
+#sortIcon{
+  margin-left: "50px"; 
+  margin-top:"-5px";
+  color: rgb(110, 110, 110);
+}
+

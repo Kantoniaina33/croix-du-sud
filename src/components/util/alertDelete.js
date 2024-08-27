@@ -20,7 +20,7 @@ export default function AlertDelete(props) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme lors de la suppression");
+          setMessage("Problem lors de la suppression");
         } else {
           setMessage("Login failed");
         }

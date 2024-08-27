@@ -32,7 +32,7 @@ export default function TrMeal(props) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Probleme");
+          setMessage("Problem");
         } else {
           setMessage("Failed");
         }

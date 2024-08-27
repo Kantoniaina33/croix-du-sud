@@ -11,6 +11,8 @@ import ListExcursion from "./pages/excursion/ListExcursion";
 import ListProgram from "./pages/program/ListProgram";
 import ListCircuit from "./pages/circuit/ListCircuit";
 import ListRole from "./pages/role/ListRole";
+import ListEmployee from "./pages/employee/ListEmployee";
+import ListEmployeeByRole from "./pages/employee/ListEmployee/listEmployeeByRole";
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/programs" element={<ListProgram />} />
           <Route path="/circuits" element={<ListCircuit />} />
           <Route path="/roles" element={<ListRole />} />
+          <Route path="/roles/:roleId/employees" element={<ListEmployeeByRole />} />
+          <Route path="/employees" element={<ListEmployee />} />
         </Routes>
       </div>
     </Router>
