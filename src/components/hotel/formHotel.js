@@ -14,6 +14,8 @@ export default function FormHotel(props) {
     phone,
     email,
     star,
+    latitude,
+    longitude,
     hotelId,
   } = props;
   const [message, setMessage] = useState("");
@@ -25,6 +27,8 @@ export default function FormHotel(props) {
     phone: phone || "",
     email: email || "",
     star: star || 0,
+    latitude: latitude,
+    longitude: longitude,
     image: image || null,
   });
 
@@ -59,6 +63,12 @@ export default function FormHotel(props) {
     formData.append("phone", formValues.phone);
     formData.append("email", formValues.email);
     formData.append("star", formValues.star);
+    formData.append("latitude", formValues.latitude);
+    formData.append("longitude", formValues.longitude);
+
+    // formData.forEach((value, key) => {
+    //   console.log(key + ": " + value);
+    // });
 
     try {
       const idUrl = method === "PUT" ? `/${hotelId}` : "";
@@ -150,6 +160,28 @@ export default function FormHotel(props) {
                 <option value="mahajanga">Mahajanga</option>
                 <option value="fianarantsoa">Fianarantsoa</option>
               </select>
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-md-6">
+              <label>Latitude</label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.latitude}
+                onChange={handleChange}
+                name="latitude"
+              />
+            </div>
+            <div className="col-md-6">
+              <label>Longitude</label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.longitude}
+                onChange={handleChange}
+                name="longitude"
+              />
             </div>
           </div>
           <div className="row mb-3">

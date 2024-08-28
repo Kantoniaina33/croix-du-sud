@@ -11,6 +11,10 @@ export default function FormProgram(props) {
     distance,
     duration,
     description,
+    departureLatitude,
+    departureLongitude,
+    arrivalLatitude,
+    arrivalLongitude,
     programId,
   } = props;
   const [message, setMessage] = useState("");
@@ -21,6 +25,10 @@ export default function FormProgram(props) {
     distance: distance || 1,
     duration: duration || 1,
     description: description || "",
+    departureLatitude: departureLatitude,
+    departureLongitude: departureLongitude,
+    arrivalLatitude: arrivalLatitude,
+    arrivalLongitude: arrivalLongitude,
   });
 
   const handleChange = (e) => {
@@ -81,7 +89,7 @@ export default function FormProgram(props) {
       <div className="card-body">
         <form>
           <div className="row mb-3">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <label>Depart</label>
               <input
                 type="text"
@@ -91,7 +99,29 @@ export default function FormProgram(props) {
                 name="departure"
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
+              <label>Latitude</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.departureLatitude}
+                onChange={handleChange}
+                name="departureLatitude"
+              />
+            </div>
+            <div className="col-md-4">
+              <label>Longitude</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.departureLongitude}
+                onChange={handleChange}
+                name="departureLongitude"
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-md-4">
               <label>Arrive</label>
               <input
                 type="text"
@@ -99,6 +129,26 @@ export default function FormProgram(props) {
                 value={formValues.arrival}
                 onChange={handleChange}
                 name="arrival"
+              />
+            </div>
+            <div className="col-md-4">
+              <label>Latitude</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.arrivalLatitude}
+                onChange={handleChange}
+                name="arrivalLatitude"
+              />
+            </div>
+            <div className="col-md-4">
+              <label>Longitude</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.arrivalLongitude}
+                onChange={handleChange}
+                name="arrivalLongitude"
               />
             </div>
           </div>
