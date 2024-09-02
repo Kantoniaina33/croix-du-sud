@@ -208,7 +208,7 @@ export default function ListHotel() {
                           ))}
                         </tbody>
                       </table>
-                      <div style={{ margin: "2% 0 0 2%" }}>
+                      <div style={{ margin: "2% 0 0 40%" }}>
                         <MyPagination
                           onPageChange={handlePageChange}
                           lastVisible={next}

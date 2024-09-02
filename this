@@ -1,0 +1,57 @@
+          <div className="col-md-4">
+                <label>Ville</label>
+                <select
+                  className="form-select"
+                  value=""
+                  onChange=""
+                  name="city"
+                >
+                  <option value="Antananarivo">Antananarivo</option>
+                  <option value="Toamasina">Toamasina</option>
+                  <option value="Mahajanga">Mahajanga</option>
+                  <option value="Fianarantsoa">Fianarantsoa</option>
+                </select>
+              </div>
+            </div>
+            <div className="mb-3">
+              <label>Descritption</label>
+              <textarea
+                type="text"
+                name="description"
+                className="form-control"
+                value=""
+                onChange=""
+              />
+            </div>
+            <div className="mb-3">
+              <label>Prix</label>
+              <input
+                type="number"
+                name="price"
+                className="form-control"
+                value=""
+                onChange=""
+              />
+            </div>
+            <div className="mb-3">
+              <label for="formFile" className="form-label">
+                Logo/image
+              </label>
+              <input
+                className="form-control"
+                name="image"
+                type="file"
+                id="formFile"
+                onChange=""
+              />
+            </div>
+            <div className="text-center">
+              <button
+                type="button"
+                onClick=""
+                className="btn w-100 mt-4 mb-0"
+                id="saveHotel"
+              >
+                Enregistrer
+              </button>
+            </div>

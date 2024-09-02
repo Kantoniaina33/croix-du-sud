@@ -1,0 +1,67 @@
+#myForm label{
+font-size: 14px;
+}
+/* ******************: */
+.card-horizontal {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 700px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-image img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;  
+    background-color: rebeccapurple;
+    margin: 15%;
+  }
+  
+  .card-body {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+    justify-content: space-between;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .card-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #273385;
+  }
+  
+  .card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #273385;
+  }
+  
+  .card-description {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+    width: 80%;
+  }
+  
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  /* ******************: */
+  
+
+  
