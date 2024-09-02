@@ -1,11 +1,11 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
-import OneExcursion from "../../../components/excursion/oneExcursion";
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import FormExcursion from "../../../components/excursion/formExcursion";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
+import CardExcursion from "../../../components/excursion/cardExcursion";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -140,48 +140,26 @@ export default function ListExcursion() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12 mt-4">
-              <div className="card mb-4">
-                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'excursions</h6>
-                  <div className="col-md-2">
-                    <SelectCities
-                      disabledOption="Filtrer par ville"
-                      onChange={handleSelectCity}
-                      specificOption="Toutes les villes"
-                      specificOptionValue=""
+              {loading ? (
+                <p>Loading...</p>
+              ) : excursions.length > 0 ? (
+                excursions.map((excursion) => (
+                  <>
+                    <CardExcursion
+                      key={excursion.id}
+                      excursionId={excursion.id}
+                      logo={excursion.image}
+                      place_name={excursion.place_name}
+                      city={excursion.city}
+                      price={excursion.price}
+                      description={excursion.description}
                     />
-                  </div>
-                </div>
-                <div className="card-body p-3">
-                  {loading ? (
-                    <p>Loading...</p>
-                  ) : excursions.length > 0 ? (
-                    <>
-                      <div className="row" id="excursions">
-                        {excursions.map((excursion) => (
-                          <OneExcursion
-                            excursionId={excursion.id}
-                            logo={excursion.image}
-                            place_name={excursion.place_name}
-                            city={excursion.city}
-                            price={excursion.price}
-                            description={excursion.description}
-                          />
-                        ))}
-                      </div>
-                      <div style={{ marginTop: "4%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <p>Aucune excursion</p>
-                  )}
-                </div>
-              </div>
+                    <br />
+                  </>
+                ))
+              ) : (
+                <p style={{ marginLeft: "2.5%" }}>Aucun excursionme</p>
+              )}
             </div>
           </div>
         </div>

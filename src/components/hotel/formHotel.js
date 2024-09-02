@@ -222,6 +222,15 @@ export default function FormHotel(props) {
               onChange={handleChange}
             />
           </div>
+          <div className="text-center" style={{ backgroundColor: "white" }}>
+            <button
+              type="button"
+              className="btn w-100 mt-4 mb-0"
+              style={{ backgroundColor: "white", border:"solid 1px grey" }}
+            >
+              Choisir l'emplacement
+            </button>
+          </div>
           <div className="text-center">
             <button
               type="button"

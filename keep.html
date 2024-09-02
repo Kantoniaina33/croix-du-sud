@@ -41,16 +41,57 @@
         }).addTo(map);
 
         function searchHotels(lat, lng) {
-            const radius = 1000; // rayon en mètres
-            const url = `https://overpass-api.de/api/interpreter?data=[out:json];node[tourism=hotel](around:${radius},${lat},${lng});out;`;
+            // Définir le rayon de recherche en mètres
+            const radius = 1000;
+
+            // Définir la bounding box pour Madagascar
+            const bbox = [
+                -25.5, // latitude min
+                41.0,  // longitude min
+                -12.0, // latitude max
+                50.5   // longitude max
+            ];
+
+            // Recherche d'hôtels contenant "Carlton" dans la bounding box
+            const overpassQuery = `
+                [out:json];
+                (
+                  node["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
+                  way["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
+                  relation["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
+                );
+                out body;
+            `;
+
+            const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
 
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     data.elements.forEach(hotel => {
-                        L.marker([hotel.lat, hotel.lon])
-                            .addTo(map)
-                            .bindPopup(hotel.tags.name || 'No name');
+                        // Si le résultat est un nœud
+                        if (hotel.lat && hotel.lon) {
+                            L.marker([hotel.lat, hotel.lon])
+                                .addTo(map)
+                                .bindPopup(hotel.tags.name || 'No name');
+                        }
+                        // Si le résultat est une voie
+                        else if (hotel.geometry && hotel.geometry.coordinates) {
+                            const coords = hotel.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+                            L.polygon(coords)
+                                .addTo(map)
+                                .bindPopup(hotel.tags.name || 'No name');
+                        }
+                        // Si le résultat est une relation (exemple : hôtel avec plusieurs parties)
+                        else if (hotel.members) {
+                            hotel.members.forEach(member => {
+                                if (member.lat && member.lon) {
+                                    L.marker([member.lat, member.lon])
+                                        .addTo(map)
+                                        .bindPopup(hotel.tags.name || 'No name');
+                                }
+                            });
+                        }
                     });
                 });
         }

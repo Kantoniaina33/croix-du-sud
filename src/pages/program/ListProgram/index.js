@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TrProgram from "../../../components/program/trProgram";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
@@ -8,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
+import CardProgram from "../../../components/program/cardProgram";
 
 export default function ListProgram() {
   const [show, setShow] = useState(false);
@@ -151,75 +151,26 @@ export default function ListProgram() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
-                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste de programmes</h6>
-                  {/* <div className="col-md-2">
-                    <SelectCities
-                      disabledOption="Filtrer par ville"
-                      onChange={handleSelectCity}
-                      specificOption="Toutes les villes"
-                      specificOptionValue=""
+              {loading ? (
+                <p>Loading...</p>
+              ) : programs.length > 0 ? (
+                programs.map((program) => (
+                  <>
+                    <CardProgram
+                      key={program.id}
+                      programId={program.id}
+                      departure={program.departure}
+                      arrival={program.arrival}
+                      distance={program.distance}
+                      duration={program.duration}
+                      description={program.description}
                     />
-                  </div> */}
-                </div>
-
-                <div className="card-body px-0 pt-0 pb-2">
-                  {loading ? (
-                    <p>Loading...</p>
-                  ) : programs.length > 0 ? (
-                    <div className="table-responsive p-0">
-                      <table className="table align-items-center mb-0">
-                        <thead>
-                          <tr>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Itineraire
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Distance
-                            </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Duree
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={18}
-                                onClick={() => handleSort("star")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
-                            </th>
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {programs.map((program) => (
-                            <>
-                              <TrProgram
-                                key={program.id}
-                                programId={program.id}
-                                departure={program.departure}
-                                arrival={program.arrival}
-                                distance={program.distance}
-                                duration={program.duration}
-                                description={program.description}
-                              />
-                            </>
-                          ))}
-                        </tbody>
-                      </table>
-                      <div style={{ margin: "2% 0 0 2%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
-                  )}
-                </div>
-              </div>
+                    <br />
+                  </>
+                ))
+              ) : (
+                <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
+              )}
             </div>
           </div>
         </div>

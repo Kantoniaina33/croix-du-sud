@@ -1,57 +1,73 @@
-          <div className="col-md-4">
-                <label>Ville</label>
-                <select
-                  className="form-select"
-                  value=""
-                  onChange=""
-                  name="city"
-                >
-                  <option value="Antananarivo">Antananarivo</option>
-                  <option value="Toamasina">Toamasina</option>
-                  <option value="Mahajanga">Mahajanga</option>
-                  <option value="Fianarantsoa">Fianarantsoa</option>
-                </select>
+<div className="row">
+            <div className="col-12">
+              <div className="card mb-4">
+                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
+                  <h6>Liste de programmes</h6>
+                  {/* <div className="col-md-2">
+                    <SelectCities
+                      disabledOption="Filtrer par ville"
+                      onChange={handleSelectCity}
+                      specificOption="Toutes les villes"
+                      specificOptionValue=""
+                    />
+                  </div> */}
+                </div>
+
+                <div className="card-body px-0 pt-0 pb-2">
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : programs.length > 0 ? (
+                    <div className="table-responsive p-0">
+                      <table className="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Itineraire
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Distance
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Duree
+                              <ArrowUpDownIcon
+                                id="sortIcon"
+                                size={18}
+                                onClick={() => handleSort("star")}
+                                style={{ marginLeft: "5px", marginTop: "-5px" }}
+                              />
+                            </th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {programs.map((program) => (
+                            <>
+                              <TrProgram
+                                key={program.id}
+                                programId={program.id}
+                                departure={program.departure}
+                                arrival={program.arrival}
+                                distance={program.distance}
+                                duration={program.duration}
+                                description={program.description}
+                              />
+                            </>
+                          ))}
+                        </tbody>
+                      </table>
+                      <div style={{ margin: "2% 0 0 2%" }}>
+                        <MyPagination
+                          onPageChange={handlePageChange}
+                          lastVisible={next}
+                          currentPage={currentPage}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="mb-3">
-              <label>Descritption</label>
-              <textarea
-                type="text"
-                name="description"
-                className="form-control"
-                value=""
-                onChange=""
-              />
-            </div>
-            <div className="mb-3">
-              <label>Prix</label>
-              <input
-                type="number"
-                name="price"
-                className="form-control"
-                value=""
-                onChange=""
-              />
-            </div>
-            <div className="mb-3">
-              <label for="formFile" className="form-label">
-                Logo/image
-              </label>
-              <input
-                className="form-control"
-                name="image"
-                type="file"
-                id="formFile"
-                onChange=""
-              />
-            </div>
-            <div className="text-center">
-              <button
-                type="button"
-                onClick=""
-                className="btn w-100 mt-4 mb-0"
-                id="saveHotel"
-              >
-                Enregistrer
-              </button>
-            </div>
+          </div>
