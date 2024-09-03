@@ -8,7 +8,6 @@ import {
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import "./style.css";
-import { Modal } from "react-bootstrap";
 
 export default function CardExcursion(props) {
   const { excursionId, logo, place_name, city, price, description } = props;
@@ -22,7 +21,7 @@ export default function CardExcursion(props) {
   const handleShowSheet = () => setShowSheet(true);
 
   return (
-    <div className="card-horizontal">
+    <div className="card-horizontal" id="excursions">
       <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
         rel="stylesheet"
@@ -36,7 +35,7 @@ export default function CardExcursion(props) {
             <h5 className="card-title">{place_name}</h5>
             <span>{city}</span>
           </div>
-          <span className="card-price">{price}</span>
+          <span className="card-price">{price} Ar</span>
         </div>
         <p className="card-description">{description}</p>
         <div className="card-actions">

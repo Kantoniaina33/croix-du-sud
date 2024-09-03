@@ -3,7 +3,7 @@ import TrHotel from "../../../components/hotel/trHotel";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import FormHotel from "../../../components/hotel/formHotel";
+import FormHotel2 from "../../../components/hotel/formHotel2";
 import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
@@ -137,8 +137,8 @@ export default function ListHotel() {
                   >
                     Ajouter un nouvel hotel
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormHotel method="POST" title="AJOUTER UN NOUVEL HOTEL" />
+                  <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+                    <FormHotel2 method="POST" title="AJOUTER UN NOUVEL HOTEL" />
                   </Modal>
                 </li>
               </ul>

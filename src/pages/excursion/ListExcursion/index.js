@@ -63,7 +63,7 @@ export default function ListExcursion() {
   };
 
   useEffect(() => {
-    fetchExcursions(null,search, searchField);
+    fetchExcursions(null, search, searchField);
   }, [search, searchField]);
 
   const handlePageChange = (nextDoc) => {
@@ -137,30 +137,27 @@ export default function ListExcursion() {
             </div>
           </div>
         </nav>
-        <div className="container-fluid py-4">
-          <div className="row">
-            <div className="col-12 mt-4">
-              {loading ? (
-                <p>Loading...</p>
-              ) : excursions.length > 0 ? (
-                excursions.map((excursion) => (
-                  <>
-                    <CardExcursion
-                      key={excursion.id}
-                      excursionId={excursion.id}
-                      logo={excursion.image}
-                      place_name={excursion.place_name}
-                      city={excursion.city}
-                      price={excursion.price}
-                      description={excursion.description}
-                    />
-                    <br />
-                  </>
-                ))
-              ) : (
-                <p style={{ marginLeft: "2.5%" }}>Aucun excursionme</p>
-              )}
-            </div>
+
+        <div className="card-body px-0 pt-0 pb-2">
+          <div className="row gx-4">
+            {loading ? (
+              <p>Loading...</p>
+            ) : excursions.length > 0 ? (
+              excursions.map((excursion) => (
+                <div className="custom-col mb-4" key={excursion.id}>
+                  <CardExcursion
+                    excursionId={excursion.id}
+                    logo={excursion.image}
+                    place_name={excursion.place_name}
+                    city={excursion.city}
+                    price={excursion.price}
+                    description={excursion.description}
+                  />
+                </div>
+              ))
+            ) : (
+              <p style={{ marginLeft: "2.5%" }}>Aucune excursion</p>
+            )}
           </div>
         </div>
       </main>

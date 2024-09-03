@@ -7,8 +7,8 @@ import "leaflet-control-geocoder";
 // Importer l'icône par défaut du marqueur
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-
-const MyMap = () => {
+function MyMap(props) {
+  const { onClose } = props;
   // Référence pour stocker le marqueur
   const markerRef = useRef(null);
   // État pour stocker les coordonnées du marqueur
@@ -118,15 +118,42 @@ const MyMap = () => {
   };
 
   return (
-    <div style={{ position: "relative", height: "500px", width: "100%" }}>
-      <div id="map" style={{ height: "100%", width: "100%" }} />
-      <button
-        onClick={handleShowCoordinates}
-      >
-        Afficher les coordonnées
-      </button>
+    <div
+      style={
+        {
+          position: "relative",
+          height: "550px",
+          width: "100%",
+        }
+      }
+    >
+      <div id="map" style={{ height: "90%", width: "100%" }} />
+      <div className="d-flex justify-content-between align-items-center">
+        <button
+          type="button"
+          className="btn btn-outline-secondary"
+          style={{
+            borderRadius: "20px",
+            marginTop: "1%",
+          }}
+          onClick={onClose}
+        >
+          Annuler
+        </button>
+        <button
+          onClick={handleShowCoordinates}
+          type="submit"
+          className="btn btn-primary"
+          style={{
+            borderRadius: "20px",
+            marginTop: "1%",
+          }}
+        >
+          Afficher les coordonnées
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 export default MyMap;

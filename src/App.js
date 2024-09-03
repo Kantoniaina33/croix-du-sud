@@ -21,6 +21,10 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+        rel="stylesheet"
+      />
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/info" element={<InfoAgency />} />
