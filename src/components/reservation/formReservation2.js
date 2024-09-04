@@ -1,33 +1,28 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
-import { CircleIcon } from "hugeicons-react";
-import SelectRoles from "../util/selectRoles";
+import SelectCustomers from "../util/selectCustomers";
+import SelectCircuits from "../util/selectCircuits";
 
-export default function FormEmployee2(props) {
+export default function FormReservation2(props) {
   const {
     title,
     method,
-    firstName,
-    name,
-    birthDate,
-    genre,
-    contact,
-    roleId,
-    employeeId,
-    isRoleIdDefined,
+    budget,
+    startDate,
+    duration,
+    customerId,
+    circuitId,
+    reservationId,
   } = props;
-
   const [message, setMessage] = useState("");
-  const [show, setShow] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    firstName: firstName || "",
-    name: name,
-    birthDate: birthDate || "",
-    genre: genre || "Homme",
-    contact: contact,
-    roleId: roleId,
+    budget: budget || null,
+    startDate: startDate,
+    duration: duration,
+    customerId: customerId,
+    circuitId: circuitId,
   });
 
   const handleChange = (e) => {
@@ -41,17 +36,21 @@ export default function FormEmployee2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    const idUrl = method === "PUT" ? `/${employeeId}` : "";
     console.log(formValues);
     try {
-      const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formValues),
-      });
+      const idUrl = method === "PUT" ? `/${reservationId}` : "";
+
+      const response = await fetch(
+        `http://localhost:3030/reservations${idUrl}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -79,13 +78,14 @@ export default function FormEmployee2(props) {
             flex: 1,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-luggage-fill" viewBox="0 0 16 16">
+            <path d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z"/>
+            <path d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z"/>
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Employe
+            Reservation de voyage
           </span>
         </div>
         <div
@@ -112,75 +112,47 @@ export default function FormEmployee2(props) {
         <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
           <div className="row mb-3">
             <div className="col">
-              <label className="form-label fw-bold">Nom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.firstName}
-                onChange={handleChange}
-                name="firstName"
-              />
-            </div>
+              <label className="form-label fw-bold">Circuit</label>
+            <SelectCircuits
+              value={formValues.circuitId}
+              onChange={handleChange}
+              name="circuitId"
+            />
+          </div>
             <div className="col">
-              <label className="form-label fw-bold">Prenom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
-              />
-            </div>
+              <label className="form-label fw-bold">Date du voyage</label>
+            <input
+              type="date"
+              className="form-control"
+              value={formValues.startDate}
+              onChange={handleChange}
+              name="startDate"
+            />
+          </div>
           </div>
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="nom" className="form-label fw-bold">
-                Genre
-              </label>
-              <select
-                className="form-select"
-                value={formValues.genre}
-                onChange={handleChange}
-                name="genre"
-              >
-                <option value="Homme">Homme</option>
-                <option value="Femme">Femme</option>
-              </select>
-            </div>
+              Duree</label>
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.duration}
+              onChange={handleChange}
+              name="duration"
+            />
+          </div>
             <div className="col">
               <label htmlFor="prenom" className="form-label fw-bold">
-                Date de naissance
-              </label>
-              <input
-                type="date"
-                className="form-control"
-                value={formValues.birthDate}
-                onChange={handleChange}
-                name="birthDate"
-              />
-            </div>
+              Budget</label>
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.budget}
+              onChange={handleChange}
+              name="budget"
+            />
           </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label className="form-label fw-bold">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                value={formValues.firstName}
-                onChange={handleChange}
-                name="firstName"
-              />
-            </div>
-            <div className="col">
-              <label className="form-label fw-bold">Telephone</label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
-              />
-            </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button

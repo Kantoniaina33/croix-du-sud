@@ -1,33 +1,15 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
-import { CircleIcon } from "hugeicons-react";
-import SelectRoles from "../util/selectRoles";
 
-export default function FormEmployee2(props) {
-  const {
-    title,
-    method,
-    firstName,
-    name,
-    birthDate,
-    genre,
-    contact,
-    roleId,
-    employeeId,
-    isRoleIdDefined,
-  } = props;
-
+export default function FormCustomer2(props) {
+  const { title, method, name, firstName, contact, customerId } = props;
   const [message, setMessage] = useState("");
-  const [show, setShow] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    firstName: firstName || "",
     name: name,
-    birthDate: birthDate || "",
-    genre: genre || "Homme",
+    firstName: firstName,
     contact: contact,
-    roleId: roleId,
   });
 
   const handleChange = (e) => {
@@ -41,10 +23,11 @@ export default function FormEmployee2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    const idUrl = method === "PUT" ? `/${employeeId}` : "";
     console.log(formValues);
     try {
-      const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
+      const idUrl = method === "PUT" ? `/${customerId}` : "";
+
+      const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
         method: method,
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +50,7 @@ export default function FormEmployee2(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "40%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
@@ -79,13 +62,14 @@ export default function FormEmployee2(props) {
             flex: 1,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Employe
+            Informations du client
           </span>
         </div>
         <div
@@ -123,63 +107,26 @@ export default function FormEmployee2(props) {
             </div>
             <div className="col">
               <label className="form-label fw-bold">Prenom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
-              />
+            <input
+              type="text"
+              className="form-control"
+              value={formValues.name}
+              onChange={handleChange}
+              name="name"
+            />
             </div>
           </div>
           <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="nom" className="form-label fw-bold">
-                Genre
-              </label>
-              <select
-                className="form-select"
-                value={formValues.genre}
-                onChange={handleChange}
-                name="genre"
-              >
-                <option value="Homme">Homme</option>
-                <option value="Femme">Femme</option>
-              </select>
-            </div>
             <div className="col">
               <label htmlFor="prenom" className="form-label fw-bold">
-                Date de naissance
-              </label>
-              <input
-                type="date"
-                className="form-control"
-                value={formValues.birthDate}
-                onChange={handleChange}
-                name="birthDate"
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label className="form-label fw-bold">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                value={formValues.firstName}
-                onChange={handleChange}
-                name="firstName"
-              />
-            </div>
-            <div className="col">
-              <label className="form-label fw-bold">Telephone</label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
-              />
+              Contact</label>
+            <input
+              type="text"
+              className="form-control"
+              value={formValues.contact}
+              onChange={handleChange}
+              name="contact"
+            />
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">

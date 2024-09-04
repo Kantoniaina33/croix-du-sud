@@ -12,6 +12,8 @@ import FormRoleEmployee from "../../components/employee/formRoleEmployee";
 import FormCircuit2 from "../../components/circuit/formCircuit2";
 import MiniCardProgram from "../../components/program/miniCardProgram";
 import ProgramsCircuit from "../../components/circuit/programsCircuit";
+import FormCustomer2 from "../../components/customer/formCustomer2";
+import FormReservation2 from "../../components/reservation/formReservation2";
 
 function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -21,7 +23,7 @@ function Home() {
 
   return (
     <div className="card card-plain mt-1">
-      {/* <button
+      <button
         type="button"
         className="btn btn-secondary w-100"
         onClick={handleShowMap}
@@ -29,13 +31,13 @@ function Home() {
         Ouvrir le formulaire
       </button>
       <Modal isOpen={isMapModalOpen}>
-        <FormCircuit2
-          isOpen={isMapModalOpen}
+        <FormExcursion2
+          FormCustomer2isOpen={isMapModalOpen}
           // onClose={handleCloseMap}
         />
-      </Modal> */}
+      </Modal>
       
-      <MapItinerary/>
+      {/* <ProgramsCircuit/> */}
     </div>
   );
 }
