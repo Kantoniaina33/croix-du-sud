@@ -2,10 +2,11 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import TrRole from "../../../components/role/trRole";
 import { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import FormRole from "../../../components/role/formRole";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
+import FormRole2 from "../../../components/role/formRole2";
+import Modal from "../../../components/hotel/modal";
 
 export default function ListRole() {
   const [show, setShow] = useState(false);
@@ -18,6 +19,8 @@ export default function ListRole() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
 
   const fetchRoles = async (
     nextDoc = null,
@@ -59,6 +62,7 @@ export default function ListRole() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -75,7 +79,6 @@ export default function ListRole() {
   useEffect(() => {
     fetchRoles(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
-
 
   const handlePageChange = (nextDoc) => {
     fetchRoles(nextDoc, sort, order, search, searchField);
@@ -133,12 +136,12 @@ export default function ListRole() {
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Ajouter un nouvel emploi
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormRole method="POST" title="AJOUTER UNE EXCURSION" />
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormRole2 method="POST" title="AJOUTER UNE EXCURSION" />
                   </Modal>
                 </li>
               </ul>

@@ -4,10 +4,10 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormHotel2 from "../../../components/hotel/formHotel2";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
+import Modal from "../../../components/hotel/modal";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
@@ -20,6 +20,7 @@ export default function ListHotel() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchHotels = async (
     nextDoc = null,
@@ -60,6 +61,7 @@ export default function ListHotel() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -133,12 +135,16 @@ export default function ListHotel() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Ajouter un nouvel hotel
                   </a>
-                  <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
-                    <FormHotel2 method="POST" title="AJOUTER UN NOUVEL HOTEL" />
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormHotel2
+                      isOpen={isMapModalOpen}
+                      method="POST"
+                      title="AJOUTER UN NOUVEL HOTEL"
+                    />
                   </Modal>
                 </li>
               </ul>

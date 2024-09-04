@@ -7,8 +7,8 @@ import {
 } from "hugeicons-react";
 import FormHotel from "./formHotel";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
+import Modal from "./modal";
 
 export default function TrHotel(props) {
   const { hotelId, logo, name, address, city, phone, email, star } = props;
@@ -16,13 +16,16 @@ export default function TrHotel(props) {
     i < star ? "#ffc400" : "grey"
   );
 
-
   const [show, setShow] = useState(false);
 
   const [alert, setAlert] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+
 
   return (
     <>
@@ -82,12 +85,12 @@ export default function TrHotel(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShow}
+              onClick={handleShowMap}
             >
               <Edit02Icon color="blue" size={20} />
             </button>
-            <Modal show={show} onHide={handleClose}>
-              <FormHotel
+            <Modal isOpen={isMapModalOpen}>
+            <FormHotel
                 title="MODIFIER UN HOTEL"
                 method="PUT"
                 hotelId={hotelId}

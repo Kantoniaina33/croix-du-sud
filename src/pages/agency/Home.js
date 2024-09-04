@@ -19,7 +19,6 @@ function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const handleShowMap = () => setIsMapModalOpen(true);
-  const handleCloseMap = () => setIsMapModalOpen(false);
 
   return (
     <div className="card card-plain mt-1">

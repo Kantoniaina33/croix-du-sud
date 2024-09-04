@@ -1,12 +1,13 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import FormExcursion from "../../../components/excursion/formExcursion";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import CardExcursion from "../../../components/excursion/cardExcursion";
 import { SpartanHelmetIcon } from "hugeicons-react";
+import Modal from "../../../components/hotel/modal";
+import FormExcursion2 from "../../../components/excursion/formExcursion2";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -17,6 +18,7 @@ export default function ListExcursion() {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchExcursions = async (
     nextDoc = null,
@@ -55,6 +57,7 @@ export default function ListExcursion() {
   };
 
   const handleClose = () => setShow(false);
+  const handleShowMap = () => setIsMapModalOpen(true);
   const handleShow = () => setShow(true);
 
   const handleSelectCity = (e) => {
@@ -123,13 +126,14 @@ export default function ListExcursion() {
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Nouvelle excursion
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormExcursion
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormExcursion2
                       method="POST"
+                      isOpen={isMapModalOpen}
                       title="AJOUTER UNE EXCURSION"
                     />
                   </Modal>
@@ -168,7 +172,7 @@ export default function ListExcursion() {
               />
             </div>
           </div>
-          <br/>
+          <br />
           <div className="row gx-4" style={{ padding: "2% 0 0 3%" }}>
             {loading ? (
               <p>Loading...</p>

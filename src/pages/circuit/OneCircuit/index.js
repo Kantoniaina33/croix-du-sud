@@ -4,12 +4,13 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormCircuit from "../../../components/circuit/formCircuit";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import ProgramsCircuit from "../../../components/circuit/programsCircuit";
 import ProgramsToAdd from "../../../components/program/programsToAdd";
+import FormCircuit2 from "../../../components/circuit/formCircuit2";
+import Modal from "../../../components/hotel/modal";
 
 export default function OneCircuit() {
   const [show, setShow] = useState(false);
@@ -22,6 +23,7 @@ export default function OneCircuit() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchCircuits = async (
     nextDoc = null,
@@ -82,6 +84,7 @@ export default function OneCircuit() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
     <div>
@@ -139,8 +142,8 @@ export default function OneCircuit() {
                   >
                     Ajouter un nouveau circuit
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormCircuit
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormCircuit2
                       method="POST"
                       title="AJOUTER UN NOUVEAU CIRCUIT"
                     />
@@ -154,7 +157,7 @@ export default function OneCircuit() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <ProgramsCircuit/>
+                <ProgramsCircuit />
                 <ProgramsToAdd />
               </div>
             </div>

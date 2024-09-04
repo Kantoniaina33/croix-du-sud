@@ -8,7 +8,6 @@ import {
 } from "hugeicons-react";
 import FormCircuit from "./formCircuit";
 import { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
 import AddProgram from "./addProgram";
 import MiniCardProgram from "../program/miniCardProgram";

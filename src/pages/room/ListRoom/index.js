@@ -4,12 +4,13 @@ import Aside from "../../../components/template/aside";
 import TrRoom from "../../../components/room/trRoom";
 import HeadHotel from "../../../components/hotel/headHotel";
 import { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import FormRoom from "../../../components/room/formRoom";
 import { useParams } from "react-router-dom";
 import SelectPriceCategories from "../../../components/util/selectPriceCategories";
 import SelectRoomTypes from "../../../components/util/selectRoomTypes";
 import { ArrowUpDownIcon } from "hugeicons-react";
+import Modal from "../../../components/hotel/modal";
+import FormRoom2 from "../../../components/room/formRoom2";
 
 export default function ListRoom() {
   const { hotelId } = useParams();
@@ -23,6 +24,8 @@ export default function ListRoom() {
   const [searchPriceCatField, setSearchPriceCatField] = useState("");
   const [sort, setSort] = useState("capacity");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
 
   const fetchRooms = async (
     sort = "capacity",
@@ -96,6 +99,7 @@ export default function ListRoom() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
     <div>
@@ -133,13 +137,13 @@ export default function ListRoom() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                     id="addRoom"
                   >
                     Ajouter des chambres
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormRoom method="POST" title="AJOUTER DES CHAMBRES" />
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormRoom2 isOpen={isMapModalOpen} method="POST" title="AJOUTER DES CHAMBRES" />
                   </Modal>
                 </li>
               </ul>
@@ -184,10 +188,9 @@ export default function ListRoom() {
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
-                {loading ? (
+                  {loading ? (
                     <p>Loading...</p>
-                  ) : 
-                  rooms.length > 0 ? (
+                  ) : rooms.length > 0 ? (
                     <div className="table-responsive p-0">
                       <br />
                       <table className="table align-items-center mb-0">

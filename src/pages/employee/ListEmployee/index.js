@@ -3,12 +3,13 @@ import TrEmployee from "../../../components/employee/trEmployee";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import FormEmployee from "../../../components/employee/formEmployee";
 import { useParams } from "react-router-dom";
+import Modal from "../../../components/hotel/modal";
+import FormEmployee2 from "../../../components/employee/formEmployee2";
 
 export default function ListEmployee() {
   const [show, setShow] = useState(false);
@@ -21,6 +22,8 @@ export default function ListEmployee() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("firstName");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
 
   const fetchEmployees = async (
     nextDoc = null,
@@ -76,6 +79,7 @@ export default function ListEmployee() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
     <div>
@@ -129,12 +133,12 @@ export default function ListEmployee() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Ajouter un nouvel employe
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormEmployee
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormEmployee2
                       method="POST"
                       title="AJOUTER UN NOUVEL EMPLOYE"
                     />

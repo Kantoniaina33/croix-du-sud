@@ -8,21 +8,25 @@ import {
 } from "hugeicons-react";
 import FormCircuit from "./formCircuit";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
 import AddProgram from "./addProgram";
+import Modal from "../hotel/modal";
 
 export default function TrCircuit(props) {
   const { circuitId, name } = props;
 
   const [show, setShow] = useState(false);
   const [showAddProgram, setShowAddProgram] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
 
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowAddProgram = () => setShowAddProgram(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+
 
   return (
     <>
@@ -41,7 +45,7 @@ export default function TrCircuit(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowAddProgram}
+              onClick={handleShowMap}
             >
               <PlusSignSquareIcon
                 size={23}
@@ -49,8 +53,8 @@ export default function TrCircuit(props) {
                 variant={"stroke"}
               />
             </button>
-            <Modal show={showAddProgram} onHide={handleClose}>
-              <AddProgram
+            <Modal isOpen={isMapModalOpen}>
+            <AddProgram
                 title={`AJOUTER UN PROGRAMME AU CIRCUIT ${name}`}
                 circuitId={circuitId}
               />

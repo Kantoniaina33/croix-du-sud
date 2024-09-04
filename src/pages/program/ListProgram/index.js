@@ -3,11 +3,11 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormProgram from "../../../components/program/formProgram";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import CardProgram from "../../../components/program/cardProgram";
+import Modal from "../../../components/hotel/modal";
 
 export default function ListProgram() {
   const [show, setShow] = useState(false);
@@ -20,6 +20,7 @@ export default function ListProgram() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchPrograms = async (
     nextDoc = null,
@@ -60,6 +61,7 @@ export default function ListProgram() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -133,12 +135,13 @@ export default function ListProgram() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Ajouter un nouveau programme
                   </a>
-                  <Modal show={show} onHide={handleClose}>
+                  <Modal isOpen={isMapModalOpen}>
                     <FormProgram
+                      isOpen={isMapModalOpen}
                       method="POST"
                       title="AJOUTER UN NOUVEAU PROGRAMME"
                     />

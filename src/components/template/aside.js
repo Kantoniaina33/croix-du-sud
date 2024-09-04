@@ -6,7 +6,7 @@ export default function Aside(props) {
     <aside
       className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
       id="sidenav-main"
-      style={{ backgroundColor: "white" }}
+      style={{ backgroundColor: "white", zIndex: "1" }}
     >
       <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"

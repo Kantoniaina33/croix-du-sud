@@ -8,20 +8,24 @@ import {
 } from "hugeicons-react";
 import FormRole from "./formRole";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
 import FormEmployee from "../employee/formEmployee";
+import Modal from "../hotel/modal";
 
 export default function TrRole(props) {
   const { roleId, name, hourlyWage } = props;
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const [show, setShow] = useState(false);
+
   const [showFormEmployee, setShowFormEmployee] = useState(false);
 
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+
   const handleShowFormEmployee = () => setShowFormEmployee(true);
 
   return (
@@ -42,11 +46,11 @@ export default function TrRole(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowFormEmployee}
+              onClick={handleShowMap}
             >
               Ajouter un {name}
             </button>
-            <Modal show={showFormEmployee} onHide={handleClose}>
+            <Modal isOpen={isMapModalOpen}>
               <FormEmployee
                 title={`AJOUTER UN ${name}`}
                 method="POST"
@@ -58,9 +62,7 @@ export default function TrRole(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-            <a href={`roles/${roleId}/employees`}>
-              Liste des employes
-            </a>
+            <a href={`roles/${roleId}/employees`}>Liste des employes</a>
           </span>
         </td>
         <td className="align-middle text-center">

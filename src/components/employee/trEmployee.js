@@ -7,22 +7,35 @@ import {
   PlusSignSquareIcon,
 } from "hugeicons-react";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import AlertDelete from "../util/alertDelete";
 import FormEmployee from "./formEmployee";
+import Modal from "../hotel/modal";
 
 export default function TrEmployee(props) {
-  const { EmployeeId, firstName, name, birthDate, genre, contact, role, roleId, employeeId } =
-    props;
+  const {
+    EmployeeId,
+    firstName,
+    name,
+    birthDate,
+    genre,
+    contact,
+    role,
+    roleId,
+    employeeId,
+  } = props;
 
   const [show, setShow] = useState(false);
   const [showFormEmployee, setShowFormEmployee] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
 
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowFormEmployee = () => setShowFormEmployee(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+
 
   return (
     <>
@@ -69,12 +82,12 @@ export default function TrEmployee(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShow}
+              onClick={handleShowMap}
             >
               <Edit02Icon color="blue" size={20} />
             </button>
-            <Modal show={show} onHide={handleClose}>
-              <FormEmployee
+            <Modal isOpen={isMapModalOpen}>
+            <FormEmployee
                 title="MODIFIER LES INFORMATIONS D'UN EMPLOYE"
                 method="PUT"
                 firstName={firstName}

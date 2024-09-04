@@ -4,10 +4,11 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import FormCircuit from "../../../components/circuit/formCircuit";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
+import FormCircuit2 from "../../../components/circuit/formCircuit2";
+import Modal from "../../../components/hotel/modal";
 
 export default function ListCircuit() {
   const [show, setShow] = useState(false);
@@ -20,6 +21,7 @@ export default function ListCircuit() {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchCircuits = async (
     nextDoc = null,
@@ -80,6 +82,7 @@ export default function ListCircuit() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
     <div>
@@ -133,12 +136,12 @@ export default function ListCircuit() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShow}
+                    onClick={handleShowMap}
                   >
                     Ajouter un nouveau circuit
                   </a>
-                  <Modal show={show} onHide={handleClose}>
-                    <FormCircuit
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormCircuit2
                       method="POST"
                       title="AJOUTER UN NOUVEAU CIRCUIT"
                     />

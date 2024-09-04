@@ -3,12 +3,12 @@ import TrEmployee from "../../../components/employee/trEmployee";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import { Modal } from "react-bootstrap";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import FormEmployee from "../../../components/employee/formEmployee";
 import { useParams } from "react-router-dom";
+import Modal from "../../../components/hotel/modal";
 
 export default function ListEmployeeByRole() {
   const { roleId } = useParams();
@@ -22,6 +22,7 @@ export default function ListEmployeeByRole() {
   const [searchField, setSearchField] = useState("roleId");
   const [sort, setSort] = useState("firstName");
   const [order, setOrder] = useState("asc");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchEmployees = async (
     nextDoc = null,
@@ -77,6 +78,8 @@ export default function ListEmployeeByRole() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+
 
   return (
     <div>
@@ -134,7 +137,7 @@ export default function ListEmployeeByRole() {
                   >
                     Ajouter un nouvel employe
                   </a>
-                  <Modal show={show} onHide={handleClose}>
+                  <Modal isOpen={isMapModalOpen}>
                     <FormEmployee
                       method="POST"
                       title="AJOUTER UN NOUVEL EMPLOYE"
