@@ -11,6 +11,7 @@ import MapItinerary from "../../components/geo/mapItinerary";
 import FormRoleEmployee from "../../components/employee/formRoleEmployee";
 import FormCircuit2 from "../../components/circuit/formCircuit2";
 import MiniCardProgram from "../../components/program/miniCardProgram";
+import ProgramsCircuit from "../../components/circuit/programsCircuit";
 
 function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -33,15 +34,8 @@ function Home() {
           // onClose={handleCloseMap}
         />
       </Modal> */}
-      <MiniCardProgram
-        key={"id"}
-        programId={"id"}
-        departure={"departure"}
-        arrival={"arrival"}
-        distance={"12"}
-        duration={"2"}
-        description={"description"}
-      />
+      
+      <ProgramsCircuit/>
     </div>
   );
 }

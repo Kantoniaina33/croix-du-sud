@@ -92,7 +92,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   margin: auto;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color:white;
-  width:25%;
+  width:23%;
 }
 
 
@@ -101,44 +101,42 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
 }
 
 #mini_programs .card-body {
-  padding: 10px 10px 10px 15px;
+  padding: 5% 2%;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 2%;
+  height: 125px;
 }
 
 #mini_programs .card-header {
-  padding: 0%;
+  padding: 0% 1%;
   text-align: center;
 }
 
 #mini_programs .card-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
   color: #273385;
 }
 
-#mini_programs .card-price {
-  font-size: 16px;
-  font-weight: 700;
-  color: #273385;
-}
-
 #mini_programs .card-description {
-  margin: 10px 0;
-
   font-size: 14px;
   color: #555;
   width: 100%;
-  background-color: rgb(129, 121, 136);
   text-align: center;
+}
+#mini_programs .card-content {
+  margin: -2% 5% 0 5%;
 }
 
 #mini_programs .card-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+#mini_programs .icon{
+  float: right;
 }

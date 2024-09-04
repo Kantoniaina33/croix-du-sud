@@ -15,16 +15,17 @@ import ListEmployee from "./pages/employee/ListEmployee";
 import ListEmployeeByRole from "./pages/employee/ListEmployee/listEmployeeByRole";
 import Register from "./pages/customer/Register";
 import NewReservation from "./pages/reservation/NewReservation";
+import OneCircuit from "./pages/circuit/OneCircuit";
 
 
 function App() {
   return (
     <Router>
       <div className="App">
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-        rel="stylesheet"
-      />
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+          rel="stylesheet"
+        />
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/info" element={<InfoAgency />} />
@@ -44,6 +45,7 @@ function App() {
           <Route path="/employees" element={<ListEmployee />} />
           <Route path="customer/register" element={<Register />} />
           <Route path="customer/reservation" element={<NewReservation />} />
+          <Route path="circuits/one" element={<OneCircuit />} />
         </Routes>
       </div>
     </Router>
