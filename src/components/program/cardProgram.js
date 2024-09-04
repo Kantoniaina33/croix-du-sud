@@ -17,7 +17,7 @@ export default function CardProgram(props) {
   const handleShow = () => setShow(true);
 
   return (
-    <div className="card-horizontal">
+    <div className="card-horizontal" id="programs">
       <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
         rel="stylesheet"

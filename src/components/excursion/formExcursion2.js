@@ -1,40 +1,30 @@
-import React, { useState } from "react";
-import "./style.css";
+import React from "react";
+import { Hotel01Icon } from "hugeicons-react";
+import { useState } from "react";
 import SelectCities from "../util/selectCities";
-import MyMap from "../geo/myMap";
-import Modal from "./modal";
+import Modal from "../hotel/modal";
 import CardMap from "../geo/cardMap";
 
-export default function FormHotel2(props) {
+export default function FormExcursion2(props) {
   const {
     title,
     method,
     image,
-    name,
-    address,
+    place_name,
+    description,
+    price,
     city,
-    phone,
-    email,
-    star,
-    latitude,
-    longitude,
-    hotelId,
-    isOpen,
-    onClose,
+    excursionId,
   } = props;
 
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    name: name || "",
-    address: address || "",
+    place_name: place_name || "",
+    description: description || "",
     city: city || "Antananarivo",
-    phone: phone || "",
-    email: email || "",
-    star: star || 0,
-    latitude: latitude,
-    longitude: longitude,
+    price: price,
     image: image || null,
   });
 
@@ -63,19 +53,14 @@ export default function FormHotel2(props) {
       formData.append("image", formValues.image);
     }
 
-    formData.append("name", formValues.name);
-    formData.append("address", formValues.address);
+    formData.append("place_name", formValues.place_name);
+    formData.append("description", formValues.description);
     formData.append("city", formValues.city);
-    formData.append("phone", formValues.phone);
-    formData.append("email", formValues.email);
-    formData.append("star", formValues.star);
-    formData.append("latitude", formValues.latitude);
-    formData.append("longitude", formValues.longitude);
-
+    formData.append("price", formValues.price);
     try {
-      const idUrl = method === "PUT" ? `/${hotelId}` : "";
+      const idUrl = method === "PUT" ? `/${excursionId}` : "";
 
-      const response = await fetch(`http://localhost:3030/hotels${idUrl}`, {
+      const response = await fetch(`http://localhost:3030/excursions${idUrl}`, {
         method: method,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -85,30 +70,25 @@ export default function FormHotel2(props) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          setMessage("Problem");
+          setMessage("Problème");
         } else {
           setMessage("Failed");
         }
         return;
       }
     } catch (error) {
-      console.error("Error :", error);
+      console.error("Error:", error);
     }
   };
 
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseMap = () => setIsMapModalOpen(false);
 
-  if (!isOpen) return null;
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-        rel="stylesheet"
-      />
       <div
         className="card-header d-flex justify-content-between align-items-center"
-        style={{ marginBottom: "-1%", height: "50px" }}
+        style={{ marginBottom: "1%", height: "50px" }}
       >
         <div
           style={{
@@ -132,7 +112,7 @@ export default function FormHotel2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Hotel
+            Nouvelle Excursion
           </span>
         </div>
         <div
@@ -141,104 +121,50 @@ export default function FormHotel2(props) {
             alignItems: "center",
           }}
         >
-          <button
-            className="modal-close-button"
-            onClick={props.onClose} // Assurez-vous que la fonction onClose est passée via les props
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-            }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-x-circle"
+            viewBox="0 0 16 16"
+            color="#273385"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="25"
-              fill="currentColor"
-              className="bi bi-x-circle"
-              viewBox="0 0 16 16"
-              color="#273385"
-            >
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-            </svg>
-          </button>
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autoComplete="off" onSubmit={handleSave}>
+        <form id="myForm" autocomplete="off" style={{ marginTop: "-5%" }}>
+          <div className="row mb-3">
+            <div className="col">
+              <label className="form-label fw-bold">Nom du lieu</label>
+              <input
+                type="text"
+                name="place_name"
+                className="form-control"
+                value={formValues.place_name}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="col">
+              <label className="form-label fw-bold">Prix</label>
+              <input
+                type="number"
+                name="price"
+                className="form-control"
+                value={formValues.price}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="nom" className="form-label fw-bold">
-                Nom
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="nom"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
-                required
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="etoiles" className="form-label fw-bold">
-                Étoiles
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="etoiles"
-                value={formValues.star}
-                onChange={handleChange}
-                name="star"
-                min="0"
-                max="5"
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="email" className="form-label fw-bold">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                value={formValues.email}
-                onChange={handleChange}
-                name="email"
-                required
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="telephone" className="form-label fw-bold">
-                Téléphone
-              </label>
-              <input
-                type="tel"
-                className="form-control"
-                id="telephone"
-                value={formValues.phone}
-                onChange={handleChange}
-                name="phone"
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="ville" className="form-label fw-bold">
                 Ville
               </label>
-              <SelectCities
-                value={formValues.city}
-                onChange={handleChange}
-                name="city"
-              />
+              <SelectCities value={formValues.name} onChange={handleChange} />
             </div>
             <div className="col">
               <label className="form-label fw-bold">Emplacement</label>
@@ -250,7 +176,7 @@ export default function FormHotel2(props) {
                 Afficher la carte
               </button>
               <Modal isOpen={isMapModalOpen}>
-                <CardMap onClose={handleCloseMap}/>
+                <CardMap onClose={handleCloseMap} />
               </Modal>
               <input
                 type="hidden"
@@ -267,27 +193,35 @@ export default function FormHotel2(props) {
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="image" className="form-label fw-bold">
-              Logo/Image
-            </label>
+            <label className="form-label fw-bold">Descritption</label>
+            <textarea
+              type="text"
+              name="description"
+              className="form-control"
+              value={formValues.description}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">Logo/image</label>
             <input
               className="form-control"
               name="image"
               type="file"
-              id="image"
+              id="formFile"
               onChange={handleChange}
-              accept="image/*"
             />
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn"
               style={{
+                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
+                border: "solid 1px rgb(231, 231, 231)",
               }}
-              onClick={props.onClose}
             >
               Annuler
             </button>
@@ -295,6 +229,7 @@ export default function FormHotel2(props) {
               type="submit"
               className="btn btn-primary"
               style={{
+                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
               }}

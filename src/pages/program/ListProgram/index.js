@@ -148,8 +148,16 @@ export default function ListProgram() {
             </div>
           </div>
         </nav>
-        <div className="container-fluid py-4">
-          <div className="row">
+        <div
+          className="card-body px-0 pt-0 pb-2"
+          style={{
+            backgroundColor: "white",
+            width: "90%",
+            margin: "2% 0 0 4%",
+            borderRadius: "10px",
+          }}
+        >
+          <div className="row" style={{ padding: "2% 3%" }}>
             <div className="col-12">
               {loading ? (
                 <p>Loading...</p>

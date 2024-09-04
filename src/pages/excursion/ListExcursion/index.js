@@ -124,7 +124,7 @@ export default function ListExcursion() {
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     onClick={handleShow}
                   >
-                    Ajouter une nouvelle excursion
+                    Nouvelle excursion
                   </a>
                   <Modal show={show} onHide={handleClose}>
                     <FormExcursion
@@ -138,8 +138,16 @@ export default function ListExcursion() {
           </div>
         </nav>
 
-        <div className="card-body px-0 pt-0 pb-2">
-          <div className="row gx-4">
+        <div
+          className="card-body px-0 pt-0 pb-2"
+          style={{
+            backgroundColor: "white",
+            width: "90%",
+            margin: "2% 0 0 4%",
+            borderRadius: "10px",
+          }}
+        >
+          <div className="row gx-3" style={{ padding: "2% 0 0 3%" }}>
             {loading ? (
               <p>Loading...</p>
             ) : excursions.length > 0 ? (
