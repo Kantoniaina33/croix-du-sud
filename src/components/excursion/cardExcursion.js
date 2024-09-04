@@ -33,7 +33,7 @@ export default function CardExcursion(props) {
         <div className="card-header">
           <div>
             <h5 className="card-title">{place_name}</h5>
-            <span>{city}</span>
+            <span className="card-subtitle">{city}</span>
           </div>
           <span className="card-price">{price} Ar</span>
         </div>

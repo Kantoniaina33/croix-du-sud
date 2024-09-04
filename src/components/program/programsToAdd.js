@@ -122,7 +122,7 @@ export default function ProgramsToAdd(props) {
         ) : programs.length > 0 ? (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
-              {programs.map((program) => (
+              {programs.slice(0,4).map((program) => (
                 <MiniCardProgram
                   key={program.id}
                   programId={program.id}

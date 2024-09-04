@@ -6,6 +6,7 @@ import FormExcursion from "../../../components/excursion/formExcursion";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import CardExcursion from "../../../components/excursion/cardExcursion";
+import { SpartanHelmetIcon } from "hugeicons-react";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -147,7 +148,28 @@ export default function ListExcursion() {
             borderRadius: "10px",
           }}
         >
-          <div className="row gx-3" style={{ padding: "2% 0 0 3%" }}>
+          <div className="card-header pb-0 d-flex justify-content-between align-items-center p-4">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flex: 1,
+                color: "#273385",
+              }}
+            >
+              <span style={{ marginLeft: "1%" }}>Listes des excursions</span>
+            </div>
+            <div className="col-md-2">
+              <SelectCities
+                disabledOption="Filtrer par ville"
+                onChange={handleSelectCity}
+                specificOption="Toutes les villes"
+                specificOptionValue=""
+              />
+            </div>
+          </div>
+          <br/>
+          <div className="row gx-4" style={{ padding: "2% 0 0 3%" }}>
             {loading ? (
               <p>Loading...</p>
             ) : excursions.length > 0 ? (

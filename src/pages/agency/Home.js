@@ -35,7 +35,7 @@ function Home() {
         />
       </Modal> */}
       
-      <ProgramsCircuit/>
+      <MapItinerary/>
     </div>
   );
 }
