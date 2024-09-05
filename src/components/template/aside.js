@@ -1,5 +1,7 @@
 import { Hotel01Icon, Tree06Icon } from "hugeicons-react";
 import React from "react";
+import "./style.css";
+
 export default function Aside(props) {
   // const { label, width, onClick, style } = props;
   return (
@@ -39,48 +41,14 @@ export default function Aside(props) {
       <hr className="horizontal dark mt-0" />
       <div>
         <ul className="navbar-nav">
+          <li className="nav-item"></li>
           <li className="nav-item">
-            <a className="nav-link active" href="../pages/dashboard.html">
-              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <svg
-                  width="12px"
-                  height="12px"
-                  viewBox="0 0 45 40"
-                  version="1.1"
-                >
-                  <title>shop </title>
-                  <g
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      transform="translate(-1716.000000, -439.000000)"
-                      fill="#FFFFFF"
-                      fill-rule="nonzero"
-                    >
-                      <g transform="translate(1716.000000, 291.000000)">
-                        <g transform="translate(0.000000, 148.000000)">
-                          <path
-                            className="color-background opacity-6"
-                            d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"
-                          ></path>
-                          <path
-                            className="color-background"
-                            d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <span className="nav-link-text ms-1">Dashboard</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link  " href="../pages/tables.html">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/hotels" ? "active" : ""
+              }`}
+              href="/hotels"
+            >
               <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <Hotel01Icon size={50} color={"#000000"} variant={"stroke"} />
               </div>
@@ -88,13 +56,113 @@ export default function Aside(props) {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link  " href="../pages/tables.html">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/excursions" ? "active" : ""
+              }`}
+              href="/excursions"
+            >
               <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <Tree06Icon size={24} color={"#000000"} variant={"stroke"} />
               </div>
-              <span className="nav-link-text ms-1">Excursion</span>
+              <span className="nav-link-text ms-1">Excursions</span>
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/programs" ? "active" : ""
+              }`}
+              href="/programs"
+            >
+              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  className="bi bi-list-ul"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"
+                  />
+                </svg>
+              </div>
+              <span className="nav-link-text ms-1">Programmes</span>
+            </a>
+          </li>
+
+          <li className="nav-item">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/circuits" ? "active" : ""
+              }`}
+              href="/circuits"
+            >
+              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-crosshair"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                </svg>
+              </div>
+              <span className="nav-link-text ms-1">Circuits</span>
+            </a>
+          </li>
+
+          <li className="nav-item">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/clients" ? "active" : ""
+              }`}
+              href="/clients"
+            >
+              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  className="bi bi-person"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                </svg>
+              </div>
+              <span className="nav-link-text ms-1">Clients</span>
+            </a>
+          </li>
+
+          <li className="nav-item">
+            <a
+              className={`nav-link ${
+                window.location.pathname === "/employees" ? "active" : ""
+              }`}
+              href="/employees"
+            >
+              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  className="bi bi-person-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg>
+              </div>
+              <span className="nav-link-text ms-1">Employees</span>
+            </a>
+          </li>
+
           <li className="nav-item mt-3">
             <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
               Account pages
