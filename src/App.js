@@ -16,6 +16,7 @@ import ListEmployeeByRole from "./pages/employee/ListEmployee/listEmployeeByRole
 import Register from "./pages/customer/Register";
 import NewReservation from "./pages/reservation/NewReservation";
 import OneCircuit from "./pages/circuit/OneCircuit";
+import ListCloseHotels from "./pages/program/ListCLoseHotels";
 
 
 function App() {
@@ -46,6 +47,8 @@ function App() {
           <Route path="customer/register" element={<Register />} />
           <Route path="customer/reservation" element={<NewReservation />} />
           <Route path="circuits/one" element={<OneCircuit />} />
+          <Route path="/programs/:programId/close_hotels" element={<ListCloseHotels />} />
+
         </Routes>
       </div>
     </Router>

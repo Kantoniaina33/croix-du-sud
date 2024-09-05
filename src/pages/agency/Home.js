@@ -14,6 +14,7 @@ import MiniCardProgram from "../../components/program/miniCardProgram";
 import ProgramsCircuit from "../../components/circuit/programsCircuit";
 import FormCustomer2 from "../../components/customer/formCustomer2";
 import FormReservation2 from "../../components/reservation/formReservation2";
+import FormProgram2 from "../../components/program/formProgram2";
 
 function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -30,8 +31,8 @@ function Home() {
         Ouvrir le formulaire
       </button>
       <Modal isOpen={isMapModalOpen}>
-        <FormExcursion2
-          FormCustomer2isOpen={isMapModalOpen}
+        <FormProgram2
+          isOpen={isMapModalOpen}
           // onClose={handleCloseMap}
         />
       </Modal>
