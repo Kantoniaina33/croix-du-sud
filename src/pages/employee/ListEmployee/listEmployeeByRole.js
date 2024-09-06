@@ -78,7 +78,8 @@ export default function ListEmployeeByRole() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(false);
 
 
   return (
@@ -141,6 +142,7 @@ export default function ListEmployeeByRole() {
                     <FormEmployee
                       method="POST"
                       title="AJOUTER UN NOUVEL EMPLOYE"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>

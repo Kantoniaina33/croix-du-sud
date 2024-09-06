@@ -3,7 +3,7 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 
 function FormAgency(props) {
-  const { method, name, phone, description, logo } = props;
+  const { method, name, phone, description, logo , onCancel} = props;
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("");

@@ -57,8 +57,9 @@ export default function ListExcursion() {
   };
 
   const handleClose = () => setShow(false);
-  const handleShowMap = () => setIsMapModalOpen(true);
   const handleShow = () => setShow(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   const handleSelectCity = (e) => {
     setSearchField("city");
@@ -135,6 +136,7 @@ export default function ListExcursion() {
                       method="POST"
                       isOpen={isMapModalOpen}
                       title="AJOUTER UNE EXCURSION"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>

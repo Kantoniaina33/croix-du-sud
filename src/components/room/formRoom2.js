@@ -16,6 +16,7 @@ export default function FormRoom2(props) {
     price,
     number_of_rooms,
     id,
+    onCancel,
   } = props;
   const { hotelId } = useParams();
   const [message, setMessage] = useState("");

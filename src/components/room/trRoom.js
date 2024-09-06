@@ -7,7 +7,7 @@ import AlertDelete from "../util/alertDelete";
 import Modal from "../hotel/modal";
 
 export default function TrRoom(props) {
-  const { room_type, capacity, price_category, price, total, id } = props;
+  const { room_type, capacity, price_category, price, total, id, } = props;
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);

@@ -26,7 +26,6 @@ export default function ListRoom() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-
   const fetchRooms = async (
     sort = "capacity",
     order = "asc",
@@ -99,7 +98,8 @@ export default function ListRoom() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(false);
 
   return (
     <div>
@@ -142,7 +142,10 @@ export default function ListRoom() {
                   >
                     Ajouter des chambres
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
+                  <Modal
+                    isOpen={isMapModalOpen}
+                    onCancel={handleCloseModal}
+                  >
                     <FormRoom2 isOpen={isMapModalOpen} method="POST" title="AJOUTER DES CHAMBRES" />
                   </Modal>
                 </li>

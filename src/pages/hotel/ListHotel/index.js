@@ -62,6 +62,7 @@ export default function ListHotel() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -144,6 +145,7 @@ export default function ListHotel() {
                       isOpen={isMapModalOpen}
                       method="POST"
                       title="AJOUTER UN NOUVEL HOTEL"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>

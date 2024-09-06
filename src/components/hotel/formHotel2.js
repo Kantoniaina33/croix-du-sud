@@ -21,6 +21,7 @@ export default function FormHotel2(props) {
     hotelId,
     isOpen,
     onClose,
+    onCancel,
   } = props;
 
   const [message, setMessage] = useState("");
@@ -143,12 +144,12 @@ export default function FormHotel2(props) {
         >
           <button
             className="modal-close-button"
-            onClick={props.onClose} // Assurez-vous que la fonction onClose est passée via les props
             style={{
               background: "none",
               border: "none",
               cursor: "pointer",
             }}
+            onClick={onCancel}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +251,7 @@ export default function FormHotel2(props) {
                 Afficher la carte
               </button>
               <Modal isOpen={isMapModalOpen}>
-                <CardMap onClose={handleCloseMap}/>
+                <CardMap onClose={handleCloseMap} />
               </Modal>
               <input
                 type="hidden"
@@ -287,7 +288,7 @@ export default function FormHotel2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={props.onClose}
+              onClick={onCancel}
             >
               Annuler
             </button>

@@ -62,7 +62,8 @@ export default function ListRole() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(false);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -140,7 +141,10 @@ export default function ListRole() {
                   >
                     Ajouter un nouvel emploi
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
+                  <Modal 
+                    isOpen={isMapModalOpen}
+                    onCancel={handleCloseModal}
+                    >
                     <FormRole2 method="POST" title="AJOUTER UNE EXCURSION" />
                   </Modal>
                 </li>

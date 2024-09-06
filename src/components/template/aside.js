@@ -120,9 +120,9 @@ export default function Aside(props) {
           <li className="nav-item">
             <a
               className={`nav-link ${
-                window.location.pathname === "/clients" ? "active" : ""
+                window.location.pathname === "/customer/register" ? "active" : ""
               }`}
-              href="/clients"
+              href="/customer/register"
             >
               <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg
@@ -209,7 +209,7 @@ export default function Aside(props) {
                   </g>
                 </svg>
               </div>
-              <span className="nav-link-text ms-1">Profile</span>
+              <span className="nav-link-text ms-1">Profiles</span>
             </a>
           </li>
         </ul>

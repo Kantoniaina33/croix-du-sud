@@ -7,13 +7,10 @@
 }
 
 .nav-item .nav-link:hover {
-    color: #273385;
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 .nav-item .nav-link:hover .icon {
-    background-color: #007bff;
-    transform: rotate(4deg);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 

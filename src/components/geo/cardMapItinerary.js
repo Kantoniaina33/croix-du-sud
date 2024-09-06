@@ -6,7 +6,7 @@ import MyMap from "../../components/geo/myMap";
 import MapItinerary from "./mapItinerary";
 
 function CardMapItinerary(props) {
-  const { onClose } = props;
+  const { onClose, } = props;
 
   return (
     <div

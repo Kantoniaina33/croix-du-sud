@@ -8,7 +8,7 @@ import "leaflet-control-geocoder";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 function MyMap(props) {
-  const { onClose } = props;
+  const { onClose, } = props;
   // Référence pour stocker le marqueur
   const markerRef = useRef(null);
   // État pour stocker les coordonnées du marqueur

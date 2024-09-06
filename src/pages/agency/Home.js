@@ -19,7 +19,8 @@ import FormProgram2 from "../../components/program/formProgram2";
 function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(false);
 
   return (
     <div className="card card-plain mt-1">
@@ -33,6 +34,7 @@ function Home() {
       <Modal isOpen={isMapModalOpen}>
         <FormProgram2
           isOpen={isMapModalOpen}
+          onCancel={handleCloseModal}
           // onClose={handleCloseMap}
         />
       </Modal>

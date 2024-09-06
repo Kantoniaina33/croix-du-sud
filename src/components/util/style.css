@@ -35,3 +35,62 @@
 #pagination { 
     width: fit-content;
 }
+
+
+#card_see_more {
+    display: flex;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: auto;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color:white;
+    width:23%;
+  }
+  
+  
+  .custom-col {
+    width: 48%;
+  }
+  
+  #card_see_more .card-body {
+    padding: 5% 2%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 125px;
+  }
+  
+  #card_see_more .card-header {
+    padding: 0% 1%;
+    text-align: center;
+  }
+  
+  #card_see_more .card-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #273385;
+  }
+  
+  #card_see_more .card-description {
+    font-size: 14px;
+    color: #555;
+    width: 100%;
+    text-align: center;
+  }
+  #card_see_more .card-content {
+    margin: -2% 5% 0 5%;
+  }
+  
+  #card_see_more .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  #card_see_more .icon{
+    float: right;
+  }
+  

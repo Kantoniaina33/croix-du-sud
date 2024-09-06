@@ -11,7 +11,7 @@ import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";
 
 export default function TrHotel(props) {
-  const { hotelId, logo, name, address, city, phone, email, star } = props;
+  const { hotelId, logo, name, address, city, phone, email, star, } = props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );

@@ -79,6 +79,7 @@ export default function ListEmployee() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
@@ -141,6 +142,7 @@ export default function ListEmployee() {
                     <FormEmployee2
                       method="POST"
                       title="AJOUTER UN NOUVEL EMPLOYE"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>
