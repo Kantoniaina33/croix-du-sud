@@ -141,7 +141,7 @@ export default function ListEmployeeByRole() {
                   <Modal isOpen={isMapModalOpen}>
                     <FormEmployee
                       method="POST"
-                      title="AJOUTER UN NOUVEL EMPLOYE"
+                      title="NOUVEL EMPLOYE"
                       onCancel={handleCloseModal}
                     />
                   </Modal>

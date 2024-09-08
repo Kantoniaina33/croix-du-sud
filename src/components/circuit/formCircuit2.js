@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function FormCircuit2(props) {
   const { title, method, name, circuitId, onCancel } = props;
   const [message, setMessage] = useState("");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -46,6 +48,10 @@ export default function FormCircuit2(props) {
       }
       const data = await response.json();
       const circuit = data.circuit;
+      
+      setIsMapModalOpen(false);
+      window.location.reload();
+
       navigate(`/circuits/${circuit.id}/programs`);
     } catch (error) {
       console.error("Error:", error);
@@ -80,7 +86,7 @@ export default function FormCircuit2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouveau Circuit
+            Circuit
           </span>
         </div>
         <div

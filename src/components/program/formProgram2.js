@@ -120,7 +120,7 @@ export default function FormProgram2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Un Programme
+            Programme
           </span>
         </div>
         <div

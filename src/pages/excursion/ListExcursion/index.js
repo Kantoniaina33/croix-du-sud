@@ -105,7 +105,7 @@ export default function ListExcursion() {
                   Liste
                 </li>
               </ol>
-              <h6 className="font-weight-bolder mb-0">Tables</h6>
+              {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
             </nav>
             <div
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"

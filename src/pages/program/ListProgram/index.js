@@ -115,7 +115,7 @@ export default function ListProgram() {
                   Liste
                 </li>
               </ol>
-              <h6 className="font-weight-bolder mb-0">Tables</h6>
+              {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
             </nav>
             <div
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -140,13 +140,13 @@ export default function ListProgram() {
                     target="blank"
                     onClick={handleShowMap}
                   >
-                    Ajouter un nouveau programme
+                    Nouveau programme
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormProgram2
                       isOpen={isMapModalOpen}
                       method="POST"
-                      title="AJOUTER UN NOUVEAU PROGRAMME"
+                      title="NOUVEAU PROGRAMME"
                       onCancel={handleCloseModal}
                     />
                   </Modal>

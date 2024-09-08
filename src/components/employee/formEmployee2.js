@@ -19,12 +19,13 @@ export default function FormEmployee2(props) {
     phone,
     employeeId,
     onCancel,
-    onClose
+    onClose,
   } = props;
 
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const [formValues, setFormValues] = useState({
     firstName: firstName || "",
@@ -69,6 +70,9 @@ export default function FormEmployee2(props) {
       const data = await response.json();
       const employee = data.employee;
       onClose(employee);
+
+      setIsMapModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -100,7 +104,7 @@ export default function FormEmployee2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Employe
+            Employe
           </span>
         </div>
         <div

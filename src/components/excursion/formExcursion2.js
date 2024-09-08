@@ -83,6 +83,8 @@ export default function FormExcursion2(props) {
       setIsMapModalOpen(false);
       navigate("/excursions");
 
+      window.location.reload();
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -110,7 +112,7 @@ export default function FormExcursion2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvelle Excursion
+            Excursion
           </span>
         </div>
         <div

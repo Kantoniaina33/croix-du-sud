@@ -104,6 +104,10 @@ export default function FormHotel2(props) {
         }
         return;
       }
+
+      setIsMapModalOpen(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error :", error);
     }
@@ -145,7 +149,7 @@ export default function FormHotel2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Hotel
+            Hotel
           </span>
         </div>
         <div

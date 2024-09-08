@@ -113,7 +113,7 @@ export default function ListHotel() {
                   Liste
                 </li>
               </ol>
-              <h6 className="font-weight-bolder mb-0">Tables</h6>
+              {/* <h6 className="font-weight-bolder mb-0">Tabl  es</h6> */}
             </nav>
             <div
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -138,13 +138,13 @@ export default function ListHotel() {
                     target="blank"
                     onClick={handleShowMap}
                   >
-                    Ajouter un nouvel hotel
+                    Nouvel hotel
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormHotel2
                       isOpen={isMapModalOpen}
                       method="POST"
-                      title="AJOUTER UN NOUVEL HOTEL"
+                      title="NOUVEL HOTEL"
                       onCancel={handleCloseModal}
                     />
                   </Modal>

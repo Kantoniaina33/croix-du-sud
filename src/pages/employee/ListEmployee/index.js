@@ -119,7 +119,7 @@ export default function ListEmployee() {
                   Liste
                 </li>
               </ol>
-              <h6 className="font-weight-bolder mb-0">Tables</h6>
+              {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
             </nav>
             <div
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -144,12 +144,12 @@ export default function ListEmployee() {
                     target="blank"
                     onClick={handleShowMap}
                   >
-                    Ajouter un nouvel employe
+                    Nouvel employe
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormEmployee2
                       method="POST"
-                      title="AJOUTER UN NOUVEL EMPLOYE"
+                      title="NOUVEL EMPLOYE"
                       handleCloseModal={handleCloseModal}
                       onCancel={handleCloseModal}
                       onClose={handleNext}

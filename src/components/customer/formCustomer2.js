@@ -3,8 +3,10 @@ import { useState } from "react";
 import "./style.css";
 
 export default function FormCustomer2(props) {
-  const { title, method, name, firstName, contact, customerId, onCancel, } = props;
+  const { title, method, name, firstName, contact, customerId, onCancel } =
+    props;
   const [message, setMessage] = useState("");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const [formValues, setFormValues] = useState({
     name: name,
@@ -44,6 +46,10 @@ export default function FormCustomer2(props) {
         }
         return;
       }
+
+      setIsMapModalOpen(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -62,9 +68,19 @@ export default function FormCustomer2(props) {
             flex: 1,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-person-circle"
+            viewBox="0 0 16 16"
+          >
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path
+              fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+            />
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
@@ -117,26 +133,27 @@ export default function FormCustomer2(props) {
             </div>
             <div className="col">
               <label className="form-label fw-bold">Prenom</label>
-            <input
-              type="text"
-              className="form-control"
-              value={formValues.name}
-              onChange={handleChange}
-              name="name"
-            />
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.name}
+                onChange={handleChange}
+                name="name"
+              />
             </div>
           </div>
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="prenom" className="form-label fw-bold">
-              Contact</label>
-            <input
-              type="text"
-              className="form-control"
-              value={formValues.contact}
-              onChange={handleChange}
-              name="contact"
-            />
+                Contact
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.contact}
+                onChange={handleChange}
+                name="contact"
+              />
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
