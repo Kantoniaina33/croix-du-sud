@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./program.css";
 import CardMapItinerary from "../geo/cardMapItinerary";
 import Modal from "../hotel/modal";
 
@@ -18,7 +18,7 @@ export default function FormProgram2(props) {
     arrivalLatitude,
     arrivalLongitude,
     programId,
-    onCancel
+    onCancel,
   } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -79,14 +79,16 @@ export default function FormProgram2(props) {
         }
         return;
       }
-
+      setIsMapModalOpen(false);
+      window.location.reload();
+      
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-   const handleShowMap = () => setIsMapModalOpen(true);
-   const handleCloseMap = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseMap = () => setIsMapModalOpen(false);
 
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
@@ -196,6 +198,16 @@ export default function FormProgram2(props) {
                 onRouteCalculated={handleRouteCalculated}
               />
             </Modal>
+          </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">Descritption</label>
+            <textarea
+              type="text"
+              name="description"
+              className="form-control"
+              value={formValues.description}
+              onChange={handleChange}
+            />
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button

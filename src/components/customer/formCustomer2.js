@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./customer.css";
 import { useNavigate } from "react-router-dom";
 
 export default function FormCustomer2(props) {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./reservation.css";
 import SelectCircuits from "../util/selectCircuits";
 import { useParams } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./role.css";
 
 export default function FormRole2(props) {
   const { title, method, name, hourlyWage, roleId, onCancel, } = props;

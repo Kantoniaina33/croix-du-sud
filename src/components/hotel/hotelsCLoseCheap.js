@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
+import "./hotel.css";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import TrHotelMealPrice from "./trHotelMealPrice";
 import { useParams } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./reservation.css";
 import SelectCustomers from "../util/selectCustomers";
 import SelectCircuits from "../util/selectCircuits";
 

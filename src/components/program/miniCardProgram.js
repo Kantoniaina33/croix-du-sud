@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css";
+import "./program.css";
 import { Delete02Icon, Edit02Icon, MapsLocation01Icon } from "hugeicons-react";
 import FormProgram from "./formProgram";
 import AlertDelete from "../util/alertDelete";

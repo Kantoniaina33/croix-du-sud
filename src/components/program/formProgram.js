@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./program.css";
 
 export default function FormProgram(props) {
   const {

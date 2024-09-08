@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./employee.css";
 import { CircleIcon } from "hugeicons-react";
 import SelectRoles from "../util/selectRoles";
 import { useNavigate } from "react-router-dom";

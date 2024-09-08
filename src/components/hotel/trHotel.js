@@ -9,6 +9,8 @@ import FormHotel2 from "./formHotel2";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";
+// import "../../../assets/css/soft-ui-dashboard.min.css";
+import "../../assets/css/soft-ui-dashboard.min.css";
 
 export default function TrHotel(props) {
   const { hotelId, logo, name, address, city, phone, email, star } = props;
@@ -101,6 +103,7 @@ export default function TrHotel(props) {
                 phone={phone}
                 email={email}
                 star={star}
+                isOpen={isMapModalOpen}
                 onCancel={handleCloseModal}
               />
             </Modal>

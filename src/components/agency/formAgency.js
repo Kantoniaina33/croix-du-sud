@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./style.css";
+import "./agency.css";
 import { useNavigate } from "react-router-dom";
 
 function FormAgency(props) {

@@ -165,6 +165,9 @@ export default function ListProgram() {
           }}
         >
           <div className="row" style={{ padding: "2% 3%" }}>
+            <h6>Liste des programmes</h6>
+            <br />
+            <br />
             <div className="col-12">
               {loading ? (
                 <p>Loading...</p>

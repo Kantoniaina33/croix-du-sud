@@ -7,18 +7,23 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import "./style.css";
+import "./excursion.css";
+import FormExcursion2 from "./formExcursion2";
+import Modal from "../hotel/modal";
 
 export default function CardExcursion(props) {
   const { excursionId, logo, place_name, city, price, description } = props;
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
   const [showSheet, setShowSheet] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowSheet = () => setShowSheet(true);
+  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <div className="card-horizontal" id="excursions">
@@ -44,10 +49,17 @@ export default function CardExcursion(props) {
               backgroundColor: "white",
               border: "transparent",
             }}
-            onClick={handleShow}
+            onClick={handleShowMap}
           >
             <Edit02Icon color="#273385" size={23} />
           </button>
+          <Modal isOpen={isMapModalOpen}>
+            <FormExcursion2
+              title="MODIFIER UN CIRCUIT"
+              method="PUT"
+              onCancel={handleCloseModal}
+            />
+          </Modal>
           <button
             style={{
               backgroundColor: "white",

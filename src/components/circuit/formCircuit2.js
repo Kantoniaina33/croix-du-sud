@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./circuit.css";
 import { useNavigate } from "react-router-dom";
 
 export default function FormCircuit2(props) {

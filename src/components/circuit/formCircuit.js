@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./circuit.css";
 
 export default function FormCircuit(props) {
   const { title, method, name, circuitId } = props;

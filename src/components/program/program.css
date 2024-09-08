@@ -26,7 +26,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   overflow: hidden;
   margin: auto;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color:#f5f5f59c;
+  background-color:white;
 }
 
 
@@ -68,7 +68,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
 
 #programs .card-price {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
   color: #273385;
 }
 
@@ -119,6 +119,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   font-size: 15px;
   font-weight: 600;
   color: #273385;
+  font-size: 16px;
 }
 
 #mini_programs .card-description {

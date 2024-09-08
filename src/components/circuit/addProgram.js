@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./circuit.css";
 import { CircleIcon } from "hugeicons-react";
 
 export default function AddProgram(props) {

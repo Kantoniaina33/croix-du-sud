@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "./style.css";
+import "./hotel.css";
 import SelectCities from "../util/selectCities";
 import MyMap from "../geo/myMap";
 import Modal from "./modal";
 import CardMap from "../geo/cardMap";
+import "../../assets/css/soft-ui-dashboard.min.css";
 
 export default function FormHotel2(props) {
   const {
@@ -118,7 +119,11 @@ export default function FormHotel2(props) {
 
   if (!isOpen) return null;
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
+    <div
+      id="myForm"
+      className="card p-4 shadow-lg rounded-3"
+      style={{ width: "50%" }}
+    >
       <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
         rel="stylesheet"
@@ -261,7 +266,7 @@ export default function FormHotel2(props) {
               <label className="form-label fw-bold">Emplacement</label>
               <button
                 type="button"
-                className="btn btn-secondary w-100"
+                className="form-control"
                 onClick={handleShowMap}
               >
                 Afficher la carte

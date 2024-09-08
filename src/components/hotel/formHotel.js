@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
-import "./style.css";
+import "./hotel.css";
 
 export default function FormHotel(props) {
   const {

@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 import React, { useState } from "react";
-import "./style.css";
+import "./util.css";
 import { AlertCircleIcon } from "hugeicons-react";
 
 export default function AlertDelete(props) {

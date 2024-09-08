@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./customer.css";
 
 export default function FormCustomer(props) {
   const { title, method, name, firstName, contact, customerId } = props;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./style.css";
+import "./employee.css";
 import SelectRoles from "../util/selectRoles";
 
 export default function FormRoleEmployee(props) {

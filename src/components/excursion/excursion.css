@@ -4,13 +4,12 @@
   overflow: hidden;
   margin: auto;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* background-color: #27348511; */
   background-color:#ffffff;
 }
 
 
 .custom-col {
-  width: 48%; /* Ajuster en fonction de vos besoins */
+  width: 48%;
 }
 
 
@@ -43,7 +42,6 @@
   font-size: 18px;
   font-weight: 600;
   color: #273385;
-  /* color: black; */
 }
 #excursions .card-subtitle {
   font-size: 15px;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style.css";
+import "./util.css";
 
 export default function CardSeeMore(props) {
   const { programId, departure, arrival, distance, duration, description } =
