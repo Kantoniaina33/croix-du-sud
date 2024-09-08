@@ -1,13 +1,13 @@
 import React from "react";
 import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import { useState } from "react";
-import FormRoom from "./formRoom";
+import FormRoom2 from "./formRoom2";
 import { useParams } from "react-router-dom";
 import AlertDelete from "../util/alertDelete";
 import Modal from "../hotel/modal";
 
 export default function TrRoom(props) {
-  const { room_type, capacity, price_category, price, total, id, } = props;
+  const { room_type, capacity, price_category, price, total, id } = props;
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -18,7 +18,7 @@ export default function TrRoom(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
-
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <tr>
@@ -50,7 +50,7 @@ export default function TrRoom(props) {
             <Edit02Icon color="#273385" size={20} />
           </button>
           <Modal isOpen={isMapModalOpen}>
-          <FormRoom
+            <FormRoom2
               title="MODIFIER DES CHAMBRES"
               method="PUT"
               id={id}
@@ -59,6 +59,7 @@ export default function TrRoom(props) {
               price_category={price_category}
               price={price}
               number_of_rooms={total}
+              onCancel={handleCloseModal}
             />
           </Modal>
         </span>

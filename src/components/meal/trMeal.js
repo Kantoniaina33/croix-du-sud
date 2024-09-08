@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 export default function TrMeal(props) {
   const { hotelId } = useParams();
-  const { icon: Icon, meal, price, id, } = props;
+  const { icon: Icon, meal, price, id } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editedPrice, setEditedPrice] = useState(price);
   const [message, setMessage] = useState("");

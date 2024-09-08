@@ -5,13 +5,13 @@ import {
   StarIcon,
   LinkSquare02Icon,
 } from "hugeicons-react";
-import FormHotel from "./formHotel";
+import FormHotel2 from "./formHotel2";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";
 
 export default function TrHotel(props) {
-  const { hotelId, logo, name, address, city, phone, email, star, } = props;
+  const { hotelId, logo, name, address, city, phone, email, star } = props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
@@ -25,7 +25,7 @@ export default function TrHotel(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
-
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <>
@@ -90,7 +90,7 @@ export default function TrHotel(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal isOpen={isMapModalOpen}>
-            <FormHotel
+              <FormHotel2
                 title="MODIFIER UN HOTEL"
                 method="PUT"
                 hotelId={hotelId}
@@ -101,6 +101,7 @@ export default function TrHotel(props) {
                 phone={phone}
                 email={email}
                 star={star}
+                onCancel={handleCloseModal}
               />
             </Modal>
           </span>

@@ -9,8 +9,9 @@ import {
 import FormRole from "./formRole";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import FormEmployee from "../employee/formEmployee";
+import formEmployee2 from "../employee/formEmployee2";
 import Modal from "../hotel/modal";
+import FormEmployee2 from "../employee/formEmployee2";
 
 export default function TrRole(props) {
   const { roleId, name, hourlyWage } = props;
@@ -27,6 +28,7 @@ export default function TrRole(props) {
   const handleShowMap = () => setIsMapModalOpen(true);
 
   const handleShowFormEmployee = () => setShowFormEmployee(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <>
@@ -51,11 +53,12 @@ export default function TrRole(props) {
               Ajouter un {name}
             </button>
             <Modal isOpen={isMapModalOpen}>
-              <FormEmployee
+              <FormEmployee2
                 title={`AJOUTER UN ${name}`}
                 method="POST"
                 roleId={roleId}
                 isRoleIdDefined={true}
+                onCancel={handleCloseModal}
               />
             </Modal>
           </span>

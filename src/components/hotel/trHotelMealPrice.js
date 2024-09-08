@@ -5,7 +5,7 @@ import {
   StarIcon,
   LinkSquare02Icon,
 } from "hugeicons-react";
-import FormHotel from "./formHotel";
+import formHotel2 from "./formHotel2";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";

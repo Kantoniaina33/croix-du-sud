@@ -8,7 +8,7 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import FormEmployee from "./formEmployee";
+import FormEmployee2 from "./formEmployee2";
 import Modal from "../hotel/modal";
 
 export default function TrEmployee(props) {
@@ -35,7 +35,7 @@ export default function TrEmployee(props) {
   const handleShow = () => setShow(true);
   const handleShowFormEmployee = () => setShowFormEmployee(true);
   const handleShowMap = () => setIsMapModalOpen(true);
-
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <>
@@ -87,7 +87,7 @@ export default function TrEmployee(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal isOpen={isMapModalOpen}>
-            <FormEmployee
+              <FormEmployee2
                 title="MODIFIER LES INFORMATIONS D'UN EMPLOYE"
                 method="PUT"
                 firstName={firstName}
@@ -97,6 +97,7 @@ export default function TrEmployee(props) {
                 contact={contact}
                 roleId={roleId}
                 employeeId={employeeId}
+                onCancel={handleCloseModal}
               />
             </Modal>
           </span>
