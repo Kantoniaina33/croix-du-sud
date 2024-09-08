@@ -5,11 +5,74 @@ import FormProgram from "./formProgram";
 import AlertDelete from "../util/alertDelete";
 
 export default function MiniCardProgram(props) {
-  const { programId, departure, arrival, distance, duration, icon } = props;
-
+  const { programId, departure, arrival, distance, duration, icon, circuitId } =
+    props;
   const [show, setShow] = useState(false);
-
   const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState();
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3030/circuits/${circuitId}/programs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ programId }),
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const url = `http://localhost:3030/circuits/${circuitId}/programs/${programId}`;
+      console.log(url);
+      
+      const response = await fetch(
+        `http://localhost:3030/circuits/${circuitId}/programs/${programId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,14 +111,14 @@ export default function MiniCardProgram(props) {
             {distance} Km | {duration} h
           </div>
           <div className="icon">
-            <button
-              style={{
-                backgroundColor: "white",
-                border: "transparent",
-              }}
-              onClick={handleShow}
-            >
-              {icon == "minus" ? (
+            {icon == "minus" ? (
+              <button
+                style={{
+                  backgroundColor: "white",
+                  border: "transparent",
+                }}
+                onClick={handleDelete}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -68,7 +131,15 @@ export default function MiniCardProgram(props) {
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
                 </svg>
-              ) : (
+              </button>
+            ) : (
+              <button
+                style={{
+                  backgroundColor: "white",
+                  border: "transparent",
+                }}
+                onClick={handleSave}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23"
@@ -81,8 +152,8 @@ export default function MiniCardProgram(props) {
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                 </svg>
-              )}
-            </button>
+              </button>
+            )}
           </div>
         </div>
       </div>

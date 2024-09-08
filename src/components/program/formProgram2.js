@@ -21,8 +21,6 @@ export default function FormProgram2(props) {
   } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-  
-
   const [formValues, setFormValues] = useState({
     departure: departure || "",
     arrival: arrival || "",
@@ -35,6 +33,18 @@ export default function FormProgram2(props) {
     arrivalLongitude: arrivalLongitude,
   });
 
+  const handleRouteCalculated = (routeData) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      distance: routeData.distance,
+      duration: routeData.duration,
+      departureLatitude: routeData.startCoords.lat,
+      departureLongitude: routeData.startCoords.lng,
+      arrivalLatitude: routeData.endCoords.lat,
+      arrivalLongitude: routeData.endCoords.lng,
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
@@ -46,6 +56,7 @@ export default function FormProgram2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
+    console.log(formValues);
 
     try {
       const idUrl = method === "PUT" ? `/${programId}` : "";
@@ -74,7 +85,6 @@ export default function FormProgram2(props) {
 
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseMap = () => setIsMapModalOpen(false);
-
 
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
@@ -179,20 +189,11 @@ export default function FormProgram2(props) {
               Placer l'itineraire sur la carte
             </button>
             <Modal isOpen={isMapModalOpen}>
-              <CardMapItinerary onClose={handleCloseMap} />
+              <CardMapItinerary
+                onClose={handleCloseMap}
+                onRouteCalculated={handleRouteCalculated}
+              />
             </Modal>
-            <input
-              type="hidden"
-              value={formValues.latitude}
-              onChange={handleChange}
-              name="latitude"
-            />
-            <input
-              type="hidden"
-              value={formValues.longitude}
-              onChange={handleChange}
-              name="longitude"
-            />
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button

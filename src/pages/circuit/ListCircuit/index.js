@@ -83,6 +83,7 @@ export default function ListCircuit() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <div>
@@ -144,6 +145,7 @@ export default function ListCircuit() {
                     <FormCircuit2
                       method="POST"
                       title="AJOUTER UN NOUVEAU CIRCUIT"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>

@@ -39,6 +39,14 @@ export default function FormHotel2(props) {
     image: image || null,
   });
 
+  const handleSetCoordinates = (data) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      latitude: data.lat,
+      longitude: data.lng,
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "image" && e.target.files.length > 0) {
@@ -72,6 +80,10 @@ export default function FormHotel2(props) {
     formData.append("star", formValues.star);
     formData.append("latitude", formValues.latitude);
     formData.append("longitude", formValues.longitude);
+
+    formData.forEach((value, key) => {
+      console.log(key + ": " + value);
+    });
 
     try {
       const idUrl = method === "PUT" ? `/${hotelId}` : "";
@@ -251,20 +263,11 @@ export default function FormHotel2(props) {
                 Afficher la carte
               </button>
               <Modal isOpen={isMapModalOpen}>
-                <CardMap onClose={handleCloseMap} />
+                <CardMap
+                  onClose={handleCloseMap}
+                  onSetCoordinates={handleSetCoordinates}
+                />
               </Modal>
-              <input
-                type="hidden"
-                value={formValues.latitude}
-                onChange={handleChange}
-                name="latitude"
-              />
-              <input
-                type="hidden"
-                value={formValues.longitude}
-                onChange={handleChange}
-                name="longitude"
-              />
             </div>
           </div>
           <div className="mb-3">

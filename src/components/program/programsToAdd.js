@@ -135,6 +135,7 @@ export default function ProgramsToAdd(props) {
                     boxSizing: "border-box",
                     marginBottom: "20px",
                   }}
+                  circuitId={circuitId}
                 />
               ))}
             </div>

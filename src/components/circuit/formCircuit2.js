@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 export default function FormCircuit2(props) {
-  const { title, method, name, circuitId } = props;
+  const { title, method, name, circuitId, onCancel } = props;
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     name: name || "",
@@ -42,6 +44,9 @@ export default function FormCircuit2(props) {
         }
         return;
       }
+      const data = await response.json();
+      const circuit = data.circuit;
+      navigate(`/circuits/${circuit.id}/programs`);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -92,6 +97,7 @@ export default function FormCircuit2(props) {
             class="bi bi-x-circle"
             viewBox="0 0 16 16"
             color="#273385"
+            onClick={onCancel}
           >
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
@@ -122,6 +128,7 @@ export default function FormCircuit2(props) {
                 marginTop: "1%",
                 border: "solid 1px rgb(231, 231, 231)",
               }}
+              onClick={onCancel}
             >
               Annuler
             </button>
@@ -133,6 +140,7 @@ export default function FormCircuit2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Suivant
             </button>

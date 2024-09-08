@@ -43,22 +43,18 @@ export default function TrCircuit(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-            <button
-              style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowMap}
-            >
-              <PlusSignSquareIcon
-                size={23}
-                color={"green"}
-                variant={"stroke"}
-              />
-            </button>
-            <Modal isOpen={isMapModalOpen}>
-            <AddProgram
-                title={`AJOUTER UN PROGRAMME AU CIRCUIT ${name}`}
-                circuitId={circuitId}
-              />
-            </Modal>
+            <a href={`/circuits/${circuitId}/programs`}>
+              <button
+                style={{ backgroundColor: "white", border: "none" }}
+                // onClick={handleShowMap}
+              >
+                <PlusSignSquareIcon
+                  size={23}
+                  color={"green"}
+                  variant={"stroke"}
+                />
+              </button>
+            </a>
           </span>
         </td>
         <td className="align-middle text-center">

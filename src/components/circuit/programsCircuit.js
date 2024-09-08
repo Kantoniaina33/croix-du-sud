@@ -1,15 +1,5 @@
 import React from "react-bootstrap";
-import {
-  Delete02Icon,
-  Edit02Icon,
-  StarIcon,
-  LinkSquare02Icon,
-  PlusSignSquareIcon,
-} from "hugeicons-react";
-import FormCircuit from "./formCircuit";
 import { useEffect, useState } from "react";
-import AlertDelete from "../util/alertDelete";
-import AddProgram from "./addProgram";
 import MiniCardProgram from "../program/miniCardProgram";
 import CardSeeMore from "../util/cardSeeMore";
 
@@ -37,9 +27,7 @@ export default function ProgramsCircuit(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs?next=${
-        nextDoc || ""
-      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
+      const url = `http://localhost:3030/circuits/${circuitId}/programs`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -54,8 +42,8 @@ export default function ProgramsCircuit(props) {
         return;
       }
       const data = await response.json();
-      setPrograms(data.programs);
-      setNext(data.next);
+      setPrograms(data);
+      // setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching programs");
@@ -127,6 +115,7 @@ export default function ProgramsCircuit(props) {
                   marginBottom: "20px",
                 }}
                 icon="minus"
+                circuitId={circuitId}
               />
             ))}
             <CardSeeMore

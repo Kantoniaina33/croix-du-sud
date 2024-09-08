@@ -8,6 +8,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import CardProgram from "../../../components/program/cardProgram";
 import Modal from "../../../components/hotel/modal";
+import FormProgram2 from "../../../components/program/formProgram2";
 
 export default function ListProgram() {
   const [show, setShow] = useState(false);
@@ -140,7 +141,7 @@ export default function ListProgram() {
                     Ajouter un nouveau programme
                   </a>
                   <Modal isOpen={isMapModalOpen}>
-                    <FormProgram
+                    <FormProgram2
                       isOpen={isMapModalOpen}
                       method="POST"
                       title="AJOUTER UN NOUVEAU PROGRAMME"

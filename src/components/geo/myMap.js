@@ -8,7 +8,7 @@ import "leaflet-control-geocoder";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 function MyMap(props) {
-  const { onClose, } = props;
+  const { onClose, onSetCoordinates } = props;
   // Référence pour stocker le marqueur
   const markerRef = useRef(null);
   // État pour stocker les coordonnées du marqueur
@@ -104,17 +104,13 @@ function MyMap(props) {
     };
   }, []);
 
-  // Fonction pour afficher les coordonnées du marqueur
-  const handleShowCoordinates = () => {
-    if (markerPosition) {
-      alert(
-        `Latitude: ${markerPosition.lat.toFixed(
-          6
-        )}, Longitude: ${markerPosition.lng.toFixed(6)}`
-      );
-    } else {
-      alert("Aucun marqueur n'est placé.");
+  const handleSave = () => {
+    console.log(markerPosition);
+    console.log(onSetCoordinates+"");
+    if (markerPosition && onSetCoordinates) {
+      onSetCoordinates(markerPosition);
     }
+    onClose();
   };
 
   return (
@@ -141,7 +137,7 @@ function MyMap(props) {
           Annuler
         </button>
         <button
-          onClick={handleShowCoordinates}
+          onClick={handleSave}
           type="submit"
           className="btn btn-primary"
           style={{

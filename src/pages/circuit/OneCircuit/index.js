@@ -3,89 +3,14 @@ import TrCircuit from "../../../components/circuit/trCircuit";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import FormCircuit from "../../../components/circuit/formCircuit";
-import MyPagination from "../../../components/util/myPagination";
-import SelectCities from "../../../components/util/selectCities";
-import { ArrowUpDownIcon } from "hugeicons-react";
 import ProgramsCircuit from "../../../components/circuit/programsCircuit";
 import ProgramsToAdd from "../../../components/program/programsToAdd";
 import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
+import { useParams } from "react-router-dom";
 
 export default function OneCircuit() {
-  const [show, setShow] = useState(false);
-  const [circuits, setCircuits] = useState([]);
-  const [message, setMessage] = useState("");
-  const [next, setNext] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("name");
-  const [order, setOrder] = useState("asc");
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-
-  const fetchCircuits = async (
-    nextDoc = null,
-    sort = "name",
-    order = "asc",
-    search = "",
-    searchField = ""
-  ) => {
-    setLoading(true);
-    setMessage("");
-    try {
-      const url = `http://localhost:3030/circuits/paginated?next=${
-        nextDoc || ""
-      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
-
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        setMessage("Failed to fetch circuits");
-        return;
-      }
-      const data = await response.json();
-      setCircuits(data.circuits);
-      setNext(data.next);
-    } catch (error) {
-      console.error("Error:", error);
-      setMessage("Error fetching circuits");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSort = (value) => {
-    setCurrentPage(1);
-    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-    setSort(value);
-  };
-
-  const handleSelectCity = (e) => {
-    setSearchField("city");
-    setSearch(e.target.value);
-  };
-
-  useEffect(() => {
-    fetchCircuits(null, sort, order, search, searchField);
-  }, [sort, order, search, searchField]);
-
-  const handlePageChange = (nextDoc) => {
-    fetchCircuits(nextDoc, sort, order, search, searchField);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
-  };
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleShowMap = () => setIsMapModalOpen(true);
-
+  const { id } = useParams();
   return (
     <div>
       <Aside />
@@ -133,23 +58,6 @@ export default function OneCircuit() {
                   />
                 </div>
               </div>
-              <ul className="navbar-nav justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    onClick={handleShow}
-                  >
-                    Ajouter un nouveau circuit
-                  </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormCircuit2
-                      method="POST"
-                      title="AJOUTER UN NOUVEAU CIRCUIT"
-                    />
-                  </Modal>
-                </li>
-              </ul>
             </div>
           </div>
         </nav>
@@ -157,8 +65,8 @@ export default function OneCircuit() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <ProgramsCircuit />
-                <ProgramsToAdd />
+                <ProgramsCircuit circuitId={id} />
+                <ProgramsToAdd circuitId={id} />
               </div>
             </div>
           </div>
