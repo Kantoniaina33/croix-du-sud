@@ -18,6 +18,7 @@ export default function FormProgram2(props) {
     arrivalLatitude,
     arrivalLongitude,
     programId,
+    onCancel
   } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -78,13 +79,11 @@ export default function FormProgram2(props) {
         }
         return;
       }
+
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-  const handleShowMap = () => setIsMapModalOpen(true);
-  const handleCloseMap = () => setIsMapModalOpen(false);
 
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
@@ -118,7 +117,7 @@ export default function FormProgram2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Hotel
+            Un Programme
           </span>
         </div>
         <div
@@ -129,12 +128,12 @@ export default function FormProgram2(props) {
         >
           <button
             className="modal-close-button"
-            onClick={props.onClose} // Assurez-vous que la fonction onClose est passée via les props
             style={{
               background: "none",
               border: "none",
               cursor: "pointer",
             }}
+            onClick={onCancel}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +202,7 @@ export default function FormProgram2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={props.onClose}
+              onClick={onCancel}
             >
               Annuler
             </button>

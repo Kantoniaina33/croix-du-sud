@@ -87,6 +87,7 @@ export default function FormCircuit2(props) {
           style={{
             display: "flex",
             alignItems: "center",
+            cursor:"pointer"
           }}
         >
           <svg
