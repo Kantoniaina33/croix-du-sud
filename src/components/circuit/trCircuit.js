@@ -11,6 +11,7 @@ import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import AddProgram from "./addProgram";
 import Modal from "../hotel/modal";
+import FormCircuit2 from "./formCircuit2";
 
 export default function TrCircuit(props) {
   const { circuitId, name } = props;
@@ -19,14 +20,13 @@ export default function TrCircuit(props) {
   const [showAddProgram, setShowAddProgram] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowAddProgram = () => setShowAddProgram(true);
   const handleShowMap = () => setIsMapModalOpen(true);
-
+  const handleCloseModal = () => setIsMapModalOpen(false);
 
   return (
     <>
@@ -61,16 +61,17 @@ export default function TrCircuit(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShow}
+              onClick={handleShowMap}
             >
               <Edit02Icon color="blue" size={20} />
             </button>
-            <Modal show={show} onHide={handleClose}>
-              <FormCircuit
+            <Modal isOpen={isMapModalOpen}>
+              <FormCircuit2
                 title="MODIFIER UN CIRCUIT"
                 method="PUT"
                 circuitId={circuitId}
                 name={name}
+                onCancel={handleCloseModal}
               />
             </Modal>
           </span>
