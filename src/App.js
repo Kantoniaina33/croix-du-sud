@@ -45,7 +45,7 @@ function App() {
           />
           <Route path="/employees" element={<ListEmployee />} />
           <Route path="customer/register" element={<Register />} />
-          <Route path="customer/reservation" element={<NewReservation />} />
+          <Route path="customer/:id/reservation" element={<NewReservation />} />
           <Route path="circuits/:id/programs" element={<OneCircuit />} />
           <Route path="/programs/:programId/close_hotels" element={<ListCloseHotels />} />
 

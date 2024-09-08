@@ -103,7 +103,7 @@ export default function ProgramsToAdd(props) {
           </svg>
           <h6 style={{ marginLeft: "1%" }}>Ajouter des programmes</h6>
         </div>
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <div className="input-group">
             <span className="input-group-text text-body">
               <i className="fas fa-search" aria-hidden="true"></i>
@@ -114,7 +114,7 @@ export default function ProgramsToAdd(props) {
               placeholder="Rechercher un programme"
             />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-4">
         {loading ? (

@@ -34,7 +34,7 @@ function Login() {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       if (data.isSetInfo) {
-        navigate("/home");
+        navigate("/hotels");
       } else {
         navigate("/info");
       }
