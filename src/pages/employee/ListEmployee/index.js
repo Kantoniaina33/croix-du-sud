@@ -10,6 +10,7 @@ import FormEmployee from "../../../components/employee/formEmployee";
 import { useParams } from "react-router-dom";
 import Modal from "../../../components/hotel/modal";
 import FormEmployee2 from "../../../components/employee/formEmployee2";
+import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
 
 export default function ListEmployee() {
   const [show, setShow] = useState(false);
@@ -23,7 +24,8 @@ export default function ListEmployee() {
   const [sort, setSort] = useState("firstName");
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-
+  const [isNextModalOpen, setIsNextModalOpen] = useState(false);
+  const [employee, setEmployee] = useState(null);
 
   const fetchEmployees = async (
     nextDoc = null,
@@ -77,10 +79,16 @@ export default function ListEmployee() {
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseNextModal = () => setIsNextModalOpen(false);
+
+  const handleNext = (dataEmployee) => {
+    setEmployee(dataEmployee);
+    console.log(dataEmployee.id);
+    setIsMapModalOpen(false);
+    setIsNextModalOpen(true);
+  };
 
   return (
     <div>
@@ -142,7 +150,16 @@ export default function ListEmployee() {
                     <FormEmployee2
                       method="POST"
                       title="AJOUTER UN NOUVEL EMPLOYE"
+                      handleCloseModal={handleCloseModal}
                       onCancel={handleCloseModal}
+                      onClose={handleNext}
+                    />
+                  </Modal>
+                  <Modal isOpen={isNextModalOpen}>
+                    <FormRoleEmployee
+                      onCancel={handleCloseNextModal}
+                      employee={employee}
+                      method="POST"
                     />
                   </Modal>
                 </li>

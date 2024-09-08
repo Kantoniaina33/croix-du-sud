@@ -4,6 +4,8 @@ import "./style.css";
 import { CircleIcon } from "hugeicons-react";
 import SelectRoles from "../util/selectRoles";
 import { useNavigate } from "react-router-dom";
+import FormRoleEmployee from "./formRoleEmployee";
+import Modal from "../hotel/modal";
 
 export default function FormEmployee2(props) {
   const {
@@ -13,11 +15,11 @@ export default function FormEmployee2(props) {
     name,
     birthDate,
     genre,
-    contact,
-    roleId,
+    email,
+    phone,
     employeeId,
-    isRoleIdDefined,
     onCancel,
+    onClose
   } = props;
 
   const [message, setMessage] = useState("");
@@ -29,8 +31,8 @@ export default function FormEmployee2(props) {
     name: name,
     birthDate: birthDate || "",
     genre: genre || "Homme",
-    contact: contact,
-    roleId: roleId,
+    email: email,
+    phone: phone,
   });
 
   const handleChange = (e) => {
@@ -44,8 +46,8 @@ export default function FormEmployee2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    const idUrl = method === "PUT" ? `/${employeeId}` : "";
     console.log(formValues);
+    const idUrl = method === "PUT" ? `/${employeeId}` : "";
     try {
       const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
         method: method,
@@ -64,7 +66,9 @@ export default function FormEmployee2(props) {
         }
         return;
       }
-      navigate("/customer/reservation");
+      const data = await response.json();
+      const employee = data.employee;
+      onClose(employee);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -187,9 +191,9 @@ export default function FormEmployee2(props) {
               <input
                 type="email"
                 className="form-control"
-                value={formValues.firstName}
+                value={formValues.email}
                 onChange={handleChange}
-                name="firstName"
+                name="email"
               />
             </div>
             <div className="col">
@@ -197,9 +201,9 @@ export default function FormEmployee2(props) {
               <input
                 type="number"
                 className="form-control"
-                value={formValues.name}
+                value={formValues.phone}
                 onChange={handleChange}
-                name="name"
+                name="phone"
               />
             </div>
           </div>
@@ -227,7 +231,7 @@ export default function FormEmployee2(props) {
               }}
               onClick={handleSave}
             >
-              Enregistrer
+              Suivant
             </button>
           </div>
         </form>

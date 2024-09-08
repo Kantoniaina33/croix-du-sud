@@ -4,12 +4,11 @@ import "./style.css";
 import SelectRoles from "../util/selectRoles";
 
 export default function FormRoleEmployee(props) {
-  const { title, method, name, hourlyWage, roleId } = props;
+  const { title, method, employee, roleId } = props;
   const [message, setMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
-    name: name || "",
-    hourlyWage: hourlyWage || 1,
+    roleId: roleId,
   });
 
   const handleChange = (e) => {
@@ -25,16 +24,18 @@ export default function FormRoleEmployee(props) {
     setMessage("");
     console.log(formValues);
     try {
-      const idUrl = method === "PUT" ? `/${roleId}` : "";
 
-      const response = await fetch(`http://localhost:3030/roles${idUrl}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        `http://localhost:3030/employees/${employee.id}/role`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -101,7 +102,9 @@ export default function FormRoleEmployee(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <h5>RAMILIJAONA Kantoniaina</h5>
+        <h5>
+          {employee.firstName} {employee.name}
+        </h5>
         <form id="myForm" autocomplete="off">
           <div className="row mb-3">
             <div className="mb-3">
@@ -134,6 +137,7 @@ export default function FormRoleEmployee(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Enregistrer
             </button>
