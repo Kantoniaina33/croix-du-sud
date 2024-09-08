@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./style.css";
 import { CircleIcon } from "hugeicons-react";
 import SelectRoles from "../util/selectRoles";
+import { useNavigate } from "react-router-dom";
 
 export default function FormEmployee(props) {
   const {
@@ -20,6 +21,7 @@ export default function FormEmployee(props) {
 
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     firstName: firstName || "",
@@ -61,6 +63,7 @@ export default function FormEmployee(props) {
         }
         return;
       }
+      navigate("/reserv");
     } catch (error) {
       console.error("Error:", error);
     }

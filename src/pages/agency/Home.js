@@ -24,20 +24,7 @@ function Home() {
 
   return (
     <div className="card card-plain mt-1">
-      <button
-        type="button"
-        className="btn btn-secondary w-100"
-        onClick={handleShowMap}
-      >
-        Ouvrir le formulaire
-      </button>
-      <Modal isOpen={isMapModalOpen}>
-        <FormProgram2
-          isOpen={isMapModalOpen}
-          onCancel={handleCloseModal}
-          // onClose={handleCloseMap}
-        />
-      </Modal>
+      <FormCustomer2/>
       
       {/* <ProgramsCircuit/> */}
     </div>

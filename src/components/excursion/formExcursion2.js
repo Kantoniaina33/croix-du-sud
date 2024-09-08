@@ -4,6 +4,7 @@ import { useState } from "react";
 import SelectCities from "../util/selectCities";
 import Modal from "../hotel/modal";
 import CardMap from "../geo/cardMap";
+import { useNavigate } from "react-router-dom";
 
 export default function FormExcursion2(props) {
   const {
@@ -20,6 +21,7 @@ export default function FormExcursion2(props) {
 
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     place_name: place_name || "",
@@ -77,6 +79,10 @@ export default function FormExcursion2(props) {
         }
         return;
       }
+
+      setIsMapModalOpen(false);
+      navigate("/excursions");
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -236,6 +242,7 @@ export default function FormExcursion2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Enregistrer
             </button>

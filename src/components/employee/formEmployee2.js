@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./style.css";
 import { CircleIcon } from "hugeicons-react";
 import SelectRoles from "../util/selectRoles";
+import { useNavigate } from "react-router-dom";
 
 export default function FormEmployee2(props) {
   const {
@@ -21,6 +22,7 @@ export default function FormEmployee2(props) {
 
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     firstName: firstName || "",
@@ -62,6 +64,7 @@ export default function FormEmployee2(props) {
         }
         return;
       }
+      navigate("/customer/reservation");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -80,8 +83,15 @@ export default function FormEmployee2(props) {
             flex: 1,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-person-fill"
+            viewBox="0 0 16 16"
+          >
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
@@ -215,6 +225,7 @@ export default function FormEmployee2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Enregistrer
             </button>

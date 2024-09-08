@@ -1,18 +1,10 @@
 import FormCustomer from "../../../components/customer/formCustomer";
+import FormCustomer2 from "../../../components/customer/formCustomer2";
 
 function Register() {
   return (
-    <div className="container" style={{ marginTop: "210px" }}>
-      <div className="row mt-lg-n10 mt-md-n11 mt-n10">
-        <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
-          <div className="card z-index-0">
-            <div className="card-header text-center pt-4">
-              <h5>Informations du client</h5>
-            </div>
-            <FormCustomer method="POST" />
-          </div>
-        </div>
-      </div>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <FormCustomer2 method="POST" />;
     </div>
   );
 }
