@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 export default function FormCustomer2(props) {
   const { title, method, name, firstName, contact, customerId, onCancel } =
     props;
   const [message, setMessage] = useState("");
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     name: name,
@@ -47,8 +48,9 @@ export default function FormCustomer2(props) {
         return;
       }
 
-      setIsMapModalOpen(false);
-      window.location.reload();
+      const data = await response.json();
+      const customer = data.customer;
+      navigate(`/customer/${customer.id}/reservation`);
 
     } catch (error) {
       console.error("Error:", error);
@@ -56,7 +58,7 @@ export default function FormCustomer2(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "40%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
@@ -178,6 +180,7 @@ export default function FormCustomer2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Enregistrer
             </button>

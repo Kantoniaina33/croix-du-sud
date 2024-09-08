@@ -108,7 +108,7 @@ function Signup() {
                           required
                         />
                       </div>
-                      <div className="mb-3">
+                      {/* <div className="mb-3">
                         <input
                           type="password"
                           className="form-control"
@@ -119,7 +119,7 @@ function Signup() {
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
-                      </div>
+                      </div> */}
                       <div className="text-center">
                         <button
                           type="submit"
