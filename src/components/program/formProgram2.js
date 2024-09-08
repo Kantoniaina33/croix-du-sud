@@ -85,6 +85,9 @@ export default function FormProgram2(props) {
     }
   };
 
+   const handleShowMap = () => setIsMapModalOpen(true);
+   const handleCloseMap = () => setIsMapModalOpen(false);
+
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <link

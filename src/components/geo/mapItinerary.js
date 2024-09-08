@@ -140,12 +140,6 @@ function MapItinerary(props) {
   };
 
   const handleSave = () => {
-    console.log("tayyyyyyyyyy");
-    console.log(routeDetails.distance+" det");
-    console.log(routeDetails.startCoords+" det");
-    console.log(routeDetails.endCoords + " det");
-    console.log(routeDetails.duration + " det");
-    console.log(onRouteCalculated + " onroute");
     if (routeDetails && onRouteCalculated) {
       onRouteCalculated(routeDetails);
     }

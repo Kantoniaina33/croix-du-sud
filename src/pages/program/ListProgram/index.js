@@ -84,6 +84,8 @@ export default function ListProgram() {
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
+  const handleCloseModal = () => setIsMapModalOpen(false);
+
   return (
     <div>
       <Aside />
@@ -145,6 +147,7 @@ export default function ListProgram() {
                       isOpen={isMapModalOpen}
                       method="POST"
                       title="AJOUTER UN NOUVEAU PROGRAMME"
+                      onCancel={handleCloseModal}
                     />
                   </Modal>
                 </li>
