@@ -54,7 +54,7 @@ export default function HeadHotel(props) {
           <div className="h-100">
             <h5 className="mb-1">{hotel.name}</h5>
             <p className="mb-0 font-weight-bold text-xs">
-              {hotel.address} | {hotel.city}
+              {hotel.city}
             </p>
             <span>
               {starsArray.map((color, index) => (

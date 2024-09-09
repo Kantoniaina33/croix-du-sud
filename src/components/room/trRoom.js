@@ -45,7 +45,7 @@ export default function TrRoom(props) {
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}
-            onClick={handleShow}
+            onClick={handleShowMap}
           >
             <Edit02Icon color="#273385" size={20} />
           </button>
@@ -60,6 +60,7 @@ export default function TrRoom(props) {
               price={price}
               number_of_rooms={total}
               onCancel={handleCloseModal}
+              isOpen={isMapModalOpen}
             />
           </Modal>
         </span>

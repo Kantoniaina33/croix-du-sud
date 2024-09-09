@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
 export default function SelectRoomTypes(props) {
-  const { disabledOption, name, value, onChange } = props;
+  const {
+    disabledOption,
+    name,
+    value,
+    onChange,
+    specificOption,
+    specificOptionValue,
+  } = props;
   const [room_types, setRoom_types] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -49,6 +56,9 @@ export default function SelectRoomTypes(props) {
         >
           {disabledOption}
         </option>
+      )}
+      {specificOption && (
+        <option value={specificOptionValue}>{specificOption}</option>
       )}
       {room_types.map((room_type, index) => (
         <option key={index} value={room_type.room_type}>

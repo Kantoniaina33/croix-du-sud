@@ -49,6 +49,8 @@ export default function FormEmployee2(props) {
     setMessage("");
     console.log(formValues);
     const idUrl = method === "PUT" ? `/${employeeId}` : "";
+    const url = `http://localhost:3030/employees${idUrl}`;
+    console.log(url+" urllll");
     try {
       const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
         method: method,
@@ -67,9 +69,14 @@ export default function FormEmployee2(props) {
         }
         return;
       }
-      const data = await response.json();
-      const employee = data.employee;
-      onClose(employee);
+
+      if (method == "POST") {
+        const data = await response.json();
+        const employee = data.employee;
+        onClose(employee);
+      } else {
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -135,7 +142,7 @@ export default function FormEmployee2(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+        <form onSubmit={handleSave} id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
           <div className="row mb-3">
             <div className="col">
               <label className="form-label fw-bold">Nom</label>
@@ -230,9 +237,8 @@ export default function FormEmployee2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={handleSave}
             >
-              Suivant
+              {method == "PUT" ? "Enregister" : "Suivant"}
             </button>
           </div>
         </form>

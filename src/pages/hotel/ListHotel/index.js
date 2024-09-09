@@ -143,9 +143,9 @@ export default function ListHotel() {
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormHotel2
-                      isOpen={isMapModalOpen}
                       method="POST"
                       title="NOUVEL HOTEL"
+                      isOpen={isMapModalOpen}
                       onCancel={handleCloseModal}
                     />
                   </Modal>

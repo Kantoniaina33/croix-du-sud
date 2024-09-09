@@ -99,7 +99,7 @@ export default function ListRoom() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowMap = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   return (
     <div>
@@ -142,11 +142,13 @@ export default function ListRoom() {
                   >
                     Ajouter des chambres
                   </a>
-                  <Modal
-                    isOpen={isMapModalOpen}
-                    onCancel={handleCloseModal}
-                  >
-                    <FormRoom2 isOpen={isMapModalOpen} method="POST" title="AJOUTER DES CHAMBRES" />
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormRoom2
+                      isOpen={isMapModalOpen}
+                      method="POST"
+                      title="AJOUTER DES CHAMBRES"
+                      onCancel={handleCloseModal}
+                    />
                   </Modal>
                 </li>
               </ul>
@@ -204,33 +206,48 @@ export default function ListRoom() {
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Capacite
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={16}
-                                onClick={() => handleSort("capacity")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
+                              <a href="#">
+                                <ArrowUpDownIcon
+                                  id="sortIcon"
+                                  size={16}
+                                  onClick={() => handleSort("capacity")}
+                                  style={{
+                                    marginLeft: "5px",
+                                    marginTop: "-5px",
+                                  }}
+                                />
+                              </a>
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Categorie de prix
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Tarif par nuit
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={16}
-                                onClick={() => handleSort("price")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
+                              <a href="#">
+                                <ArrowUpDownIcon
+                                  id="sortIcon"
+                                  size={16}
+                                  onClick={() => handleSort("price")}
+                                  style={{
+                                    marginLeft: "5px",
+                                    marginTop: "-5px",
+                                  }}
+                                />
+                              </a>
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Nombre total
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={16}
-                                onClick={() => handleSort("number_of_rooms")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
+                              <a href="#">
+                                <ArrowUpDownIcon
+                                  id="sortIcon"
+                                  size={16}
+                                  onClick={() => handleSort("number_of_rooms")}
+                                  style={{
+                                    marginLeft: "5px",
+                                    marginTop: "-5px",
+                                  }}
+                                />
+                              </a>
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>

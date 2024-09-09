@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
 export default function SelectPriceCategories(props) {
-  const { disabledOption, name, value, onChange } = props;
+  const {
+    disabledOption,
+    name,
+    value,
+    onChange,
+    specificOption,
+    specificOptionValue,
+  } = props;
   const [price_Categories, setPrice_Categories] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -48,6 +55,9 @@ export default function SelectPriceCategories(props) {
         >
           {disabledOption}
         </option>
+      )}
+      {specificOption && (
+        <option value={specificOptionValue}>{specificOption}</option>
       )}
       {price_Categories.map((price_category) => (
         <>

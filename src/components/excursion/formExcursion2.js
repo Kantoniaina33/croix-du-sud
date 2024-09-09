@@ -17,6 +17,8 @@ export default function FormExcursion2(props) {
     city,
     excursionId,
     onCancel,
+    latitude,
+    longitude,
   } = props;
 
   const [message, setMessage] = useState("");
@@ -28,8 +30,18 @@ export default function FormExcursion2(props) {
     description: description || "",
     city: city || "Antananarivo",
     price: price,
+    latitude: latitude,
+    longitude: longitude,
     image: image || null,
   });
+
+  const handleSetCoordinates = (data) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      latitude: data.lat,
+      longitude: data.lng,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +72,9 @@ export default function FormExcursion2(props) {
     formData.append("description", formValues.description);
     formData.append("city", formValues.city);
     formData.append("price", formValues.price);
+    formData.append("latitude", formValues.latitude);
+    formData.append("longitude", formValues.longitude);
+
     try {
       const idUrl = method === "PUT" ? `/${excursionId}` : "";
 
@@ -104,8 +119,15 @@ export default function FormExcursion2(props) {
             flex: 1,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-tree" viewBox="0 0 16 16">
-            <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="currentColor"
+            class="bi bi-tree"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.076 8.735A.5.5 0 0 0 3.5 9.5h.191l-1.638 3.276a.5.5 0 0 0 .447.724H7V16h2v-2.5h4.5a.5.5 0 0 0 .447-.724L12.31 9.5h.191a.5.5 0 0 0 .424-.765L10.902 5.5H11a.5.5 0 0 0 .416-.777zM6.437 4.758A.5.5 0 0 0 6 4.5h-.066L8 1.401 10.066 4.5H10a.5.5 0 0 0-.424.765L11.598 8.5H11.5a.5.5 0 0 0-.447.724L12.69 12.5H3.309l1.638-3.276A.5.5 0 0 0 4.5 8.5h-.098l2.022-3.235a.5.5 0 0 0 .013-.507" />
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
@@ -175,7 +197,22 @@ export default function FormExcursion2(props) {
               <SelectCities value={formValues.name} onChange={handleChange} />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Emplacement</label>
+              <label className="form-label fw-bold">
+                Emplacement
+                {formValues.latitude && formValues.longitude && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    class="bi bi-check2"
+                    viewBox="0 0 16 16"
+                    color="green"
+                  >
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
+                  </svg>
+                )}
+              </label>
               <button
                 type="button"
                 className="btn btn-secondary w-100"
@@ -184,20 +221,11 @@ export default function FormExcursion2(props) {
                 Afficher la carte
               </button>
               <Modal isOpen={isMapModalOpen}>
-                <CardMap onClose={handleCloseMap} />
+                <CardMap
+                  onClose={handleCloseMap}
+                  onSetCoordinates={handleSetCoordinates}
+                />
               </Modal>
-              <input
-                type="hidden"
-                value={formValues.latitude}
-                onChange={handleChange}
-                name="latitude"
-              />
-              <input
-                type="hidden"
-                value={formValues.longitude}
-                onChange={handleChange}
-                name="longitude"
-              />
             </div>
           </div>
           <div className="mb-3">

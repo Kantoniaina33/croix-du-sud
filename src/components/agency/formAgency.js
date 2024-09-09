@@ -89,7 +89,7 @@ function FormAgency(props) {
                     </div>
                     <div className="card-body">
                       <form role="form">
-                        <label>Nom</label>
+                        <label>Nom de l'agence</label>
                         <div className="mb-3">
                           <input
                             type="text"

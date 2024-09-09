@@ -46,10 +46,13 @@ export default function FormCircuit2(props) {
         }
         return;
       }
-      const data = await response.json();
-      const circuit = data.circuit;
-
-      navigate(`/circuits/${circuit.id}/programs`);
+      if (method == "POST") {
+        const data = await response.json();
+        const circuit = data.circuit;
+        navigate(`/circuits/${circuit.id}/programs`);
+      } else {
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -90,7 +93,7 @@ export default function FormCircuit2(props) {
           style={{
             display: "flex",
             alignItems: "center",
-            cursor:"pointer"
+            cursor: "pointer",
           }}
         >
           <svg
@@ -146,7 +149,7 @@ export default function FormCircuit2(props) {
               }}
               onClick={handleSave}
             >
-              Suivant
+              {method == "PUT" ? "Enregister" : "Suivant"}
             </button>
           </div>
         </form>

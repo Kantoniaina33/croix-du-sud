@@ -19,7 +19,7 @@ export default function CardProgram(props) {
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
 
-  const hours = Math.floor(distance);
+  const hours = Math.floor(distance/60);
   const roundedDistance = Math.floor(distance);
 
   return (

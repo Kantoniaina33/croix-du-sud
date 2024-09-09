@@ -169,7 +169,7 @@ export default function ListExcursion() {
               <SelectCities
                 disabledOption="Filtrer par ville"
                 onChange={handleSelectCity}
-                specificOption="Toutes les villes"
+                specificOption="Tout"
                 specificOptionValue=""
               />
             </div>

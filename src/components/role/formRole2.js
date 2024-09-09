@@ -79,7 +79,7 @@ export default function FormRole2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Employe
+            Emploi
           </span>
         </div>
         <div

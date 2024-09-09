@@ -12,6 +12,7 @@ import AlertDelete from "../util/alertDelete";
 import formEmployee2 from "../employee/formEmployee2";
 import Modal from "../hotel/modal";
 import FormEmployee2 from "../employee/formEmployee2";
+import FormRole2 from "./formRole2";
 
 export default function TrRole(props) {
   const { roleId, name, hourlyWage } = props;
@@ -46,25 +47,6 @@ export default function TrRole(props) {
         <td>{hourlyWage} Ar</td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-            <button
-              style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShowMap}
-            >
-              Ajouter un {name}
-            </button>
-            <Modal isOpen={isMapModalOpen}>
-              <FormEmployee2
-                title={`AJOUTER UN ${name}`}
-                method="POST"
-                roleId={roleId}
-                isRoleIdDefined={true}
-                onCancel={handleCloseModal}
-              />
-            </Modal>
-          </span>
-        </td>
-        <td className="align-middle text-center">
-          <span className="text-secondary text-xs font-weight-bold">
             <a href={`roles/${roleId}/employees`}>Liste des employes</a>
           </span>
         </td>
@@ -72,17 +54,19 @@ export default function TrRole(props) {
           <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleShow}
+              onClick={handleShowMap}
             >
               <Edit02Icon color="blue" size={20} />
             </button>
-            <Modal show={show} onHide={handleClose}>
-              <FormRole
+            <Modal isOpen={isMapModalOpen}>
+              <FormRole2
                 title="MODIFIER UN CIRCUIT"
                 method="PUT"
                 roleId={roleId}
                 name={name}
                 hourlyWage={hourlyWage}
+                isOpen={isMapModalOpen}
+                onCancel={handleCloseModal}
               />
             </Modal>
           </span>

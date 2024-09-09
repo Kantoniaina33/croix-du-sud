@@ -109,8 +109,8 @@ export default function FormHotel2(props) {
         return;
       }
 
-      // setIsMapModalOpen(false);
-      // window.location.reload();
+      setIsMapModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error :", error);
     }

@@ -208,6 +208,7 @@ export default function ListEmployee() {
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -223,7 +224,7 @@ export default function ListEmployee() {
                                 email={employee.email}
                                 phone={employee.phone}
                                 role={employee.role.name}
-                                roleId={employee.role.roleId}
+                                roleId={employee.role.id}
                               />
                             </>
                           ))}
