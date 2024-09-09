@@ -35,6 +35,7 @@ export default function ListHotel() {
       const url = `http://localhost:3030/hotels?next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
+      console.log(url);
 
       const response = await fetch(url, {
         method: "GET",
@@ -163,7 +164,7 @@ export default function ListHotel() {
                     <SelectCities
                       disabledOption="Filtrer par ville"
                       onChange={handleSelectCity}
-                      specificOption="Toutes les villes"
+                      specificOption="Tout"
                       specificOptionValue=""
                     />
                   </div>
@@ -185,12 +186,17 @@ export default function ListHotel() {
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Etoiles
-                              <ArrowUpDownIcon
-                                id="sortIcon"
-                                size={18}
-                                onClick={() => handleSort("star")}
-                                style={{ marginLeft: "5px", marginTop: "-5px" }}
-                              />
+                              <a href="#">
+                                <ArrowUpDownIcon
+                                  id="sortIcon"
+                                  size={18}
+                                  onClick={() => handleSort("star")}
+                                  style={{
+                                    marginLeft: "5px",
+                                    marginTop: "-5px",
+                                  }}
+                                />
+                              </a>
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
@@ -211,6 +217,9 @@ export default function ListHotel() {
                                 city={hotel.city}
                                 star={hotel.star}
                                 logo={hotel.image}
+                                setMeals={hotel.setMeals}
+                                latitude={hotel.coordinates.latitude}
+                                longitude={hotel.coordinates.longitude}
                               />
                             </>
                           ))}

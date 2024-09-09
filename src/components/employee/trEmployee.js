@@ -18,7 +18,8 @@ export default function TrEmployee(props) {
     name,
     birthDate,
     genre,
-    contact,
+    email,
+    phone,
     role,
     roleId,
     employeeId,
@@ -64,12 +65,9 @@ export default function TrEmployee(props) {
             </div>
           </div>
         </td>
-        <td className="align-middle text-center">
-          <div className="d-flex px-2 py-1">
-            <div className="d-flex flex-column justify-content-center">
-              <h6 className="mb-0 text-sm">{contact}</h6>
-            </div>
-          </div>
+        <td>
+          <p className="text-sm font-weight-bold mb-0">{phone}</p>
+          <p className="text-sm text-secondary mb-0">{email}</p>
         </td>
         <td className="align-middle text-center">
           <div className="d-flex px-2 py-1">
@@ -94,7 +92,8 @@ export default function TrEmployee(props) {
                 name={name}
                 birthDate={birthDate}
                 genre={genre}
-                contact={contact}
+                email={email}
+                phone={phone}
                 roleId={roleId}
                 employeeId={employeeId}
                 onCancel={handleCloseModal}

@@ -70,9 +70,6 @@ export default function FormEmployee2(props) {
       const data = await response.json();
       const employee = data.employee;
       onClose(employee);
-
-      setIsMapModalOpen(false);
-      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }

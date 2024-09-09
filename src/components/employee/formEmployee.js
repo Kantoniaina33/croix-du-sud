@@ -63,7 +63,7 @@ export default function FormEmployee(props) {
         }
         return;
       }
-      navigate("/reserv");
+      navigate("/reservatio");
     } catch (error) {
       console.error("Error:", error);
     }

@@ -125,7 +125,7 @@ function Login() {
                         <a
                           href="/signup"
                           className="text-dark font-weight-bolder"
-                        >true
+                        >
                           S'inscrire
                         </a>
                       </p>

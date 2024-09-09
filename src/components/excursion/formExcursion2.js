@@ -81,8 +81,6 @@ export default function FormExcursion2(props) {
       }
 
       setIsMapModalOpen(false);
-      navigate("/excursions");
-
       window.location.reload();
 
     } catch (error) {

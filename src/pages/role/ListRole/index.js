@@ -21,7 +21,6 @@ export default function ListRole() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-
   const fetchRoles = async (
     nextDoc = null,
     sort = "name",
@@ -63,7 +62,7 @@ export default function ListRole() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowMap = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(true);
 
   const handleSort = (value) => {
     setCurrentPage(1);
@@ -139,13 +138,15 @@ export default function ListRole() {
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     onClick={handleShowMap}
                   >
-                    Ajouter un nouvel emploi
+                    Nouvel emploi
                   </a>
-                  <Modal 
-                    isOpen={isMapModalOpen}
-                    onCancel={handleCloseModal}
-                    >
-                    <FormRole2 method="POST" title="AJOUTER UNE EXCURSION" />
+                  <Modal isOpen={isMapModalOpen} onCancel={handleCloseModal}>
+                    <FormRole2
+                      method="POST"
+                      title="AJOUTER UNE EXCURSION"
+                      isOpen={isMapModalOpen}
+                      onCancel={handleCloseModal}
+                    />
                   </Modal>
                 </li>
               </ul>

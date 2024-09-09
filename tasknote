@@ -1,0 +1,19 @@
+check date de naissance employe (date inferieur a date ajd, 18+) 
+control input: format tel, email, ...
+afficher hotels les plus proches (trier par distance, % ville, sans rayon)
+conversion m en h
+Format nombre
+unite (affichage)
+bouton deconnexion	
+control email agence existant (inscription agence)
+*nom de l agence (label info)
+ajout loader
+afficher la carte (form)
+modal mandeha
+fiche hotel (avec carte)
+fiche programme (avec carte)
+fiche excursion (avec carte)
+image par defaut (hotel, agence, excursion) (si aucune image n'est importee)
+gestion coordonnees excursion
+indications pour placer les itineraires sur la carte
+update hotel

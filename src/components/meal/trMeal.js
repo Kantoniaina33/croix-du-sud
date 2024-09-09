@@ -26,7 +26,7 @@ export default function TrMeal(props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ price: editedPrice }),
+          body: JSON.stringify({ price: Number(editedPrice) }),
         }
       );
 
@@ -40,6 +40,7 @@ export default function TrMeal(props) {
       }
 
       setIsEditing(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -52,7 +53,7 @@ export default function TrMeal(props) {
   return (
     <tr>
       <td>
-        <div className="d-flex px-2">
+        <div className="d-flex px-2" style={{ marginLeft: "10%" }}>
           <Icon size={24} color={"#000000"} />
         </div>
       </td>
@@ -77,7 +78,12 @@ export default function TrMeal(props) {
                 autoFocus
               />
             ) : (
-              <h6 className="mb-0 text-sm">{editedPrice}</h6>
+              <h6
+                className="mb-0 text-sm"
+                style={{ color: editedPrice === 0 ? "red" : "" }}
+              >
+                {editedPrice}
+              </h6>
             )}
           </div>
         </div>

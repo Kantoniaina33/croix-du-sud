@@ -165,7 +165,7 @@ function MapItinerary(props) {
           }}
           onClick={onClose}
         >
-          Annuler
+          Fermer
         </button>
 
         <button

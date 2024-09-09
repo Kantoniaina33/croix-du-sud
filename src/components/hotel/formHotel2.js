@@ -64,6 +64,7 @@ export default function FormHotel2(props) {
   };
 
   const handleSave = async (e) => {
+    console.log(method + "methoddddddd");
     e.preventDefault();
     setMessage("");
 
@@ -88,7 +89,9 @@ export default function FormHotel2(props) {
 
     try {
       const idUrl = method === "PUT" ? `/${hotelId}` : "";
+      const url = `http://localhost:3030/hotels${idUrl}`;
 
+      console.log(url + " urllllllll");
       const response = await fetch(`http://localhost:3030/hotels${idUrl}`, {
         method: method,
         headers: {
@@ -106,9 +109,8 @@ export default function FormHotel2(props) {
         return;
       }
 
-      setIsMapModalOpen(false);
-      window.location.reload();
-
+      // setIsMapModalOpen(false);
+      // window.location.reload();
     } catch (error) {
       console.error("Error :", error);
     }
@@ -263,7 +265,22 @@ export default function FormHotel2(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Emplacement</label>
+              <label className="form-label fw-bold">
+                Emplacement{" "}
+                {formValues.latitude && formValues.longitude && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    class="bi bi-check2"
+                    viewBox="0 0 16 16"
+                    color="green"
+                  >
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
+                  </svg>
+                )}
+              </label>
               <button
                 type="button"
                 className="form-control"

@@ -7,7 +7,7 @@ import HeadHotel from "../../../components/hotel/headHotel";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function ListRoom() {
+export default function ListMeal() {
   const { hotelId } = useParams();
   const [meals, setMeals] = useState([]);
   const icons = [Coffee02Icon, SpoonAndKnifeIcon, NoodlesIcon];
@@ -45,6 +45,9 @@ export default function ListRoom() {
   useEffect(() => {
     fetchMeals();
   }, []);
+
+  const showPriceMessage = meals.some((meal) => meal.price === 0);
+
   return (
     <div>
       <Aside></Aside>
@@ -92,6 +95,11 @@ export default function ListRoom() {
               <div className="card mb-4">
                 <div className="card-header pb-0">
                   <h6>Tarif repas</h6>
+                  {showPriceMessage && (
+                    <span style={{ color: "red", fontSize:"12px" }}>
+                      *Modifiez le prix des repas
+                    </span>
+                  )}
                 </div>
                 <div className="card-body px-0 pt-0 pb-2">
                   <div className="table-responsive p-0">

@@ -48,9 +48,6 @@ export default function FormCircuit2(props) {
       }
       const data = await response.json();
       const circuit = data.circuit;
-      
-      setIsMapModalOpen(false);
-      window.location.reload();
 
       navigate(`/circuits/${circuit.id}/programs`);
     } catch (error) {

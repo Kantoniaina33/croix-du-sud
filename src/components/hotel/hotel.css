@@ -23,3 +23,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
     text-align: left;
 }
   
+#imageHotel{
+    height: 70px;
+    object-fit: cover;
+}

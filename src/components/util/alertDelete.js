@@ -26,6 +26,8 @@ export default function AlertDelete(props) {
         }
         return;
       }
+      setAlert(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -49,7 +51,7 @@ export default function AlertDelete(props) {
           className="btn btn-outline-primary btn-sm mb-0"
           id="annuler"
         >
-          Annuler
+          Non
         </button>
         <button
           type="button"
@@ -57,7 +59,7 @@ export default function AlertDelete(props) {
           id="confirmer"
           className="btn btn-outline-primary btn-sm mb-0"
         >
-          Confirmer
+          Oui
         </button>
       </div>
     </Modal>

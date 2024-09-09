@@ -13,7 +13,8 @@ import Modal from "./modal";
 import "../../assets/css/soft-ui-dashboard.min.css";
 
 export default function TrHotel(props) {
-  const { hotelId, logo, name, address, city, phone, email, star } = props;
+  const { hotelId, logo, name, address, city, phone, email, star, setMeals, latitude, longitude } =
+    props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
@@ -77,6 +78,7 @@ export default function TrHotel(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-xs">
+            {setMeals == false && <span style={{ color: "red" }}>*</span>}
             <a href={`/hotels/${hotelId}/meals`}>
               <span style={{ textDecoration: "underline" }}>Repas</span>
               <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
@@ -105,6 +107,8 @@ export default function TrHotel(props) {
                 star={star}
                 isOpen={isMapModalOpen}
                 onCancel={handleCloseModal}
+                latitude={latitude}
+                longitude={longitude}
               />
             </Modal>
           </span>

@@ -21,7 +21,7 @@ export default function ListEmployee() {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("firstName");
+  const [sort, setSort] = useState("name");
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function ListEmployee() {
 
   const fetchEmployees = async (
     nextDoc = null,
-    sort = "firstName",
+    sort = "name",
     order = "asc",
     search = "",
     searchField = ""
@@ -198,13 +198,13 @@ export default function ListEmployee() {
                               Prenom
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              genre
+                              Genre
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              contact
+                              Contact
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              emploi
+                              Poste
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
@@ -220,9 +220,10 @@ export default function ListEmployee() {
                                 name={employee.name}
                                 birthDate={employee.birthDate}
                                 genre={employee.genre}
-                                contact={employee.contact}
-                                role={employee.role}
-                                roleId={employee.roleId}
+                                email={employee.email}
+                                phone={employee.phone}
+                                role={employee.role.name}
+                                roleId={employee.role.roleId}
                               />
                             </>
                           ))}

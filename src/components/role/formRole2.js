@@ -3,8 +3,9 @@ import { useState } from "react";
 import "./role.css";
 
 export default function FormRole2(props) {
-  const { title, method, name, hourlyWage, roleId, onCancel, } = props;
+  const { title, method, name, hourlyWage, roleId, onCancel } = props;
   const [message, setMessage] = useState("");
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const [formValues, setFormValues] = useState({
     name: name || "",
@@ -43,6 +44,8 @@ export default function FormRole2(props) {
         }
         return;
       }
+      setIsMapModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,7 +79,7 @@ export default function FormRole2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Nouvel Employe
+            Employe
           </span>
         </div>
         <div
@@ -146,6 +149,7 @@ export default function FormRole2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
+              onClick={handleSave}
             >
               Enregistrer
             </button>

@@ -43,6 +43,7 @@ export default function HeadHotel(props) {
         <div className="col-auto">
           <div className="avatar avatar-xl position-relative">
             <img
+              id="imageHotel"
               src={hotel.image}
               alt="profile_image"
               className="w-100 border-radius-lg shadow-sm"

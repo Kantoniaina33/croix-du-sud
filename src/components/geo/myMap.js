@@ -134,7 +134,7 @@ function MyMap(props) {
           }}
           onClick={onClose}
         >
-          Annuler
+          Fermer
         </button>
         <button
           onClick={handleSave}
@@ -145,7 +145,7 @@ function MyMap(props) {
             marginTop: "1%",
           }}
         >
-          Afficher les coordonnées
+          Enregistrer
         </button>
       </div>
     </div>
