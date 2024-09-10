@@ -17,6 +17,7 @@ export default function FormExcursion2(props) {
     city,
     excursionId,
     onCancel,
+    location,
     latitude,
     longitude,
   } = props;
@@ -30,6 +31,7 @@ export default function FormExcursion2(props) {
     description: description || "",
     city: city || "Antananarivo",
     price: price,
+    location: location,
     latitude: latitude,
     longitude: longitude,
     image: image || null,
@@ -38,6 +40,7 @@ export default function FormExcursion2(props) {
   const handleSetCoordinates = (data) => {
     setFormValues((prevValues) => ({
       ...prevValues,
+      location: data.name,
       latitude: data.lat,
       longitude: data.lng,
     }));
@@ -72,11 +75,13 @@ export default function FormExcursion2(props) {
     formData.append("description", formValues.description);
     formData.append("city", formValues.city);
     formData.append("price", formValues.price);
+    formData.append("location", formValues.location);
     formData.append("latitude", formValues.latitude);
     formData.append("longitude", formValues.longitude);
 
     try {
       const idUrl = method === "PUT" ? `/${excursionId}` : "";
+      console.log(`http://localhost:3030/excursions${idUrl}` + "heyyyyyyyyyyy");
 
       const response = await fetch(`http://localhost:3030/excursions${idUrl}`, {
         method: method,
@@ -165,7 +170,12 @@ export default function FormExcursion2(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-5%" }}>
+        <form
+          id="myForm"
+          autocomplete="off"
+          style={{ marginTop: "-3%" }}
+          onSubmit={handleSave}
+        >
           <div className="row mb-3">
             <div className="col">
               <label className="form-label fw-bold">Nom du lieu</label>
@@ -223,6 +233,11 @@ export default function FormExcursion2(props) {
                 <CardMap
                   onClose={handleCloseMap}
                   onSetCoordinates={handleSetCoordinates}
+                  initialCoordinates={{
+                    name: formValues.location || 0,
+                    lat: parseFloat(formValues.latitude) || 0,
+                    lng: parseFloat(formValues.longitude) || 0,
+                  }}
                 />
               </Modal>
             </div>
@@ -269,7 +284,6 @@ export default function FormExcursion2(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={handleSave}
             >
               Enregistrer
             </button>

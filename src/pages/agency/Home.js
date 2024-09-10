@@ -15,6 +15,7 @@ import ProgramsCircuit from "../../components/circuit/programsCircuit";
 import FormCustomer2 from "../../components/customer/formCustomer2";
 import FormReservation2 from "../../components/reservation/formReservation2";
 import FormProgram2 from "../../components/program/formProgram2";
+import Testmap from "../../components/geo/testmap";
 
 function Home() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -24,9 +25,7 @@ function Home() {
 
   return (
     <div className="card card-plain mt-1">
-      <FormCustomer2/>
-      
-      {/* <ProgramsCircuit/> */}
+      <Testmap/>
     </div>
   );
 }

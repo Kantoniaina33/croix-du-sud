@@ -8,11 +8,18 @@ import "leaflet-control-geocoder";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 function MyMap(props) {
-  const { onClose, onSetCoordinates } = props;
+  const { onClose, onSetCoordinates, initialCoordinates } = props;
+
   // Référence pour stocker le marqueur
   const markerRef = useRef(null);
   // État pour stocker les coordonnées du marqueur
-  const [markerPosition, setMarkerPosition] = useState(null);
+  // const [markerPosition, setMarkerPosition] = useState(null);
+  const [markerPosition, setMarkerPosition] = useState(
+    initialCoordinates || null
+  );
+  const [namePosition, setNamePosition] = useState(
+    initialCoordinates.name || "Emplacement"
+  );
 
   useEffect(() => {
     // Correction du chemin de l'icône du marqueur
@@ -51,9 +58,9 @@ function MyMap(props) {
     })
       .on("markgeocode", function (e) {
         // Si un marqueur existe déjà, le supprimer
-        if (markerRef.current) {
-          map.removeLayer(markerRef.current);
-        }
+        // if (markerRef.current) {
+        //   map.removeLayer(markerRef.current);
+        // }
 
         // Ajouter un marqueur au résultat de la recherche
         markerRef.current = L.marker(e.geocode.center, {
@@ -74,6 +81,7 @@ function MyMap(props) {
 
         // Mettre à jour l'état avec la position du marqueur
         setMarkerPosition(e.geocode.center);
+        setNamePosition(e.geocode.name);
       })
       .addTo(map);
 
@@ -98,30 +106,49 @@ function MyMap(props) {
       setMarkerPosition(e.latlng);
     });
 
+    if (
+      initialCoordinates &&
+      initialCoordinates.lat != 0 &&
+      initialCoordinates.long != 0
+    ) {
+      markerRef.current = L.marker(initialCoordinates, {
+        icon: DefaultIcon,
+      }).addTo(map);
+      markerRef.current
+        .bindPopup(
+          `<b>${initialCoordinates.name}: </b><br>Latitude: ${initialCoordinates.lat.toFixed(
+            6
+          )}<br>Longitude: ${initialCoordinates.lng.toFixed(6)}`
+        )
+        .openPopup();
+
+      map.setView(initialCoordinates, 14);
+    }
+
     return () => {
       // Nettoyer la carte à la désactivation du composant
       map.remove();
     };
-  }, []);
+  }, [initialCoordinates]);
 
   const handleSave = () => {
-    console.log(markerPosition);
-    console.log(onSetCoordinates+"");
-    if (markerPosition && onSetCoordinates) {
-      onSetCoordinates(markerPosition);
+    if (namePosition && markerPosition && onSetCoordinates) {
+      onSetCoordinates({
+        name: namePosition,
+        lat: markerPosition.lat,
+        lng: markerPosition.lng,
+      });
     }
     onClose();
   };
 
   return (
     <div
-      style={
-        {
-          position: "relative",
-          height: "550px",
-          width: "100%",
-        }
-      }
+      style={{
+        position: "relative",
+        height: "550px",
+        width: "100%",
+      }}
     >
       <div id="map" style={{ height: "90%", width: "100%" }} />
       <div className="d-flex justify-content-between align-items-center">
@@ -151,5 +178,9 @@ function MyMap(props) {
     </div>
   );
 }
-
+// Ajouter le marqueur initial si disponible
+// if (initialCoordinates) {
+//   markerRef.current = L.marker(initialCoordinates, { icon: DefaultIcon }).addTo(map);
+//   map.setView(initialCoordinates, 14);
+// }
 export default MyMap;

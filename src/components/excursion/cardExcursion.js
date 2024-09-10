@@ -12,7 +12,17 @@ import FormExcursion2 from "./formExcursion2";
 import Modal from "../hotel/modal";
 
 export default function CardExcursion(props) {
-  const { excursionId, logo, place_name, city, price, description } = props;
+  const {
+    excursionId,
+    image,
+    place_name,
+    city,
+    price,
+    description,
+    location,
+    latitude,
+    longitude,
+  } = props;
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
   const [showSheet, setShowSheet] = useState(false);
@@ -32,7 +42,7 @@ export default function CardExcursion(props) {
         rel="stylesheet"
       />
       <div className="card-image">
-        <img src={logo} alt="Image" />
+        <img src={image} alt="Image" />
       </div>
       <div className="card-body">
         <div className="card-header">
@@ -58,6 +68,15 @@ export default function CardExcursion(props) {
               title="MODIFIER UN CIRCUIT"
               method="PUT"
               onCancel={handleCloseModal}
+              image={image}
+              place_name={place_name}
+              description={description}
+              price={price}
+              city={city}
+              excursionId={excursionId}
+              location={location}
+              latitude={latitude}
+              longitude={longitude}
             />
           </Modal>
           <button

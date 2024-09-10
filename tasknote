@@ -2,8 +2,7 @@
 *** control input: format tel, email, ...
 ** afficher hotels les plus proches (trier par distance, % ville, sans rayon)
 ** control email agence existant (inscription agence)
-* ajout loader
-*** afficher la carte (form)
+*** afficher emplacement sur la carte (form, update)
 *** fiche hotel (avec carte)
 *** fiche programme (avec carte)
 *** fiche excursion (avec carte)
@@ -11,3 +10,5 @@
 * indications pour placer les itineraires sur la carte
 update hotel
 update excursion
+update programme
+ajouter des programmes

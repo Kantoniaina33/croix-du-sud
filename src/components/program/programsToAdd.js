@@ -28,10 +28,11 @@ export default function ProgramsToAdd(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/${circuitId}?limit=${limit}&&next=${
+      const url = `http://localhost:3030/programs/circuits/${circuitId}?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
+      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {

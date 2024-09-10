@@ -195,11 +195,14 @@ export default function ListExcursion() {
                   <div className="custom-col mb-4" key={excursion.id}>
                     <CardExcursion
                       excursionId={excursion.id}
-                      logo={excursion.image}
+                      image={excursion.image}
                       place_name={excursion.place_name}
                       city={excursion.city}
                       price={excursion.price}
                       description={excursion.description}
+                      location={excursion.coordinates.location}
+                      latitude={excursion.coordinates.latitude}
+                      longitude={excursion.coordinates.longitude}
                     />
                   </div>
                 ))
