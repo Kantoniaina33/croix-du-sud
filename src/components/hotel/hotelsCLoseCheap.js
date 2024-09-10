@@ -3,10 +3,12 @@ import "./hotel.css";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import TrHotelMealPrice from "./trHotelMealPrice";
 import { useParams } from "react-router-dom";
+import Return from "../util/return";
 
 export default function HotelsCloseCheap() {
   const [show, setShow] = useState(false);
   const [hotels, setHotels] = useState([]);
+  const [program, setProgram] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -53,6 +55,34 @@ export default function HotelsCloseCheap() {
     }
   };
 
+  const fetchProgram = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const url = `http://localhost:3030/programs/${programId}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch program");
+        return;
+      }
+      const data = await response.json();
+      setProgram(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching program");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
@@ -67,8 +97,14 @@ export default function HotelsCloseCheap() {
     setSearchField("city");
     setSearch(e.target.value);
   };
+  
+  // useEffect(() => {
+
+  //   console.log(program);
+  // }, []);
 
   useEffect(() => {
+    fetchProgram();
     fetchHotels(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
@@ -82,13 +118,25 @@ export default function HotelsCloseCheap() {
       <div className="row">
         <div className="col-12">
           <div className="card mb-4">
+            <Return href="/circuits"/>
             <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-              <h6>Liste des hôtels les plus proches</h6>
+              <div>
+                <h5>
+                  {program.departure} - {program.arrival}
+                </h5>
+                <h7>Liste des hôtels les plus proches</h7>
+              </div>
             </div>
 
             <div className="card-body px-0 pt-0 pb-2">
               {loading ? (
-                <p>Loading...</p>
+                <div
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  style={{ marginLeft: "3%" }}
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               ) : hotels.length > 0 ? (
                 <div className="table-responsive p-0">
                   <table className="table align-items-center mb-0">
@@ -100,20 +148,21 @@ export default function HotelsCloseCheap() {
                         <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                           Contacts
                         </th>
-                        <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                           Etoiles
-                          <ArrowUpDownIcon
+                          {/* <ArrowUpDownIcon
                             id="sortIcon"
                             size={18}
                             onClick={() => handleSort("star")}
                             style={{ marginLeft: "5px", marginTop: "-5px" }}
-                          />
+                          /> */}
                         </th>
                         <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                           Prix repas
                         </th>
-                        <th className="text-secondary opacity-7"></th>
-                        <th className="text-secondary opacity-7"></th>
+                        <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                          Distance
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -130,6 +179,7 @@ export default function HotelsCloseCheap() {
                             star={hotel.star}
                             logo={hotel.image}
                             mealPrice={hotel.mealsPrice}
+                            distance={hotel.distance}
                           />
                         </>
                       ))}
@@ -137,7 +187,7 @@ export default function HotelsCloseCheap() {
                   </table>
                 </div>
               ) : (
-                <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>
+                <p style={{ marginLeft: "2.5%" }}></p>
               )}
             </div>
           </div>

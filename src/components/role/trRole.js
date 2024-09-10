@@ -44,12 +44,12 @@ export default function TrRole(props) {
             </div>
           </div>
         </td>
-        <td>{hourlyWage} Ar</td>
-        <td className="align-middle text-center">
+        <td className="text-sm font-weight-bold mb-0">{hourlyWage} Ar</td>
+        {/* <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-            <a href={`roles/${roleId}/employees`}>Liste des employes</a>
+            <a href={`roles/${roleId}/employees`}>Liste des employés</a>
           </span>
-        </td>
+        </td> */}
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
             <button
@@ -80,7 +80,7 @@ export default function TrRole(props) {
               <Delete02Icon color="rgb(219, 1, 1)" size={23} />
             </button>
             <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer l'emploi ${name}' ?`}
+              alertMessage={`Êtes-vous sûr de vouloir supprimer ${name}' ?`}
               show={alert}
               setAlert={setAlert}
               url={`http://localhost:3030/roles/${roleId}`}

@@ -16,12 +16,13 @@ export default function FormReservation2(props) {
     reservationId,
     onCancel,
   } = props;
-  
-  const {id} = useParams();
+
+  const { id } = useParams();
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    budget: budget || null,
+    budget: budget,
     startDate: startDate,
     duration: duration,
     customerId: id,
@@ -39,7 +40,8 @@ export default function FormReservation2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log(formValues);
+    setIsLoading(true);
+
     try {
       const idUrl = method === "PUT" ? `/${reservationId}` : "";
 
@@ -65,6 +67,8 @@ export default function FormReservation2(props) {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +99,7 @@ export default function FormReservation2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Reservation de voyage
+            Réservation de voyage
           </span>
         </div>
         {/* <div
@@ -144,7 +148,7 @@ export default function FormReservation2(props) {
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="nom" className="form-label fw-bold">
-                Duree
+                Durée (j)
               </label>
               <input
                 type="number"
@@ -168,7 +172,7 @@ export default function FormReservation2(props) {
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <button
+            {/* <button
               type="button"
               className="btn"
               style={{
@@ -177,10 +181,10 @@ export default function FormReservation2(props) {
                 marginTop: "1%",
                 border: "solid 1px rgb(231, 231, 231)",
               }}
-              onClick={onCancel}
             >
-              Retour
-            </button>
+              <a>Retour</a>
+            </button> */}
+            <p></p>
             <button
               type="submit"
               className="btn btn-primary"
@@ -191,7 +195,13 @@ export default function FormReservation2(props) {
               }}
               onClick={handleSave}
             >
-              Enregistrer
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Enregistrer"
+              )}
             </button>
           </div>
         </form>

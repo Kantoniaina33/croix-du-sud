@@ -108,7 +108,7 @@ export default function FormEmployee2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Employe
+            Employé
           </span>
         </div>
         <div
@@ -142,7 +142,12 @@ export default function FormEmployee2(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form onSubmit={handleSave} id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+        <form
+          onSubmit={handleSave}
+          id="myForm"
+          autocomplete="off"
+          style={{ marginTop: "-6%" }}
+        >
           <div className="row mb-3">
             <div className="col">
               <label className="form-label fw-bold">Nom</label>
@@ -155,7 +160,7 @@ export default function FormEmployee2(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Prenom</label>
+              <label className="form-label fw-bold">Prénom</label>
               <input
                 type="text"
                 className="form-control"
@@ -205,7 +210,7 @@ export default function FormEmployee2(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Telephone</label>
+              <label className="form-label fw-bold">Téléphone</label>
               <input
                 type="number"
                 className="form-control"

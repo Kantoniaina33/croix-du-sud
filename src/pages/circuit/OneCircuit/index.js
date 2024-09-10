@@ -8,6 +8,7 @@ import ProgramsToAdd from "../../../components/program/programsToAdd";
 import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
 import { useParams } from "react-router-dom";
+import Return from "../../../components/util/return";
 
 export default function OneCircuit() {
   const { id } = useParams();
@@ -37,10 +38,9 @@ export default function OneCircuit() {
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Liste
+                  Programmes
                 </li>
               </ol>
-              <h6 className="font-weight-bolder mb-0">Tables</h6>
             </nav>
             <div
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -65,6 +65,7 @@ export default function OneCircuit() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
+                <Return href="/circuits" />
                 <ProgramsCircuit circuitId={id} />
                 <ProgramsToAdd circuitId={id} />
               </div>

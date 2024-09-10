@@ -78,8 +78,8 @@ export default function ProgramsCircuit(props) {
   return (
     <>
       <div className="card-header pb-0">
-        <h5>TERRES ET CONTRASTES</h5>
-        <h6>
+        <h6>TERRES ET CONTRASTES</h6>
+        <h7 style={{ color: "#273385" }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -87,6 +87,7 @@ export default function ProgramsCircuit(props) {
             fill="currentColor"
             class="bi bi-list-nested"
             viewBox="0 0 16 16"
+            color="#273385"
           >
             <path
               fill-rule="evenodd"
@@ -94,11 +95,17 @@ export default function ProgramsCircuit(props) {
             />
           </svg>
           <span style={{ marginLeft: "1%" }}>Liste des programmes</span>
-        </h6>
+        </h7>
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-3">
         {loading ? (
-          <p>Loading...</p>
+          <div
+            className="spinner-border spinner-border-sm"
+            role="status"
+            style={{ marginLeft: "3%" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
         ) : programs.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
             {programs.slice(0, 3).map((program) => (
@@ -118,16 +125,20 @@ export default function ProgramsCircuit(props) {
                 circuitId={circuitId}
               />
             ))}
-            <CardSeeMore
-              style={{
-                flex: "1 1 calc(25% - 10px)",
-                boxSizing: "border-box",
-                marginBottom: "20px",
-              }}
-            />
+            {programs.length > 3 && (
+              <CardSeeMore
+                style={{
+                  flex: "1 1 calc(25% - 10px)",
+                  boxSizing: "border-box",
+                  marginBottom: "20px",
+                }}
+              />
+            )}
           </div>
         ) : (
-          <p style={{ marginLeft: "2.5%" }}>Aucun emploi</p>
+          <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>
+            Aucun programme
+          </p>
         )}
       </div>
     </>

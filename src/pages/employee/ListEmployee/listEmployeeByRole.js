@@ -24,6 +24,7 @@ export default function ListEmployeeByRole() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 10;
   const fetchEmployees = async (
     nextDoc = null,
     sort = "firstName",
@@ -34,7 +35,7 @@ export default function ListEmployeeByRole() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/employees?next=${
+      const url = `http://localhost:3030/employees?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -80,7 +81,6 @@ export default function ListEmployeeByRole() {
   const handleShow = () => setShow(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowMap = () => setIsMapModalOpen(false);
-
 
   return (
     <div>
@@ -168,7 +168,13 @@ export default function ListEmployeeByRole() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : employees.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
@@ -212,15 +218,19 @@ export default function ListEmployeeByRole() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
+                        {employees.length > limit && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun employe</p>
+                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
+                      Aucun employe
+                    </p>
                   )}
                 </div>
               </div>

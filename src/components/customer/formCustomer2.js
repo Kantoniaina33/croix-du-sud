@@ -7,6 +7,7 @@ export default function FormCustomer2(props) {
   const { title, method, name, firstName, contact, customerId, onCancel } =
     props;
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -26,7 +27,7 @@ export default function FormCustomer2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log(formValues);
+    setIsLoading(true);
     try {
       const idUrl = method === "PUT" ? `/${customerId}` : "";
 
@@ -51,9 +52,10 @@ export default function FormCustomer2(props) {
       const data = await response.json();
       const customer = data.customer;
       navigate(`/customer/${customer.id}/reservation`);
-
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -134,7 +136,7 @@ export default function FormCustomer2(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Prenom</label>
+              <label className="form-label fw-bold">Prénom</label>
               <input
                 type="text"
                 className="form-control"
@@ -182,7 +184,13 @@ export default function FormCustomer2(props) {
               }}
               onClick={handleSave}
             >
-              Enregistrer
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Enregistrer"
+              )}
             </button>
           </div>
         </form>

@@ -3,10 +3,11 @@ import "./agency.css";
 import { useNavigate } from "react-router-dom";
 
 function FormAgency(props) {
-  const { method, name, phone, description, logo , onCancel} = props;
+  const { method, name, phone, description, logo, onCancel } = props;
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
     name: name || "",
@@ -33,8 +34,7 @@ function FormAgency(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-
-    // const id = method === "PUT" ? `/${agencyId}` : "";
+    setIsLoading(true);
 
     const formData = new FormData();
 
@@ -66,6 +66,8 @@ function FormAgency(props) {
       navigate("/hotels");
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -99,7 +101,7 @@ function FormAgency(props) {
                             onChange={handleChange}
                           />
                         </div>
-                        <label>Telephone</label>
+                        <label>Téléphone</label>
                         <div className="mb-3">
                           <input
                             type="text"
@@ -120,7 +122,7 @@ function FormAgency(props) {
                         </div>
                         <div className="mb-3">
                           <label for="formFile" className="form-label">
-                            Logo
+                            Logo/Image
                           </label>
                           <input
                             className="form-control"
@@ -136,7 +138,18 @@ function FormAgency(props) {
                             className="btn w-100 mt-4 mb-0"
                             id="saveInfo"
                           >
-                            Enregistrer
+                            {isLoading ? (
+                              <div
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                              >
+                                <span className="visually-hidden">
+                                  Loading...
+                                </span>
+                              </div>
+                            ) : (
+                              "Enregistrer"
+                            )}
                           </button>
                         </div>
                         <br></br>

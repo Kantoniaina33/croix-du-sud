@@ -7,6 +7,7 @@ import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import FormRole2 from "../../../components/role/formRole2";
 import Modal from "../../../components/hotel/modal";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListRole() {
   const [show, setShow] = useState(false);
@@ -21,6 +22,7 @@ export default function ListRole() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 10;
   const fetchRoles = async (
     nextDoc = null,
     sort = "name",
@@ -31,7 +33,7 @@ export default function ListRole() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/roles/paginated?next=${
+      const url = `http://localhost:3030/roles/paginated?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -105,7 +107,7 @@ export default function ListRole() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Emploi</span>
+                  <span>Postes</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -138,7 +140,7 @@ export default function ListRole() {
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     onClick={handleShowMap}
                   >
-                    Nouvel emploi
+                    Nouveau poste
                   </a>
                   <Modal isOpen={isMapModalOpen} onCancel={handleCloseModal}>
                     <FormRole2
@@ -149,6 +151,9 @@ export default function ListRole() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -158,7 +163,7 @@ export default function ListRole() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'emplois</h6>
+                  <h6>Liste des postes</h6>
                   {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -171,19 +176,25 @@ export default function ListRole() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : roles.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Emploi
+                              Poste
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Salaire horaire
                             </th>
-                            <th className="text-secondary opacity-7"></th>
+                            {/* <th className="text-secondary opacity-7"></th> */}
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                           </tr>
@@ -202,15 +213,19 @@ export default function ListRole() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
+                        {roles.length > limit && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun emploi</p>
+                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
+                      Aucun poste
+                    </p>
                   )}
                 </div>
               </div>

@@ -11,7 +11,7 @@ import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";
 
 export default function TrHotelMealPrice(props) {
-  const { hotelId, logo, name, address, city, phone, email, star, mealPrice, } =
+  const { hotelId, logo, name, address, city, phone, email, star, mealPrice, distance} =
     props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
@@ -27,6 +27,8 @@ export default function TrHotelMealPrice(props) {
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
 
+  const roundedDistance = Math.floor(distance);
+
   return (
     <>
       <tr>
@@ -36,7 +38,7 @@ export default function TrHotelMealPrice(props) {
               <img
                 src={logo}
                 alt="logo"
-                style={{ width: "60px", height: "60px" }}
+                style={{ width: "60px", height: "60px", objectFit: "cover" }}
               />
             </div>
             <div
@@ -53,7 +55,7 @@ export default function TrHotelMealPrice(props) {
           <p className="text-sm font-weight-bold mb-0">{phone}</p>
           <p className="text-sm text-secondary mb-0">{email}</p>
         </td>
-        <td className="align-middle text-center text-sm">
+        <td className="text-sm font-weight-bold mb-0">
           <span>
             {starsArray.map((color, index) => (
               <StarIcon
@@ -65,22 +67,11 @@ export default function TrHotelMealPrice(props) {
             ))}
           </span>
         </td>
-        <td className="align-middle text-center">{mealPrice} Ar</td>
-        <td className="align-middle text-center">
-          <span className="text-xs">
-            <a href={`/hotels/${hotelId}/rooms`}>
-              <span style={{ textDecoration: "underline" }}>Chambres</span>
-              <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
-            </a>
-          </span>
+        <td>
+          <p className="text-sm font-weight-bold mb-0">{mealPrice} Ar</p>
         </td>
-        <td className="align-middle text-center">
-          <span className="text-xs">
-            <a href={`/hotels/${hotelId}/meals`}>
-              <span style={{ textDecoration: "underline" }}>Repas</span>
-              <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
-            </a>
-          </span>
+        <td>
+          <p className="text-sm font-weight-bold mb-0">{roundedDistance} Km</p>
         </td>
       </tr>
     </>

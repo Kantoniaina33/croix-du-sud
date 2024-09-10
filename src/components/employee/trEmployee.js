@@ -70,17 +70,17 @@ export default function TrEmployee(props) {
             </div>
           </div>
         </td>
-        <td className="align-middle text-center">
+        <td className="text-sm font-weight-bold mb-0">
           <h6 className="mb-0 text-sm">{name}</h6>
         </td>
-        <td className="align-middle text-center">
+        <td className="text-sm font-weight-bold mb-0">
           <h6 className="mb-0 text-sm">{genre}</h6>
         </td>
-        <td>
+        <td className="text-sm font-weight-bold mb-0">
           <p className="text-sm font-weight-bold mb-0">{phone}</p>
           <p className="text-sm text-secondary mb-0">{email}</p>
         </td>
-        <td className="align-middle text-center">
+        <td className="text-sm font-weight-bold mb-0">
           <h6 className="mb-0 text-sm">{role}</h6>
         </td>
         <td className="align-middle text-center">

@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import Modal from "../../../components/hotel/modal";
 import FormEmployee2 from "../../../components/employee/formEmployee2";
 import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListEmployee() {
   const [show, setShow] = useState(false);
@@ -27,6 +28,7 @@ export default function ListEmployee() {
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
   const [employee, setEmployee] = useState(null);
 
+  const limit = 10;
   const fetchEmployees = async (
     nextDoc = null,
     sort = "name",
@@ -37,7 +39,7 @@ export default function ListEmployee() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/employees?next=${
+      const url = `http://localhost:3030/employees?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -110,7 +112,7 @@ export default function ListEmployee() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Employees</span>
+                  <span>Employés</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -133,7 +135,7 @@ export default function ListEmployee() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Rechercher un employee..."
+                    placeholder="Rechercher un employé..."
                   />
                 </div>
               </div>
@@ -163,6 +165,9 @@ export default function ListEmployee() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -172,7 +177,7 @@ export default function ListEmployee() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste des employes</h6>
+                  <h6>Liste des employés</h6>
                   {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -185,7 +190,13 @@ export default function ListEmployee() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : employees.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
@@ -194,16 +205,16 @@ export default function ListEmployee() {
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Nom
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Prenom
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Genre
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Contact
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Poste
                             </th>
                             <th className="text-secondary opacity-7"></th>
@@ -231,15 +242,19 @@ export default function ListEmployee() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
+                        {employees.length > limit && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun employe</p>
+                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
+                      Aucun employé
+                    </p>
                   )}
                 </div>
               </div>

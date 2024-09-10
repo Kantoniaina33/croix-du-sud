@@ -85,8 +85,8 @@ function Login() {
                   <div className="card-header text-center pt-4">
                     <h5>Connexion</h5>
                   </div>
-                  <div className="card-body">
-                    {message && <span className="error">{message}</span>}
+                    {message && <span style={{color:"red", textAlign:"center"}}>{message}</span>}
+                  <div className="card-body" style={{marginTop:"-5%"}}>
                     <form onSubmit={handleLogin}>
                       <div className="mb-3">
                         <input

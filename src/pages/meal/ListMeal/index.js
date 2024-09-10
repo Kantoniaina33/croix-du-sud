@@ -6,6 +6,7 @@ import TrMeal from "../../../components/meal/trMeal";
 import HeadHotel from "../../../components/hotel/headHotel";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Return from "../../../components/util/return";
 
 export default function ListMeal() {
   const { hotelId } = useParams();
@@ -64,7 +65,7 @@ export default function ListMeal() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span style={{ color: "white" }}>Pages</span>
+                  <span style={{ color: "white" }}>Hôtels</span>
                 </li>
                 <li
                   className="font-weight-bold breadcrumb-item text-sm text-white active"
@@ -93,10 +94,11 @@ export default function ListMeal() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
+                <Return href="/hotels" />
                 <div className="card-header pb-0">
                   <h6>Tarif repas</h6>
                   {showPriceMessage && (
-                    <span style={{ color: "red", fontSize:"12px" }}>
+                    <span style={{ color: "red", fontSize: "12px" }}>
                       *Modifiez le prix des repas
                     </span>
                   )}

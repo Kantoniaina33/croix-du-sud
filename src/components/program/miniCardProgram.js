@@ -36,6 +36,8 @@ export default function MiniCardProgram(props) {
         }
         return;
       }
+
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -68,6 +70,7 @@ export default function MiniCardProgram(props) {
         }
         return;
       }
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,6 +79,9 @@ export default function MiniCardProgram(props) {
   const handleAlert = () => setAlert(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const durationHours = Math.floor(distance / 60);
+  const roundedDistance = Math.floor(distance);
 
   return (
     <div className="card-horizontal mb-3" id="mini_programs">
@@ -108,7 +114,7 @@ export default function MiniCardProgram(props) {
         </div>
         <div className="card-content">
           <div className="card-description">
-            {distance} Km | {duration} h
+            {roundedDistance} Km | {durationHours} h
           </div>
           <div className="icon">
             {icon == "minus" ? (

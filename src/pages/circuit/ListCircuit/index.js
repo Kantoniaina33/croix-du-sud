@@ -9,6 +9,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListCircuit() {
   const [show, setShow] = useState(false);
@@ -23,6 +24,7 @@ export default function ListCircuit() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 10;
   const fetchCircuits = async (
     nextDoc = null,
     sort = "name",
@@ -33,7 +35,7 @@ export default function ListCircuit() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/circuits/paginated?next=${
+      const url = `http://localhost:3030/circuits/paginated?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -149,6 +151,9 @@ export default function ListCircuit() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -158,7 +163,7 @@ export default function ListCircuit() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste de circuits</h6>
+                  <h6>Liste des circuits</h6>
                   {/* <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -171,7 +176,13 @@ export default function ListCircuit() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : circuits.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
@@ -197,15 +208,19 @@ export default function ListCircuit() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
+                        {circuits.length > limit && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun circuit</p>
+                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
+                      Aucun circuit
+                    </p>
                   )}
                 </div>
               </div>

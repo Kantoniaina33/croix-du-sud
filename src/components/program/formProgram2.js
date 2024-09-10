@@ -25,8 +25,8 @@ export default function FormProgram2(props) {
   const [formValues, setFormValues] = useState({
     departure: departure || "",
     arrival: arrival || "",
-    distance: distance || 1,
-    duration: duration || 1,
+    distance: distance,
+    duration: duration,
     description: description || "",
     departureLatitude: departureLatitude,
     departureLongitude: departureLongitude,
@@ -159,7 +159,7 @@ export default function FormProgram2(props) {
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="nom" className="form-label fw-bold">
-                Depart
+                Départ
               </label>
               <input
                 type="text"
@@ -171,7 +171,7 @@ export default function FormProgram2(props) {
             </div>
             <div className="col">
               <label htmlFor="etoiles" className="form-label fw-bold">
-                Arrive
+                Arrivée
               </label>
               <input
                 type="text"
@@ -184,7 +184,7 @@ export default function FormProgram2(props) {
           </div>
           <div className="mb-3">
             <label className="form-label fw-bold">
-              Itineraire{" "}
+              Itinéraire{" "}
               {formValues.departureLatitude && formValues.arrivalLatitude && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +214,7 @@ export default function FormProgram2(props) {
             </Modal>
           </div>
           <div className="mb-3">
-            <label className="form-label fw-bold">Descritption</label>
+            <label className="form-label fw-bold">Description</label>
             <textarea
               type="text"
               name="description"

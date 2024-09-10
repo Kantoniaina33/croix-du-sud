@@ -8,6 +8,7 @@ import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
@@ -22,6 +23,7 @@ export default function ListHotel() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 4;
   const fetchHotels = async (
     nextDoc = null,
     sort = "name",
@@ -32,7 +34,7 @@ export default function ListHotel() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/hotels?next=${
+      const url = `http://localhost:3030/hotels?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
       console.log(url);
@@ -105,7 +107,7 @@ export default function ListHotel() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Hotels</span>
+                  <span>Hôtels</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -150,6 +152,9 @@ export default function ListHotel() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -159,7 +164,7 @@ export default function ListHotel() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste d'hôtels</h6>
+                  <h6>Liste des hôtels</h6>
                   <div className="col-md-2">
                     <SelectCities
                       disabledOption="Filtrer par ville"
@@ -172,7 +177,13 @@ export default function ListHotel() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : hotels.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
@@ -226,15 +237,19 @@ export default function ListHotel() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 40%" }}>
-                        <MyPagination
-                          onPageChange={handlePageChange}
-                          lastVisible={next}
-                          currentPage={currentPage}
-                        />
+                        {hotels.length > limit && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucun hotel</p>
+                    <p style={{ marginLeft: "2.5%", fontSize:"15px" }}>
+                      Aucun hôtel
+                    </p>
                   )}
                 </div>
               </div>

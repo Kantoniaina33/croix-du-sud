@@ -8,6 +8,7 @@ import CardExcursion from "../../../components/excursion/cardExcursion";
 import { SpartanHelmetIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
 import FormExcursion2 from "../../../components/excursion/formExcursion2";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -20,6 +21,7 @@ export default function ListExcursion() {
   const [searchField, setSearchField] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 4;
   const fetchExcursions = async (
     nextDoc = null,
     search = "",
@@ -28,7 +30,7 @@ export default function ListExcursion() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/excursions?next=${
+      const url = `http://localhost:3030/excursions?limit=${limit}&&next=${
         nextDoc || ""
       }&&searchField=${searchField}&&search=${search}`;
 
@@ -96,7 +98,7 @@ export default function ListExcursion() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Excursion</span>
+                  <span>Excursions</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -140,6 +142,9 @@ export default function ListExcursion() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -163,7 +168,7 @@ export default function ListExcursion() {
                 color: "#273385",
               }}
             >
-              <span style={{ marginLeft: "1%" }}>Listes des excursions</span>
+              <h6 style={{ marginLeft: "1%" }}>Liste des excursions</h6>
             </div>
             <div className="col-md-2">
               <SelectCities
@@ -175,26 +180,34 @@ export default function ListExcursion() {
             </div>
           </div>
           <br />
-          <div className="row gx-4" style={{ padding: "2% 0 0 3%" }}>
-            {loading ? (
-              <p>Loading...</p>
-            ) : excursions.length > 0 ? (
-              excursions.map((excursion) => (
-                <div className="custom-col mb-4" key={excursion.id}>
-                  <CardExcursion
-                    excursionId={excursion.id}
-                    logo={excursion.image}
-                    place_name={excursion.place_name}
-                    city={excursion.city}
-                    price={excursion.price}
-                    description={excursion.description}
-                  />
-                </div>
-              ))
-            ) : (
-              <p style={{ marginLeft: "2.5%" }}>Aucune excursion</p>
-            )}
-          </div>
+          {loading ? (
+            <div
+              className="spinner-border spinner-border-sm"
+              role="status"
+              style={{ marginLeft: "3%" }}
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            <div className="row gx-4" style={{ padding: "2% 0 0 3%" }}>
+              {excursions.length > 0 ? (
+                excursions.map((excursion) => (
+                  <div className="custom-col mb-4" key={excursion.id}>
+                    <CardExcursion
+                      excursionId={excursion.id}
+                      logo={excursion.image}
+                      place_name={excursion.place_name}
+                      city={excursion.city}
+                      price={excursion.price}
+                      description={excursion.description}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p style={{ fontSize: "15px" }}>Aucune excursion</p>
+              )}
+            </div>
+          )}
         </div>
       </main>
     </div>

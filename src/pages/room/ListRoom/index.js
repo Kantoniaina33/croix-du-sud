@@ -11,6 +11,7 @@ import SelectRoomTypes from "../../../components/util/selectRoomTypes";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
 import FormRoom2 from "../../../components/room/formRoom2";
+import Return from "../../../components/util/return";
 
 export default function ListRoom() {
   const { hotelId } = useParams();
@@ -117,7 +118,7 @@ export default function ListRoom() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span style={{ color: "white" }}>Hotel</span>
+                  <span style={{ color: "white" }}>Hôtels</span>
                 </li>
                 <li
                   className="font-weight-bold breadcrumb-item text-sm text-white active"
@@ -168,8 +169,9 @@ export default function ListRoom() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
+                <Return href="/hotels" />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste de chambres</h6>
+                  <h6>Liste des chambres</h6>
                   <div className="w-55">
                     <div className="row">
                       <div className="col">
@@ -194,7 +196,13 @@ export default function ListRoom() {
 
                 <div className="card-body px-0 pt-0 pb-2">
                   {loading ? (
-                    <p>Loading...</p>
+                    <div
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      style={{ marginLeft: "3%" }}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   ) : rooms.length > 0 ? (
                     <div className="table-responsive p-0">
                       <br />
@@ -268,7 +276,9 @@ export default function ListRoom() {
                       </table>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%" }}>Aucune chambre</p>
+                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
+                      Aucune chambre
+                    </p>
                   )}
                 </div>
               </div>

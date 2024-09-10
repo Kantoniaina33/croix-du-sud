@@ -9,7 +9,6 @@ import {
 import FormCircuit from "./formCircuit";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import AddProgram from "./addProgram";
 import Modal from "../hotel/modal";
 import FormCircuit2 from "./formCircuit2";
 
@@ -44,17 +43,8 @@ export default function TrCircuit(props) {
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
             <a href={`/circuits/${circuitId}/programs`}>
-              <button
-                style={{ backgroundColor: "white", border: "none" }}
-                // onClick={handleShowMap}
-              >
-                <PlusSignSquareIcon
-                  size={23}
-                  color={"green"}
-                  variant={"stroke"}
-                />{" "}
-                <span>Ajouter des programmes</span>
-              </button>
+              <span style={{ textDecoration: "underline" }}>Programmes</span>
+              <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
             </a>
           </span>
         </td>

@@ -16,6 +16,7 @@ export default function ProgramsToAdd(props) {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
+  const limit=4;
 
   const fetchPrograms = async (
     nextDoc = null,
@@ -27,7 +28,7 @@ export default function ProgramsToAdd(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs?next=${
+      const url = `http://localhost:3030/programs/${circuitId}?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -93,15 +94,14 @@ export default function ProgramsToAdd(props) {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-plus-lg"
+            class="bi bi-plus-circle"
             viewBox="0 0 16 16"
+            style={{ marginBottom: "0%" }}
           >
-            <path
-              fill-rule="evenodd"
-              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-            />
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
           </svg>
-          <h6 style={{ marginLeft: "1%" }}>Ajouter des programmes</h6>
+          <h7 style={{ marginLeft: "1%" }}>Ajouter des programmes</h7>
         </div>
         {/* <div className="col-md-3">
           <div className="input-group">
@@ -118,11 +118,17 @@ export default function ProgramsToAdd(props) {
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-4">
         {loading ? (
-          <p>Loading...</p>
+          <div
+            className="spinner-border spinner-border-sm"
+            role="status"
+            style={{ marginLeft: "3%" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
         ) : programs.length > 0 ? (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
-              {programs.slice(0,4).map((program) => (
+              {programs.slice(0, 4).map((program) => (
                 <MiniCardProgram
                   key={program.id}
                   programId={program.id}
@@ -140,15 +146,17 @@ export default function ProgramsToAdd(props) {
               ))}
             </div>
             <div style={{ margin: "3% 0 0 40%" }}>
-              <MyPagination
-                onPageChange={handlePageChange}
-                lastVisible={next}
-                currentPage={currentPage}
-              />
+              {programs.length > limit && (
+                <MyPagination
+                  onPageChange={handlePageChange}
+                  lastVisible={next}
+                  currentPage={currentPage}
+                />
+              )}
             </div>
           </>
         ) : (
-          <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
+          <p style={{ marginLeft: "2.5%", fontSize:"14px" }}>Aucun programme à ajouter</p>
         )}
       </div>
     </>

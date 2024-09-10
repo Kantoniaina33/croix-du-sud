@@ -97,7 +97,6 @@ export default function FormExcursion2(props) {
 
       setIsMapModalOpen(false);
       window.location.reload();
-
     } catch (error) {
       console.error("Error:", error);
     }
@@ -229,7 +228,7 @@ export default function FormExcursion2(props) {
             </div>
           </div>
           <div className="mb-3">
-            <label className="form-label fw-bold">Descritption</label>
+            <label className="form-label fw-bold">Description</label>
             <textarea
               type="text"
               name="description"
@@ -239,7 +238,7 @@ export default function FormExcursion2(props) {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label fw-bold">Logo/image</label>
+            <label className="form-label fw-bold">Image</label>
             <input
               className="form-control"
               name="image"

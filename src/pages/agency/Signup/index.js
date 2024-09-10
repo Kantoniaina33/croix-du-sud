@@ -81,7 +81,7 @@ function Signup() {
                   </div>
                   <div className="card-body">
                     {message && <span className="error">{message}</span>}
-                    <form onSubmit={handleLogin} style={{marginTop:"-10%"}}>
+                    <form onSubmit={handleLogin} style={{ marginTop: "-10%" }}>
                       <div className="mb-3">
                         <input
                           type="email"
@@ -129,7 +129,7 @@ function Signup() {
                         </button>
                       </div>
                       <p className="text-sm mt-3 mb-0">
-                        Vous avez deja un compte?{" "}
+                        Vous avez déja un compte?{" "}
                         <a href="/" className="text-dark font-weight-bolder">
                           Se connecter
                         </a>

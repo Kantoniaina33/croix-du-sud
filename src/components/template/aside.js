@@ -1,9 +1,34 @@
 import { Hotel01Icon, Tree06Icon } from "hugeicons-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./template.css";
 
 export default function Aside(props) {
-  // const { label, width, onClick, style } = props;
+  const [agency, setAgency] = useState([]);
+
+  const fetchAgency = async () => {
+    try {
+      const response = await fetch("http://localhost:3030/agencies", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      setAgency(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAgency();
+  }, []);
+
   return (
     <aside
       className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
@@ -31,11 +56,11 @@ export default function Aside(props) {
           target="_blank"
         >
           <img
-            src="/logo.png"
-            className="navbar-brand-img h-100"
-            alt="main_logo"
+            src={agency.image}
+            style={{ objectFit: "cover", width: "40px", height: "55px" }}
+            alt="logo"
           />
-          <span className="ms-1 font-weight-bold">Nom Agence</span>
+          <span className="ms-1 font-weight-bold">{agency.name}</span>
         </a>
       </div>
       <hr className="horizontal dark mt-0" />
@@ -52,7 +77,7 @@ export default function Aside(props) {
               <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <Hotel01Icon size={50} color={"#000000"} variant={"stroke"} />
               </div>
-              <span className="nav-link-text ms-1">Hotels</span>
+              <span className="nav-link-text ms-1">Hôtels</span>
             </a>
           </li>
           <li className="nav-item">
@@ -136,7 +161,7 @@ export default function Aside(props) {
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 </svg>
               </div>
-              <span className="nav-link-text ms-1">Roles</span>
+              <span className="nav-link-text ms-1">Postes</span>
             </a>
           </li>
 
@@ -159,7 +184,7 @@ export default function Aside(props) {
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 </svg>
               </div>
-              <span className="nav-link-text ms-1">Employes</span>
+              <span className="nav-link-text ms-1">Employés</span>
             </a>
           </li>
 

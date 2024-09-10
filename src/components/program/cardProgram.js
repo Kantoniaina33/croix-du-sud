@@ -19,7 +19,7 @@ export default function CardProgram(props) {
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
 
-  const hours = Math.floor(distance/60);
+  const durationHours = Math.floor(distance/60);
   const roundedDistance = Math.floor(distance);
 
   return (
@@ -45,7 +45,7 @@ export default function CardProgram(props) {
             </h5>
           </div>
           <span className="card-price">
-            {roundedDistance} Km | {hours} h
+            {roundedDistance} Km | {durationHours} h
           </span>{" "}
         </div>
         <p className="card-description">{description}</p>

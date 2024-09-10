@@ -9,6 +9,7 @@ import { ArrowUpDownIcon } from "hugeicons-react";
 import CardProgram from "../../../components/program/cardProgram";
 import Modal from "../../../components/hotel/modal";
 import FormProgram2 from "../../../components/program/formProgram2";
+import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListProgram() {
   const [show, setShow] = useState(false);
@@ -23,6 +24,7 @@ export default function ListProgram() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
+  const limit = 10;
   const fetchPrograms = async (
     nextDoc = null,
     sort = "departure",
@@ -33,7 +35,7 @@ export default function ListProgram() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs?next=${
+      const url = `http://localhost:3030/programs?limit=${limit}&&next=${
         nextDoc || ""
       }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
@@ -151,6 +153,9 @@ export default function ListProgram() {
                     />
                   </Modal>
                 </li>
+                <li className="nav-item d-flex align-items-center">
+                  <LogoutButton />
+                </li>
               </ul>
             </div>
           </div>
@@ -170,7 +175,9 @@ export default function ListProgram() {
             <br />
             <div className="col-12">
               {loading ? (
-                <p>Loading...</p>
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               ) : programs.length > 0 ? (
                 programs.map((program) => (
                   <>
@@ -187,7 +194,7 @@ export default function ListProgram() {
                   </>
                 ))
               ) : (
-                <p style={{ marginLeft: "2.5%" }}>Aucun programme</p>
+                <p style={{ fontSize: "15px" }}>Aucun programme</p>
               )}
             </div>
           </div>

@@ -82,7 +82,7 @@ export default function TrMeal(props) {
                 className="mb-0 text-sm"
                 style={{ color: editedPrice === 0 ? "red" : "" }}
               >
-                {editedPrice}
+                {editedPrice} Ar
               </h6>
             )}
           </div>

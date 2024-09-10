@@ -179,7 +179,7 @@ export default function FormProgram(props) {
             </div>
           </div>
           <div className="mb-3">
-            <label>Descritption</label>
+            <label>Description</label>
             <textarea
               type="text"
               name="description"

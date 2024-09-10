@@ -27,6 +27,7 @@ export default function FormHotel2(props) {
 
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
     name: name || "",
@@ -64,10 +65,9 @@ export default function FormHotel2(props) {
   };
 
   const handleSave = async (e) => {
-    console.log(method + "methoddddddd");
     e.preventDefault();
     setMessage("");
-
+    setIsLoading(true);
     const formData = new FormData();
 
     if (formValues.image) {
@@ -113,6 +113,8 @@ export default function FormHotel2(props) {
       window.location.reload();
     } catch (error) {
       console.error("Error :", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -329,7 +331,13 @@ export default function FormHotel2(props) {
                 marginTop: "1%",
               }}
             >
-              Enregistrer
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Enregistrer"
+              )}
             </button>
           </div>
         </form>

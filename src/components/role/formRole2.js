@@ -6,10 +6,10 @@ export default function FormRole2(props) {
   const { title, method, name, hourlyWage, roleId, onCancel } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     name: name || "",
-    hourlyWage: hourlyWage || 1,
+    hourlyWage: hourlyWage ,
   });
 
   const handleChange = (e) => {
@@ -23,7 +23,7 @@ export default function FormRole2(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log(formValues);
+    setIsLoading(true);
     try {
       const idUrl = method === "PUT" ? `/${roleId}` : "";
 
@@ -48,6 +48,8 @@ export default function FormRole2(props) {
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,7 +81,7 @@ export default function FormRole2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Emploi
+            Poste
           </span>
         </div>
         <div
@@ -107,7 +109,7 @@ export default function FormRole2(props) {
         <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
           <div className="row mb-3">
             <div className="col">
-              <label className="form-label fw-bold">Poste</label>
+              <label className="form-label fw-bold">Nom</label>
               <input
                 type="text"
                 className="form-control"
@@ -151,7 +153,13 @@ export default function FormRole2(props) {
               }}
               onClick={handleSave}
             >
-              Enregistrer
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Enregistrer"
+              )}
             </button>
           </div>
         </form>
