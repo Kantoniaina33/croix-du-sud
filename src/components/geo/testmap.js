@@ -5,21 +5,36 @@ import SelectCities from "../util/selectCities";
 import Modal from "../hotel/modal";
 import CardMap from "../geo/cardMap";
 import { useNavigate } from "react-router-dom";
+import CardMapItinerary from "./cardMapItinerary";
+import MapItinerary from "./mapItinerary";
 
 export default function Testmap(props) {
-  const { title, method, latitude, longitude } = props;
-const [message, setMessage] = useState("");
+  const {
+    title,
+    method,
+    departureLatitude,
+    departureLongitude,
+    arrivalLatitude,
+    arrivalLongitude,
+  } = props;
+  const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [formValues, setFormValues] = useState({
-    latitude: latitude,
-    longitude: longitude,
+    departureLatitude: departureLatitude,
+    departureLongitude: departureLongitude,
+    arrivalLatitude: arrivalLatitude,
+    arrivalLongitude: arrivalLongitude,
   });
 
-  const handleSetCoordinates = (data) => {
+  const handleRouteCalculated = (routeData) => {
     setFormValues((prevValues) => ({
       ...prevValues,
-      latitude: data.lat,
-      longitude: data.lng,
+      distance: routeData.distance,
+      duration: routeData.duration,
+      departureLatitude: routeData.startCoords.lat,
+      departureLongitude: routeData.startCoords.lng,
+      arrivalLatitude: routeData.endCoords.lat,
+      arrivalLongitude: routeData.endCoords.lng,
     }));
   };
 
@@ -66,6 +81,18 @@ const [message, setMessage] = useState("");
 
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseMap = () => setIsMapModalOpen(false);
+  const iCo = [
+    {
+      lat: -18.8792,
+      lng: 47.5079,
+      name: "Marqueur 1",
+    },
+    {
+      lat: -20.94092,
+      lng: 44.560547,
+      name: "Marqueur 2",
+    },
+  ];
 
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
@@ -93,16 +120,15 @@ const [message, setMessage] = useState("");
               className="btn btn-secondary w-100"
               onClick={handleShowMap}
             >
-              Afficher la carte
+              Placer l'itineraire sur la carte
             </button>
             <Modal isOpen={isMapModalOpen}>
-              <CardMap
-                initialCoordinates={{
-                  lat: formValues.latitude || 0,
-                  lng: formValues.longitude || 0,
-                }}
+              {/* <CardMapItinerary */}
+              <MapItinerary
+                onOpen={true}
+                initialCoordinates={iCo}
                 onClose={handleCloseMap}
-                onSetCoordinates={handleSetCoordinates}
+                onRouteCalculated={handleRouteCalculated}
               />
             </Modal>
           </div>
@@ -114,5 +140,19 @@ const [message, setMessage] = useState("");
         </div>
       </form>
     </div>
+    // <MapItinerary
+    //   initialCoordinates={{
+    //     departure: {
+    //       lat: parseFloat(formValues.departureLatitude) || 0,
+    //       lng: parseFloat(formValues.departureLongitude || 0),
+    //     },
+    //     arrival: {
+    //       lat: parseFloat(formValues.arrivalLatitude) || 0,
+    //       lng: parseFloat(formValues.arrivalLongitude || 0),
+    //     },
+    //   }}
+    //   onClose={handleCloseMap}
+    //   onRouteCalculated={handleRouteCalculated}
+    // />
   );
 }

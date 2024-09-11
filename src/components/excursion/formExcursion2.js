@@ -234,7 +234,7 @@ export default function FormExcursion2(props) {
                   onClose={handleCloseMap}
                   onSetCoordinates={handleSetCoordinates}
                   initialCoordinates={{
-                    name: formValues.location || 0,
+                    name: formValues.location,
                     lat: parseFloat(formValues.latitude) || 0,
                     lng: parseFloat(formValues.longitude) || 0,
                   }}
@@ -260,6 +260,7 @@ export default function FormExcursion2(props) {
               type="file"
               id="formFile"
               onChange={handleChange}
+              accept="image/*"
             />
           </div>
           <div className="d-flex justify-content-between align-items-center">

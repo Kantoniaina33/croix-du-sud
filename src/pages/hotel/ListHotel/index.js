@@ -231,6 +231,7 @@ export default function ListHotel() {
                                 setMeals={hotel.setMeals}
                                 latitude={hotel.coordinates.latitude}
                                 longitude={hotel.coordinates.longitude}
+                                location={hotel.coordinates.location}
                               />
                             </>
                           ))}
@@ -247,7 +248,7 @@ export default function ListHotel() {
                       </div>
                     </div>
                   ) : (
-                    <p style={{ marginLeft: "2.5%", fontSize:"15px" }}>
+                    <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>
                       Aucun hôtel
                     </p>
                   )}

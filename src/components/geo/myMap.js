@@ -105,7 +105,7 @@ function MyMap(props) {
       // Mettre à jour l'état avec la position du marqueur
       setMarkerPosition(e.latlng);
     });
-
+    
     if (
       initialCoordinates &&
       initialCoordinates.lat != 0 &&

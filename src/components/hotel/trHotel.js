@@ -12,7 +12,7 @@ import Modal from "./modal";
 import "../../assets/css/soft-ui-dashboard.min.css";
 
 export default function TrHotel(props) {
-  const { hotelId, logo, name, address, city, phone, email, star, setMeals, latitude, longitude } =
+  const { hotelId, logo, name, address, city, phone, email, star, setMeals, latitude, longitude, location } =
     props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
@@ -108,6 +108,7 @@ export default function TrHotel(props) {
                 onCancel={handleCloseModal}
                 latitude={latitude}
                 longitude={longitude}
+                location={location}
               />
             </Modal>
           </span>

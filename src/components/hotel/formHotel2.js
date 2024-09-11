@@ -19,6 +19,7 @@ export default function FormHotel2(props) {
     star,
     latitude,
     longitude,
+    location,
     hotelId,
     isOpen,
     onClose,
@@ -38,12 +39,14 @@ export default function FormHotel2(props) {
     star: star || 0,
     latitude: latitude,
     longitude: longitude,
+    location: location,
     image: image || null,
   });
 
   const handleSetCoordinates = (data) => {
     setFormValues((prevValues) => ({
       ...prevValues,
+      location: data.name,
       latitude: data.lat,
       longitude: data.lng,
     }));
@@ -82,10 +85,7 @@ export default function FormHotel2(props) {
     formData.append("star", formValues.star);
     formData.append("latitude", formValues.latitude);
     formData.append("longitude", formValues.longitude);
-
-    formData.forEach((value, key) => {
-      console.log(key + ": " + value);
-    });
+    formData.append("location", formValues.location);
 
     try {
       const idUrl = method === "PUT" ? `/${hotelId}` : "";
@@ -294,6 +294,11 @@ export default function FormHotel2(props) {
                 <CardMap
                   onClose={handleCloseMap}
                   onSetCoordinates={handleSetCoordinates}
+                  initialCoordinates={{
+                    name: formValues.location,
+                    lat: parseFloat(formValues.latitude) || 0,
+                    lng: parseFloat(formValues.longitude) || 0,
+                  }}
                 />
               </Modal>
             </div>
