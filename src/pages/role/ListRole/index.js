@@ -8,6 +8,7 @@ import SelectCities from "../../../components/util/selectCities";
 import FormRole2 from "../../../components/role/formRole2";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function ListRole() {
   const [show, setShow] = useState(false);
@@ -87,6 +88,16 @@ export default function ListRole() {
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
+  const handleSearchRole = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
+
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
+
   return (
     <div>
       <Aside></Aside>
@@ -122,17 +133,14 @@ export default function ListRole() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-35">
-                <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher une role..."
-                  />
-                </div>
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-30">
+                <MySearchBar
+                  placeholder="Rechercher un poste..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchRole}
+                />
               </div>
               <ul className="navbar-nav  justify-content-end">
                 <li className="nav-item d-flex align-items-center">
@@ -213,7 +221,7 @@ export default function ListRole() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        {roles.length > limit && (
+                        {(next != null || currentPage != 1) && (
                           <MyPagination
                             onPageChange={handlePageChange}
                             lastVisible={next}

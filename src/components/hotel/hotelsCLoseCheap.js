@@ -118,13 +118,15 @@ export default function HotelsCloseCheap() {
       <div className="row">
         <div className="col-12">
           <div className="card mb-4">
-            <Return href="/circuits"/>
+            <Return href="/programs" />
             <div className="card-header pb-0 d-flex justify-content-between align-items-center">
               <div>
-                <h5>
+                <h6 style={{ textTransform: "uppercase" }}>
                   {program.departure} - {program.arrival}
-                </h5>
-                <h7>Liste des hôtels les plus proches</h7>
+                </h6>
+                <p style={{ fontSize: "145x" }}>
+                  Liste des hôtels les plus proches
+                </p>
               </div>
             </div>
 

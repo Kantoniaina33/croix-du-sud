@@ -81,19 +81,18 @@ export default function Testmap(props) {
 
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseMap = () => setIsMapModalOpen(false);
-  const iCo = [
-    {
+  const iCo = {
+    departure: {
       lat: -18.8792,
       lng: 47.5079,
       name: "Marqueur 1",
     },
-    {
+    arrival: {
       lat: -20.94092,
       lng: 44.560547,
       name: "Marqueur 2",
     },
-  ];
-
+  };
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <form id="myForm" autocomplete="off" style={{ marginTop: "-5%" }}>
@@ -123,8 +122,8 @@ export default function Testmap(props) {
               Placer l'itineraire sur la carte
             </button>
             <Modal isOpen={isMapModalOpen}>
-              {/* <CardMapItinerary */}
-              <MapItinerary
+              <CardMapItinerary
+              // <MapItinerary
                 onOpen={true}
                 initialCoordinates={iCo}
                 onClose={handleCloseMap}

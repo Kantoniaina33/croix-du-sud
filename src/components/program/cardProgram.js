@@ -7,8 +7,18 @@ import Modal from "../hotel/modal";
 import FormProgram2 from "./formProgram2";
 
 export default function CardProgram(props) {
-  const { programId, departure, arrival, distance, duration, description } =
-    props;
+  const {
+    programId,
+    departure,
+    arrival,
+    distance,
+    duration,
+    description,
+    departureLatitude,
+    departureLongitude,
+    arrivalLatitude,
+    arrivalLongitude,
+  } = props;
 
   const [show, setShow] = useState(false);
 
@@ -38,7 +48,7 @@ export default function CardProgram(props) {
                 variant={"stroke"}
               />
               <a href={`/programs/${programId}/close_hotels`}>
-                <span style={{ margin: "3px 0 0 10px", fontSize:"16px" }}>
+                <span style={{textTransform: "uppercase", margin: "3px 0 0 10px", fontSize: "16px" }}>
                   {departure} - {arrival}
                 </span>
               </a>
@@ -69,6 +79,10 @@ export default function CardProgram(props) {
               distance={distance}
               duration={duration}
               description={description}
+              departureLatitude={departureLatitude}
+              departureLongitude={departureLongitude}
+              arrivalLatitude={arrivalLatitude}
+              arrivalLongitude={arrivalLongitude}
               onCancel={handleCloseModal}
             />
           </Modal>

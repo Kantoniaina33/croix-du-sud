@@ -204,12 +204,24 @@ export default function FormProgram2(props) {
               className="btn btn-secondary w-100"
               onClick={handleShowMap}
             >
-              Placer l'itineraire sur la carte
+              Placer l'itineraire sur la carte{" "}
             </button>
             <Modal isOpen={isMapModalOpen}>
               <CardMapItinerary
                 onClose={handleCloseMap}
                 onRouteCalculated={handleRouteCalculated}
+                initialCoordinates={{
+                  departure: {
+                    lat: parseFloat(formValues.departureLatitude) || 0,
+                    lng: parseFloat(formValues.departureLongitude) || 0,
+                    name: formValues.departure,
+                  },
+                  arrival: {
+                    lat: parseFloat(formValues.arrivalLatitude) || 0,
+                    lng: parseFloat(formValues.arrivalLongitude) || 0,
+                    name: formValues.arrival,
+                  },
+                }}
               />
             </Modal>
           </div>

@@ -9,6 +9,7 @@ import { SpartanHelmetIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
 import FormExcursion2 from "../../../components/excursion/formExcursion2";
 import LogoutButton from "../../../components/util/logoutButton";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -78,6 +79,16 @@ export default function ListExcursion() {
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
+  const handleSearchExcursion = (e) => {
+    setSearchField("place_name");
+    setSearch(e.target.value);
+  };
+
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
+
   return (
     <div>
       <Aside></Aside>
@@ -114,16 +125,13 @@ export default function ListExcursion() {
               id="navbar"
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center w-35">
-                <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher une excursion..."
-                  />
-                </div>
+                <MySearchBar
+                  placeholder="Rechercher une excursion..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchExcursion}
+                />
               </div>
               <ul className="navbar-nav  justify-content-end">
                 <li className="nav-item d-flex align-items-center">

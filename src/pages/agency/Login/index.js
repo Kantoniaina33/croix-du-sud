@@ -7,11 +7,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("http://localhost:3030/agencies/login", {
@@ -40,6 +43,8 @@ function Login() {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,8 +90,12 @@ function Login() {
                   <div className="card-header text-center pt-4">
                     <h5>Connexion</h5>
                   </div>
-                    {message && <span style={{color:"red", textAlign:"center"}}>{message}</span>}
-                  <div className="card-body" style={{marginTop:"-5%"}}>
+                  {message && (
+                    <span style={{ color: "red", textAlign: "center" }}>
+                      {message}
+                    </span>
+                  )}
+                  <div className="card-body" style={{ marginTop: "-5%" }}>
                     <form onSubmit={handleLogin}>
                       <div className="mb-3">
                         <input
@@ -117,7 +126,18 @@ function Login() {
                           type="submit"
                           className="btn bg-gradient-dark w-100 my-4 mb-2"
                         >
-                          Se connecter
+                          {isLoading ? (
+                            <div
+                              className="spinner-border spinner-border-sm"
+                              role="status"
+                            >
+                              <span className="visually-hidden">
+                                Loading...
+                              </span>
+                            </div>
+                          ) : (
+                            "Se connecter"
+                          )}
                         </button>
                       </div>
                       <p className="text-sm mt-3 mb-0">

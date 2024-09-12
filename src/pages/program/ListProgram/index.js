@@ -24,7 +24,7 @@ export default function ListProgram() {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const limit = 10;
+  const limit = 4;
   const fetchPrograms = async (
     nextDoc = null,
     sort = "departure",
@@ -124,16 +124,13 @@ export default function ListProgram() {
               id="navbar"
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher un programme..."
-                  />
-                </div>
+                {/* <MySearchBar
+                  placeholder="Rechercher une excursion..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchExcursion}
+                /> */}
               </div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
@@ -179,20 +176,38 @@ export default function ListProgram() {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               ) : programs.length > 0 ? (
-                programs.map((program) => (
-                  <>
-                    <CardProgram
-                      key={program.id}
-                      programId={program.id}
-                      departure={program.departure}
-                      arrival={program.arrival}
-                      distance={program.distance}
-                      duration={program.duration}
-                      description={program.description}
-                    />
-                    <br />
-                  </>
-                ))
+                <>
+                  {programs.map((program) => (
+                    <div key={program.id}>
+                      <CardProgram
+                        programId={program.id}
+                        departure={program.departure}
+                        arrival={program.arrival}
+                        distance={program.distance}
+                        duration={program.duration}
+                        description={program.description}
+                        departureLatitude={
+                          program.departureCoordinates.latitude
+                        }
+                        departureLongitude={
+                          program.departureCoordinates.longitude
+                        }
+                        arrivalLatitude={program.arrivalCoordinates.latitude}
+                        arrivalLongitude={program.arrivalCoordinates.longitude}
+                      />
+                      <br />
+                    </div>
+                  ))}
+                  <div style={{ margin: "2% 0 0 40%" }}>
+                    {(next != null || currentPage !== 1) && (
+                      <MyPagination
+                        onPageChange={handlePageChange}
+                        lastVisible={next}
+                        currentPage={currentPage}
+                      />
+                    )}
+                  </div>
+                </>
               ) : (
                 <p style={{ fontSize: "15px" }}>Aucun programme</p>
               )}

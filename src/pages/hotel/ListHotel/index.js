@@ -9,6 +9,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function ListHotel() {
   const [show, setShow] = useState(false);
@@ -78,6 +79,16 @@ export default function ListHotel() {
     setSearch(e.target.value);
   };
 
+  const handleSearchHotel = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
+
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
+
   useEffect(() => {
     fetchHotels(null, sort, order, search, searchField);
   }, [sort, order, search, searchField]);
@@ -124,13 +135,12 @@ export default function ListHotel() {
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center">
                 <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
+                  <MySearchBar
                     placeholder="Rechercher un hotel..."
+                    search={search}
+                    setSearch={setSearch}
+                    handleClearSearch={handleClearSearch}
+                    handleSearch={handleSearchHotel}
                   />
                 </div>
               </div>
@@ -238,7 +248,7 @@ export default function ListHotel() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 40%" }}>
-                        {hotels.length > limit && (
+                        {(next != null || currentPage != 1) && (
                           <MyPagination
                             onPageChange={handlePageChange}
                             lastVisible={next}

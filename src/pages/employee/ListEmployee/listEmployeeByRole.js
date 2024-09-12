@@ -218,7 +218,7 @@ export default function ListEmployeeByRole() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        {employees.length > limit && (
+                        {(next != null || currentPage != 1) && (
                           <MyPagination
                             onPageChange={handlePageChange}
                             lastVisible={next}

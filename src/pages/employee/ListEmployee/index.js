@@ -12,6 +12,7 @@ import Modal from "../../../components/hotel/modal";
 import FormEmployee2 from "../../../components/employee/formEmployee2";
 import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
 import LogoutButton from "../../../components/util/logoutButton";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function ListEmployee() {
   const [show, setShow] = useState(false);
@@ -92,6 +93,17 @@ export default function ListEmployee() {
     setIsNextModalOpen(true);
   };
 
+    const handleSearchEmployee = (e) => {
+      setSearchField("name");
+      setSearch(e.target.value);
+    };
+
+    const handleClearSearch = (e) => {
+      setSearchField("");
+      setSearch("");
+    };
+
+
   return (
     <div>
       <Aside />
@@ -128,16 +140,13 @@ export default function ListEmployee() {
               id="navbar"
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher un employé..."
-                  />
-                </div>
+                <MySearchBar
+                  placeholder="Rechercher un employé..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchEmployee}
+                />
               </div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
@@ -242,7 +251,7 @@ export default function ListEmployee() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        {employees.length > limit && (
+                        {(next != null || currentPage != 1) && (
                           <MyPagination
                             onPageChange={handlePageChange}
                             lastVisible={next}

@@ -7,11 +7,14 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setMessage("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("http://localhost:3030/agencies/signup", {
@@ -34,6 +37,8 @@ function Signup() {
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,7 +86,7 @@ function Signup() {
                   </div>
                   <div className="card-body">
                     {message && <span className="error">{message}</span>}
-                    <form onSubmit={handleLogin} style={{ marginTop: "-10%" }}>
+                    <form onSubmit={handleSignup} style={{ marginTop: "-10%" }}>
                       <div className="mb-3">
                         <input
                           type="email"
@@ -125,7 +130,18 @@ function Signup() {
                           type="submit"
                           className="btn bg-gradient-dark w-100 my-4 mb-2"
                         >
-                          S'inscrire
+                          {isLoading ? (
+                            <div
+                              className="spinner-border spinner-border-sm"
+                              role="status"
+                            >
+                              <span className="visually-hidden">
+                                Loading...
+                              </span>
+                            </div>
+                          ) : (
+                            "S'inscrire"
+                          )}
                         </button>
                       </div>
                       <p className="text-sm mt-3 mb-0">

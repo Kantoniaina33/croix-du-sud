@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MiniCardProgram from "../program/miniCardProgram";
 import CardSeeMore from "../util/cardSeeMore";
 
-export default function ProgramsCircuit(props) {
+export default function AllProgramsCircuit(props) {
   const { title, circuitId } = props;
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
@@ -139,7 +139,7 @@ export default function ProgramsCircuit(props) {
           </div>
         ) : programs.length > 0 ? (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
-            {programs.slice(0, 3).map((program) => (
+            {programs.map((program) => (
               <MiniCardProgram
                 key={program.id}
                 programId={program.id}
@@ -156,16 +156,6 @@ export default function ProgramsCircuit(props) {
                 circuitId={circuitId}
               />
             ))}
-            {programs.length > 3 && (
-              <CardSeeMore
-                style={{
-                  flex: "1 1 calc(25% - 10px)",
-                  boxSizing: "border-box",
-                  marginBottom: "20px",
-                }}
-                href={`/circuits/${circuitId}/programs/all`}
-              />
-            )}
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

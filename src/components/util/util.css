@@ -38,14 +38,19 @@
 
 
 #card_see_more {
-    display: flex;
-    border-radius: 15px;
-    overflow: hidden;
-    margin: auto;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color:white;
-    width:23%;
-  }
+  display: flex;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 23%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#card_see_more:hover {
+  transform: scale(1.02);
+}
   
   
   .custom-col {

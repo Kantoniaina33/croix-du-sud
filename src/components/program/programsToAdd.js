@@ -1,25 +1,31 @@
-import React from "react-bootstrap";
+import React from "react";
 import { useEffect, useState } from "react";
 import MiniCardProgram from "./miniCardProgram";
-import MyPagination from "../util/myPagination";
+import MyPaginationFront from "../util/myPaginationFront";
 
 export default function ProgramsToAdd(props) {
   const { title, circuitId } = props;
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const [programs, setPrograms] = useState([]);
-  const [programId, setProgramId] = useState([]);
-  const [next, setNext] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
-  const limit=4;
+  const limit = 4;
+  const programsPerPage = 4;
+
+  // Calcul des programmes à afficher pour la page actuelle
+  const indexOfLastProgram = currentPage * programsPerPage;
+  const indexOfFirstProgram = indexOfLastProgram - programsPerPage;
+  const currentPrograms = programs.slice(
+    indexOfFirstProgram,
+    indexOfLastProgram
+  );
 
   const fetchPrograms = async (
-    nextDoc = null,
     sort = "departure",
     order = "asc",
     search = "",
@@ -28,10 +34,7 @@ export default function ProgramsToAdd(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/circuits/${circuitId}?limit=${limit}&&next=${
-        nextDoc || ""
-      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
-
+      const url = `http://localhost:3030/programs/circuits/${circuitId}?limit=${limit}&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
       console.log(url);
       const response = await fetch(url, {
         method: "GET",
@@ -47,16 +50,12 @@ export default function ProgramsToAdd(props) {
       }
       const data = await response.json();
       setPrograms(data.programs);
-      setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching programs");
     } finally {
       setLoading(false);
     }
-  };
-  const handleChange = (e) => {
-    setProgramId(e.target.value);
   };
 
   const handleSort = (value) => {
@@ -71,12 +70,11 @@ export default function ProgramsToAdd(props) {
   };
 
   useEffect(() => {
-    fetchPrograms(null, sort, order, search, searchField);
+    fetchPrograms(sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
-  const handlePageChange = (nextDoc) => {
-    fetchPrograms(nextDoc, sort, order, search, searchField);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -104,18 +102,6 @@ export default function ProgramsToAdd(props) {
           </svg>
           <h7 style={{ marginLeft: "1%" }}>Ajouter des programmes</h7>
         </div>
-        {/* <div className="col-md-3">
-          <div className="input-group">
-            <span className="input-group-text text-body">
-              <i className="fas fa-search" aria-hidden="true"></i>
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Rechercher un programme"
-            />
-          </div>
-        </div> */}
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-4">
         {loading ? (
@@ -129,7 +115,7 @@ export default function ProgramsToAdd(props) {
         ) : programs.length > 0 ? (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
-              {programs.slice(0, 4).map((program) => (
+              {currentPrograms.map((program) => (
                 <MiniCardProgram
                   key={program.id}
                   programId={program.id}
@@ -146,18 +132,21 @@ export default function ProgramsToAdd(props) {
                 />
               ))}
             </div>
-            <div style={{ margin: "3% 0 0 40%" }}>
-              {programs.length > limit && (
-                <MyPagination
-                  onPageChange={handlePageChange}
-                  lastVisible={next}
+            <div style={{ margin: "2% 0 0 40%" }}>
+              {programs.length > programsPerPage && (
+                <MyPaginationFront
+                  totalPrograms={programs.length}
+                  programsPerPage={programsPerPage}
                   currentPage={currentPage}
+                  onPageChange={handlePageChange}
                 />
               )}
             </div>
           </>
         ) : (
-          <p style={{ marginLeft: "2.5%", fontSize:"14px" }}>Aucun programme à ajouter</p>
+          <p style={{ marginLeft: "2.5%", fontSize: "14px" }}>
+            Aucun programme à ajouter
+          </p>
         )}
       </div>
     </>

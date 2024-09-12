@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TrCircuit from "../../../components/circuit/trCircuit";
 import "../../../assets/css/soft-ui-dashboard.min.css";
-import "./style.css";
 import Aside from "../../../components/template/aside";
 import ProgramsCircuit from "../../../components/circuit/programsCircuit";
 import ProgramsToAdd from "../../../components/program/programsToAdd";
@@ -9,8 +8,9 @@ import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
+import AllProgramsCircuit from "../../../components/circuit/allProgramsCircuit";
 
-export default function OneCircuit() {
+export default function CircuitPrograms() {
   const { id } = useParams();
   return (
     <div>
@@ -48,9 +48,8 @@ export default function OneCircuit() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <Return href="/circuits" />
-                <ProgramsCircuit circuitId={id} />
-                <ProgramsToAdd circuitId={id} />
+                <Return href={`/circuits/${id}/programs`} />
+                <AllProgramsCircuit circuitId={id} />
               </div>
             </div>
           </div>

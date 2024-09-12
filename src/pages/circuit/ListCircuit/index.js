@@ -10,6 +10,7 @@ import { ArrowUpDownIcon } from "hugeicons-react";
 import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function ListCircuit() {
   const [show, setShow] = useState(false);
@@ -87,6 +88,16 @@ export default function ListCircuit() {
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
 
+  const handleSearchCircuit = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
+
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
+
   return (
     <div>
       <Aside />
@@ -123,16 +134,13 @@ export default function ListCircuit() {
               id="navbar"
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                <div className="input-group">
-                  <span className="input-group-text text-body">
-                    <i className="fas fa-search" aria-hidden="true"></i>
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher un circuit..."
-                  />
-                </div>
+                <MySearchBar
+                  placeholder="Rechercher un circuit..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchCircuit}
+                />
               </div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
@@ -193,6 +201,7 @@ export default function ListCircuit() {
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -208,7 +217,7 @@ export default function ListCircuit() {
                         </tbody>
                       </table>
                       <div style={{ margin: "2% 0 0 2%" }}>
-                        {circuits.length > limit && (
+                        {(next != null || currentPage != 1) && (
                           <MyPagination
                             onPageChange={handlePageChange}
                             lastVisible={next}
