@@ -5,7 +5,7 @@ import TrHotelMealPrice from "./trHotelMealPrice";
 import { useParams } from "react-router-dom";
 import Return from "../util/return";
 
-export default function HotelsCloseCheap() {
+export default function ExcursionsDispo() {
   const [show, setShow] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [program, setProgram] = useState([]);
