@@ -10,7 +10,6 @@ import SelectPriceCategories from "../../../components/util/selectPriceCategorie
 import SelectRoomTypes from "../../../components/util/selectRoomTypes";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
-import FormRoom2 from "../../../components/room/formRoom2";
 import Return from "../../../components/util/return";
 
 export default function ListRoom() {
@@ -144,7 +143,7 @@ export default function ListRoom() {
                     Ajouter des chambres
                   </a>
                   <Modal isOpen={isMapModalOpen}>
-                    <FormRoom2
+                    <FormRoom
                       isOpen={isMapModalOpen}
                       method="POST"
                       title="AJOUTER DES CHAMBRES"

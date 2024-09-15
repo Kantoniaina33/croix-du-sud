@@ -10,7 +10,6 @@ import FormCircuit from "./formCircuit";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "../hotel/modal";
-import FormCircuit2 from "./formCircuit2";
 
 export default function TrCircuit(props) {
   const { circuitId, name } = props;
@@ -57,7 +56,7 @@ export default function TrCircuit(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal isOpen={isMapModalOpen}>
-              <FormCircuit2
+              <FormCircuit
                 title="MODIFIER UN CIRCUIT"
                 method="PUT"
                 circuitId={circuitId}

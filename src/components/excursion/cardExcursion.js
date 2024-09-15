@@ -8,8 +8,8 @@ import {
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import "./excursion.css";
-import FormExcursion2 from "./formExcursion2";
 import Modal from "../hotel/modal";
+import FormExcursion from "./formExcursion";
 
 export default function CardExcursion(props) {
   const {
@@ -64,7 +64,7 @@ export default function CardExcursion(props) {
             <Edit02Icon color="#273385" size={23} />
           </button>
           <Modal isOpen={isMapModalOpen}>
-            <FormExcursion2
+            <FormExcursion
               title="MODIFIER UN CIRCUIT"
               method="PUT"
               onCancel={handleCloseModal}

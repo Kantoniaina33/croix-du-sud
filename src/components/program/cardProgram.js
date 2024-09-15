@@ -4,7 +4,6 @@ import { Delete02Icon, Edit02Icon, MapsLocation01Icon } from "hugeicons-react";
 import FormProgram from "./formProgram";
 import AlertDelete from "../util/alertDelete";
 import Modal from "../hotel/modal";
-import FormProgram2 from "./formProgram2";
 
 export default function CardProgram(props) {
   const {
@@ -70,7 +69,7 @@ export default function CardProgram(props) {
             <Edit02Icon color="#273385" size={23} />
           </button>
           <Modal isOpen={isMapModalOpen}>
-            <FormProgram2
+            <FormProgram
               title="MODIFIER UN PROGRAMME"
               method="PUT"
               programId={programId}

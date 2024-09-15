@@ -4,7 +4,7 @@ import "./reservation.css";
 import SelectCircuits from "../util/selectCircuits";
 import { useParams } from "react-router-dom";
 
-export default function FormReservation2(props) {
+export default function FormGroupDetails(props) {
   const {
     title,
     method,
@@ -17,9 +17,10 @@ export default function FormReservation2(props) {
     onCancel,
   } = props;
 
-  const { id } = useParams();
+  const { id } = useParams(); //customerId
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [customer, setCustomer] = useState([]);
 
   const [formValues, setFormValues] = useState({
     budget: budget,
@@ -36,6 +37,35 @@ export default function FormReservation2(props) {
       [name]: value,
     }));
   };
+
+  const fetchCustomer = async () => {
+    setMessage("");
+    try {
+      const url = `http://localhost:3030/customers/${id}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch customer");
+        return;
+      }
+      const data = await response.json();
+      setCustomer(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching customer");
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomer();
+  }, []);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -99,45 +129,26 @@ export default function FormReservation2(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Réservation de voyage
+            Détails de la réservation
           </span>
         </div>
-        {/* <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            fill="currentColor"
-            class="bi bi-x-circle"
-            viewBox="0 0 16 16"
-            color="#273385"
-            onClick={onCancel}
-          >
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-          </svg>
-        </div> */}
       </div>
-      <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+      <div
+        className="card-body"
+        style={{ marginBottom: "-3%", marginTop: "-5%" }}
+      >
+        <p>REF: 476HBV79KKN</p>
+        <p>
+          Réservation au nom de: {customer.firstName} {customer.name}
+        </p>
+        <form id="myForm" autocomplete="off" style={{ marginTop: "0%" }}>
           <div className="row mb-3">
             <div className="col">
-              <label className="form-label fw-bold">Circuit</label>
-              <SelectCircuits
-                value={formValues.circuitId}
-                onChange={handleChange}
-                name="circuitId"
-              />
-            </div>
-            <div className="col">
-              <label className="form-label fw-bold">Date du voyage</label>
+              <label className="form-label fw-bold">
+                Nombre de personnes pour le voyage
+              </label>
               <input
-                type="date"
+                type="number"
                 className="form-control"
                 value={formValues.startDate}
                 onChange={handleChange}
@@ -145,32 +156,66 @@ export default function FormReservation2(props) {
               />
             </div>
           </div>
+
+          <h6>Détails</h6>
           <div className="row mb-3">
             <div className="col">
-              <label htmlFor="nom" className="form-label fw-bold">
-                Durée (j)
-              </label>
+              <label className="form-label fw-bold">Couple(s)</label>
               <input
                 type="number"
                 className="form-control"
-                value={formValues.duration}
+                value={formValues.startDate}
                 onChange={handleChange}
-                name="duration"
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="prenom" className="form-label fw-bold">
-                Budget
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.budget}
-                onChange={handleChange}
-                name="budget"
+                name="startDate"
               />
             </div>
           </div>
+          <label className="form-label fw-bold">Famille</label>
+          <div className="row mb-3 align-items-end">
+            <div className="col-5">
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.startDate}
+                onChange={handleChange}
+                name="startDate"
+                placeholder="Membres"
+              />
+            </div>
+            <div className="col-5">
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.startDate}
+                onChange={handleChange}
+                name="startDate"
+                placeholder="Nombre"
+              />
+            </div>
+            <div className="col-2">
+              <button
+                type="submit"
+                className="form-control"
+                style={{}}
+                onClick={handleSave}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-plus-lg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <div className="d-flex justify-content-between align-items-center">
             {/* <button
               type="button"

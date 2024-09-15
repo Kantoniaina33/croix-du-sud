@@ -16,9 +16,10 @@ import ListEmployeeByRole from "./pages/employee/ListEmployee/listEmployeeByRole
 import Register from "./pages/customer/Register";
 import NewReservation from "./pages/reservation/NewReservation";
 import OneCircuit from "./pages/circuit/OneCircuit";
-import ListCloseHotels from "./pages/program/ListCLoseHotels";
 import CircuitPrograms from "./pages/circuit/circuitPrograms";
-
+import ProgramDetails from "./pages/program/ProgramDetails";
+import GroupDetails from "./pages/reservation/NewReservation/groupDetails";
+import TablePlanning from "./pages/program/PlanningProgram/tablePlanning";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />
           <Route path="/programs" element={<ListProgram />} />
+          <Route path="/programs/planning" element={<TablePlanning />} />
           <Route path="/circuits" element={<ListCircuit />} />
           <Route path="/roles" element={<ListRole />} />
           <Route
@@ -47,14 +49,21 @@ function App() {
           <Route path="/employees" element={<ListEmployee />} />
           <Route path="/customer/register" element={<Register />} />
           <Route
-            path="/customer/:id/reservation"
+            path="/customers/:id/reservation"
             element={<NewReservation />}
           />
+          <Route
+            path="/customers/:id/reservation/group_details"
+            element={<GroupDetails />}
+          />
           <Route path="/circuits/:id/programs" element={<OneCircuit />} />
-          <Route path="/circuits/:id/programs/all" element={<CircuitPrograms />} />
+          <Route
+            path="/circuits/:id/programs/all"
+            element={<CircuitPrograms />}
+          />
           <Route
             path="/programs/:programId/close_hotels"
-            element={<ListCloseHotels />}
+            element={<ProgramDetails />}
           />
         </Routes>
       </div>

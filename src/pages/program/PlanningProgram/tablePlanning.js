@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TrEmployee from "../../../components/employee/trEmployee";
 import "../../../assets/css/soft-ui-dashboard.min.css";
-import "./style.css";
 import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
@@ -12,8 +11,9 @@ import Modal from "../../../components/hotel/modal";
 import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
+import TrPlanningProgram from "../../../components/program/trPlanningProgram";
 
-export default function ListEmployee() {
+export default function TablePlanning() {
   const [show, setShow] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [message, setMessage] = useState("");
@@ -92,16 +92,15 @@ export default function ListEmployee() {
     setIsNextModalOpen(true);
   };
 
-    const handleSearchEmployee = (e) => {
-      setSearchField("name");
-      setSearch(e.target.value);
-    };
+  const handleSearchEmployee = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
 
-    const handleClearSearch = (e) => {
-      setSearchField("");
-      setSearch("");
-    };
-
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
 
   return (
     <div>
@@ -123,13 +122,13 @@ export default function ListEmployee() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Employés</span>
+                  <span>Programme</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Liste
+                  Planning
                 </li>
               </ol>
               {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
@@ -138,15 +137,6 @@ export default function ListEmployee() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                <MySearchBar
-                  placeholder="Rechercher un employé..."
-                  search={search}
-                  setSearch={setSearch}
-                  handleClearSearch={handleClearSearch}
-                  handleSearch={handleSearchEmployee}
-                />
-              </div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
@@ -154,24 +144,8 @@ export default function ListEmployee() {
                     target="blank"
                     onClick={handleShowMap}
                   >
-                    Nouvel employe
+                    Nouveau planning
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormEmployee
-                      method="POST"
-                      title="NOUVEL EMPLOYE"
-                      handleCloseModal={handleCloseModal}
-                      onCancel={handleCloseModal}
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <FormRoleEmployee
-                      onCancel={handleCloseNextModal}
-                      employee={employee}
-                      method="POST"
-                    />
-                  </Modal>
                 </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />
@@ -185,15 +159,7 @@ export default function ListEmployee() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste des employés</h6>
-                  {/* <div className="col-md-2">
-                    <SelectCities
-                      disabledOption="Filtrer par ville"
-                      onChange={handleSelectCity}
-                      specificOption="Toutes les villes"
-                      specificOptionValue=""
-                    />
-                  </div> */}
+                  <h6>Planning itinéraires et hébergement</h6>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
@@ -211,21 +177,23 @@ export default function ListEmployee() {
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Nom
+                              Jour
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Prenom
+                              Date
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Genre
+                              Itinéraires
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Contact
+                              KM
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Poste
+                              Hotel
                             </th>
-                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Guide
+                            </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                           </tr>
@@ -233,17 +201,14 @@ export default function ListEmployee() {
                         <tbody>
                           {employees.map((employee) => (
                             <>
-                              <TrEmployee
-                                key={employee.id}
-                                employeeId={employee.id}
-                                firstName={employee.firstName}
-                                name={employee.name}
-                                birthDate={employee.birthDate}
-                                genre={employee.genre}
-                                email={employee.email}
-                                phone={employee.phone}
-                                role={employee.role.name}
-                                roleId={employee.role.id}
+                              <TrPlanningProgram
+                                day={"J1"}
+                                date={"jeu. 06.10.24"}
+                                departure={"ANTSIRABE"}
+                                arrival={"AMPEFY"}
+                                distance={50}
+                                hotel={"Radisson"}
+                                guide={1}
                               />
                             </>
                           ))}

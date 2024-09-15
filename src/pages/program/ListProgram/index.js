@@ -8,7 +8,6 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import CardProgram from "../../../components/program/cardProgram";
 import Modal from "../../../components/hotel/modal";
-import FormProgram2 from "../../../components/program/formProgram2";
 import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListProgram() {
@@ -142,7 +141,7 @@ export default function ListProgram() {
                     Nouveau programme
                   </a>
                   <Modal isOpen={isMapModalOpen}>
-                    <FormProgram2
+                    <FormProgram
                       isOpen={isMapModalOpen}
                       method="POST"
                       title="NOUVEAU PROGRAMME"

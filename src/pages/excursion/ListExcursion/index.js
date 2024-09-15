@@ -7,7 +7,6 @@ import SelectCities from "../../../components/util/selectCities";
 import CardExcursion from "../../../components/excursion/cardExcursion";
 import { SpartanHelmetIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
-import FormExcursion2 from "../../../components/excursion/formExcursion2";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 
@@ -142,7 +141,7 @@ export default function ListExcursion() {
                     Nouvelle excursion
                   </a>
                   <Modal isOpen={isMapModalOpen}>
-                    <FormExcursion2
+                    <FormExcursion
                       method="POST"
                       isOpen={isMapModalOpen}
                       title="AJOUTER UNE EXCURSION"

@@ -7,7 +7,6 @@ import FormCircuit from "../../../components/circuit/formCircuit";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
-import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
@@ -152,7 +151,7 @@ export default function ListCircuit() {
                     Nouveau circuit
                   </a>
                   <Modal isOpen={isMapModalOpen}>
-                    <FormCircuit2
+                    <FormCircuit
                       method="POST"
                       title="NOUVEAU CIRCUIT"
                       onCancel={handleCloseModal}

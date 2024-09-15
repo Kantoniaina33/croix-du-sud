@@ -5,7 +5,6 @@ import {
   StarIcon,
   LinkSquare02Icon,
 } from "hugeicons-react";
-import formHotel2 from "./formHotel2";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "./modal";
@@ -17,15 +16,6 @@ export default function TrHotelMealPrice(props) {
     i < star ? "#ffc400" : "grey"
   );
 
-  const [show, setShow] = useState(false);
-
-  const [alert, setAlert] = useState(false);
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-
-  const handleAlert = () => setAlert(true);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleShowMap = () => setIsMapModalOpen(true);
 
   const roundedDistance = Math.floor(distance);
 

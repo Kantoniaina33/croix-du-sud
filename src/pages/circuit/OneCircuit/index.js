@@ -5,7 +5,6 @@ import "./style.css";
 import Aside from "../../../components/template/aside";
 import ProgramsCircuit from "../../../components/circuit/programsCircuit";
 import ProgramsToAdd from "../../../components/program/programsToAdd";
-import FormCircuit2 from "../../../components/circuit/formCircuit2";
 import Modal from "../../../components/hotel/modal";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";

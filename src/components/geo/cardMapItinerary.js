@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FormHotel2 from "../../components/hotel/formHotel2";
 import Modal from "../../components/hotel/modal";
 import MyMap from "../../components/geo/myMap";
 import MapItinerary from "./mapItinerary";

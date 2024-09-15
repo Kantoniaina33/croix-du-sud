@@ -9,10 +9,7 @@ import {
 import FormRole from "./formRole";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import formEmployee2 from "../employee/formEmployee2";
 import Modal from "../hotel/modal";
-import FormEmployee2 from "../employee/formEmployee2";
-import FormRole2 from "./formRole2";
 
 export default function TrRole(props) {
   const { roleId, name, hourlyWage } = props;
@@ -59,7 +56,7 @@ export default function TrRole(props) {
               <Edit02Icon color="blue" size={20} />
             </button>
             <Modal isOpen={isMapModalOpen}>
-              <FormRole2
+              <FormRole
                 title="MODIFIER UN CIRCUIT"
                 method="PUT"
                 roleId={roleId}

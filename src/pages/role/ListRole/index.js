@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import FormRole from "../../../components/role/formRole";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
-import FormRole2 from "../../../components/role/formRole2";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
@@ -151,7 +150,7 @@ export default function ListRole() {
                     Nouveau poste
                   </a>
                   <Modal isOpen={isMapModalOpen} onCancel={handleCloseModal}>
-                    <FormRole2
+                    <FormRole
                       method="POST"
                       title="AJOUTER UNE EXCURSION"
                       isOpen={isMapModalOpen}

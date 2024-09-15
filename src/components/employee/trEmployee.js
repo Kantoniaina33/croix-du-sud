@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import AlertDelete from "../util/alertDelete";
-import FormEmployee2 from "./formEmployee2";
 import Modal from "../hotel/modal";
 import FormRoleEmployee from "./formRoleEmployee";
+import FormEmployee from "./formEmployee";
 
 export default function TrEmployee(props) {
   const {
@@ -111,7 +111,7 @@ export default function TrEmployee(props) {
           </button>
           {showMapModal && (
             <Modal isOpen={showMapModal} onClose={handleCloseMapModal}>
-              <FormEmployee2
+              <FormEmployee
                 title="MODIFIER LES INFORMATIONS D'UN EMPLOYE"
                 method="PUT"
                 firstName={firstName}
