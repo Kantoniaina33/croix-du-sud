@@ -82,7 +82,7 @@ export default function HotelsCloseCheap(props) {
     <>
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <div>
-          <p style={{ fontSize: "15px" }}>Liste des hôtels les plus proches</p>
+          <p style={{ fontSize: "16px" }}>Liste des hôtels les plus proches</p>
         </div>
       </div>
       <div className="card-body px-0 pt-0 pb-2">

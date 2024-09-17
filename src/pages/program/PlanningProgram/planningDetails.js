@@ -1,15 +1,13 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
-import TrRole from "../../../components/role/trRole";
 import { useState, useEffect } from "react";
-import FormRole from "../../../components/role/formRole";
-import MyPagination from "../../../components/util/myPagination";
-import SelectCities from "../../../components/util/selectCities";
-import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
-import MySearchBar from "../../../components/util/mySearchBar";
+import TableMealPlanning from "../../../components/meal/tableMealPlanning";
+import TableRoomPlanning from "../../../components/room/tableRoomPlanning";
+import TableExcursionPlanning from "../../../components/excursion/tableExcursionPlanning";
+import "./style.css";
 
-export default function ListRole() {
+export default function PlanningDetails() {
   const [show, setShow] = useState(false);
   const [roles, setRoles] = useState([]);
   const [message, setMessage] = useState("");
@@ -117,13 +115,13 @@ export default function ListRole() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Postes</span>
+                  <span>Programmes</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Liste
+                  Details planning
                 </li>
               </ol>
             </nav>
@@ -131,32 +129,7 @@ export default function ListRole() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-30">
-                <MySearchBar
-                  placeholder="Rechercher un poste..."
-                  search={search}
-                  setSearch={setSearch}
-                  handleClearSearch={handleClearSearch}
-                  handleSearch={handleSearchRole}
-                />
-              </div>
               <ul className="navbar-nav  justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    onClick={handleShowMap}
-                  >
-                    Nouveau poste
-                  </a>
-                  <Modal isOpen={isMapModalOpen} onCancel={handleCloseModal}>
-                    <FormRole
-                      method="POST"
-                      title="AJOUTER UNE EXCURSION"
-                      isOpen={isMapModalOpen}
-                      onCancel={handleCloseModal}
-                    />
-                  </Modal>
-                </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />
                 </li>
@@ -169,71 +142,13 @@ export default function ListRole() {
             <div className="col-12">
               <div className="card mb-4">
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste des postes</h6>
-                  {/* <div className="col-md-2">
-                    <SelectCities
-                      disabledOption="Filtrer par ville"
-                      onChange={handleSelectCity}
-                      specificOption="Toutes les villes"
-                      specificOptionValue=""
-                    />
-                  </div> */}
+                  <h6>Details du planning</h6>
                 </div>
-
-                <div className="card-body px-0 pt-0 pb-2">
-                  {loading ? (
-                    <div
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      style={{ marginLeft: "3%" }}
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  ) : roles.length > 0 ? (
-                    <div className="table-responsive p-0">
-                      <table className="table align-items-center mb-0">
-                        <thead>
-                          <tr>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Poste
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Salaire horaire
-                            </th>
-                            {/* <th className="text-secondary opacity-7"></th> */}
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {roles.map((role) => (
-                            <>
-                              <TrRole
-                                key={role.id}
-                                roleId={role.id}
-                                name={role.name}
-                                hourlyWage={role.hourlyWage}
-                              />
-                            </>
-                          ))}
-                        </tbody>
-                      </table>
-                      <div style={{ margin: "2% 0 0 2%" }}>
-                        {(next != null || currentPage != 1) && (
-                          <MyPagination
-                            onPageChange={handlePageChange}
-                            lastVisible={next}
-                            currentPage={currentPage}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
-                      Aucun poste
-                    </p>
-                  )}
-                </div>
+                <TableMealPlanning />
+                <hr className="custom-hr" />
+                <TableRoomPlanning />
+                <hr className="custom-hr" />
+                <TableExcursionPlanning />
               </div>
             </div>
           </div>

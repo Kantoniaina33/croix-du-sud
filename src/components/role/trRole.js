@@ -77,7 +77,7 @@ export default function TrRole(props) {
               <Delete02Icon color="rgb(219, 1, 1)" size={23} />
             </button>
             <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer ${name}' ?`}
+              alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
               show={alert}
               setAlert={setAlert}
               url={`http://localhost:3030/roles/${roleId}`}

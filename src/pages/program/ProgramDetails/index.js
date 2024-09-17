@@ -7,7 +7,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/hotel/modal";
 import HotelsCloseCheap from "../../../components/hotel/hotelsCLoseCheap";
-import ExcursionsDispo from "../../../components/hotel/excursionsDispo";
+import ExcursionsDispo from "../../../components/excursion/excursionsDispo";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 

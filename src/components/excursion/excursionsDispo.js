@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./hotel.css";
-import { ArrowUpDownIcon } from "hugeicons-react";
-import TrHotelMealPrice from "./trHotelMealPrice";
-import { useParams } from "react-router-dom";
-import Return from "../util/return";
-import TrExcursion from "../excursion/trExcursion";
+import "./excursion.css";
+import TrExcursion from "./trExcursion";
 
 export default function ExcursionsDispo(props) {
   const { programId } = props;
@@ -83,7 +79,7 @@ export default function ExcursionsDispo(props) {
     <>
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <div>
-          <p style={{ fontSize: "15px" }}>Liste des excursions disponibles</p>
+          <p style={{ fontSize: "16px" }}>Liste des excursions disponibles</p>
         </div>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
@@ -95,7 +91,7 @@ export default function ExcursionsDispo(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : hotels.length > 0 ? (
+        ) : hotels.length < 0 ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -129,7 +125,7 @@ export default function ExcursionsDispo(props) {
             </table>
           </div>
         ) : (
-          <p style={{ marginLeft: "2.5%" }}></p>
+          <p style={{ marginLeft: "2.5%", fontSize:"15px" }}>Aucune excursion disponible</p>
         )}
       </div>
     </>

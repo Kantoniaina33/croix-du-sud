@@ -20,6 +20,7 @@ import CircuitPrograms from "./pages/circuit/circuitPrograms";
 import ProgramDetails from "./pages/program/ProgramDetails";
 import GroupDetails from "./pages/reservation/NewReservation/groupDetails";
 import TablePlanning from "./pages/program/PlanningProgram/tablePlanning";
+import PlanningDetails from "./pages/program/PlanningProgram/planningDetails";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/excursions" element={<ListExcursion />} />
           <Route path="/programs" element={<ListProgram />} />
           <Route path="/programs/planning" element={<TablePlanning />} />
+          <Route path="/programs/planning/details" element={<PlanningDetails />} />
           <Route path="/circuits" element={<ListCircuit />} />
           <Route path="/roles" element={<ListRole />} />
           <Route
@@ -47,7 +49,7 @@ function App() {
             element={<ListEmployeeByRole />}
           />
           <Route path="/employees" element={<ListEmployee />} />
-          <Route path="/customer/register" element={<Register />} />
+          <Route path="/customers/register" element={<Register />} />
           <Route
             path="/customers/:id/reservation"
             element={<NewReservation />}

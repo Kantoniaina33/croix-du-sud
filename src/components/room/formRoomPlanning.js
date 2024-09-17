@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
-import "./customer.css";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import SelectRoomTypes from "../util/selectRoomTypes";
+import SelectPriceCategories from "../util/selectPriceCategories";
+import SelectCities from "../util/selectCities";
 
-export default function FormCustomer(props) {
-  const { title, method, name, firstName, contact, customerId, onCancel } =
-    props;
+export default function FormRoomPlanning(props) {
+  const {
+    room_type,
+    price_category,
+    number_of_rooms,
+    onCancel,
+  } = props;
+  const { hotelId } = useParams();
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
-    name: name,
-    firstName: firstName,
-    contact: contact,
+    room_type: room_type || "Single",
+    price_category: price_category || "Premier",
+    number_of_rooms: number_of_rooms || 1,
   });
 
   const handleChange = (e) => {
@@ -27,18 +33,18 @@ export default function FormCustomer(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    setIsLoading(true);
-    try {
-      const idUrl = method === "PUT" ? `/${customerId}` : "";
 
-      const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formValues),
-      });
+    try {
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/rooms`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -48,14 +54,9 @@ export default function FormCustomer(props) {
         }
         return;
       }
-
-      const data = await response.json();
-      const customer = data.customer;
-      navigate(`/customers/${customer.id}/reservation`);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -77,19 +78,17 @@ export default function FormCustomer(props) {
             width="25"
             height="25"
             fill="currentColor"
-            class="bi bi-person-circle"
+            className="bi bi-buildings"
             viewBox="0 0 16 16"
+            color="#273385"
           >
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path
-              fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-            />
+            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+            <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Informations du client
+            Chambres
           </span>
         </div>
         <div
@@ -112,7 +111,7 @@ export default function FormCustomer(props) {
               width="25"
               height="25"
               fill="currentColor"
-              className="bi bi-x-circle"
+              class="bi bi-x-circle"
               viewBox="0 0 16 16"
               color="#273385"
             >
@@ -123,42 +122,41 @@ export default function FormCustomer(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+        <form
+          onSubmit={handleSave}
+          id="myForm"
+          autocomplete="off"
+          style={{ marginTop: "-6%" }}
+        >
           <div className="row mb-3">
             <div className="col">
-              <label className="form-label fw-bold">Nom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.firstName}
+              <label className="form-label fw-bold">Type</label>
+              <SelectRoomTypes
+                value={formValues.room_type}
                 onChange={handleChange}
-                name="firstName"
+                name="room_type"
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">Prénom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.name}
+              <label htmlFor="nom" className="form-label fw-bold">
+                Categorie de prix
+              </label>
+              <SelectPriceCategories
+                value={formValues.price_category}
                 onChange={handleChange}
-                name="name"
+                name="price_category"
               />
             </div>
           </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="prenom" className="form-label fw-bold">
-                Contact
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.contact}
-                onChange={handleChange}
-                name="contact"
-              />
-            </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">Nombre</label>
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.number_of_rooms}
+              onChange={handleChange}
+              name="number_of_rooms"
+            />
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button
@@ -182,15 +180,8 @@ export default function FormCustomer(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={handleSave}
             >
-              {isLoading ? (
-                <div className="spinner-border spinner-border-sm" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                "Enregistrer"
-              )}
+              Ajouter
             </button>
           </div>
         </form>

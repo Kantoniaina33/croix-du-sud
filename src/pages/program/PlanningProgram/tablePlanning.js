@@ -12,6 +12,7 @@ import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 import TrPlanningProgram from "../../../components/program/trPlanningProgram";
+import AddHotelPlanning from "../../../components/hotel/addHotelPlanning";
 
 export default function TablePlanning() {
   const [show, setShow] = useState(false);
@@ -146,6 +147,9 @@ export default function TablePlanning() {
                   >
                     Nouveau planning
                   </a>
+                  <Modal isOpen={isMapModalOpen}>
+                    <AddHotelPlanning onCancel={handleCloseModal} />
+                  </Modal>
                 </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />

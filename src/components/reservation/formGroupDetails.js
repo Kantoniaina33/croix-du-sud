@@ -103,7 +103,7 @@ export default function FormGroupDetails(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "60%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "60%", marginTop:"1%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
@@ -170,26 +170,26 @@ export default function FormGroupDetails(props) {
               />
             </div>
           </div>
-          <label className="form-label fw-bold">Famille</label>
+          <label className="form-label fw-bold">Famille(s)</label>
           <div className="row mb-3 align-items-end">
-            <div className="col-5">
+            <div className="col-6">
               <input
                 type="number"
                 className="form-control"
                 value={formValues.startDate}
                 onChange={handleChange}
                 name="startDate"
-                placeholder="Membres"
+                placeholder="Membres de la famille"
               />
             </div>
-            <div className="col-5">
+            <div className="col-4">
               <input
                 type="number"
                 className="form-control"
                 value={formValues.startDate}
                 onChange={handleChange}
                 name="startDate"
-                placeholder="Nombre"
+                placeholder="Nombre de familles"
               />
             </div>
             <div className="col-2">

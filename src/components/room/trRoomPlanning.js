@@ -7,7 +7,7 @@ import Modal from "../hotel/modal";
 import FormRoom from "./formRoom";
 
 export default function TrRoomPlanning(props) {
-  const { room_type, capacity, price_category, price, total, id } = props;
+  const { room_type, price_category, quantity, price, id } = props;
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -23,49 +23,25 @@ export default function TrRoomPlanning(props) {
   return (
     <tr>
       <td>
-        <div className="d-flex px-2">
+        <div className="d-flex px-3">
           <div className="my-auto">
             <h6 className="mb-0 text-sm">{room_type}</h6>
           </div>
         </div>
       </td>
-      <td className="align-middle text-center">
-        <span className="text-sm font-weight-bold mb-0">{capacity} </span>
+      <td>
+        <h6 className="mb-0 text-sm">{price_category}</h6>
       </td>
-      <td className="align-middle text-center">
-        <p className="text-sm font-weight-bold mb-0">{price_category}</p>
+      <td>
+        <h6 className="mb-0 text-sm">{quantity}</h6>
       </td>
-      <td className="align-middle text-center">
-        <p className="text-sm font-weight-bold mb-0">{price}</p>
+      <td>
+        <h6 className="mb-0 text-sm">{price}</h6>
       </td>
-      <td className="align-middle text-center">
-        <p className="text-sm font-weight-bold mb-0">{total}</p>
+      <td>
+        <h6 className="mb-0 text-sm">{price * quantity}</h6>
       </td>
-      <td className="align-middle text-center">
-        <span className="text-secondary text-xs font-weight-bold">
-          <button
-            style={{ backgroundColor: "white", border: "none" }}
-            onClick={handleShowMap}
-          >
-            <Edit02Icon color="#273385" size={20} />
-          </button>
-          <Modal isOpen={isMapModalOpen}>
-            <FormRoom
-              title="MODIFIER DES CHAMBRES"
-              method="PUT"
-              id={id}
-              room_type={room_type}
-              capacity={capacity}
-              price_category={price_category}
-              price={price}
-              number_of_rooms={total}
-              onCancel={handleCloseModal}
-              isOpen={isMapModalOpen}
-            />
-          </Modal>
-        </span>
-      </td>
-      <td className="align-middle text-center">
+      <td>
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}

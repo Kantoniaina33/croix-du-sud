@@ -1,20 +1,50 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./customer.css";
-import { useNavigate } from "react-router-dom";
+import "./program.css";
+import CardMapItinerary from "../geo/cardMapItinerary";
+import Modal from "../hotel/modal";
 
-export default function FormCustomer(props) {
-  const { title, method, name, firstName, contact, customerId, onCancel } =
-    props;
+export default function FormProgramPlanning(props) {
+  const {
+    title,
+    method,
+    departure,
+    arrival,
+    distance,
+    duration,
+    description,
+    departureLatitude,
+    departureLongitude,
+    arrivalLatitude,
+    arrivalLongitude,
+    programId,
+    onCancel,
+  } = props;
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [formValues, setFormValues] = useState({
-    name: name,
-    firstName: firstName,
-    contact: contact,
+    departure: departure || "",
+    arrival: arrival || "",
+    distance: distance,
+    duration: duration,
+    description: description || "",
+    departureLatitude: departureLatitude,
+    departureLongitude: departureLongitude,
+    arrivalLatitude: arrivalLatitude,
+    arrivalLongitude: arrivalLongitude,
   });
+
+  const handleRouteCalculated = (routeData) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      distance: routeData.distance,
+      duration: routeData.duration,
+      departureLatitude: routeData.startCoords.lat,
+      departureLongitude: routeData.startCoords.lng,
+      arrivalLatitude: routeData.endCoords.lat,
+      arrivalLongitude: routeData.endCoords.lng,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,11 +57,12 @@ export default function FormCustomer(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    setIsLoading(true);
-    try {
-      const idUrl = method === "PUT" ? `/${customerId}` : "";
+    console.log(formValues);
 
-      const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
+    try {
+      const idUrl = method === "PUT" ? `/${programId}` : "";
+
+      const response = await fetch(`http://localhost:3030/programs${idUrl}`, {
         method: method,
         headers: {
           "Content-Type": "application/json",
@@ -48,22 +79,25 @@ export default function FormCustomer(props) {
         }
         return;
       }
-
-      const data = await response.json();
-      const customer = data.customer;
-      navigate(`/customers/${customer.id}/reservation`);
+      setIsMapModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
+  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseMap = () => setIsMapModalOpen(false);
+
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
+      <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+        rel="stylesheet"
+      />
       <div
         className="card-header d-flex justify-content-between align-items-center"
-        style={{ marginBottom: "2%", height: "50px" }}
+        style={{ marginBottom: "-1%", height: "50px" }}
       >
         <div
           style={{
@@ -77,19 +111,17 @@ export default function FormCustomer(props) {
             width="25"
             height="25"
             fill="currentColor"
-            class="bi bi-person-circle"
+            className="bi bi-buildings"
             viewBox="0 0 16 16"
+            color="#273385"
           >
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path
-              fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-            />
+            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+            <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
           </svg>
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Informations du client
+            Programme
           </span>
         </div>
         <div
@@ -123,52 +155,52 @@ export default function FormCustomer(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+        <form id="myForm" autoComplete="off" onSubmit={handleSave}>
           <div className="row mb-3">
             <div className="col">
-              <label className="form-label fw-bold">Nom</label>
+              <label htmlFor="nom" className="form-label fw-bold">
+                Jour
+              </label>
               <input
                 type="text"
                 className="form-control"
-                value={formValues.firstName}
+                value={formValues.departure}
                 onChange={handleChange}
-                name="firstName"
-              />
-            </div>
-            <div className="col">
-              <label className="form-label fw-bold">Prénom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.name}
-                onChange={handleChange}
-                name="name"
+                name="departure"
               />
             </div>
           </div>
           <div className="row mb-3">
             <div className="col">
-              <label htmlFor="prenom" className="form-label fw-bold">
-                Contact
-              </label>
+              <label className="form-label fw-bold">Itinéraires</label>
               <input
                 type="text"
                 className="form-control"
-                value={formValues.contact}
+                value={formValues.arrival}
                 onChange={handleChange}
-                name="contact"
+                name="arrival"
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
+              <label className="form-label fw-bold">Guide</label>
+              <input
+                type="text"
+                className="form-control"
+                value={formValues.arrival}
+                onChange={handleChange}
+                name="arrival"
               />
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button
               type="button"
-              className="btn"
+              className="btn btn-outline-secondary"
               style={{
-                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
-                border: "solid 1px rgb(231, 231, 231)",
               }}
               onClick={onCancel}
             >
@@ -178,19 +210,11 @@ export default function FormCustomer(props) {
               type="submit"
               className="btn btn-primary"
               style={{
-                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={handleSave}
             >
-              {isLoading ? (
-                <div className="spinner-border spinner-border-sm" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                "Enregistrer"
-              )}
+              Enregistrer
             </button>
           </div>
         </form>
