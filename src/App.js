@@ -21,6 +21,8 @@ import ProgramDetails from "./pages/program/ProgramDetails";
 import GroupDetails from "./pages/reservation/NewReservation/groupDetails";
 import TablePlanning from "./pages/program/PlanningProgram/tablePlanning";
 import PlanningDetails from "./pages/program/PlanningProgram/planningDetails";
+import ListCustomer from "./pages/customer/ListCustomer";
+import ReservationCustomer from "./pages/reservation/ListReservation/reservationCustomer";
 
 function App() {
   return (
@@ -40,8 +42,14 @@ function App() {
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />
           <Route path="/programs" element={<ListProgram />} />
-          <Route path="/programs/planning" element={<TablePlanning />} />
-          <Route path="/programs/planning/details" element={<PlanningDetails />} />
+          <Route
+            path="customers/:id/reservations/:reservationId/planning"
+            element={<TablePlanning />}
+          />
+          <Route
+            path="/programs/planning/details"
+            element={<PlanningDetails />}
+          />
           <Route path="/circuits" element={<ListCircuit />} />
           <Route path="/roles" element={<ListRole />} />
           <Route
@@ -49,10 +57,12 @@ function App() {
             element={<ListEmployeeByRole />}
           />
           <Route path="/employees" element={<ListEmployee />} />
+          <Route path="/customers" element={<ListCustomer />} />
           <Route path="/customers/register" element={<Register />} />
+          <Route path="/customers/register" element={<NewReservation />} />
           <Route
-            path="/customers/:id/reservation"
-            element={<NewReservation />}
+            path="/customers/:id/reservations"
+            element={<ReservationCustomer />}
           />
           <Route
             path="/customers/:id/reservation/group_details"

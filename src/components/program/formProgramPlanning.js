@@ -3,48 +3,18 @@ import { useState } from "react";
 import "./program.css";
 import CardMapItinerary from "../geo/cardMapItinerary";
 import Modal from "../hotel/modal";
+import SelectPrograms from "../util/selectPrograms";
 
 export default function FormProgramPlanning(props) {
-  const {
-    title,
-    method,
-    departure,
-    arrival,
-    distance,
-    duration,
-    description,
-    departureLatitude,
-    departureLongitude,
-    arrivalLatitude,
-    arrivalLongitude,
-    programId,
-    onCancel,
-  } = props;
+  const { title, circuitId, programId, day, guide, onCancel, onClose } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [formValues, setFormValues] = useState({
-    departure: departure || "",
-    arrival: arrival || "",
-    distance: distance,
-    duration: duration,
-    description: description || "",
-    departureLatitude: departureLatitude,
-    departureLongitude: departureLongitude,
-    arrivalLatitude: arrivalLatitude,
-    arrivalLongitude: arrivalLongitude,
+    day: day,
+    programId: programId,
+    circuitId:circuitId,
+    guide:guide || 0
   });
-
-  const handleRouteCalculated = (routeData) => {
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      distance: routeData.distance,
-      duration: routeData.duration,
-      departureLatitude: routeData.startCoords.lat,
-      departureLongitude: routeData.startCoords.lng,
-      arrivalLatitude: routeData.endCoords.lat,
-      arrivalLongitude: routeData.endCoords.lng,
-    }));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,10 +30,8 @@ export default function FormProgramPlanning(props) {
     console.log(formValues);
 
     try {
-      const idUrl = method === "PUT" ? `/${programId}` : "";
-
-      const response = await fetch(`http://localhost:3030/programs${idUrl}`, {
-        method: method,
+      const response = await fetch(`http://localhost:3030/programs`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -79,6 +47,9 @@ export default function FormProgramPlanning(props) {
         }
         return;
       }
+      const data = await response.json();
+      const program = data.program;
+      onClose(program);
       setIsMapModalOpen(false);
       window.location.reload();
     } catch (error) {
@@ -121,7 +92,7 @@ export default function FormProgramPlanning(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Programme
+            Planning de voyage
           </span>
         </div>
         <div
@@ -173,12 +144,11 @@ export default function FormProgramPlanning(props) {
           <div className="row mb-3">
             <div className="col">
               <label className="form-label fw-bold">Itinéraires</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.arrival}
+              <SelectPrograms
+                value={formValues.programId}
                 onChange={handleChange}
-                name="arrival"
+                name="programId"
+                circuitId={circuitId}
               />
             </div>
           </div>
@@ -186,11 +156,11 @@ export default function FormProgramPlanning(props) {
             <div className="col">
               <label className="form-label fw-bold">Guide</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                value={formValues.arrival}
+                value={formValues.guide}
                 onChange={handleChange}
-                name="arrival"
+                name="guide"
               />
             </div>
           </div>
@@ -214,7 +184,7 @@ export default function FormProgramPlanning(props) {
                 marginTop: "1%",
               }}
             >
-              Enregistrer
+              Suivant
             </button>
           </div>
         </form>

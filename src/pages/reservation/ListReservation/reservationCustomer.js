@@ -1,33 +1,45 @@
 import React, { useState, useEffect } from "react";
+import TrReservation from "../../../components/reservation/trReservation";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
-import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
-import TrPlanningProgram from "../../../components/program/trPlanningProgram";
-import AddHotelPlanning from "../../../components/hotel/addHotelPlanning";
-import FormProgramPlanning from "../../../components/program/formProgramPlanning";
+import MySearchBar from "../../../components/util/mySearchBar";
+import { useLocation, useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
-import { Link, useLocation, useParams } from "react-router-dom";
 
-export default function TablePlanning() {
+export default function ReservationCustomer() {
   const location = useLocation();
   const customerInfo = location.state;
-  const { id } = useParams(); //customerId
+  const { id } = useParams(); // customerId
+  const [show, setShow] = useState(false);
+  const [reservations, setReservations] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [searchField, setSearchField] = useState("");
+  const [sort, setSort] = useState("reservationDate");
+  const [order, setOrder] = useState("desc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
-  const [program, setProgram] = useState(null);
-  const [programPlannings, setProgramPlannings] = useState([]);
+  const [reservation, setReservation] = useState(null);
 
-  const fetchProgramPlannings = async () => {
+  const limit = 8;
+  const fetchReservations = async (
+    nextDoc = null,
+    sort = "reservationDate",
+    order = "desc",
+    search = "",
+    searchField = ""
+  ) => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/Planningss/planning`;
+      const url = `http://localhost:3030/customers/${id}/reservations?limit=${limit}&&next=${
+        nextDoc || ""
+      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -38,39 +50,50 @@ export default function TablePlanning() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch plannings");
+        setMessage("Failed to fetch reservations");
         return;
       }
       const data = await response.json();
-      setProgramPlannings(data);
+      setReservations(data.reservations);
+      setNext(data.next);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching plannings");
+      setMessage("Error fetching reservations");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchProgramPlannings();
-  }, []);
-
-  const handleNext = (dataProgram) => {
-    setProgram(dataProgram);
-    console.log(dataProgram.id);
-    setIsMapModalOpen(false);
-    setIsNextModalOpen(true);
+  const handleSort = (value) => {
+    setCurrentPage(1);
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    setSort(value);
   };
 
-  const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowMap = () => setIsMapModalOpen(true);
-  const handleCloseNextModal = () => setIsNextModalOpen(false);
+  useEffect(() => {
+    fetchReservations(null, sort, order, search, searchField);
+  }, [sort, order, search, searchField]);
+
+  const handlePageChange = (nextDoc) => {
+    fetchReservations(nextDoc, sort, order, search, searchField);
+    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
+  };
+
+  const handleSearchReservation = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
+
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
 
   return (
     <div>
       <Aside />
       <main
-        id="listProgram"
+        id="listReservation"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <link
@@ -86,13 +109,13 @@ export default function TablePlanning() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Programme</span>
+                  <span>Client</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Planning
+                  Reservations
                 </li>
               </ol>
               {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
@@ -101,28 +124,23 @@ export default function TablePlanning() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
+                <MySearchBar
+                  placeholder="Rechercher un client..."
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearchReservation}
+                />
+              </div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    onClick={handleShowMap}
+                    href="/reservations/register"
                   >
-                    Nouveau planning
+                    Nouvelle reservation
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormProgramPlanning
-                      onCancel={handleCloseModal}
-                      circuitId="P3cGM8a3dJNEVOteeg3y"
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <AddHotelPlanning
-                      onCancel={handleCloseNextModal}
-                      circuitId="P3cGM8a3dJNEVOteeg3y"
-                    />
-                  </Modal>
                 </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />
@@ -135,29 +153,13 @@ export default function TablePlanning() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                {/* <Return href={`/customers/${id}/reservations`} /> */}
-                <Link
-                  style={{ padding: "1.5% 0% 0% 2.5%", color: "#7580cf" }}
-                  to={`/customers/${id}/reservations`}
-                  state={customerInfo}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-arrow-left-circle"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
-                    />
-                  </svg>
-                  <span style={{ marginLeft: "0.5%" }}>Retour</span>
-                </Link>
-                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Planning itinéraires et hébergement</h6>
+                <Return href={`/customers`} />
+                <div className="card-header pb-0">
+                  <h6>Liste des reservations</h6>
+                  <h6>
+                    Client: {customerInfo.firstName} {customerInfo.name}
+                  </h6>
+                  <p>Reference client: {id}</p>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
@@ -169,53 +171,52 @@ export default function TablePlanning() {
                     >
                       <span className="visually-hidden">Loading...</span>
                     </div>
-                  ) : programPlannings.length > 0 ? (
+                  ) : reservations.length > 0 ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Jour
+                              REF
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Date
+                              Date de reservation
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Itinéraires
+                              Circuit
                             </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              KM
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Hotel
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Guide
-                            </th>
-                            <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>{" "}
                           </tr>
                         </thead>
                         <tbody>
-                          {programPlannings.map(() => (
+                          {reservations.map((reservation) => (
                             <>
-                              <TrPlanningProgram
-                                day={"J1"}
-                                date={"jeu. 06.10.24"}
-                                departure={"ANTSIRABE"}
-                                arrival={"AMPEFY"}
-                                distance={50}
-                                hotel={"Radisson"}
-                                guide={1}
+                              <TrReservation
+                                key={reservation.id}
+                                reservationRef={reservation.id}
+                                reservationId={reservation.id}
+                                reservationDate={reservation.reservationDate}
+                                circuit={reservation.circuit.name}
+                                customerId={id}
+                                customerInfo={customerInfo}
                               />
                             </>
                           ))}
                         </tbody>
                       </table>
+                      <div style={{ margin: "2% 0 0 2%" }}>
+                        {(next != null || currentPage != 1) && (
+                          <MyPagination
+                            onPageChange={handlePageChange}
+                            lastVisible={next}
+                            currentPage={currentPage}
+                          />
+                        )}
+                      </div>
                     </div>
                   ) : (
                     <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
-                      Aucun planning
+                      Aucune reservation
                     </p>
                   )}
                 </div>

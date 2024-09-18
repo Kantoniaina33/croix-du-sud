@@ -2,7 +2,7 @@ import React from "react";
 import ListHotelToAdd from "./listHotelToAdd";
 
 export default function AddHotelPlanning(props) {
-  const { onCancel } = props;
+  const { onCancel, programId } = props;
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <div
