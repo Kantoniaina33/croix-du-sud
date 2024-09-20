@@ -5,29 +5,31 @@ import MyPagination from "../../../components/util/myPagination";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import TrPlanningProgram from "../../../components/program/trPlanningProgram";
-import AddHotelPlanning from "../../../components/hotel/addHotelPlanning";
+import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
 import FormProgramPlanning from "../../../components/program/formProgramPlanning";
 import Return from "../../../components/util/return";
 import { Link, useLocation, useParams } from "react-router-dom";
+import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function TablePlanning() {
   const location = useLocation();
   const customerInfo = location.state;
-  const { id } = useParams(); //customerId
+  const { id, reservationId } = useParams(); //id : customerId
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
-  const [program, setProgram] = useState(null);
+  const [programPlanning, setProgramPlanning] = useState(null);
   const [programPlannings, setProgramPlannings] = useState([]);
 
   const fetchProgramPlannings = async () => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/Planningss/planning`;
+      const url = `http://localhost:3030/reservations/${reservationId}/program_plannings`;
+      console.log(url);
 
       const response = await fetch(url, {
         method: "GET",
@@ -55,16 +57,15 @@ export default function TablePlanning() {
     fetchProgramPlannings();
   }, []);
 
-  const handleNext = (dataProgram) => {
-    setProgram(dataProgram);
-    console.log(dataProgram.id);
-    setIsMapModalOpen(false);
-    setIsNextModalOpen(true);
-  };
-
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseNextModal = () => setIsNextModalOpen(false);
+
+  const handleNext = (programPlanning) => {
+    setProgramPlanning(programPlanning);
+    setIsMapModalOpen(false);
+    setIsNextModalOpen(true);
+  };
 
   return (
     <div>
@@ -101,6 +102,7 @@ export default function TablePlanning() {
               className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
               id="navbar"
             >
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
               <ul className="navbar-nav justify-content-end">
                 <li className="nav-item d-flex align-items-center">
                   <a
@@ -114,13 +116,17 @@ export default function TablePlanning() {
                     <FormProgramPlanning
                       onCancel={handleCloseModal}
                       circuitId="P3cGM8a3dJNEVOteeg3y"
+                      reservationId={reservationId}
+                      method="POST"
                       onClose={handleNext}
                     />
                   </Modal>
                   <Modal isOpen={isNextModalOpen}>
-                    <AddHotelPlanning
+                    <FormHotelPlanning
                       onCancel={handleCloseNextModal}
+                      programPlanning={programPlanning}
                       circuitId="P3cGM8a3dJNEVOteeg3y"
+                      method="POST"
                     />
                   </Modal>
                 </li>
@@ -197,16 +203,18 @@ export default function TablePlanning() {
                           </tr>
                         </thead>
                         <tbody>
-                          {programPlannings.map(() => (
+                          {programPlannings.map((planning) => (
                             <>
                               <TrPlanningProgram
-                                day={"J1"}
-                                date={"jeu. 06.10.24"}
-                                departure={"ANTSIRABE"}
-                                arrival={"AMPEFY"}
-                                distance={50}
-                                hotel={"Radisson"}
-                                guide={1}
+                                planningId={planning.id}
+                                day={planning.day}
+                                date={planning.formatted_date}
+                                distance={planning.program.distance}
+                                itinerary={planning.program.itinerary}
+                                hotel={planning.hotel}
+                                guide={planning.number_of_guide}
+                                customerId={id}
+                                reservationId={reservationId}
                               />
                             </>
                           ))}

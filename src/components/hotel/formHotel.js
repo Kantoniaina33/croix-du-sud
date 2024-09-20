@@ -91,7 +91,6 @@ export default function FormHotel(props) {
       const idUrl = method === "PUT" ? `/${hotelId}` : "";
       const url = `http://localhost:3030/hotels${idUrl}`;
 
-      console.log(url + " urllllllll");
       const response = await fetch(`http://localhost:3030/hotels${idUrl}`, {
         method: method,
         headers: {

@@ -50,7 +50,6 @@ export default function FormEmployee(props) {
     console.log(formValues);
     const idUrl = method === "PUT" ? `/${employeeId}` : "";
     const url = `http://localhost:3030/employees${idUrl}`;
-    console.log(url+" urllll");
     try {
       const response = await fetch(`http://localhost:3030/employees${idUrl}`, {
         method: method,

@@ -10,3 +10,6 @@
 recherche
 * date embauche employe
 * insert timestamp 
+* gestion upload: 
+    - upload file from front to firebase storage
+    - send url in request body (not file)

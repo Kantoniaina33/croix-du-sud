@@ -6,18 +6,30 @@ import Modal from "../hotel/modal";
 import SelectPrograms from "../util/selectPrograms";
 
 export default function FormProgramPlanning(props) {
-  const { title, circuitId, programId, day, guide, onCancel, onClose } = props;
+  const {
+    title,
+    method,
+    circuitId,
+    programId,
+    day,
+    guide,
+    reservationId,
+    onCancel,
+    onClose,
+  } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     day: day,
     programId: programId,
-    circuitId:circuitId,
-    guide:guide || 0
+    circuitId: circuitId,
+    guide: guide || 0,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -27,17 +39,19 @@ export default function FormProgramPlanning(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log(formValues);
-
+    setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3030/programs`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formValues),
-      });
+      const response = await fetch(
+        `http://localhost:3030/reservations/${reservationId}/program_plannings`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -47,13 +61,17 @@ export default function FormProgramPlanning(props) {
         }
         return;
       }
-      const data = await response.json();
-      const program = data.program;
-      onClose(program);
-      setIsMapModalOpen(false);
-      window.location.reload();
+      if (method == "POST") {
+        const data = await response.json();
+        const program_planning = data.program_planning;
+        onClose(program_planning);
+      } else {
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +110,7 @@ export default function FormProgramPlanning(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Planning de voyage
+            Choix d'itinéraires
           </span>
         </div>
         <div
@@ -135,9 +153,9 @@ export default function FormProgramPlanning(props) {
               <input
                 type="text"
                 className="form-control"
-                value={formValues.departure}
+                value={formValues.day}
                 onChange={handleChange}
-                name="departure"
+                name="day"
               />
             </div>
           </div>
@@ -184,7 +202,13 @@ export default function FormProgramPlanning(props) {
                 marginTop: "1%",
               }}
             >
-              Suivant
+              {loading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Suivant"
+              )}
             </button>
           </div>
         </form>

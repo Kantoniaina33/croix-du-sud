@@ -80,6 +80,9 @@ export default function TableRoomPlanning() {
                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                   Prix total
                 </th>
+                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Occupants
+                </th>
                 <th className="text-secondary opacity-7"></th>
               </tr>
             </thead>
@@ -90,12 +93,14 @@ export default function TableRoomPlanning() {
                 price_category={"Premier"}
                 quantity={3}
                 price={1000}
+                occupant={"Couple 1"}
               />
               <TrRoomPlanning
                 room_type={"Double"}
                 price_category={"Premier"}
                 quantity={3}
                 price={1000}
+                occupant={"Famille (5) 1"}
               />
               {/* ))} */}
             </tbody>

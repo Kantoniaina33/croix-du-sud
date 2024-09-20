@@ -7,7 +7,7 @@ import Modal from "../hotel/modal";
 import FormRoom from "./formRoom";
 
 export default function TrRoomPlanning(props) {
-  const { room_type, price_category, quantity, price, id } = props;
+  const { room_type, price_category, quantity, price,occupant, id } = props;
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -40,6 +40,9 @@ export default function TrRoomPlanning(props) {
       </td>
       <td>
         <h6 className="mb-0 text-sm">{price * quantity}</h6>
+      </td>
+      <td>
+        <h6 className="mb-0 text-sm">{occupant}</h6>
       </td>
       <td>
         <span className="text-secondary text-xs font-weight-bold">

@@ -11,13 +11,27 @@ import Modal from "../hotel/modal";
 import { useNavigate } from "react-router-dom";
 
 export default function TrPlanningProgram(props) {
-  const { day, date, departure, arrival, distance, hotel, guide } = props;
+  const {
+    day,
+    date,
+    itinerary,
+    distance,
+    hotel,
+    guide,
+    customerId,
+    reservationId,
+    planningId,
+  } = props;
   const roundedDistance = Math.floor(distance);
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
 
-  const handleOnClick = (e) => {navigate("/programs/planning/details")};
+  const handleOnClick = (e) => {
+    navigate(
+      `/customers/${customerId}/reservations/${reservationId}/planning/${planningId}/details`
+    );
+  };
 
   return (
     <>
@@ -36,9 +50,7 @@ export default function TrPlanningProgram(props) {
           <p className="text-sm font-weight-bold mb-0">{date}</p>
         </td>
         <td>
-          <p className="text-sm font-weight-bold mb-0">
-            {departure} - {arrival}
-          </p>
+          <p className="text-sm font-weight-bold mb-0">{itinerary}</p>
         </td>
         <td>
           <p className="text-sm font-weight-bold mb-0">{roundedDistance}</p>

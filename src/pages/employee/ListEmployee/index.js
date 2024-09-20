@@ -87,7 +87,6 @@ export default function ListEmployee() {
 
   const handleNext = (dataEmployee) => {
     setEmployee(dataEmployee);
-    console.log(dataEmployee.id);
     setIsMapModalOpen(false);
     setIsNextModalOpen(true);
   };

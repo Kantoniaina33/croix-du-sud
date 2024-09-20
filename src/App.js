@@ -47,7 +47,7 @@ function App() {
             element={<TablePlanning />}
           />
           <Route
-            path="/programs/planning/details"
+            path="customers/:id/reservations/:reservationId/planning/:planningId/details"
             element={<PlanningDetails />}
           />
           <Route path="/circuits" element={<ListCircuit />} />

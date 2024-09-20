@@ -141,8 +141,10 @@ export default function PlanningDetails() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
+                <div className="card-header pb-0" style={{marginBottom:"-2%"}}>
                   <h6>Details du planning</h6>
+                  <p>Jour 1 DIEGO - TANA</p>
+                  <p>Hotel: Radisson Waterfront</p>
                 </div>
                 <TableMealPlanning />
                 <hr className="custom-hr" />
