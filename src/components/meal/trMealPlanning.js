@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 export default function TrMealPlanning(props) {
   const { hotelId } = useParams();
-  const { meal, price, id } = props;
+  const { meal, price, id, totalPerson } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [editedPrice, setEditedPrice] = useState(price);
   const [message, setMessage] = useState("");
@@ -62,7 +62,14 @@ export default function TrMealPlanning(props) {
       <td>
         <div className="d-flex px-2">
           <div className="my-auto">
-            <h6 className="mb-0 text-sm">{editedPrice} Ar</h6>
+            <h6 className="mb-0 text-sm">{price} Ar</h6>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex px-2">
+          <div className="my-auto">
+            <h6 className="mb-0 text-sm">{price * totalPerson} Ar</h6>
           </div>
         </div>
       </td>

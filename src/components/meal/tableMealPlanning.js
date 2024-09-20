@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import TrMealPlanning from "./trMealPlanning";
 
 export default function TableMealPlanning() {
-  const { hotelId } = useParams();
+  const { hotelId, totalPerson } = useParams();
   const [message, setMessage] = useState("");
 
   return (
@@ -35,14 +35,17 @@ export default function TableMealPlanning() {
                   Repas
                 </th>
                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Prix
+                  Prix par personne
+                </th>
+                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Prix total
                 </th>
                 <th className="text-secondary opacity-7"></th>
               </tr>
             </thead>
-            <TrMealPlanning meal={"Meal"} price={1000} />
-            <TrMealPlanning meal={"Meal"} price={1000} />
-            <TrMealPlanning meal={"Meal"} price={1000} />
+            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
+            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
+            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
           </table>
         </div>
       </div>
