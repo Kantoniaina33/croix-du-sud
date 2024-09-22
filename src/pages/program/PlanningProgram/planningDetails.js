@@ -6,36 +6,18 @@ import TableMealPlanning from "../../../components/meal/tableMealPlanning";
 import TableRoomPlanning from "../../../components/room/tableRoomPlanning";
 import TableExcursionPlanning from "../../../components/excursion/tableExcursionPlanning";
 import "./style.css";
+import { useParams } from "react-router-dom";
 
-export default function PlanningDetails() {
-  const [show, setShow] = useState(false);
-  const [roles, setRoles] = useState([]);
+export default function PlanningDetails(props) {
+  const { planningId, reservationId } = useParams();
+  const [planning, setPlanning] = useState([]);
   const [message, setMessage] = useState("");
-  const [next, setNext] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState("");
-  const [sort, setSort] = useState("name");
-  const [order, setOrder] = useState("asc");
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const limit = 10;
-  const fetchRoles = async (
-    nextDoc = null,
-    sort = "name",
-    order = "asc",
-    search = "",
-    searchField = ""
-  ) => {
-    setLoading(true);
+  const fetchPlanning = async () => {
     setMessage("");
     try {
-      const url = `http://localhost:3030/roles/paginated?limit=${limit}&&next=${
-        nextDoc || ""
-      }&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
+      const url = `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}`;
 
-      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -45,55 +27,20 @@ export default function PlanningDetails() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch roles");
+        setMessage("Failed to fetch planning");
         return;
       }
       const data = await response.json();
-      setRoles(data.roles);
-      setNext(data.next);
+      setPlanning(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching roles");
-    } finally {
-      setLoading(false);
+      setMessage("Error fetching planning");
     }
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowMap = () => setIsMapModalOpen(true);
-
-  const handleSort = (value) => {
-    setCurrentPage(1);
-    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-    setSort(value);
-  };
-
-  const handleSelectCity = (e) => {
-    setSearchField("city");
-    setSearch(e.target.value);
-    setCurrentPage(1);
-  };
-
   useEffect(() => {
-    fetchRoles(null, sort, order, search, searchField);
-  }, [sort, order, search, searchField]);
-
-  const handlePageChange = (nextDoc) => {
-    fetchRoles(nextDoc, sort, order, search, searchField);
-    setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
-  };
-
-  const handleSearchRole = (e) => {
-    setSearchField("name");
-    setSearch(e.target.value);
-  };
-
-  const handleClearSearch = (e) => {
-    setSearchField("");
-    setSearch("");
-  };
+    fetchPlanning();
+  }, []);
 
   return (
     <div>
@@ -115,7 +62,7 @@ export default function PlanningDetails() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Programmes</span>
+                  <span>Planningmes</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
@@ -141,16 +88,22 @@ export default function PlanningDetails() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <div className="card-header pb-0" style={{marginBottom:"-2%"}}>
+                <div
+                  className="card-header pb-0"
+                  style={{ marginBottom: "-2%" }}
+                >
                   <h6>Details du planning</h6>
-                  <p>Jour 1 DIEGO - TANA</p>
-                  <p>Hotel: Radisson Waterfront</p>
+                  <p>Jour {planning.day}</p>
                 </div>
                 <TableMealPlanning />
                 <hr className="custom-hr" />
                 <TableRoomPlanning />
                 <hr className="custom-hr" />
-                <TableExcursionPlanning />
+                <TableExcursionPlanning
+                  programId={planning.programId}
+                  reservationId={reservationId}
+                  planningId={planningId}
+                />
               </div>
             </div>
           </div>

@@ -11,6 +11,7 @@ export default function TrReservation(props) {
     reservationRef,
     reservationDate,
     circuit,
+    circuitId,
     customerId,
     customerInfo,
   } = props;
@@ -49,7 +50,7 @@ export default function TrReservation(props) {
         <p className="text-sm font-weight-bold mb-0">
           <Link
             to={`/customers/${customerId}/reservations/${reservationId}/planning`}
-            state={customerInfo}
+            state={{customerInfo, circuitId}}
             style={{ textDecoration: "underline" }}
           >
             Planning

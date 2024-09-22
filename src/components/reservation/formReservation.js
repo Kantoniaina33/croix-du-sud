@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./reservation.css";
 import SelectCircuits from "../util/selectCircuits";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function FormReservation(props) {
   const {
@@ -18,6 +18,7 @@ export default function FormReservation(props) {
   } = props;
 
   const { id } = useParams(); //customerId
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState([]);
@@ -95,6 +96,9 @@ export default function FormReservation(props) {
         }
         return;
       }
+      const data = await response.json();
+      const reservation = data.reservation;
+      navigate(`/customers`);
     } catch (error) {
       console.error("Error:", error);
     } finally {

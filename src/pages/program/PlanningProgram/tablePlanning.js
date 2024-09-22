@@ -13,7 +13,9 @@ import MySearchBar from "../../../components/util/mySearchBar";
 
 export default function TablePlanning() {
   const location = useLocation();
-  const customerInfo = location.state;
+  const linkData = location.state;
+  const customerInfo = linkData.customerInfo;
+  const circuitId = linkData.circuitId;
   const { id, reservationId } = useParams(); //id : customerId
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
@@ -115,7 +117,7 @@ export default function TablePlanning() {
                   <Modal isOpen={isMapModalOpen}>
                     <FormProgramPlanning
                       onCancel={handleCloseModal}
-                      circuitId="P3cGM8a3dJNEVOteeg3y"
+                      circuitId={circuitId}
                       reservationId={reservationId}
                       method="POST"
                       onClose={handleNext}
@@ -125,7 +127,6 @@ export default function TablePlanning() {
                     <FormHotelPlanning
                       onCancel={handleCloseNextModal}
                       programPlanning={programPlanning}
-                      circuitId="P3cGM8a3dJNEVOteeg3y"
                       method="POST"
                     />
                   </Modal>

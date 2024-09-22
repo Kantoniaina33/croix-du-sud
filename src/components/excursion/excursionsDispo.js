@@ -6,7 +6,7 @@ export default function ExcursionsDispo(props) {
   const { programId } = props;
 
   const [show, setShow] = useState(false);
-  const [hotels, setHotels] = useState([]);
+  const [excursions, setExcursions] = useState([]);
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function ExcursionsDispo(props) {
   const [order, setOrder] = useState("asc");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const fetchHotels = async (
+  const fetchExcursions = async (
     nextDoc = null,
     sort = "name",
     order = "asc",
@@ -27,8 +27,7 @@ export default function ExcursionsDispo(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/${programId}/close_hotels`;
-
+      const url = `http://localhost:3030/programs/${programId}/close_excursions`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -38,14 +37,16 @@ export default function ExcursionsDispo(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch hotels");
+        setMessage("Failed to fetch excursions");
         return;
       }
       const data = await response.json();
-      setHotels(data);
+      setExcursions(data);
+      console.log(data);
+      
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching hotels");
+      setMessage("Error fetching excursions");
     } finally {
       setLoading(false);
     }
@@ -67,11 +68,11 @@ export default function ExcursionsDispo(props) {
   };
 
   useEffect(() => {
-    fetchHotels(null, sort, order, search, searchField);
-  }, [sort, order, search, searchField]);
+    fetchExcursions();
+  }, []);
 
   const handlePageChange = (nextDoc) => {
-    fetchHotels(nextDoc, sort, order, search, searchField);
+    fetchExcursions(nextDoc, sort, order, search, searchField);
     setCurrentPage((prevPage) => (nextDoc ? prevPage + 1 : 1));
   };
 
@@ -91,7 +92,7 @@ export default function ExcursionsDispo(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : hotels.length < 0 ? (
+        ) : excursions.length > 0 ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -108,16 +109,16 @@ export default function ExcursionsDispo(props) {
                 </tr>
               </thead>
               <tbody>
-                {hotels.slice(0, 3).map((hotel) => (
+                {excursions.slice(0, 3).map((excursion) => (
                   <>
                     <TrExcursion
-                      key={hotel.id}
-                      excursionId={hotel.id}
-                      place_name={"hotel.place_name"}
-                      city={hotel.city}
-                      image={hotel.image}
-                      price={"hotel.price"}
-                      distance={hotel.distance}
+                      key={excursion.id}
+                      excursionId={excursion.id}
+                      place_name={excursion.place_name}
+                      city={excursion.city}
+                      image={excursion.image}
+                      price={excursion.price}
+                      distance={excursion.distance}
                     />
                   </>
                 ))}
@@ -131,3 +132,4 @@ export default function ExcursionsDispo(props) {
     </>
   );
 }
+

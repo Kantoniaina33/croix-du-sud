@@ -6,12 +6,41 @@ import {
   Location01Icon,
 } from "hugeicons-react";
 import { useState } from "react";
-import AlertDelete from "../util/alertDelete";
-import "./excursion.css";
-import Modal from "../hotel/modal";
 
 export default function TrExcursionPlanning(props) {
-  const { excursionId, image, place_name, price } = props;
+  const { excursionId, image, place_name, price, reservationId, planningId } =
+    props;
+  const [message, setMessage] = useState("");
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions/${excursionId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <tr>
@@ -35,11 +64,14 @@ export default function TrExcursionPlanning(props) {
       <td>
         <h6 className="mb-0 text-sm">{price} Ar</h6>
       </td>
-      <td className="align-middle text-center">
+      <td>
+        <h6 className="mb-0 text-sm">{price} Ar</h6>
+      </td>
+      <td>
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}
-            // onClick={handleSave}
+            onClick={handleDelete}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +87,9 @@ export default function TrExcursionPlanning(props) {
             </svg>{" "}
           </button>
         </span>
+      </td>
+      <td className="align-middle text-center">
+        <span className="text-secondary text-xs font-weight-bold"></span>
       </td>
     </tr>
   );

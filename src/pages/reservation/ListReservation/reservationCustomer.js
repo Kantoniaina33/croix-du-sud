@@ -197,6 +197,7 @@ export default function ReservationCustomer() {
                                 reservationId={reservation.id}
                                 reservationDate={reservation.reservationDate}
                                 circuit={reservation.circuit.name}
+                                circuitId={reservation.circuit.id}
                                 customerId={id}
                                 customerInfo={customerInfo}
                               />

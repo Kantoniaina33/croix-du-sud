@@ -1,17 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
-import {
-  Coffee02Icon,
-  Edit02Icon,
-  SpoonAndKnifeIcon,
-  Tick02Icon,
-} from "hugeicons-react";
+import { SpoonAndKnifeIcon } from "hugeicons-react";
 import { useParams } from "react-router-dom";
 import TrMealPlanning from "./trMealPlanning";
 
-export default function TableMealPlanning() {
-  const { hotelId, totalPerson } = useParams();
+export default function TableMealPlanning(props) {
+  const { reservationId, planningId } = useParams();
+  const { totalPerson } = props;
   const [message, setMessage] = useState("");
+  const [meals, setMeals] = useState([]);
+
+  const fetchMeals = async () => {
+    setMessage("");
+    try {
+      const response = await fetch(
+        `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/meals`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        setMessage("Failed to fetch meals");
+        return;
+      }
+
+      const data = await response.json();
+      setMeals(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching meals");
+    }
+  };
+
+  useEffect(() => {
+    fetchMeals();
+  }, []);
 
   return (
     <div
@@ -43,9 +70,17 @@ export default function TableMealPlanning() {
                 <th className="text-secondary opacity-7"></th>
               </tr>
             </thead>
-            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
-            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
-            <TrMealPlanning meal={"Meal"} price={1000} totalPerson={2} />
+            {meals.map((mealPlanning) => (
+              <TrMealPlanning
+                reservationId={reservationId}
+                planningId={planningId}
+                hotelMealId={mealPlanning.meal.id}
+                meal={mealPlanning.meal.meal}
+                price={mealPlanning.meal.price}
+                totalPerson={2}
+                excluded={mealPlanning.excluded}
+              />
+            ))}
           </table>
         </div>
       </div>

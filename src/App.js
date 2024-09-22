@@ -59,7 +59,7 @@ function App() {
           <Route path="/employees" element={<ListEmployee />} />
           <Route path="/customers" element={<ListCustomer />} />
           <Route path="/customers/register" element={<Register />} />
-          <Route path="/customers/register" element={<NewReservation />} />
+          <Route path="/customers/:id/reservation" element={<NewReservation />} />
           <Route
             path="/customers/:id/reservations"
             element={<ReservationCustomer />}

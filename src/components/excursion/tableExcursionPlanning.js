@@ -1,19 +1,55 @@
-import { useState } from "react";
-import Modal from "../hotel/modal";
-import AddExcursionPlanning from "./addExcursionPlanning";
+import { useEffect, useState } from "react";
+import FormExcursionPlanning from "./formExcursionPlanning";
 import TrExcursionPlanning from "./trExcursionPlanning";
+import Modal from "../hotel/modal";
 
-export default function TableExcursionPlanning() {
+export default function TableExcursionPlanning(props) {
+  const { programId, reservationId, planningId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
+  const [excursions, setExcursions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const fetchExcursions = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const url = `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions`;
+      console.log(url);
+      
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch excursions");
+        return;
+      }
+      const data = await response.json();
+      setExcursions(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching excursions");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchExcursions();
+  }, []);
 
   return (
     <div
       className="card-body px-0 pt-0 pb-2"
       style={{
         backgroundColor: "white",
-        // width: "q0%",
         borderRadius: "10px",
       }}
     >
@@ -39,65 +75,63 @@ export default function TableExcursionPlanning() {
           <a onClick={handleShowForm}>Ajouter une excursion</a>
         </div>
         <Modal isOpen={isMapModalOpen}>
-          <AddExcursionPlanning onCancel={handleCloseModal} />
+          <FormExcursionPlanning
+            onCancel={handleCloseModal}
+            programId={programId}
+            reservationId={reservationId}
+            planningId={planningId}
+          />
         </Modal>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
         {/* <a className="btn btn-outline-primary btn-sm mb-0 me-3" target="blank">
           Nouvel employe
         </a> */}
-        {/* {loading ? ( */}
-        {/* <div
-          className="spinner-border spinner-border-sm"
-          role="status"
-          style={{ marginLeft: "3%" }}
-        >
-          <span className="visually-hidden">Loading...</span>
-        </div> */}
-        {/* ) : hotels.length < 0 ? ( */}
-        <div className="table-responsive p-0">
-          <table className="table align-items-center mb-0">
-            <thead>
-              <tr>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                  Excursion
-                </th>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Prix
-                </th>
-                <th className="text-secondary opacity-7"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {hotels.slice(0, 3).map((hotel) => ( */}
-              <>
-                <TrExcursionPlanning
-                  image={"hotel.image"}
-                  place_name={"hotel.place_name"}
-                  price={"hotel.price"}
-                />
-                <TrExcursionPlanning
-                  image={"hotel.image"}
-                  place_name={"hotel.place_name"}
-                  price={"hotel.price"}
-                />
-              </>
-              {/* ))} */}
-            </tbody>
-          </table>
-          {/* <a
-            className="btn btn-outline-primary btn-sm mb-0 me-3"
-            target="blank"
-            //   onClick={handleShowMap}
+        {loading ? (
+          <div
+            className="spinner-border spinner-border-sm"
+            role="status"
+            style={{ marginLeft: "3%" }}
           >
-            Nouvel employe
-          </a> */}
-        </div>
-        {/* ) : (
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : excursions.length > 0 ? (
+          <div className="table-responsive p-0">
+            <table className="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Excursion
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prix par personne
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prix total
+                  </th>
+                  <th className="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {excursions.map((excursionPlanning) => (
+                  <TrExcursionPlanning
+                    excursionId={excursionPlanning.excursion.id}
+                    image={excursionPlanning.excursion.image}
+                    place_name={excursionPlanning.excursion.place_name}
+                    price={excursionPlanning.excursion.price}
+                    totalPersons={10}
+                    reservationId={reservationId}
+                    planningId={planningId}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>
-            Aucune excursion disponible
+            Aucune excursion.
           </p>
-        )} */}
+        )}
       </div>
     </div>
   );
