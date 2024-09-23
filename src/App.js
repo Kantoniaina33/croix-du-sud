@@ -23,6 +23,7 @@ import TablePlanning from "./pages/program/PlanningProgram/tablePlanning";
 import PlanningDetails from "./pages/program/PlanningProgram/planningDetails";
 import ListCustomer from "./pages/customer/ListCustomer";
 import ReservationCustomer from "./pages/reservation/ListReservation/reservationCustomer";
+import SheetExcursionPage from "./pages/excursion/ListExcursion/sheetExcursionPage";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />
+          <Route path="/excursions/:id" element={<SheetExcursionPage />} />
           <Route path="/programs" element={<ListProgram />} />
           <Route
             path="customers/:id/reservations/:reservationId/planning"
@@ -59,7 +61,10 @@ function App() {
           <Route path="/employees" element={<ListEmployee />} />
           <Route path="/customers" element={<ListCustomer />} />
           <Route path="/customers/register" element={<Register />} />
-          <Route path="/customers/:id/reservation" element={<NewReservation />} />
+          <Route
+            path="/customers/:id/reservation"
+            element={<NewReservation />}
+          />
           <Route
             path="/customers/:id/reservations"
             element={<ReservationCustomer />}

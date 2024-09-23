@@ -9,9 +9,11 @@ export default function TableMealPlanning(props) {
   const { totalPerson } = props;
   const [message, setMessage] = useState("");
   const [meals, setMeals] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchMeals = async () => {
     setMessage("");
+    setLoading(true);
     try {
       const response = await fetch(
         `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/meals`,
@@ -33,6 +35,8 @@ export default function TableMealPlanning(props) {
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching meals");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,35 +58,47 @@ export default function TableMealPlanning(props) {
         </h6>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
-        <div className="table-responsive p-0">
-          <table className="table align-items-center mb-0">
-            <thead>
-              <tr>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                  Repas
-                </th>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Prix par personne
-                </th>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Prix total
-                </th>
-                <th className="text-secondary opacity-7"></th>
-              </tr>
-            </thead>
-            {meals.map((mealPlanning) => (
-              <TrMealPlanning
-                reservationId={reservationId}
-                planningId={planningId}
-                hotelMealId={mealPlanning.meal.id}
-                meal={mealPlanning.meal.meal}
-                price={mealPlanning.meal.price}
-                totalPerson={2}
-                excluded={mealPlanning.excluded}
-              />
-            ))}
-          </table>
-        </div>
+        {loading ? (
+          <div
+            className="spinner-border spinner-border-sm"
+            role="status"
+            style={{ marginLeft: "3%" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : meals.length > 0 ? (
+          <div className="table-responsive p-0">
+            <table className="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Repas
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prix par personne
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prix total
+                  </th>
+                  <th className="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              {meals.map((mealPlanning) => (
+                <TrMealPlanning
+                  reservationId={reservationId}
+                  planningId={planningId}
+                  hotelMealId={mealPlanning.meal.id}
+                  meal={mealPlanning.meal.meal}
+                  price={mealPlanning.meal.price}
+                  totalPerson={2}
+                  excluded={mealPlanning.excluded}
+                />
+              ))}
+            </table>
+          </div>
+        ) : (
+          <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>
+        )}
       </div>
     </div>
   );

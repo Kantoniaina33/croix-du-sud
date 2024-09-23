@@ -85,7 +85,7 @@ export default function PlanningDetails(props) {
           </div>
         </nav>
         <div className="container-fluid py-4">
-          <div className="row">
+          <div className="row" style={{ overflowY: "auto", height: "80vh" }}>
             <div className="col-12">
               <div className="card mb-4">
                 <div

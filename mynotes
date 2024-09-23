@@ -13,3 +13,9 @@ recherche
 * gestion upload: 
     - upload file from front to firebase storage
     - send url in request body (not file)
+
+* choix circuit reservation (atao card)
+* planning par rapport au circuit
+* personnalisation circuit planning
+* personnalisation circuit
+* duree programme (manuel)
