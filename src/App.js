@@ -24,6 +24,7 @@ import PlanningDetails from "./pages/program/PlanningProgram/planningDetails";
 import ListCustomer from "./pages/customer/ListCustomer";
 import ReservationCustomer from "./pages/reservation/ListReservation/reservationCustomer";
 import SheetExcursionPage from "./pages/excursion/ListExcursion/sheetExcursionPage";
+import SheetHotelPage from "./pages/hotel/ListHotel/sheetHotelPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/hotels" element={<ListHotel />} />
+          <Route path="/hotels/:id" element={<SheetHotelPage />} />
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />

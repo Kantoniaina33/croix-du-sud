@@ -12,8 +12,20 @@ import "../../assets/css/soft-ui-dashboard.min.css";
 import FormHotel from "./formHotel";
 
 export default function TrHotel(props) {
-  const { hotelId, logo, name, address, city, phone, email, star, setMeals, latitude, longitude, location } =
-    props;
+  const {
+    hotelId,
+    logo,
+    name,
+    address,
+    city,
+    phone,
+    email,
+    star,
+    setMeals,
+    latitude,
+    longitude,
+    location,
+  } = props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
@@ -45,7 +57,9 @@ export default function TrHotel(props) {
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
-              <h6 className="mb-0 text-sm">{name}</h6>
+              <a href={`/hotels/${hotelId}`}>
+                <h6 className="mb-0 text-sm">{name}</h6>
+              </a>
               <p className="text-xs text-secondary mb-0">{address}</p>
               <p className="text-xs text-secondary mb-0">{city}</p>
             </div>

@@ -1,100 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Leaflet Search Hotels</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <style>
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-    </style>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Card</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card-image-left {
+      flex: 1;
+      height: auto;
+    }
+
+    .card-image-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      flex: 2;
+      padding: 20px;
+    }
+
+    .card-content h1 {
+      margin-top: 0;
+    }
+
+    .card-content p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .card-image-right {
+      flex: 1;
+      height: auto;
+    }
+
+    .card-image-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
-    <div id="map"></div>
-    <script>
-        const map = L.map('map').setView([ -18.8792, 47.5079 ], 12);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+  <div class="card-container">
+    <!-- Image à gauche -->
+    <div class="card-image-left">
+      <img src="https://via.placeholder.com/300" alt="Image gauche">
+    </div>
 
-        const geocoder = L.Control.Geocoder.nominatim();
+    <!-- Contenu au centre -->
+    <div class="card-content">
+      <h1>Parc zoologique et botanique de Tsimbazaza</h1>
+      <p>Le zoo et jardin botanique, ouvert en 1990, propose une variété d'espèces animales et végétales locales. Il est situé à Antananarivo, Madagascar.</p>
+      <p>Note : 3.7 étoiles (429 avis)</p>
+    </div>
 
-        L.Control.geocoder({
-            geocoder: geocoder,
-            defaultMarkGeocode: false
-        }).on('markgeocode', function(e) {
-            const latlng = e.geocode.center;
-            map.setView(latlng, 15);
+    <!-- Image à droite -->
+    <div class="card-image-right">
+      <img src="https://via.placeholder.com/300" alt="Image droite">
+    </div>
+  </div>
 
-            // Optionnel: Ajout d'un marqueur à la position trouvée
-            L.marker(latlng).addTo(map)
-                .bindPopup(e.geocode.name)
-                .openPopup();
-
-            // Rechercher des hôtels autour de la position trouvée
-            searchHotels(latlng.lat, latlng.lng);
-        }).addTo(map);
-
-        function searchHotels(lat, lng) {
-            // Définir le rayon de recherche en mètres
-            const radius = 1000;
-
-            // Définir la bounding box pour Madagascar
-            const bbox = [
-                -25.5, // latitude min
-                41.0,  // longitude min
-                -12.0, // latitude max
-                50.5   // longitude max
-            ];
-
-            // Recherche d'hôtels contenant "Carlton" dans la bounding box
-            const overpassQuery = `
-                [out:json];
-                (
-                  node["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
-                  way["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
-                  relation["tourism"="hotel"]["name"~"Carlton"](bbox:${bbox.join(',')});
-                );
-                out body;
-            `;
-
-            const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    data.elements.forEach(hotel => {
-                        // Si le résultat est un nœud
-                        if (hotel.lat && hotel.lon) {
-                            L.marker([hotel.lat, hotel.lon])
-                                .addTo(map)
-                                .bindPopup(hotel.tags.name || 'No name');
-                        }
-                        // Si le résultat est une voie
-                        else if (hotel.geometry && hotel.geometry.coordinates) {
-                            const coords = hotel.geometry.coordinates.map(coord => [coord[1], coord[0]]);
-                            L.polygon(coords)
-                                .addTo(map)
-                                .bindPopup(hotel.tags.name || 'No name');
-                        }
-                        // Si le résultat est une relation (exemple : hôtel avec plusieurs parties)
-                        else if (hotel.members) {
-                            hotel.members.forEach(member => {
-                                if (member.lat && member.lon) {
-                                    L.marker([member.lat, member.lon])
-                                        .addTo(map)
-                                        .bindPopup(hotel.tags.name || 'No name');
-                                }
-                            });
-                        }
-                    });
-                });
-        }
-    </script>
 </body>
 </html>
