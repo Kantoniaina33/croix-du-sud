@@ -77,6 +77,11 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   font-size: 14px;
   color: #555;
   width: 80%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;      
+  -webkit-box-orient: vertical;
+  overflow: hidden;           
+  text-overflow: ellipsis; 
 }
 
 #programs .card-actions {
