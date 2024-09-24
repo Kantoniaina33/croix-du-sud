@@ -10,13 +10,16 @@ import HotelsCloseCheap from "../../../components/hotel/hotelsCLoseCheap";
 import ExcursionsDispo from "../../../components/excursion/excursionsDispo";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
+import SheetProgram from "../../../components/program/sheetProgram";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
   const { programId } = useParams();
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchProgram = async () => {
+    setLoading(true);
     setMessage("");
     try {
       const url = `http://localhost:3030/programs/${programId}`;
@@ -38,11 +41,15 @@ export default function ProgramDetails() {
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching program");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchProgram();
+    console.log(program+"huuuuuuuuuuuuuuuuuuuuuuuuuuu");
+    
   }, []);
 
   return (
@@ -77,15 +84,33 @@ export default function ProgramDetails() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <Return href="/programs" />
-                <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <div>
-                    <h6 style={{ textTransform: "uppercase" }}>
-                      {program.departure} - {program.arrival}
-                    </h6>
+                {loading ? (
+                  <div
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    style={{ marginLeft: "3%" }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
                   </div>
-                </div>
+                ) : program && program.departureCoordinates ? (
+                  <SheetProgram
+                    programId={program.id}
+                    departure={program.departure}
+                    arrival={program.arrival}
+                    distance={program.distance}
+                    duration={program.duration}
+                    description={program.description}
+                    departureLatitude={program.departureCoordinates.latitude}
+                    departureLongitude={program.departureCoordinates.longitude}
+                    arrivalLatitude={program.arrivalCoordinates.latitude}
+                    arrivalLongitude={program.arrivalCoordinates.longitude}
+                  />
+                ) : (
+                  <p>Oups</p>
+                )}
+                <hr className="custom-hr" />
                 <HotelsCloseCheap programId={programId} />
+                <hr className="custom-hr" />
                 <ExcursionsDispo programId={programId} />
               </div>
             </div>

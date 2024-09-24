@@ -146,3 +146,73 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
 #mini_programs .icon{
   float: right;
 }
+
+
+#programDetails .card-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;  
+  margin: 10%;
+  border-radius: 10px;
+}
+
+.sheetProgram {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.return {
+  margin: 1% 0 1% 0;
+}
+
+.programDetails {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.card-image-left {
+  flex: 0.7;
+  margin-left:3%;
+}
+
+.card-image-left img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px 0;
+}
+
+.card-map-right {
+  flex: 0.7;
+  margin: 0 3%;
+  height: auto;
+}
+.sheetProgram .info p {
+  line-height: 0.8;
+}
+
+.sheetProgram .info svg {
+  margin: -1% 1% 0 0;
+}
+
+.sheetProgram .info {
+  margin-top: 5%;
+  color: #273385;
+
+}
+/* .sheetProgram .card-actions {
+  display: flex;
+  justify-content: space-between;
+} */
+.custom-hr {
+  background-color: rgb(201, 201, 201);
+  height: 20px;
+}

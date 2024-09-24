@@ -80,19 +80,6 @@ export default function SheetHotel(props) {
                     location={location}
                   />
                 </Modal>
-                <button
-                  style={{ backgroundColor: "white", border: "none" }}
-                  onClick={handleAlert}
-                >
-                  <Delete02Icon color="rgb(219, 1, 1)" size={23} />
-                </button>
-                <AlertDelete
-                  alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
-                  alertDetail="Toutes les chambres et repas associés seront également supprimés."
-                  show={alert}
-                  setAlert={setAlert}
-                  url={`http://localhost:3030/hotels/${hotelId}`}
-                />
               </div>
             </div>
             <p>

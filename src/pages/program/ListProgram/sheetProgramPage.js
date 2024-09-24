@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Aside from "../../../components/template/aside";
 import Return from "../../../components/util/return";
-import SheetExcursion from "../../../components/excursion/sheetExcursion";
+import SheetProgram from "../../../components/program/sheetProgram";
 
-export default function SheetExcursionPage() {
+export default function SheetProgramPage() {
   const { id } = useParams();
-  const [excursion, setExcursion] = useState(null); 
+  const [program, setProgram] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchExcursion = async () => {
+  const fetchProgram = async () => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/excursions/${id}`;
+      const url = `http://localhost:3030/programs/${id}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -24,28 +24,27 @@ export default function SheetExcursionPage() {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch excursion");
+        setMessage("Failed to fetch program");
         return;
       }
       const data = await response.json();
-      setExcursion(data);
+      setProgram(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching excursion");
+      setMessage("Error fetching program");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchExcursion();
+    fetchProgram();
   }, []);
 
   return (
     <div>
       <Aside />
       <main
-        id="listHotel"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
         <nav
@@ -80,19 +79,18 @@ export default function SheetExcursionPage() {
                 >
                   <span className="visually-hidden">Loading...</span>
                 </div>
-              ) : excursion ? (
-                <SheetExcursion
-                  key={excursion.id}
-                  excursionId={excursion.id}
-                  place_name={excursion.place_name}
-                  city={excursion.city}
-                  image={excursion.image}
-                  price={excursion.price}
-                  description={excursion.description}
-                  distance={excursion.distance}
-                  location={excursion.coordinates.location}
-                  latitude={excursion.coordinates.latitude}
-                  longitude={excursion.coordinates.longitude}
+              ) : program ? (
+                <SheetProgram
+                  programId={program.id}
+                  departure={program.departure}
+                  arrival={program.arrival}
+                  distance={program.distance}
+                  duration={program.duration}
+                  description={program.description}
+                  // departureLatitude={program.departureCoordinates.latitude}
+                  // departureLongitude={program.departureCoordinates.longitude}
+                  // arrivalLatitude={program.arrivalCoordinates.latitude}
+                  // arrivalLongitude={program.arrivalCoordinates.longitude}
                 />
               ) : (
                 <p>Oups</p>
