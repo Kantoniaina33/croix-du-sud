@@ -195,6 +195,11 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   margin: 0 3%;
   height: auto;
 }
+
+.sheetProgram .description {
+  font-size: 15px;
+}
+
 .sheetProgram .info p {
   line-height: 0.8;
 }
@@ -208,10 +213,7 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   color: #273385;
 
 }
-/* .sheetProgram .card-actions {
-  display: flex;
-  justify-content: space-between;
-} */
+
 .custom-hr {
   background-color: rgb(201, 201, 201);
   height: 20px;

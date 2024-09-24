@@ -78,7 +78,11 @@ export default function SheetProgram(props) {
                   }}
                   onClick={handleShowMap}
                 >
-                  <Edit02Icon color="#273385" size={23} />
+                  <Edit02Icon
+                    color="#273385"
+                    size={23}
+                    style={{ marginTop: "-10%" }}
+                  />
                 </button>
                 <Modal isOpen={isMapModalOpen}>
                   <FormProgram
@@ -131,7 +135,7 @@ export default function SheetProgram(props) {
                 <span>{durationHours} h</span>
               </p>
             </div>
-            <p>{description}</p>
+            <p className="description">{description}</p>
           </div>
         </div>
         <div className="card-map-right z-index-2">

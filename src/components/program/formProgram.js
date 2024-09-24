@@ -230,6 +230,7 @@ export default function FormProgram(props) {
             <textarea
               type="text"
               name="description"
+              rows={4}
               className="form-control"
               value={formValues.description}
               onChange={handleChange}
