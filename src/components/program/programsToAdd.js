@@ -14,10 +14,11 @@ export default function ProgramsToAdd(props) {
   const [searchField, setSearchField] = useState("");
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
+  const [isLoading, setIsLoading] = useState(false);
+
   const limit = 4;
   const programsPerPage = 4;
 
-  // Calcul des programmes à afficher pour la page actuelle
   const indexOfLastProgram = currentPage * programsPerPage;
   const indexOfFirstProgram = indexOfLastProgram - programsPerPage;
   const currentPrograms = programs.slice(
@@ -100,7 +101,7 @@ export default function ProgramsToAdd(props) {
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
           </svg>
-          <h7 style={{ marginLeft: "1%" }}>Ajouter des programmes</h7>
+          <h7 style={{ marginLeft: "1%" }}>Choisir un programme</h7>
         </div>
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-4">
@@ -132,7 +133,29 @@ export default function ProgramsToAdd(props) {
                 />
               ))}
             </div>
-            <div style={{ margin: "2% 0 0 40%" }}>
+            <div className="d-flex justify-content-between align-items-center p-3">
+              <p></p>
+              <a
+                href={`/circuits/${circuitId}/programs/configuration`}
+                type="submit"
+                className="btn btn-primary"
+                style={{
+                  marginTop: "1%",
+                }}
+              >
+                {isLoading ? (
+                  <div
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Enregistrer"
+                )}
+              </a>
+            </div>
+            {/* <div style={{ margin: "2% 0 0 40%" }}>
               {programs.length > programsPerPage && (
                 <MyPaginationFront
                   totalPrograms={programs.length}
@@ -141,11 +164,11 @@ export default function ProgramsToAdd(props) {
                   onPageChange={handlePageChange}
                 />
               )}
-            </div>
+            </div> */}
           </>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "14px" }}>
-            Aucun programme à ajouter
+            Aucun programme à choisir
           </p>
         )}
       </div>

@@ -5,8 +5,17 @@ import FormProgram from "./formProgram";
 import AlertDelete from "../util/alertDelete";
 
 export default function MiniCardProgram(props) {
-  const { programId, departure, arrival, distance, duration, icon, circuitId } =
-    props;
+  const {
+    programId,
+    departure,
+    arrival,
+    distance,
+    duration,
+    icon,
+    circuitId,
+    selectedProgram,
+    onProgramSelect,
+  } = props;
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState();
@@ -50,7 +59,7 @@ export default function MiniCardProgram(props) {
     try {
       const url = `http://localhost:3030/circuits/${circuitId}/programs/${programId}`;
       console.log(url);
-      
+
       const response = await fetch(
         `http://localhost:3030/circuits/${circuitId}/programs/${programId}`,
         {
@@ -90,6 +99,15 @@ export default function MiniCardProgram(props) {
         rel="stylesheet"
       />
       <div className="card-body">
+        <div className="radio">
+          <input
+            type="radio"
+            name="selectedProgram"
+            value={programId}
+            checked={selectedProgram === programId}
+            onChange={() => onProgramSelect(programId)}
+          />
+        </div>
         <div className="card-header">
           <h5 className="card-title">
             <MapsLocation01Icon
@@ -115,51 +133,6 @@ export default function MiniCardProgram(props) {
         <div className="card-content">
           <div className="card-description">
             {roundedDistance} Km | {durationHours} h
-          </div>
-          <div className="icon">
-            {icon == "minus" ? (
-              <button
-                style={{
-                  backgroundColor: "white",
-                  border: "transparent",
-                }}
-                onClick={handleDelete}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="23"
-                  height="23"
-                  fill="currentColor"
-                  class="bi bi-dash-circle"
-                  viewBox="0 0 16 16"
-                  color="red"
-                >
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-                </svg>
-              </button>
-            ) : (
-              <button
-                style={{
-                  backgroundColor: "white",
-                  border: "transparent",
-                }}
-                onClick={handleSave}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="23"
-                  height="23"
-                  fill="currentColor"
-                  class="bi bi-plus-circle"
-                  viewBox="0 0 16 16"
-                  color="green"
-                >
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                </svg>
-              </button>
-            )}
           </div>
         </div>
       </div>

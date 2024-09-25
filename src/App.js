@@ -25,6 +25,8 @@ import ListCustomer from "./pages/customer/ListCustomer";
 import ReservationCustomer from "./pages/reservation/ListReservation/reservationCustomer";
 import SheetExcursionPage from "./pages/excursion/ListExcursion/sheetExcursionPage";
 import SheetHotelPage from "./pages/hotel/ListHotel/sheetHotelPage";
+import ChooseProgram from "./pages/circuit/OneCircuit/chooseProgram";
+import ConfProgramCircuit from "./pages/circuit/OneCircuit/confProgramCircuit";
 
 function App() {
   return (
@@ -76,6 +78,14 @@ function App() {
             element={<GroupDetails />}
           />
           <Route path="/circuits/:id/programs" element={<OneCircuit />} />
+          <Route
+            path="/circuits/:id/programs/new"
+            element={<ChooseProgram />}
+          />
+          <Route
+            path="/circuits/:id/programs/configuration"
+            element={<ConfProgramCircuit />}
+          />
           <Route
             path="/circuits/:id/programs/all"
             element={<CircuitPrograms />}

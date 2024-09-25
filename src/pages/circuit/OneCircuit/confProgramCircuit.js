@@ -10,8 +10,9 @@ import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
+import FormConfProgram from "../../../components/program/formConfProgram";
 
-export default function OneCircuit() {
+export default function ConfProgramCircuit() {
   const { id } = useParams();
   return (
     <div>
@@ -43,43 +44,12 @@ export default function OneCircuit() {
                 </li>
               </ol>
             </nav>
-            <div
-              className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-              id="navbar"
-            >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                <MySearchBar
-                  placeholder="Rechercher un circuit..."
-                  // search={search}
-                  // setSearch={setSearch}
-                  // handleClearSearch={handleClearSearch}
-                  // handleSearch={handleSearchCircuit}
-                />
-              </div>
-              <ul className="navbar-nav justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    href={`/circuits/${id}/programs/new`}
-                  >
-                    Nouveau programme
-                  </a>
-                </li>
-                <li className="nav-item d-flex align-items-center">
-                  <LogoutButton />
-                </li>
-              </ul>
-            </div>
           </div>
         </nav>
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
-                <Return href="/circuits" />
-                <ProgramsCircuit circuitId={id} />
-              </div>
+              <FormConfProgram programId={"E4YsiDXZqLxsX4MHAXZ1"} />
             </div>
           </div>
         </div>
