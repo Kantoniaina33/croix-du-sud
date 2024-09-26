@@ -4,7 +4,7 @@ import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
 import Modal from "../../../components/hotel/modal";
 import LogoutButton from "../../../components/util/logoutButton";
-import TrPlanningProgram from "../../../components/program/trPlanningProgram";
+import TrPlanningProgram from "../../../components/program/trProgramCircuit";
 import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
 import FormProgramPlanning from "../../../components/program/formProgramPlanning";
 import Return from "../../../components/util/return";

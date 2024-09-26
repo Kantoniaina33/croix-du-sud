@@ -99,22 +99,13 @@ export default function TableChooseHotel(props) {
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
-                <tr>
+                <tr className="choose">
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Hotel
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Contacts
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Etoiles
-                    {/* <ArrowUpDownIcon
-                            id="sortIcon"
-                            size={18}
-                            onClick={() => handleSort("star")}
-                            style={{ marginLeft: "5px", marginTop: "-5px" }}
-                          /> */}
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Prix repas

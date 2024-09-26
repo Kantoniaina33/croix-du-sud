@@ -6,6 +6,7 @@ import { MapsLocation01Icon } from "hugeicons-react";
 import HotelsCloseCheap from "../hotel/hotelsCLoseCheap";
 import ExcursionsDispo from "../excursion/excursionsDispo";
 import TableChooseHotel from "../hotel/tableChooseHotel";
+import TableChooseExcursion from "../excursion/tableChooseExcursion";
 
 export default function FormConfProgram(props) {
   const { programId } = props;
@@ -76,18 +77,27 @@ export default function FormConfProgram(props) {
                       >
                         {program.departure} - {program.arrival}
                       </span>
+                      <span> (2 jours)</span>
                     </h6>
                   </div>
+                  <div className="info">
+                    <p>
+                      Jour:
+                      <span> {1}</span>
+                    </p>
+                  </div>
                 </div>
-                <div className="info">
-                  <p>
-                    Duree:
-                    <span> {2} jours</span>
-                  </p>
-                  <p>
-                    Jour:
-                    <span> {1}</span>
-                  </p>
+                <div className="row">
+                  <div className="col-5">
+                    Guide
+                    <input
+                      type="number"
+                      className="form-control"
+                      // value={formValues.guide}
+                      // onChange={handleChange}
+                      name="guide"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -95,7 +105,7 @@ export default function FormConfProgram(props) {
           <hr className="custom-hr" />
           <TableChooseHotel programId={programId} />
           <hr className="custom-hr" />
-          {/* <excursionsDispo programId={programId} /> */}
+          <TableChooseExcursion programId={programId} />
         </>
       ) : (
         <p>Oups</p>

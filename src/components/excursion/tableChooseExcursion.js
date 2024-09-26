@@ -81,7 +81,7 @@ export default function TableChooseExcursion(props) {
     <>
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <div>
-          <p style={{ fontSize: "16px" }}>Liste des excursions disponibles</p>
+          <p style={{ fontSize: "16px" }}>Ajouter des excursions</p>
         </div>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
@@ -97,8 +97,10 @@ export default function TableChooseExcursion(props) {
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
-                <tr>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                <tr className="choose">
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">       
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Excursion
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -127,7 +129,9 @@ export default function TableChooseExcursion(props) {
             </table>
           </div>
         ) : (
-          <p style={{ marginLeft: "2.5%", fontSize:"15px" }}>Aucune excursion disponible</p>
+          <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>
+            Aucune excursion disponible
+          </p>
         )}
       </div>
     </>
