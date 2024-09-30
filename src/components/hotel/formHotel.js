@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./hotel.css";
 import SelectCities from "../util/selectCities";
 import MyMap from "../geo/myMap";
-import Modal from "./modal";
+import Modal from "../util/modal";
 import CardMap from "../geo/cardMap";
 import "../../assets/css/soft-ui-dashboard.min.css";
 

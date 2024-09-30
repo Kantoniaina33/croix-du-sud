@@ -2,7 +2,7 @@ import React from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
 import SelectCities from "../util/selectCities";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import CardMap from "../geo/cardMap";
 import { useNavigate } from "react-router-dom";
 import CardMapItinerary from "./cardMapItinerary";
@@ -123,7 +123,7 @@ export default function Testmap(props) {
             </button>
             <Modal isOpen={isMapModalOpen}>
               <CardMapItinerary
-              // <MapItinerary
+                // <MapItinerary
                 onOpen={true}
                 initialCoordinates={iCo}
                 onClose={handleCloseMap}

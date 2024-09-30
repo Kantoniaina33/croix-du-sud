@@ -7,7 +7,7 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import { useNavigate } from "react-router-dom";
 
 export default function TrPlanningProgram(props) {

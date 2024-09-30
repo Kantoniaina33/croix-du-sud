@@ -4,7 +4,7 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import ProgramsCircuit from "../../../components/circuit/programsCircuit";
 import ProgramsToAdd from "../../../components/program/programsToAdd";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 import AllProgramsCircuit from "../../../components/circuit/allProgramsCircuit";

@@ -7,7 +7,7 @@ import FormCircuit from "../../../components/circuit/formCircuit";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 

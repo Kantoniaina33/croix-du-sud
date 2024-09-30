@@ -7,7 +7,7 @@ import Return from "../util/return";
 import AlertDelete from "../util/alertDelete";
 import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import FormExcursion from "./formExcursion";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function SheetExcursion(props) {
   const {

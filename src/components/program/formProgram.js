@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./program.css";
 import CardMapItinerary from "../geo/cardMapItinerary";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function FormProgram(props) {
   const {

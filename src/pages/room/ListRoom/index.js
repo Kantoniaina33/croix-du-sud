@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import SelectPriceCategories from "../../../components/util/selectPriceCategories";
 import SelectRoomTypes from "../../../components/util/selectRoomTypes";
 import { ArrowUpDownIcon } from "hugeicons-react";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import Return from "../../../components/util/return";
 
 export default function ListRoom() {

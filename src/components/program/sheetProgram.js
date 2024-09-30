@@ -12,7 +12,7 @@ import {
   RoadIcon,
 } from "hugeicons-react";
 import FormProgram from "./formProgram";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import ShowMapItinerary from "../geo/showMapItinerary";
 
 export default function SheetProgram(props) {

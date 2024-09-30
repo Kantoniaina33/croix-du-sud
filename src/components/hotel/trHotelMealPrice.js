@@ -7,15 +7,24 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "./modal";
+import Modal from "../util/modal";
 
 export default function TrHotelMealPrice(props) {
-  const { hotelId, logo, name, address, city, phone, email, star, mealPrice, distance} =
-    props;
+  const {
+    hotelId,
+    logo,
+    name,
+    address,
+    city,
+    phone,
+    email,
+    star,
+    mealPrice,
+    distance,
+  } = props;
   const starsArray = Array.from({ length: 5 }, (v, i) =>
     i < star ? "#ffc400" : "grey"
   );
-
 
   const roundedDistance = Math.floor(distance);
 

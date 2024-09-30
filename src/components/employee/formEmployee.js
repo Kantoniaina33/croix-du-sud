@@ -5,7 +5,7 @@ import { CircleIcon } from "hugeicons-react";
 import SelectRoles from "../util/selectRoles";
 import { useNavigate } from "react-router-dom";
 import FormRoleEmployee from "./formRoleEmployee";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function FormEmployee(props) {
   const {

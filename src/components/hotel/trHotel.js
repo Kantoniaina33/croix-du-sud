@@ -7,7 +7,7 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "./modal";
+import Modal from "../util/modal";
 import "../../assets/css/soft-ui-dashboard.min.css";
 import FormHotel from "./formHotel";
 

@@ -5,7 +5,7 @@ import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import HotelsCloseCheap from "../../../components/hotel/hotelsCLoseCheap";
 import ExcursionsDispo from "../../../components/excursion/excursionsDispo";
 import { useParams } from "react-router-dom";
@@ -48,8 +48,7 @@ export default function ProgramDetails() {
 
   useEffect(() => {
     fetchProgram();
-    console.log(program+"huuuuuuuuuuuuuuuuuuuuuuuuuuu");
-    
+    console.log(program + "huuuuuuuuuuuuuuuuuuuuuuuuuuu");
   }, []);
 
   return (

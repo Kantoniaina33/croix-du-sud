@@ -2,7 +2,7 @@ import React from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
 import SelectCities from "../util/selectCities";
-import Modal from "./modal";
+import Modal from "../util/modal";
 import CardMap from "../geo/cardMap";
 import { useNavigate } from "react-router-dom";
 

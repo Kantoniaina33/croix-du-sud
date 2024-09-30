@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import FormRoleEmployee from "./formRoleEmployee";
 import FormEmployee from "./formEmployee";
 

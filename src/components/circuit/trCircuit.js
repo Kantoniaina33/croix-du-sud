@@ -9,7 +9,7 @@ import {
 import FormCircuit from "./formCircuit";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function TrCircuit(props) {
   const { circuitId, name } = props;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import TrPlanningProgram from "../../../components/program/trPlanningProgram";
 import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";

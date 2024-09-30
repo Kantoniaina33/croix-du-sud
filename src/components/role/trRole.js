@@ -9,7 +9,7 @@ import {
 import FormRole from "./formRole";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function TrRole(props) {
   const { roleId, name, hourlyWage } = props;

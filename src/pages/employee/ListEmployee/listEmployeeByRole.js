@@ -8,7 +8,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import FormEmployee from "../../../components/employee/formEmployee";
 import { useParams } from "react-router-dom";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 
 export default function ListEmployeeByRole() {
   const { roleId } = useParams();

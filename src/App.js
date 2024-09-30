@@ -27,6 +27,9 @@ import SheetExcursionPage from "./pages/excursion/ListExcursion/sheetExcursionPa
 import SheetHotelPage from "./pages/hotel/ListHotel/sheetHotelPage";
 import ChooseProgram from "./pages/circuit/OneCircuit/chooseProgram";
 import ConfProgramCircuit from "./pages/circuit/OneCircuit/confProgramCircuit";
+import ListProvider from "./pages/provider/ListProvider";
+import ListOfferingType from "./pages/offering/ListOfferingType";
+import ListOfferingOption from "./pages/offering/ListOfferingOption";
 
 function App() {
   return (
@@ -41,6 +44,12 @@ function App() {
           <Route path="/info" element={<InfoAgency />} />
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/providers" element={<ListProvider />} />
+          <Route path="/offerings/types" element={<ListOfferingType />} />
+          <Route
+            path="/offerings/types/:typeId/options"
+            element={<ListOfferingOption />}
+          />
           <Route path="/hotels" element={<ListHotel />} />
           <Route path="/hotels/:id" element={<SheetHotelPage />} />
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />

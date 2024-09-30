@@ -1,0 +1,20 @@
+#titleFormOfferingOption{
+    background: linear-gradient(90deg,  #7580cf, #273385);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+#saveOfferingOption{
+    background:linear-gradient(to right, #7580cf, #273385) ;
+    color: white;
+    padding-bottom: -50%;
+}
+#formOfferingOption{
+    margin-top: 3%;
+}
+
+.form-select:focus {
+border-color: rgba(65, 78, 153, 0.25);
+outline: 0;
+box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
+}

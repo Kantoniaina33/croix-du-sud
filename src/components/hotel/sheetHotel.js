@@ -7,7 +7,7 @@ import Return from "../util/return";
 import AlertDelete from "../util/alertDelete";
 import { Delete02Icon, Edit02Icon, StarIcon } from "hugeicons-react";
 import FormHotel from "./formHotel";
-import Modal from "./modal";
+import Modal from "../util/modal";
 
 export default function SheetHotel(props) {
   const {

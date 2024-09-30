@@ -1,6 +1,6 @@
 // Home.js
 import { useState } from "react";
-import Modal from "../../components/hotel/modal";
+import Modal from "../util/modal";
 import MyMap from "../../components/geo/myMap";
 
 function CardMap(props) {

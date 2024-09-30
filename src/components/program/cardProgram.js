@@ -3,7 +3,7 @@ import "./program.css";
 import { Delete02Icon, Edit02Icon, MapsLocation01Icon } from "hugeicons-react";
 import FormProgram from "./formProgram";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function CardProgram(props) {
   const {
@@ -28,7 +28,7 @@ export default function CardProgram(props) {
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
 
-  const durationHours = Math.floor(distance/60);
+  const durationHours = Math.floor(distance / 60);
   const roundedDistance = Math.floor(distance);
 
   return (
@@ -47,7 +47,13 @@ export default function CardProgram(props) {
                 variant={"stroke"}
               />
               <a href={`/programs/${programId}/close_hotels`}>
-                <span style={{textTransform: "uppercase", margin: "3px 0 0 10px", fontSize: "16px" }}>
+                <span
+                  style={{
+                    textTransform: "uppercase",
+                    margin: "3px 0 0 10px",
+                    fontSize: "16px",
+                  }}
+                >
                   {departure} - {arrival}
                 </span>
               </a>

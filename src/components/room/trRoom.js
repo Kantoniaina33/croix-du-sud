@@ -3,7 +3,7 @@ import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import FormRoom from "./formRoom";
 
 export default function TrRoom(props) {

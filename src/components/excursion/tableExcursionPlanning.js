@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FormExcursionPlanning from "./formExcursionPlanning";
 import TrExcursionPlanning from "./trExcursionPlanning";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function TableExcursionPlanning(props) {
   const { programId, reservationId, planningId } = props;
@@ -18,7 +18,7 @@ export default function TableExcursionPlanning(props) {
     try {
       const url = `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions`;
       console.log(url);
-      
+
       const response = await fetch(url, {
         method: "GET",
         headers: {

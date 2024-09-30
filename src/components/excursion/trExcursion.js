@@ -8,17 +8,10 @@ import {
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import "./excursion.css";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 
 export default function TrExcursion(props) {
-  const {
-    excursionId,
-    image,
-    place_name,
-    city,
-    price,
-    distance
-  } = props;
+  const { excursionId, image, place_name, city, price, distance } = props;
 
   const roundedDistance = Math.floor(distance);
 
@@ -53,4 +46,3 @@ export default function TrExcursion(props) {
     </>
   );
 }
-

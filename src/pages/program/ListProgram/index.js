@@ -7,7 +7,7 @@ import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import CardProgram from "../../../components/program/cardProgram";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 
 export default function ListProgram() {

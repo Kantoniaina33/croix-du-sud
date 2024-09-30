@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import "./excursion.css";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import FormExcursion from "./formExcursion";
 
 export default function CardExcursion(props) {

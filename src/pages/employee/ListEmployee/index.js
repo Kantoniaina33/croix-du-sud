@@ -8,7 +8,7 @@ import SelectCities from "../../../components/util/selectCities";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import FormEmployee from "../../../components/employee/formEmployee";
 import { useParams } from "react-router-dom";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import FormRoleEmployee from "../../../components/employee/formRoleEmployee";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
@@ -91,16 +91,15 @@ export default function ListEmployee() {
     setIsNextModalOpen(true);
   };
 
-    const handleSearchEmployee = (e) => {
-      setSearchField("name");
-      setSearch(e.target.value);
-    };
+  const handleSearchEmployee = (e) => {
+    setSearchField("name");
+    setSearch(e.target.value);
+  };
 
-    const handleClearSearch = (e) => {
-      setSearchField("");
-      setSearch("");
-    };
-
+  const handleClearSearch = (e) => {
+    setSearchField("");
+    setSearch("");
+  };
 
   return (
     <div>

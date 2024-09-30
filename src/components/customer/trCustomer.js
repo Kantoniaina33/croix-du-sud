@@ -3,7 +3,7 @@ import { Delete02Icon, Edit02Icon, LinkSquare02Icon } from "hugeicons-react";
 import FormCustomer from "./formCustomer";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import { Link } from "react-router-dom";
 
 export default function TrCustomer(props) {

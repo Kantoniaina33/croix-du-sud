@@ -6,7 +6,7 @@ import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
 import CardExcursion from "../../../components/excursion/cardExcursion";
 import { SpartanHelmetIcon } from "hugeicons-react";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 

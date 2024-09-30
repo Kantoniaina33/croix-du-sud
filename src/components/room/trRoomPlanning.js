@@ -3,11 +3,11 @@ import { Delete02Icon, Edit02Icon } from "hugeicons-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import FormRoom from "./formRoom";
 
 export default function TrRoomPlanning(props) {
-  const { room_type, price_category, quantity, price,occupant, id } = props;
+  const { room_type, price_category, quantity, price, occupant, id } = props;
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);

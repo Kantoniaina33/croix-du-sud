@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ArrowUpDownIcon, BedDoubleIcon, Moon02Icon } from "hugeicons-react";
 import TrRoomPlanning from "./trRoomPlanning";
-import Modal from "../hotel/modal";
+import Modal from "../util/modal";
 import FormRoomPlanning from "./formRoomPlanning";
 
 export default function TableRoomPlanning() {

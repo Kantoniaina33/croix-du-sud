@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import FormRole from "../../../components/role/formRole";
 import MyPagination from "../../../components/util/myPagination";
 import SelectCities from "../../../components/util/selectCities";
-import Modal from "../../../components/hotel/modal";
+import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 

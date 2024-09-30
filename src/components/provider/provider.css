@@ -1,0 +1,86 @@
+#titleFormHotel{
+    background: linear-gradient(90deg,  #7580cf, #273385);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+#saveHotel{
+    background:linear-gradient(to right, #7580cf, #273385) ;
+    color: white;
+    padding-bottom: -50%;
+}
+#formHotel{
+    margin-top: 3%;
+}
+
+.form-select:focus {
+border-color: rgba(65, 78, 153, 0.25);
+outline: 0;
+box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
+}
+
+#myForm{
+    text-align: left;
+}
+  
+#imageHotel{
+    height: 70px;
+    object-fit: cover;
+}
+
+
+.sheetHotel {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sheetHotel .info p{
+    line-height: 1.1;
+}
+
+.sheetHotel .info svg{
+    margin: -1% 1% 0 0;
+}
+
+.sheetHotel .info{
+    color: #273385;
+
+}
+
+.return {
+  margin: 1% 0 1% 0;
+}
+
+.hotelDetails {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.card-image-left {
+  flex: 0.7;
+  margin-left:2%;
+}
+
+.card-image-left img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px 0;
+}
+
+.card-map-right {
+  flex: 0.7;
+  margin: 0 3%;
+  height: auto;
+}
+.hotelDetails .card-subtitle {
+  /* font-size: 15px; */
+}
