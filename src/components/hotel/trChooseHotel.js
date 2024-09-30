@@ -30,36 +30,26 @@ export default function TrChooseHotel(props) {
 
   return (
     <tr>
-      <td className="text-sm font-weight-bold mb-0">
-        <input
-          type="radio"
-          name="selectedHotel"
-          value={hotelId}
-          checked={selectedHotel === hotelId}
-          onChange={() => onHotelSelect(hotelId)}
-        />
-      </td>
       <td>
         <div className="d-flex px-2 py-1">
-          <div>
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "60px", height: "60px", objectFit: "cover" }}
-            />
-          </div>
           <div
             className="d-flex flex-column justify-content-center"
-            style={{ marginLeft: "3%" }}
+            style={{ marginLeft: "5%" }}
           >
-            <h6 className="mb-0 text-sm">{name}</h6>
-            <p className="text-xs text-secondary mb-0">{city}</p>
+            <input
+              type="radio"
+              name="selectedHotel"
+              value={hotelId}
+              checked={selectedHotel === hotelId}
+              onChange={() => onHotelSelect(hotelId)}
+            />
           </div>
         </div>
       </td>
       <td>
-        <p className="text-sm font-weight-bold mb-0">{phone}</p>
-        <p className="text-sm text-secondary mb-0">{email}</p>
+        <div className="d-flex px-2 py-1">
+          <h6 className="text-sm font-weight-bold mb-0">{name}</h6>
+        </div>
       </td>
       <td className="text-sm font-weight-bold mb-0">
         <span>

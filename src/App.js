@@ -86,7 +86,7 @@ function App() {
             path="/customers/:id/reservation/group_details"
             element={<GroupDetails />}
           />
-          <Route path="/circuits/:id/programs" element={<OneCircuit />} />
+          <Route path="/circuits/:id/programs" element={<CircuitPrograms />} />
           <Route
             path="/circuits/:id/programs/new"
             element={<ChooseProgram />}

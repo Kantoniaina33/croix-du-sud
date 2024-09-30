@@ -122,6 +122,13 @@
   margin: 0 3%;
   height: auto;
 }
-.excursionDetails .card-subtitle {
-  /* font-size: 15px; */
+
+.choose span{
+  margin-left: -35%;
 }
+
+.choose th {
+  /* background-color: #273385; */
+  margin-left: -35%;
+}
+
