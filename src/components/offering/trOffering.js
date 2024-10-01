@@ -3,17 +3,21 @@ import { Delete02Icon, Edit02Icon, LinkSquare02Icon } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import "../../assets/css/soft-ui-dashboard.min.css";
-import FormProvider from "./formProvider";
 import Modal from "../util/modal";
+import FormProvider from "../provider/formProvider";
 
-export default function TrProvider(props) {
+export default function TrOffering(props) {
   const {
     providerId,
     logo,
     name,
+    city,
     phone,
     email,
-    setMeals,
+    latitude,
+    longitude,
+    location,
+    offering_type,
   } = props;
   const [show, setShow] = useState(false);
 
@@ -49,6 +53,9 @@ export default function TrProvider(props) {
           </div>
         </td>
         <td>
+          <p className="mb-0 text-sm">{city}</p>
+        </td>
+        <td>
           <p className="mb-0 text-sm">{email}</p>
         </td>
         <td>
@@ -77,11 +84,15 @@ export default function TrProvider(props) {
                 providerId={providerId}
                 logo={logo}
                 name={name}
+                city={city}
                 phone={phone}
                 email={email}
+                latitude={latitude}
+                longitude={longitude}
+                location={location}
                 isOpen={isMapModalOpen}
                 onCancel={handleCloseModal}
-              />
+                />
             </Modal>
           </span>
         </td>

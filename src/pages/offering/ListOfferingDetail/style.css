@@ -1,0 +1,8 @@
+#background{
+    background: linear-gradient(to right, #7580cf, #273385);
+}
+#addOffering{
+    background-color: rgba(255, 255, 255, 0.13);
+    border-color: rgb(241, 241, 241);
+    color: rgb(241, 241, 241);
+}

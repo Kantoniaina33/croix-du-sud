@@ -7,7 +7,7 @@ import Return from "../util/return";
 import AlertDelete from "../util/alertDelete";
 import { Delete02Icon, Edit02Icon, StarIcon } from "hugeicons-react";
 import FormProvider from "./formProvider";
-import Modal from "./modal";
+import Modal from "../util/modal";
 
 export default function SheetProvider(props) {
   const {
@@ -65,14 +65,10 @@ export default function SheetProvider(props) {
                     logo={logo}
                     name={name}
                     address={address}
-                    city={city}
                     phone={phone}
                     email={email}
                     isOpen={isMapModalOpen}
                     onCancel={handleCloseModal}
-                    latitude={latitude}
-                    longitude={longitude}
-                    location={location}
                   />
                 </Modal>
               </div>
@@ -90,7 +86,6 @@ export default function SheetProvider(props) {
                   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
                   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 </svg>
-                <span>{city}</span>
               </p>
               <p>
                 <svg
@@ -121,15 +116,7 @@ export default function SheetProvider(props) {
             </div>
           </div>
         </div>
-        <div className="card-map-right z-index-2">
-          <ShowMap
-            initialCoordinates={{
-              name: location,
-              lat: parseFloat(latitude) || 0,
-              lng: parseFloat(longitude) || 0,
-            }}
-          />
-        </div>
+        <div className="card-map-right z-index-2"></div>
       </div>
     </div>
   );

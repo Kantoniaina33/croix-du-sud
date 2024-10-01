@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
-import "./offeringType.css";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import SelectOfferingTypes from "../util/selectOfferingTypes";
+import SelectPriceCategories from "../util/selectPriceCategories";
+import SelectCities from "../util/selectCities";
 
-export default function FormOfferingType(props) {
-  const { title, method, name, offeringTypeId, onCancel } = props;
+export default function FormOfferingPlanning(props) {
+  const {
+    offering_type,
+    price_category,
+    number_of_offerings,
+    onCancel,
+  } = props;
+  const { hotelId } = useParams();
   const [message, setMessage] = useState("");
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
-    name: name || "",
+    offering_type: offering_type || "Single",
+    price_category: price_category || "Premier",
+    number_of_offerings: number_of_offerings || 1,
   });
 
   const handleChange = (e) => {
@@ -25,17 +33,14 @@ export default function FormOfferingType(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    console.log(formValues);
-    try {
-      const idUrl = method === "PUT" ? `/${offeringTypeId}` : "";
 
+    try {
       const response = await fetch(
-        `http://localhost:3030/offerings/types${idUrl}`,
+        `http://localhost:3030/hotels/${hotelId}/offerings`,
         {
-          method: method,
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(formValues),
         }
@@ -56,7 +61,7 @@ export default function FormOfferingType(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "35%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
@@ -83,44 +88,75 @@ export default function FormOfferingType(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Type de prestation
+            Chambres
           </span>
         </div>
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            cursor: "pointer",
           }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            fill="currentColor"
-            class="bi bi-x-circle"
-            viewBox="0 0 16 16"
-            color="#273385"
+          <button
+            className="modal-close-button"
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
             onClick={onCancel}
           >
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              class="bi bi-x-circle"
+              viewBox="0 0 16 16"
+              color="#273385"
+            >
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+            </svg>
+          </button>
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "-6%" }}>
+        <form
+          onSubmit={handleSave}
+          id="myForm"
+          autocomplete="off"
+          style={{ marginTop: "-6%" }}
+        >
           <div className="row mb-3">
-            <div className="mb-3">
-              <label>Nom</label>
-              <input
-                type="text"
-                className="form-control"
-                value={formValues.name}
+            <div className="col">
+              <label className="form-label fw-bold">Type</label>
+              <SelectOfferingTypes
+                value={formValues.offering_type}
                 onChange={handleChange}
-                name="name"
+                name="offering_type"
               />
             </div>
+            <div className="col">
+              <label htmlFor="nom" className="form-label fw-bold">
+                Categorie de prix
+              </label>
+              <SelectPriceCategories
+                value={formValues.price_category}
+                onChange={handleChange}
+                name="price_category"
+              />
+            </div>
+          </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">Nombre</label>
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.number_of_offerings}
+              onChange={handleChange}
+              name="number_of_offerings"
+            />
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button
@@ -144,9 +180,8 @@ export default function FormOfferingType(props) {
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
-              onClick={handleSave}
             >
-              Enregister
+              Ajouter
             </button>
           </div>
         </form>

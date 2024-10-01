@@ -7,7 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 
 export default function HeadProvider(props) {
-  const { providerId } = useParams();
+  const { providerId } = props;
   const [provider, setProvider] = useState([]);
 
   const fetchProvider = async () => {
@@ -23,7 +23,6 @@ export default function HeadProvider(props) {
       );
 
       const data = await response.json();
-      console.log(data);
       setProvider(data);
     } catch (error) {
       console.error("Error:", error);
@@ -49,9 +48,6 @@ export default function HeadProvider(props) {
         <div className="col-auto my-auto">
           <div className="h-100">
             <h5 className="mb-1">{provider.name}</h5>
-            <p className="mb-0 font-weight-bold text-xs">
-              {provider.city}
-            </p>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">

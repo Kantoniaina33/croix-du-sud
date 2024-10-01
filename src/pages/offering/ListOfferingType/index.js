@@ -175,7 +175,7 @@ export default function ListOfferingType() {
                     >
                       <span className="visually-hidden">Loading...</span>
                     </div>
-                  ) : offeringTypes.length > 0 ? (
+                  ) : offeringTypes ? (
                     <div className="table-responsive p-0">
                       <table className="table align-items-center mb-0">
                         <thead>

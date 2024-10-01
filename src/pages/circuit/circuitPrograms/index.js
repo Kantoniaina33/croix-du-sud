@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
-import ProgramsCircuit from "../../../components/circuit/programsCircuit";
-import ProgramsToAdd from "../../../components/program/programsToAdd";
-import Modal from "../../../components/hotel/modal";
-import { useParams } from "react-router-dom";
-import Return from "../../../components/util/return";
-import AllProgramsCircuit from "../../../components/circuit/allProgramsCircuit";
+import Modal from "../../../components/util/modal";
+import FormProgramPlanning from "../../../components/program/formProgramPlanning";
+import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
+import LogoutButton from "../../../components/util/logoutButton";
+import { Link } from "react-router-dom";
+import TrProgramCircuit from "../../../components/program/trProgramCircuit";
 
 export default function CircuitPrograms() {
   const [message, setMessage] = useState("");

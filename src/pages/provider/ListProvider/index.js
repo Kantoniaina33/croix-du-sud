@@ -202,9 +202,6 @@ export default function ListProvider() {
                               Prestataire
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Ville
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Email
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -224,12 +221,7 @@ export default function ListProvider() {
                                 address={provider.address}
                                 email={provider.email}
                                 phone={provider.phone}
-                                city={provider.city}
                                 logo={provider.image}
-                                // setMeals={provider.setMeals}
-                                latitude={provider.coordinates.latitude}
-                                longitude={provider.coordinates.longitude}
-                                location={provider.coordinates.location}
                               />
                             </>
                           ))}

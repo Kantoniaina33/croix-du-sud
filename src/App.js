@@ -30,6 +30,9 @@ import ConfProgramCircuit from "./pages/circuit/OneCircuit/confProgramCircuit";
 import ListProvider from "./pages/provider/ListProvider";
 import ListOfferingType from "./pages/offering/ListOfferingType";
 import ListOfferingOption from "./pages/offering/ListOfferingOption";
+import SheetProvider from "./components/provider/sheetProvider";
+import SheetProviderPage from "./pages/provider/ListProvider/sheetProviderPage";
+import ListOffering from "./pages/provider/ListOffering";
 
 function App() {
   return (
@@ -52,6 +55,8 @@ function App() {
           />
           <Route path="/hotels" element={<ListHotel />} />
           <Route path="/hotels/:id" element={<SheetHotelPage />} />
+          <Route path="/providers/:id/offerings" element={<ListOffering />} />
+          <Route path="/providers/:id" element={<SheetProviderPage />} />
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
           <Route path="/excursions" element={<ListExcursion />} />

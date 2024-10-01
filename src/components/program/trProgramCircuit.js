@@ -7,7 +7,6 @@ import {
 } from "hugeicons-react";
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
-import Modal from "../hotel/modal";
 import { useNavigate } from "react-router-dom";
 
 export default function TrProgramCircuit(props) {

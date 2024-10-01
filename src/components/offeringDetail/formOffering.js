@@ -1,77 +1,60 @@
-import React, { useState } from "react";
-import "./provider.css";
+import React from "react";
+import { BedDoubleIcon } from "hugeicons-react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import SelectOfferingTypes from "../util/selectOfferingTypes";
+import SelectPriceCategories from "../util/selectPriceCategories";
 import SelectCities from "../util/selectCities";
-import MyMap from "../geo/myMap";
-import CardMap from "../geo/cardMap";
-import "../../assets/css/soft-ui-dashboard.min.css";
-import Modal from "../util/modal";
 
-export default function FormProvider(props) {
+export default function FormOffering(props) {
   const {
     title,
     method,
-    image,
-    name,
-    phone,
-    email,
-    providerId,
-    isOpen,
-    onClose,
+    offering_type,
+    offering_name,
+    unit,
+    unit_price,
+    capacity,
+    total,
+    id,
     onCancel,
   } = props;
-
+  const { hotelId } = useParams();
   const [message, setMessage] = useState("");
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    name: name || "",
-    phone: phone || "",
-    email: email || "",
-    image: image || null,
+    offering_type: offering_type || "",
+    offering_name: offering_name || "",
+    unit: unit,
+    unit_price: unit_price,
+    capacity: capacity || 1,
+    total: total,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "image" && e.target.files.length > 0) {
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        image: e.target.files[0],
-      }));
-    } else {
-      setFormValues((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-      }));
-    }
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-    setIsLoading(true);
-    const formData = new FormData();
-
-    if (formValues.image) {
-      formData.append("image", formValues.image);
-    }
-
-    formData.append("name", formValues.name);
-    formData.append("address", formValues.address);
-    formData.append("phone", formValues.phone);
-    formData.append("email", formValues.email);
+    const idUrl = method === "PUT" ? `/${id}` : "";
 
     try {
-      const idUrl = method === "PUT" ? `/${providerId}` : "";
-      const url = `http://localhost:3030/providers${idUrl}`;
-
-      const response = await fetch(`http://localhost:3030/providers${idUrl}`, {
-        method: method,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `http://localhost:3030/hotels/${hotelId}/offerings${idUrl}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -81,33 +64,17 @@ export default function FormProvider(props) {
         }
         return;
       }
-
-      setIsMapModalOpen(false);
       window.location.reload();
     } catch (error) {
-      console.error("Error :", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Error:", error);
     }
   };
 
-  const handleShowMap = () => setIsMapModalOpen(true);
-  const handleCloseMap = () => setIsMapModalOpen(false);
-
-  if (!isOpen) return null;
   return (
-    <div
-      id="myForm"
-      className="card p-4 shadow-lg rounded-3"
-      style={{ width: "50%" }}
-    >
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-        rel="stylesheet"
-      />
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
-        style={{ marginBottom: "-1%", height: "50px" }}
+        style={{ marginBottom: "2%", height: "50px" }}
       >
         <div
           style={{
@@ -131,7 +98,7 @@ export default function FormProvider(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Provider
+            Informations sur les prestations
           </span>
         </div>
         <div
@@ -154,7 +121,7 @@ export default function FormProvider(props) {
               width="25"
               height="25"
               fill="currentColor"
-              className="bi bi-x-circle"
+              class="bi bi-x-circle"
               viewBox="0 0 16 16"
               color="#273385"
             >
@@ -165,75 +132,92 @@ export default function FormProvider(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
-        <form id="myForm" autoComplete="off" onSubmit={handleSave}>
+        <form
+          onSubmit={handleSave}
+          id="myForm"
+          autocomplete="off"
+          style={{ marginTop: "-6%" }}
+        >
           <div className="row mb-3">
             <div className="col">
-              <label htmlFor="nom" className="form-label fw-bold">
-                Nom
+              <label className="form-label fw-bold">
+                Produit/Service proposé
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                id="nom"
-                value={formValues.name}
+                value={formValues.capacity}
                 onChange={handleChange}
-                name="name"
-                required
+                name="capacity"
+              />
+            </div>
+            <div className="col">
+              <label className="form-label fw-bold">Type</label>
+              <SelectOfferingTypes
+                value={formValues.offering_type}
+                onChange={handleChange}
+                name="offering_type"
               />
             </div>
           </div>
           <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="email" className="form-label fw-bold">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                value={formValues.email}
-                onChange={handleChange}
-                name="email"
-                required
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="telephone" className="form-label fw-bold">
-                Téléphone
-              </label>
-              <input
-                type="tel"
-                className="form-control"
-                id="telephone"
-                value={formValues.phone}
-                onChange={handleChange}
-                name="phone"
-                required
-              />
-            </div>
+            <label htmlFor="nom" className="form-label fw-bold">
+              Capacite
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              value={formValues.capacity}
+              onChange={handleChange}
+              name="capacity"
+            />
+          </div>
+          <div className="row mb-3">
+            <label htmlFor="nom" className="form-label fw-bold">
+              Description
+            </label>
+            <textarea
+              className="form-control"
+              name="description"
+              value={formValues.description}
+              onChange={handleChange}
+            />
           </div>
           <div className="row mb-3">
             <div className="col">
-              <label htmlFor="image" className="form-label fw-bold">
-                Logo
+              <label htmlFor="prenom" className="form-label fw-bold">
+                Tarif unitaire
               </label>
               <input
+                type="number"
                 className="form-control"
-                name="image"
-                type="file"
-                id="image"
+                value={formValues.price}
                 onChange={handleChange}
-                accept="image/*"
+                name="price"
+              />
+            </div>
+            <div className="col">
+              <label className="form-label fw-bold">
+                Periode de tarification
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.number_of_offerings}
+                onChange={handleChange}
+                name="number_of_offerings"
               />
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn"
               style={{
+                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
+                border: "solid 1px rgb(231, 231, 231)",
               }}
               onClick={onCancel}
             >
@@ -243,17 +227,12 @@ export default function FormProvider(props) {
               type="submit"
               className="btn btn-primary"
               style={{
+                float: "right",
                 borderRadius: "20px",
                 marginTop: "1%",
               }}
             >
-              {isLoading ? (
-                <div className="spinner-border spinner-border-sm" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                "Enregistrer"
-              )}
+              Enregistrer
             </button>
           </div>
         </form>

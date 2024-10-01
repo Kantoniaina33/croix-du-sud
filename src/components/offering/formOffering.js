@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import "./provider.css";
+import "./offering.css";
 import SelectCities from "../util/selectCities";
 import MyMap from "../geo/myMap";
 import CardMap from "../geo/cardMap";
 import "../../assets/css/soft-ui-dashboard.min.css";
 import Modal from "../util/modal";
+import SelectOfferingTypes from "../util/selectOfferingTypes";
 
-export default function FormProvider(props) {
+export default function FormOffering(props) {
   const {
     title,
     method,
     image,
     name,
+    city,
     phone,
     email,
+    latitude,
+    longitude,
+    location,
     providerId,
+    offering_typeId,
     isOpen,
     onClose,
     onCancel,
@@ -26,10 +32,23 @@ export default function FormProvider(props) {
 
   const [formValues, setFormValues] = useState({
     name: name || "",
+    city: city || "Antananarivo",
     phone: phone || "",
     email: email || "",
+    latitude: latitude,
+    longitude: longitude,
+    location: location,
     image: image || null,
   });
+
+  const handleSetCoordinates = (data) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      location: data.name,
+      latitude: data.lat,
+      longitude: data.lng,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,8 +77,12 @@ export default function FormProvider(props) {
 
     formData.append("name", formValues.name);
     formData.append("address", formValues.address);
+    formData.append("city", formValues.city);
     formData.append("phone", formValues.phone);
     formData.append("email", formValues.email);
+    formData.append("latitude", formValues.latitude);
+    formData.append("longitude", formValues.longitude);
+    formData.append("location", formValues.location);
 
     try {
       const idUrl = method === "PUT" ? `/${providerId}` : "";
@@ -131,7 +154,7 @@ export default function FormProvider(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Provider
+            Prestations
           </span>
         </div>
         <div
@@ -169,7 +192,7 @@ export default function FormProvider(props) {
           <div className="row mb-3">
             <div className="col">
               <label htmlFor="nom" className="form-label fw-bold">
-                Nom
+                Nom de l'entité
               </label>
               <input
                 type="text"
@@ -179,6 +202,16 @@ export default function FormProvider(props) {
                 onChange={handleChange}
                 name="name"
                 required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="ville" className="form-label fw-bold">
+                Type de prestation
+              </label>
+              <SelectOfferingTypes
+                value={formValues.offering_typeId}
+                onChange={handleChange}
+                name="offering_typeId"
               />
             </div>
           </div>
@@ -214,8 +247,56 @@ export default function FormProvider(props) {
           </div>
           <div className="row mb-3">
             <div className="col">
+              <label htmlFor="ville" className="form-label fw-bold">
+                Ville
+              </label>
+              <SelectCities
+                value={formValues.city}
+                onChange={handleChange}
+                name="city"
+              />
+            </div>
+            <div className="col">
+              <label className="form-label fw-bold">
+                Emplacement{" "}
+                {formValues.latitude && formValues.longitude && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    class="bi bi-check2"
+                    viewBox="0 0 16 16"
+                    color="green"
+                  >
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
+                  </svg>
+                )}
+              </label>
+              <button
+                type="button"
+                className="form-control"
+                onClick={handleShowMap}
+              >
+                Afficher la carte
+              </button>
+              <Modal isOpen={isMapModalOpen}>
+                <CardMap
+                  onClose={handleCloseMap}
+                  onSetCoordinates={handleSetCoordinates}
+                  initialCoordinates={{
+                    name: formValues.location,
+                    lat: parseFloat(formValues.latitude) || 0,
+                    lng: parseFloat(formValues.longitude) || 0,
+                  }}
+                />
+              </Modal>
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
               <label htmlFor="image" className="form-label fw-bold">
-                Logo
+                Logo/Image
               </label>
               <input
                 className="form-control"
