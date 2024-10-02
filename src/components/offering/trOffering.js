@@ -18,6 +18,8 @@ export default function TrOffering(props) {
     longitude,
     location,
     offering_type,
+    offering_typeId,
+    id
   } = props;
   const [show, setShow] = useState(false);
 
@@ -63,8 +65,8 @@ export default function TrOffering(props) {
         </td>
         <td>
           <span className="text-xs">
-            <a href={`/providers/${providerId}/offerings`}>
-              <span style={{ textDecoration: "underline" }}>Prestations</span>
+            <a href={`/providers/${providerId}/offerings/${id}/details`}>
+              <span style={{ textDecoration: "underline" }}>Offres/Produits</span>
               <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
             </a>
           </span>

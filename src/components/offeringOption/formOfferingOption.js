@@ -34,7 +34,7 @@ export default function FormOfferingOption(props) {
         {
           method: method,
           headers: {
-            "Content-Option": "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(formValues),

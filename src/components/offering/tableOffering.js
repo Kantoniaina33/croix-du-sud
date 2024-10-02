@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import TrOffering from "./trOffering";
 
 export default function TableOffering(props) {
-  const {providerId, offering_type_id } = props;
+  const {providerId, offering_typeId, offering_type } = props;
   const [message, setMessage] = useState("");
   const [offerings, setOfferings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ export default function TableOffering(props) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3030/reservations/`,
+        `http://localhost:3030/providers/${providerId}/types/${offering_typeId}/offerings`,
         {
           method: "GET",
           headers: {
@@ -28,7 +28,7 @@ export default function TableOffering(props) {
         return;
       }
 
-      const data = await response.json();
+      const data = await response.json();      
       setOfferings(data);
     } catch (error) {
       console.error("Error:", error);
@@ -39,7 +39,7 @@ export default function TableOffering(props) {
   };
 
   useEffect(() => {
-    fetchOfferings();
+    fetchOfferings();    
   }, []);
 
   return (
@@ -48,11 +48,11 @@ export default function TableOffering(props) {
       style={{
         backgroundColor: "white",
         borderRadius: "10px",
-        marginTop: "3%",
+        marginTop: "1%",
       }}
     >
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-        <h6>Hebergement</h6>
+        <h6>{offering_type}</h6>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
         {loading ? (
@@ -63,7 +63,7 @@ export default function TableOffering(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : offerings.length > 0 ? (
+        ) : offerings ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -87,7 +87,8 @@ export default function TableOffering(props) {
               {offerings.map((offering) => (
                 <TrOffering
                   providerId={offering.providerId}
-                  logo={offering.logo}
+                  id={offering.id}
+                  logo={offering.image}
                   name={offering.name}
                   city={offering.city}
                   phone={offering.phone}
@@ -95,6 +96,8 @@ export default function TableOffering(props) {
                   latitude={offering.latitude}
                   longitude={offering.longitude}
                   location={offering.location}
+                  offering_typeId={offering.offering_typeId}
+                  offering_type={offering_type}
                 />
               ))}
             </table>

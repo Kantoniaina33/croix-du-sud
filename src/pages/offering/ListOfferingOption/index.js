@@ -36,7 +36,7 @@ export default function ListOfferingOption() {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Content-Option": "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -180,7 +180,6 @@ export default function ListOfferingOption() {
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
-                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -189,7 +188,7 @@ export default function ListOfferingOption() {
                               <TrOfferingOption
                                 key={offeringOption.id}
                                 offeringOptionId={offeringOption.id}
-                                name={offeringOption.name}
+                                name={offeringOption.option_name}
                               />
                             </>
                           ))}

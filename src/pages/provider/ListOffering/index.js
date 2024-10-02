@@ -11,14 +11,14 @@ import FormOffering from "../../../components/offering/formOffering";
 
 export default function ListOffering(props) {
   const { id, reservationId } = useParams();
-  const [planning, setPlanning] = useState([]);
+  const [offering_types, setOffering_types] = useState([]);
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const fetchPlanning = async () => {
+  const fetchOffersetOffering_types = async () => {
     setMessage("");
     try {
-      const url = `http://localhost:3030/`;
+      const url = `http://localhost:3030/offerings/types`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -29,19 +29,19 @@ export default function ListOffering(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch planning");
+        setMessage("Failed to fetch offering_types");
         return;
       }
       const data = await response.json();
-      setPlanning(data);
+      setOffering_types(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching planning");
+      setMessage("Error fetching offering_types");
     }
   };
 
   useEffect(() => {
-    fetchPlanning();
+    fetchOffersetOffering_types();
   }, []);
 
   const handleCloseModal = () => setIsMapModalOpen(false);
@@ -116,8 +116,19 @@ export default function ListOffering(props) {
                 >
                   <h6>Prestations</h6>
                 </div>
-                <TableOffering />
-                <hr className="custom-hr" />
+                {offering_types &&
+                  offering_types.map((offering_type, index) => (
+                    <>
+                      <TableOffering
+                        providerId={id}
+                        offering_typeId={offering_type.id}
+                        offering_type={offering_type.name}
+                      />
+                      {offering_types.length > 1 && index!=offering_types.length-1 && (
+                        <hr className="custom-hr" />
+                      )}
+                    </>
+                  ))}
               </div>
             </div>
           </div>

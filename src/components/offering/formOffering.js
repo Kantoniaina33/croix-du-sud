@@ -21,6 +21,7 @@ export default function FormOffering(props) {
     location,
     providerId,
     offering_typeId,
+    offeringId,
     isOpen,
     onClose,
     onCancel,
@@ -51,7 +52,7 @@ export default function FormOffering(props) {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;    
     if (name === "image" && e.target.files.length > 0) {
       setFormValues((prevValues) => ({
         ...prevValues,
@@ -83,12 +84,12 @@ export default function FormOffering(props) {
     formData.append("latitude", formValues.latitude);
     formData.append("longitude", formValues.longitude);
     formData.append("location", formValues.location);
+    formData.append("offering_typeId", formValues.offering_typeId);
 
     try {
-      const idUrl = method === "PUT" ? `/${providerId}` : "";
-      const url = `http://localhost:3030/providers${idUrl}`;
+      const idUrl = method === "PUT" ? `/${offeringId}` : "";
 
-      const response = await fetch(`http://localhost:3030/providers${idUrl}`, {
+      const response = await fetch(`http://localhost:3030/providers/${providerId}/offerings${idUrl}`, {
         method: method,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

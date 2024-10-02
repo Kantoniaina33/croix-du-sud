@@ -41,16 +41,6 @@ export default function TrOfferingOption(props) {
         </td>
         <td className="align-middle text-center">
           <span className="text-secondary text-xs font-weight-bold">
-            <a href={`/offeringOptions/${offeringOptionId}/programs`}>
-              <span style={{ textDecoration: "underline" }}>
-                Options spécifiques
-              </span>
-              <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
-            </a>
-          </span>
-        </td>
-        <td className="align-middle text-center">
-          <span className="text-secondary text-xs font-weight-bold">
             <button
               style={{ backgroundColor: "white", border: "none" }}
               onClick={handleShowMap}

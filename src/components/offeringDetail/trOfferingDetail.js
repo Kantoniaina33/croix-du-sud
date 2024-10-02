@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import AlertDelete from "../util/alertDelete";
 import Modal from "../util/modal";
-import FormOffering from "./formOffering";
+import FormOfferingDetail from "./formOfferingDetail";
 
-export default function TrOffering(props) {
+export default function TrOfferingDetail(props) {
   const {
+    offering_id,
     offering_type,
     offering_name,
     unit,
@@ -16,7 +17,7 @@ export default function TrOffering(props) {
     total,
     id,
   } = props;
-  
+
   const { hotelId } = useParams();
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -62,7 +63,7 @@ export default function TrOffering(props) {
             <Edit02Icon color="#273385" size={20} />
           </button>
           <Modal isOpen={isMapModalOpen}>
-            <FormOffering
+            <FormOfferingDetail
               title="MODIFIER DES CHAMBRES"
               method="PUT"
               id={id}

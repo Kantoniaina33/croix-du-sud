@@ -1,19 +1,17 @@
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import TrOffering from "../../../components/offeringDetail/trOffering";
-import HeadOfferingType from "../../../components/offeringType/headOfferingType";
 import { useEffect, useState } from "react";
-import FormOffering from "../../../components/offeringDetail/formOffering";
 import { useParams } from "react-router-dom";
-import SelectPriceCategories from "../../../components/util/selectPriceCategories";
-import SelectOfferingTypes from "../../../components/util/selectOfferingTypes";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/util/modal";
+import FormOfferingDetail from "../../../components/offeringDetail/formOfferingDetail";
 import Return from "../../../components/util/return";
+import TrOfferingDetail from "../../../components/offeringDetail/trOfferingDetail";
+import HeadOffering from "../../../components/offering/headOffering";
 
-export default function ListOffering() {
-  const { offeringTypeId } = useParams();
+export default function ListOfferingDetail() {
+  const { providerId, offeringId } = useParams();
   const [show, setShow] = useState(false);
   const [offerings, setOfferings] = useState([]);
   const [message, setMessage] = useState("");
@@ -37,7 +35,7 @@ export default function ListOffering() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/offeringTypes/${offeringTypeId}/offerings?orderBy=${sort}&&order=${order}&&searchTypeField=${searchTypeField}&&searchType=${searchType}&&searchPriceCatField=${searchPriceCatField}&&searchPriceCat=${searchPriceCat}`;
+      const url = `http://localhost:3030/offeringTypes/offerings?orderBy=${sort}&&order=${order}&&searchTypeField=${searchTypeField}&&searchType=${searchType}&&searchPriceCatField=${searchPriceCatField}&&searchPriceCat=${searchPriceCat}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -140,16 +138,17 @@ export default function ListOffering() {
                     onClick={handleShowMap}
                     id="addOffering"
                   >
-                    Ajouter des chambres
+                    Nouveau
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormOffering
-                      isOpen={isMapModalOpen}
-                      method="POST"
-                      title="AJOUTER DES CHAMBRES"
-                      onCancel={handleCloseModal}
-                    />
-                  </Modal>
+                    <p>{offerings[0].offering_name}</p>
+                    <Modal isOpen={isMapModalOpen}>
+                      <FormOfferingDetail
+                        isOpen={isMapModalOpen}
+                        method="POST"
+                        onCancel={handleCloseModal}
+                        // offering_typeId={offerings[0].offering_typeId}
+                      />
+                    </Modal>
                 </li>
               </ul>
             </div>
@@ -162,7 +161,7 @@ export default function ListOffering() {
           >
             <span className="mask opacity-6" id="background"></span>
           </div>
-          <HeadOfferingType />
+          <HeadOffering offeringId={offeringId} providerId={providerId} />
         </div>
         <div className="container-fluid py-4">
           <div className="row">
@@ -170,25 +169,11 @@ export default function ListOffering() {
               <div className="card mb-4">
                 <Return href="/offeringTypes" />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste des chambres</h6>
+                  {/* <h6>Liste des chambres</h6> */}
                   <div className="w-55">
                     <div className="row">
-                      <div className="col">
-                        <SelectOfferingTypes
-                          disabledOption="Filtrer par type de chambre"
-                          specificOption="Tout"
-                          specificOptionValue=""
-                          onChange={handleSelectOfferingType}
-                        />
-                      </div>
-                      <div className="col">
-                        <SelectPriceCategories
-                          disabledOption="Filtrer par catégorie de prix"
-                          specificOption="Tout"
-                          specificOptionValue=""
-                          onChange={handleSelectPriceCat}
-                        />
-                      </div>
+                      <div className="col"></div>
+                      <div className="col"></div>
                     </div>
                   </div>
                 </div>
@@ -212,7 +197,7 @@ export default function ListOffering() {
                               Type
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Capacite
+                              Offre
                               <a href="#">
                                 <ArrowUpDownIcon
                                   id="sortIcon"
@@ -226,10 +211,10 @@ export default function ListOffering() {
                               </a>
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Categorie de prix
+                              Tarif unitaire
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Tarif par nuit
+                              Periode de facturation
                               <a href="#">
                                 <ArrowUpDownIcon
                                   id="sortIcon"
@@ -243,12 +228,30 @@ export default function ListOffering() {
                               </a>
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Nombre total
+                              Capacite
                               <a href="#">
                                 <ArrowUpDownIcon
                                   id="sortIcon"
                                   size={16}
-                                  onClick={() => handleSort("number_of_offerings")}
+                                  onClick={() =>
+                                    handleSort("number_of_offerings")
+                                  }
+                                  style={{
+                                    marginLeft: "5px",
+                                    marginTop: "-5px",
+                                  }}
+                                />
+                              </a>
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Quantite totale
+                              <a href="#">
+                                <ArrowUpDownIcon
+                                  id="sortIcon"
+                                  size={16}
+                                  onClick={() =>
+                                    handleSort("number_of_offerings")
+                                  }
                                   style={{
                                     marginLeft: "5px",
                                     marginTop: "-5px",
@@ -262,13 +265,16 @@ export default function ListOffering() {
                         </thead>
                         <tbody>
                           {offerings.map((offering) => (
-                            <TrOffering
+                            <TrOfferingDetail
                               id={offering.id}
                               offering_type={offering.offering_type}
+                              offering_typeId={offering.offering_typeId}
+                              offering_name={offering.offering_name}
                               capacity={offering.capacity}
+                              unit={offering.unit}
+                              unit_price={offering.unit_price}
                               price_category={offering.price_category}
-                              price={offering.price}
-                              total={offering.number_of_offerings}
+                              total={offering.total}
                             />
                           ))}
                         </tbody>
