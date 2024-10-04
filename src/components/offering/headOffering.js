@@ -12,10 +12,6 @@ export default function HeadOffering(props) {
 
   const fetchOffering = async () => {
     try {
-      console.log(
-        `http://localhost:3030/providers/${providerId}/offerings/${offeringId}`
-      );
-      
       const response = await fetch(
         `http://localhost:3030/providers/${providerId}/offerings/${offeringId}`,
         {

@@ -21,7 +21,7 @@ export default function SelectOfferingOptions(props) {
         {
           method: "GET",
           headers: {
-            "Content-Option": "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -68,7 +68,7 @@ export default function SelectOfferingOptions(props) {
       {offering_options &&
         offering_options.map((offering_option, index) => (
           <option key={index} value={offering_option.id}>
-            {offering_option.name}
+            {offering_option.option_name}
           </option>
         ))}
     </select>

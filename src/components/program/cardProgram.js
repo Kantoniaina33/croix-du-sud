@@ -46,7 +46,7 @@ export default function CardProgram(props) {
                 color={"#344767"}
                 variant={"stroke"}
               />
-              <a href={`/programs/${programId}/close_hotels`}>
+              <a href={`/programs/${programId}`}>
                 <span
                   style={{
                     textTransform: "uppercase",

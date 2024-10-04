@@ -11,6 +11,9 @@ import ExcursionsDispo from "../../../components/excursion/excursionsDispo";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 import SheetProgram from "../../../components/program/sheetProgram";
+import OfferingPlanning from "../../../components/offering/offeringPlanning";
+import TableExcursionPlanning from "../../../components/excursion/tableExcursionPlanning";
+import TableTransferPlanning from "../../../components/transfer/tableTransferPlanning";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
@@ -77,6 +80,32 @@ export default function ProgramDetails() {
                 </li>
               </ol>
             </nav>
+            <div
+              className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
+              id="navbar"
+            >
+              <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+              <ul className="navbar-nav justify-content-end">
+                <li className="nav-item d-flex align-items-center">
+                  <a
+                    className="btn btn-outline-primary btn-sm mb-0 me-3"
+                    target="blank"
+                    // onClick={handleShowMap}
+                  >
+                    Ajouter une prestation
+                  </a>
+                  {/* <Modal isOpen={isMapModalOpen}>
+                    <FormHotel
+                      method="POST"
+                      title="NOUVEL HOTEL"
+                      isOpen={isMapModalOpen}
+                      onCancel={handleCloseModal}
+                    />
+                  </Modal> */}
+                </li>
+                <li className="nav-item d-flex align-items-center"></li>
+              </ul>
+            </div>
           </div>
         </nav>
         <div className="container-fluid py-4">
@@ -108,9 +137,14 @@ export default function ProgramDetails() {
                   <p>Oups</p>
                 )}
                 <hr className="custom-hr" />
-                <HotelsCloseCheap programId={programId} />
+                <OfferingPlanning
+                  providerId="0Se8m59EW4cHVMVXHnPT"
+                  offering_typeId="yipTw9dMU52GdSl34aXJ"
+                />
                 <hr className="custom-hr" />
-                <ExcursionsDispo programId={programId} />
+                <TableExcursionPlanning />
+                <hr className="custom-hr" />
+                <TableTransferPlanning />
               </div>
             </div>
           </div>

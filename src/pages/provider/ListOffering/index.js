@@ -8,6 +8,7 @@ import TableOffering from "../../../components/offering/tableOffering";
 import HeadProvider from "../../../components/provider/headProvider";
 import Modal from "../../../components/util/modal";
 import FormOffering from "../../../components/offering/formOffering";
+import Return from "../../../components/util/return";
 
 export default function ListOffering(props) {
   const { id, reservationId } = useParams();
@@ -110,6 +111,7 @@ export default function ListOffering(props) {
           <div className="row" style={{ overflowY: "auto", height: "80vh" }}>
             <div className="col-12">
               <div className="card mb-4">
+                <Return href={"/providers"} />
                 <div
                   className="card-header pb-0"
                   style={{ marginBottom: "-2%" }}
@@ -124,9 +126,10 @@ export default function ListOffering(props) {
                         offering_typeId={offering_type.id}
                         offering_type={offering_type.name}
                       />
-                      {offering_types.length > 1 && index!=offering_types.length-1 && (
-                        <hr className="custom-hr" />
-                      )}
+                      {offering_types.length > 1 &&
+                        index != offering_types.length - 1 && (
+                          <hr className="custom-hr" />
+                        )}
                     </>
                   ))}
               </div>

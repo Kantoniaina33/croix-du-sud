@@ -7,7 +7,7 @@ import Modal from "../util/modal";
 import FormProvider from "../provider/formProvider";
 import { Link } from "react-router-dom";
 
-export default function TrOffering(props) {
+export default function TrOfferingPlanning(props) {
   const {
     providerId,
     logo,
@@ -20,6 +20,8 @@ export default function TrOffering(props) {
     location,
     offering_type,
     offering_typeId,
+    distance,
+    average_price,
     id,
   } = props;
   const [show, setShow] = useState(false);
@@ -32,6 +34,8 @@ export default function TrOffering(props) {
   const handleShow = () => setShow(true);
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseModal = () => setIsMapModalOpen(false);
+
+  const rounded_distance = Math.floor(distance);
 
   return (
     <>
@@ -51,18 +55,22 @@ export default function TrOffering(props) {
             >
               <a href={`/providers/${providerId}`}>
                 <h6 className="mb-0 text-sm">{name}</h6>
+                <p className="text-xs text-secondary mb-0">{city}</p>
               </a>
             </div>
           </div>
         </td>
         <td>
-          <p className="mb-0 text-sm">{city}</p>
-        </td>
-        <td>
           <p className="mb-0 text-sm">{email}</p>
         </td>
         <td>
-          <h6 className="mb-0 text-sm">{phone}</h6>
+          <p className="mb-0 text-sm">{phone}</p>
+        </td>
+        <td>
+          <p className="mb-0 text-sm">{average_price} Ar</p>
+        </td>
+        <td>
+          <p className="mb-0 text-sm">{rounded_distance} Km</p>
         </td>
         <td>
           <span className="text-xs">
@@ -83,42 +91,8 @@ export default function TrOffering(props) {
               style={{ backgroundColor: "white", border: "none" }}
               onClick={handleShowMap}
             >
-              <Edit02Icon color="blue" size={20} />
+              Remplacer
             </button>
-            <Modal isOpen={isMapModalOpen}>
-              <FormProvider
-                title="MODIFIER UN HOTEL"
-                method="PUT"
-                providerId={providerId}
-                logo={logo}
-                name={name}
-                city={city}
-                phone={phone}
-                email={email}
-                latitude={latitude}
-                longitude={longitude}
-                location={location}
-                isOpen={isMapModalOpen}
-                onCancel={handleCloseModal}
-              />
-            </Modal>
-          </span>
-        </td>
-        <td className="align-middle text-center">
-          <span className="text-secondary text-xs font-weight-bold">
-            <button
-              style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleAlert}
-            >
-              <Delete02Icon color="rgb(219, 1, 1)" size={23} />
-            </button>
-            <AlertDelete
-              alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
-              alertDetail="Toutes les chambres et repas associés seront également supprimés."
-              show={alert}
-              setAlert={setAlert}
-              url={`http://localhost:3030/providers/${providerId}`}
-            />
           </span>
         </td>
       </tr>

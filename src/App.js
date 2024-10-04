@@ -34,6 +34,7 @@ import SheetProvider from "./components/provider/sheetProvider";
 import SheetProviderPage from "./pages/provider/ListProvider/sheetProviderPage";
 import ListOffering from "./pages/provider/ListOffering";
 import ListOfferingDetail from "./pages/offering/ListOfferingDetail";
+import ListTransfer from "./pages/transfer/ListTransfer";
 
 function App() {
   return (
@@ -54,10 +55,14 @@ function App() {
             path="/offerings/types/:typeId/options"
             element={<ListOfferingOption />}
           />
+          <Route path="/transfers" element={<ListTransfer />} />
           <Route path="/hotels" element={<ListHotel />} />
           <Route path="/hotels/:id" element={<SheetHotelPage />} />
           <Route path="/providers/:id/offerings" element={<ListOffering />} />
-          <Route path="/providers/:providerId/offerings/:offeringId/details" element={<ListOfferingDetail />} />
+          <Route
+            path="/providers/:providerId/types/:offering_typeId/offerings/:offeringId/details"
+            element={<ListOfferingDetail />}
+          />
           <Route path="/providers/:id" element={<SheetProviderPage />} />
           <Route path="/hotels/:hotelId/rooms" element={<ListRoom />} />
           <Route path="/hotels/:hotelId/meals" element={<ListMeal />} />
@@ -107,7 +112,7 @@ function App() {
             element={<CircuitPrograms />}
           />
           <Route
-            path="/programs/:programId/close_hotels"
+            path="/programs/:programId"
             element={<ProgramDetails />}
           />
         </Routes>

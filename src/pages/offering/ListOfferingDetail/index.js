@@ -2,7 +2,7 @@ import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/util/modal";
 import FormOfferingDetail from "../../../components/offeringDetail/formOfferingDetail";
@@ -11,7 +11,8 @@ import TrOfferingDetail from "../../../components/offeringDetail/trOfferingDetai
 import HeadOffering from "../../../components/offering/headOffering";
 
 export default function ListOfferingDetail() {
-  const { providerId, offeringId } = useParams();
+  const location = useLocation();
+  const { providerId, offeringId, offering_typeId } = useParams();
   const [show, setShow] = useState(false);
   const [offerings, setOfferings] = useState([]);
   const [message, setMessage] = useState("");
@@ -35,7 +36,8 @@ export default function ListOfferingDetail() {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/offeringTypes/offerings?orderBy=${sort}&&order=${order}&&searchTypeField=${searchTypeField}&&searchType=${searchType}&&searchPriceCatField=${searchPriceCatField}&&searchPriceCat=${searchPriceCat}`;
+      const url = `http://localhost:3030/providers/${providerId}/types/${offering_typeId}/offerings/${offeringId}/details`;
+      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -49,10 +51,7 @@ export default function ListOfferingDetail() {
       }
 
       const data = await response.json();
-      const offeringsArray = Object.keys(data).map((key) => ({
-        ...data[key],
-      }));
-      setOfferings(offeringsArray);
+      setOfferings(data);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching offerings");
@@ -77,22 +76,9 @@ export default function ListOfferingDetail() {
   };
 
   useEffect(() => {
-    fetchOfferings(
-      sort,
-      order,
-      searchType,
-      searchTypeField,
-      searchPriceCat,
-      searchPriceCatField
-    );
-  }, [
-    sort,
-    order,
-    searchType,
-    searchTypeField,
-    searchPriceCat,
-    searchPriceCatField,
-  ]);
+    fetchOfferings();
+    console.log(offerings);
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -115,13 +101,13 @@ export default function ListOfferingDetail() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span style={{ color: "white" }}>Hôtels</span>
+                  <span style={{ color: "white" }}>Prestations</span>
                 </li>
                 <li
                   className="font-weight-bold breadcrumb-item text-sm text-white active"
                   aria-current="page"
                 >
-                  Chambres
+                  Offres
                 </li>
               </ol>
               <h6 className="text-white font-weight-bolder ms-2"></h6>
@@ -140,15 +126,15 @@ export default function ListOfferingDetail() {
                   >
                     Nouveau
                   </a>
-                    <p>{offerings[0].offering_name}</p>
-                    <Modal isOpen={isMapModalOpen}>
-                      <FormOfferingDetail
-                        isOpen={isMapModalOpen}
-                        method="POST"
-                        onCancel={handleCloseModal}
-                        // offering_typeId={offerings[0].offering_typeId}
-                      />
-                    </Modal>
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormOfferingDetail
+                      isOpen={isMapModalOpen}
+                      method="POST"
+                      onCancel={handleCloseModal}
+                      offering_typeId={offering_typeId}
+                      offeringId={offeringId}
+                    />
+                  </Modal>
                 </li>
               </ul>
             </div>
@@ -169,7 +155,7 @@ export default function ListOfferingDetail() {
               <div className="card mb-4">
                 <Return href="/offeringTypes" />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  {/* <h6>Liste des chambres</h6> */}
+                  <h6>Liste des chambres</h6>
                   <div className="w-55">
                     <div className="row">
                       <div className="col"></div>
@@ -188,33 +174,22 @@ export default function ListOfferingDetail() {
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   ) : offerings.length > 0 ? (
-                    <div className="table-responsive p-0">
+                    <div
+                      className="table-responsive p-0"
+                      style={{ marginTop: "-1%" }}
+                    >
                       <br />
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Type
+                              Offre
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Offre
-                              <a href="#">
-                                <ArrowUpDownIcon
-                                  id="sortIcon"
-                                  size={16}
-                                  onClick={() => handleSort("capacity")}
-                                  style={{
-                                    marginLeft: "5px",
-                                    marginTop: "-5px",
-                                  }}
-                                />
-                              </a>
+                              Type
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Tarif unitaire
-                            </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Periode de facturation
                               <a href="#">
                                 <ArrowUpDownIcon
                                   id="sortIcon"
@@ -226,6 +201,9 @@ export default function ListOfferingDetail() {
                                   }}
                                 />
                               </a>
+                            </th>
+                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Periode de facturation
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Capacite
@@ -264,17 +242,18 @@ export default function ListOfferingDetail() {
                           </tr>
                         </thead>
                         <tbody>
-                          {offerings.map((offering) => (
+                          {offerings.map((offeringDetail) => (
                             <TrOfferingDetail
-                              id={offering.id}
-                              offering_type={offering.offering_type}
-                              offering_typeId={offering.offering_typeId}
-                              offering_name={offering.offering_name}
-                              capacity={offering.capacity}
-                              unit={offering.unit}
-                              unit_price={offering.unit_price}
-                              price_category={offering.price_category}
-                              total={offering.total}
+                              id={offeringDetail.id}
+                              offering_type={offeringDetail.offering_type}
+                              offering_typeId={offeringDetail.offering_typeId}
+                              offering_name={offeringDetail.name}
+                              capacity={offeringDetail.capacity}
+                              unit={offeringDetail.unit}
+                              unit_price={offeringDetail.unit_price}
+                              price_category={offeringDetail.price_category}
+                              total={offeringDetail.total_number}
+                              option={offeringDetail.option}
                             />
                           ))}
                         </tbody>

@@ -9,7 +9,7 @@ import FormOfferingDetail from "./formOfferingDetail";
 export default function TrOfferingDetail(props) {
   const {
     offering_id,
-    offering_type,
+    option,
     offering_name,
     unit,
     unit_price,
@@ -35,12 +35,12 @@ export default function TrOfferingDetail(props) {
       <td>
         <div className="d-flex px-2">
           <div className="my-auto">
-            <h6 className="mb-0 text-sm">{offering_type}</h6>
+            <h6 className="mb-0 text-sm">{offering_name}</h6>
           </div>
         </div>
       </td>
       <td className="align-middle text-center">
-        <span className="text-sm font-weight-bold mb-0">{offering_name} </span>
+        <span className="text-sm font-weight-bold mb-0">{option}</span>
       </td>
       <td className="align-middle text-center">
         <p className="text-sm font-weight-bold mb-0">{unit_price}</p>
@@ -67,7 +67,6 @@ export default function TrOfferingDetail(props) {
               title="MODIFIER DES CHAMBRES"
               method="PUT"
               id={id}
-              offering_type={offering_type}
               offering_name={offering_name}
               unit={unit}
               unit_price={unit_price}
@@ -87,7 +86,7 @@ export default function TrOfferingDetail(props) {
             <Delete02Icon color="rgb(219, 1, 1)" size={23} />
           </button>
           <AlertDelete
-            alertMessage={`Êtes-vous sûr de vouloir supprimer les chambres ${offering_type}?`}
+            alertMessage={`Êtes-vous sûr de vouloir supprimer ${offering_name}?`}
             show={alert}
             setAlert={setAlert}
             url={`http://localhost:3030/hotels/${hotelId}/offerings/${id}`}

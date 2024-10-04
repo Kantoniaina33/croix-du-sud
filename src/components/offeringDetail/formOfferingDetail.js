@@ -1,9 +1,6 @@
 import React from "react";
 import { BedDoubleIcon } from "hugeicons-react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import SelectPriceCategories from "../util/selectPriceCategories";
-import SelectCities from "../util/selectCities";
 import SelectOfferingOptions from "../util/selectOfferingOptions";
 
 export default function FormOfferingDetail(props) {
@@ -154,9 +151,7 @@ export default function FormOfferingDetail(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">
-                Type {offering_typeId}
-              </label>
+              <label className="form-label fw-bold">Type</label>
               <SelectOfferingOptions
                 value={formValues.offering_optionId}
                 onChange={handleChange}
@@ -176,6 +171,18 @@ export default function FormOfferingDetail(props) {
                 value={formValues.capacity}
                 onChange={handleChange}
                 name="capacity"
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="nom" className="form-label fw-bold">
+                Total
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.total}
+                onChange={handleChange}
+                name="total"
               />
             </div>
           </div>
@@ -210,7 +217,7 @@ export default function FormOfferingDetail(props) {
                 Periode de tarification
               </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 value={formValues.unit}
                 onChange={handleChange}
