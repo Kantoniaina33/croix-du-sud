@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
-import TrHotel from "../../../components/hotel/trHotel";
-import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
-import MyPagination from "../../../components/util/myPagination";
-import SelectCities from "../../../components/util/selectCities";
-import { ArrowUpDownIcon } from "hugeicons-react";
 import Modal from "../../../components/util/modal";
-import HotelsCloseCheap from "../../../components/hotel/hotelsCLoseCheap";
-import ExcursionsDispo from "../../../components/excursion/excursionsDispo";
 import { useParams } from "react-router-dom";
-import Return from "../../../components/util/return";
 import SheetProgram from "../../../components/program/sheetProgram";
 import OfferingPlanning from "../../../components/offering/offeringPlanning";
 import TableExcursionPlanning from "../../../components/excursion/tableExcursionPlanning";
 import TableTransferPlanning from "../../../components/transfer/tableTransferPlanning";
+import ChooseOffering from "../../../components/offering/ChooseOffering";
+import ChooseOfferingType from "../../../components/offeringType/chooseOfferingType";
+import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
+import ListOfferingPlanning from "../../../components/program/listOfferingPlanning";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
   const { programId } = useParams();
   const [message, setMessage] = useState("");
+  const [offeringTypeId, setOfferingTypeId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [isNextModalOpen, setIsNextModalOpen] = useState(false);
 
   const fetchProgram = async () => {
     setLoading(true);
@@ -51,8 +50,17 @@ export default function ProgramDetails() {
 
   useEffect(() => {
     fetchProgram();
-    console.log(program + "huuuuuuuuuuuuuuuuuuuuuuuuuuu");
   }, []);
+
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowMap = () => setIsMapModalOpen(true);
+  const handleCloseNextModal = () => setIsNextModalOpen(false);
+
+  const handleNext = (offering_typeId) => {
+    setOfferingTypeId(offering_typeId);
+    setIsMapModalOpen(false);
+    setIsNextModalOpen(true);
+  };
 
   return (
     <div>
@@ -90,20 +98,35 @@ export default function ProgramDetails() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    // onClick={handleShowMap}
+                    onClick={handleShowMap}
                   >
                     Ajouter une prestation
                   </a>
-                  {/* <Modal isOpen={isMapModalOpen}>
-                    <FormHotel
+                  <Modal isOpen={isMapModalOpen}>
+                    <ChooseOfferingType
                       method="POST"
-                      title="NOUVEL HOTEL"
-                      isOpen={isMapModalOpen}
                       onCancel={handleCloseModal}
+                      onClose={handleNext}
                     />
-                  </Modal> */}
+                  </Modal>
+                  <Modal isOpen={isNextModalOpen}>
+                    <ChooseOffering
+                      onCancel={handleCloseNextModal}
+                      offering_typeId={offeringTypeId}
+                      programId={programId}
+                      method="POST"
+                    />
+                  </Modal>
                 </li>
-                <li className="nav-item d-flex align-items-center"></li>
+                <li className="nav-item d-flex align-items-center">
+                  <a
+                    className="btn btn-outline-primary btn-sm mb-0 me-3"
+                    target="blank"
+                    // onClick={handleShowMap}
+                  >
+                    Ajouter ?
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -137,14 +160,10 @@ export default function ProgramDetails() {
                   <p>Oups</p>
                 )}
                 <hr className="custom-hr" />
-                <OfferingPlanning
-                  providerId="0Se8m59EW4cHVMVXHnPT"
-                  offering_typeId="yipTw9dMU52GdSl34aXJ"
-                />
+                <ListOfferingPlanning programId={programId} />
+                <TableExcursionPlanning programId={programId} />
                 <hr className="custom-hr" />
-                <TableExcursionPlanning />
-                <hr className="custom-hr" />
-                <TableTransferPlanning />
+                <TableTransferPlanning programId={programId} />
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 
 export default function TrExcursionPlanning(props) {
-  const { excursionId, image, place_name, price, reservationId, planningId } =
+  const { excursionId, image, place_name, price, programId } =
     props;
   const [message, setMessage] = useState("");
 
@@ -16,30 +16,30 @@ export default function TrExcursionPlanning(props) {
     e.preventDefault();
     setMessage("");
 
-    try {
-      const response = await fetch(
-        `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions/${excursionId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    // try {
+    //   const response = await fetch(
+    //     `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions/${excursionId}`,
+    //     {
+    //       method: "DELETE",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          setMessage("Problem");
-        } else {
-          setMessage("Failed");
-        }
-        return;
-      }
+    //   if (!response.ok) {
+    //     if (response.status === 401) {
+    //       setMessage("Problem");
+    //     } else {
+    //       setMessage("Failed");
+    //     }
+    //     return;
+    //   }
 
-      window.location.reload();
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    //   window.location.reload();
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
   };
 
   return (
@@ -75,8 +75,8 @@ export default function TrExcursionPlanning(props) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="23"
-              height="23"
+              width="20"
+              height="20"
               fill="currentColor"
               class="bi bi-dash-circle"
               viewBox="0 0 16 16"

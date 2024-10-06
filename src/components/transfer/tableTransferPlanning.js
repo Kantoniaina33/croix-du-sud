@@ -3,9 +3,46 @@ import { useParams } from "react-router-dom";
 import { ArrowUpDownIcon, BedDoubleIcon, Moon02Icon } from "hugeicons-react";
 import TrTransferPlanning from "./trTransferPlanning";
 import Modal from "../util/modal";
+import FormTransferPlanning from "./formTransferPlanning";
 
-export default function TableTransferPlanning() {
+export default function TableTransferPlanning(props) {
+  const { programId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [transfers, setTransfers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const fetchTransfers = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const url = `http://localhost:3030/programs/${programId}/transfers`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        setMessage("Failed to fetch transfers");
+        return;
+      }
+      const data = await response.json();
+      setTransfers(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching transfers");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransfers();
+  }, []);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
 
@@ -43,15 +80,11 @@ export default function TableTransferPlanning() {
           <a onClick={handleShowForm}>Ajouter un tranfert</a>
         </div>
         <Modal isOpen={isMapModalOpen}>
-          {/* <FormTransferPlanning
-            isOpen={isMapModalOpen}
-            method="POST"
-            onCancel={handleCloseModal}
-          /> */}
+          <FormTransferPlanning method="POST" onCancel={handleCloseModal} programId={programId}/>
         </Modal>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
-        {/* {loading ? (
+        {loading ? (
           <div
             className="spinner-border spinner-border-sm"
             role="status"
@@ -59,34 +92,34 @@ export default function TableTransferPlanning() {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : rooms.length > 0 ? ( */}
-        <div className="table-responsive p-0">
-          <table className="table align-items-center mb-0">
-            <thead>
-              <tr>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                  Transfert
-                </th>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  prix
-                </th>
-                <th className="text-secondary opacity-7"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {rooms.map((room) => ( */}
-              <TrTransferPlanning
-                departure={"Hotel"}
-                arrival={"Aeroport"}
-                price={1000}
-              />
-              {/* ))} */}
-            </tbody>
-          </table>
-        </div>
-        {/* ) : (
-          <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucune tranfert</p>
-        )} */}
+        ) : transfers.length > 0 ? (
+          <div className="table-responsive p-0">
+            <table className="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Transfert
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    prix
+                  </th>
+                  <th className="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {transfers.map((transfer) => (
+                  <TrTransferPlanning
+                    departure={transfer.transfer.departure}
+                    arrival={transfer.transfer.arrival}
+                    price={transfer.transfer.price}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>
+        )}
       </div>
     </div>
   );

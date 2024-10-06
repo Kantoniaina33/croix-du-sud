@@ -112,12 +112,6 @@ export default function ListOffering(props) {
             <div className="col-12">
               <div className="card mb-4">
                 <Return href={"/providers"} />
-                <div
-                  className="card-header pb-0"
-                  style={{ marginBottom: "-2%" }}
-                >
-                  <h6>Prestations</h6>
-                </div>
                 {offering_types &&
                   offering_types.map((offering_type, index) => (
                     <>
@@ -126,10 +120,10 @@ export default function ListOffering(props) {
                         offering_typeId={offering_type.id}
                         offering_type={offering_type.name}
                       />
-                      {offering_types.length > 1 &&
+                      {/* {offering_types.length > 1 &&
                         index != offering_types.length - 1 && (
                           <hr className="custom-hr" />
-                        )}
+                        )} */}
                     </>
                   ))}
               </div>

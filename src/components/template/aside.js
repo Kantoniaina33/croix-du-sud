@@ -96,19 +96,6 @@ export default function Aside(props) {
           <li className="nav-item">
             <a
               className={`nav-link ${
-                window.location.pathname === "/hotels" ? "active" : ""
-              }`}
-              href="/hotels"
-            >
-              <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                <Hotel01Icon size={50} color={"#000000"} variant={"stroke"} />
-              </div>
-              <span className="nav-link-text ms-1">Hôtels</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className={`nav-link ${
                 window.location.pathname === "/transfers" ? "active" : ""
               }`}
               href="/transfers"

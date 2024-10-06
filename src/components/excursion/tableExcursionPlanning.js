@@ -4,7 +4,7 @@ import TrExcursionPlanning from "./trExcursionPlanning";
 import Modal from "../util/modal";
 
 export default function TableExcursionPlanning(props) {
-  const { programId, reservationId, planningId } = props;
+  const { programId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
@@ -16,7 +16,7 @@ export default function TableExcursionPlanning(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions`;
+      const url = `http://localhost:3030/programs/${programId}/excursions`;
       console.log(url);
 
       const response = await fetch(url, {
@@ -51,6 +51,7 @@ export default function TableExcursionPlanning(props) {
       style={{
         backgroundColor: "white",
         borderRadius: "10px",
+        marginTop: "-2%",
       }}
     >
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -78,8 +79,6 @@ export default function TableExcursionPlanning(props) {
           <FormExcursionPlanning
             onCancel={handleCloseModal}
             programId={programId}
-            reservationId={reservationId}
-            planningId={planningId}
           />
         </Modal>
       </div>
@@ -119,9 +118,7 @@ export default function TableExcursionPlanning(props) {
                     image={excursionPlanning.excursion.image}
                     place_name={excursionPlanning.excursion.place_name}
                     price={excursionPlanning.excursion.price}
-                    totalPersons={10}
-                    reservationId={reservationId}
-                    planningId={planningId}
+                    programId={programId}
                   />
                 ))}
               </tbody>

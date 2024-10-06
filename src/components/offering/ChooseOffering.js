@@ -1,63 +1,74 @@
-import React, { useEffect } from "react";
-import { Hotel01Icon } from "hugeicons-react";
-import { useState } from "react";
-import SelectCities from "../util/selectCities";
-import Modal from "../util/modal";
-import CardMap from "../geo/cardMap";
-import { useNavigate } from "react-router-dom";
-import ListExcursionToAdd from "./listExcursionToAdd";
+import React, { useState, useEffect } from "react";
+import TrSuggestedOffering from "./trSuggestedOffering";
 
-export default function FormExcursionPlanning(props) {
-  const { onCancel, programId } = props;
+export default function ChooseOffering(props) {
+  const { offering_typeId, onCancel, programId } = props;
 
-  const [excursions, setExcursions] = useState([]);
-  const [excursionsId, setExcursionsId] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [offerings, setOfferings] = useState([]);
+
+  const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [loadingValidation, setLoadingValidation] = useState(false);
+  const [selectedOffering, setSelectedOffering] = useState(null);
 
-  const fetchExcursions = async () => {
-    setLoading(true);
+  const fetchOfferings = async () => {
     setMessage("");
+    setLoading(true);
     try {
-      const url = `http://localhost:3030/programs/${programId}/close_excursions`;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3030/programs/${programId}/offerings/types/${offering_typeId}/close_offerings`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        setMessage("Failed to fetch excursions");
+        setMessage("Failed to fetch offerings");
         return;
       }
+
       const data = await response.json();
-      setExcursions(data);
+      setOfferings(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching excursions");
+      setMessage("Error fetching offerings");
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchOfferings();
+  }, []);
+
+  const handleOfferingSelect = (offeringId) => {
+    setSelectedOffering(offeringId);
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
+    setLoadingValidation(true);
     setMessage("");
-
     try {
       const response = await fetch(
-        `http://localhost:3030/programs/${programId}/excursions`,
+        `http://localhost:3030/programs/${programId}/offerings`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ excursionsId }),
+          body: JSON.stringify({
+            offeringId: selectedOffering,
+            offering_typeId: offering_typeId,
+          }),
         }
       );
-
       if (!response.ok) {
         if (response.status === 401) {
           setMessage("Problem");
@@ -66,15 +77,13 @@ export default function FormExcursionPlanning(props) {
         }
         return;
       }
-
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoadingValidation(false);
     }
   };
-  useEffect(() => {
-    fetchExcursions();
-  }, []);
 
   return (
     <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
@@ -102,7 +111,7 @@ export default function FormExcursionPlanning(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Excursion
+            Choix de prestations
           </span>
         </div>
         <div
@@ -136,6 +145,7 @@ export default function FormExcursionPlanning(props) {
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
+        <p>Prestations suggerees</p>
         {loading ? (
           <div
             className="spinner-border spinner-border-sm"
@@ -144,22 +154,34 @@ export default function FormExcursionPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : excursions.length > 0 ? (
-          <form
-            id="myForm"
-            autocomplete="off"
-            style={{ marginTop: "-3%" }}
-            onSubmit={handleSave}
-          >
+        ) : offerings.length > 0 ? (
+          <form id="myForm" autocomplete="off" style={{ marginTop: "-3%" }}>
             <table className="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prestataires
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Prix des services
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Distance
+                  </th>
+                </tr>
+              </thead>
               <tbody>
-                {excursions.slice(0, 3).map((excursion) => (
-                  <ListExcursionToAdd
-                    key={excursion.id}
-                    place_name={excursion.place_name}
-                    price={excursion.price}
-                    setExcursionsId={setExcursionsId}
-                    excursionId={excursion.id}
+                {offerings.slice(0, 3).map((offering) => (
+                  <TrSuggestedOffering
+                    id={offering.id}
+                    name={offering.name}
+                    image={offering.image}
+                    average_price={offering.average_price}
+                    distance={offering.distance}
+                    offeringId={offering.id}
+                    selectedOffering={selectedOffering}
+                    onOfferingSelect={handleOfferingSelect}
                   />
                 ))}
               </tbody>
@@ -187,13 +209,23 @@ export default function FormExcursionPlanning(props) {
                   borderRadius: "20px",
                   marginTop: "1%",
                 }}
+                onClick={handleSave}
               >
-                Valider
+                {loadingValidation ? (
+                  <div
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Valider"
+                )}
               </button>
             </div>
           </form>
         ) : (
-          <div>Aucune excursion disponible.</div>
+          <p style={{ marginLeft: "2.5%" }}></p>
         )}
       </div>
     </div>

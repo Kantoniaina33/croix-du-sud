@@ -153,9 +153,9 @@ export default function ListOfferingDetail() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <Return href="/offeringTypes" />
+                <Return href={`/providers/${providerId}/offerings`} />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Liste des chambres</h6>
+                  {/* <h6>Liste des services</h6> */}
                   <div className="w-55">
                     <div className="row">
                       <div className="col"></div>
@@ -261,7 +261,7 @@ export default function ListOfferingDetail() {
                     </div>
                   ) : (
                     <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
-                      Aucune chambre
+                      Aucune offre
                     </p>
                   )}
                 </div>

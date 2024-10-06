@@ -117,10 +117,10 @@ export default function TablePlanning() {
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormProgramPlanning
-                      onCancel={handleCloseModal}
                       circuitId={circuitId}
                       reservationId={reservationId}
                       method="POST"
+                      onCancel={handleCloseModal}
                       onClose={handleNext}
                     />
                   </Modal>

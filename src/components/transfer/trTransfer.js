@@ -35,7 +35,7 @@ export default function TrTransfer(props) {
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
-              <h6 className="mb-0 text-sm">
+              <h6 className="text-uppercase mb-0 text-sm">
                 {departure} - {arrival}
               </h6>
             </div>

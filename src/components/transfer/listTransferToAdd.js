@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-export default function ListExcursionToAdd(props) {
-  const { place_name, price, setExcursionsId, excursionId } = props;
+export default function ListTransferToAdd(props) {
+  const { transfer, price, setTransfersId, transferId } = props;
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleAddExcursion = (e) => {
+  const handleAddTransfer = (e) => {
     e.preventDefault();
     setIsSelected(true);
 
-    setExcursionsId((prevExcursionsId) => {
-      if (excursionId && !prevExcursionsId.includes(excursionId)) {
-        return [...prevExcursionsId, excursionId];
+    setTransfersId((prevTransfersId) => {
+      if (transferId && !prevTransfersId.includes(transferId)) {
+        return [...prevTransfersId, transferId];
       }
-      return prevExcursionsId;
+      return prevTransfersId;
     });
   };
 
@@ -20,20 +20,25 @@ export default function ListExcursionToAdd(props) {
     e.preventDefault();
     setIsSelected(false);
 
-    setExcursionsId((prevExcursionsId) => {
-      return prevExcursionsId.filter((id) => id !== excursionId);
+    setTransfersId((prevTransfersId) => {
+      return prevTransfersId.filter((id) => id !== transferId);
     });
   };
 
   return (
     <tr>
       <td>
-        <div className="d-flex px-3 py-1">
+        <div
+          className="d-flex px-0 py-1"
+          style={{
+            textTransform: "uppercase",
+          }}
+        >
           <div
             className="d-flex flex-column justify-content-center"
             style={{ marginLeft: "3%" }}
           >
-            <h6 className="mb-0 text-sm">{place_name}</h6>
+            <h6 className="mb-0 text-sm">{transfer}</h6>
           </div>
         </div>
       </td>
@@ -62,7 +67,7 @@ export default function ListExcursionToAdd(props) {
           ) : (
             <button
               style={{ backgroundColor: "white", border: "none" }}
-              onClick={handleAddExcursion}
+              onClick={handleAddTransfer}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

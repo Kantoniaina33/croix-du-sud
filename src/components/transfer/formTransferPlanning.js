@@ -1,25 +1,21 @@
 import React, { useEffect } from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
-import SelectCities from "../util/selectCities";
-import Modal from "../util/modal";
-import CardMap from "../geo/cardMap";
-import { useNavigate } from "react-router-dom";
-import ListExcursionToAdd from "./listExcursionToAdd";
+import ListTransferToAdd from "./listTransferToAdd";
 
-export default function FormExcursionPlanning(props) {
+export default function FormTransferPlanning(props) {
   const { onCancel, programId } = props;
 
-  const [excursions, setExcursions] = useState([]);
-  const [excursionsId, setExcursionsId] = useState([]);
+  const [transfers, setTransfers] = useState([]);
+  const [transfersId, setTransfersId] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const fetchExcursions = async () => {
+  const fetchTransfers = async () => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/${programId}/close_excursions`;
+      const url = `http://localhost:3030/transfers`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -29,14 +25,14 @@ export default function FormExcursionPlanning(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch excursions");
+        setMessage("Failed to fetch transfers");
         return;
       }
       const data = await response.json();
-      setExcursions(data);
+      setTransfers(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching excursions");
+      setMessage("Error fetching transfers");
     } finally {
       setLoading(false);
     }
@@ -45,16 +41,16 @@ export default function FormExcursionPlanning(props) {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage("");
-
+    
     try {
       const response = await fetch(
-        `http://localhost:3030/programs/${programId}/excursions`,
+        `http://localhost:3030/programs/${programId}/transfers`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ excursionsId }),
+          body: JSON.stringify({ transfersId }),
         }
       );
 
@@ -66,14 +62,13 @@ export default function FormExcursionPlanning(props) {
         }
         return;
       }
-
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
   };
   useEffect(() => {
-    fetchExcursions();
+    fetchTransfers();
   }, []);
 
   return (
@@ -102,7 +97,7 @@ export default function FormExcursionPlanning(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Excursion
+            Transfert
           </span>
         </div>
         <div
@@ -144,7 +139,7 @@ export default function FormExcursionPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : excursions.length > 0 ? (
+        ) : transfers.length > 0 ? (
           <form
             id="myForm"
             autocomplete="off"
@@ -153,13 +148,13 @@ export default function FormExcursionPlanning(props) {
           >
             <table className="table align-items-center mb-0">
               <tbody>
-                {excursions.slice(0, 3).map((excursion) => (
-                  <ListExcursionToAdd
-                    key={excursion.id}
-                    place_name={excursion.place_name}
-                    price={excursion.price}
-                    setExcursionsId={setExcursionsId}
-                    excursionId={excursion.id}
+                {transfers.slice(0, 3).map((transfer) => (
+                  <ListTransferToAdd
+                    key={transfer.id}
+                    transfer={transfer.departure + " - " + transfer.arrival}
+                    price={transfer.price}
+                    setTransfersId={setTransfersId}
+                    transferId={transfer.id}
                   />
                 ))}
               </tbody>
@@ -193,7 +188,7 @@ export default function FormExcursionPlanning(props) {
             </div>
           </form>
         ) : (
-          <div>Aucune excursion disponible.</div>
+          <div>Aucun tranfert.</div>
         )}
       </div>
     </div>
