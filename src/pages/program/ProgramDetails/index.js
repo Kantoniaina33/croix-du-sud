@@ -10,6 +10,9 @@ import ChooseOffering from "../../../components/offering/ChooseOffering";
 import ChooseOfferingType from "../../../components/offeringType/chooseOfferingType";
 import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
 import ListOfferingPlanning from "../../../components/program/listOfferingPlanning";
+import AddPorter from "../../../components/program/addPorter";
+import AddGuide from "../../../components/program/addGuide";
+import { UserListIcon } from "hugeicons-react";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
@@ -118,15 +121,6 @@ export default function ProgramDetails() {
                     />
                   </Modal>
                 </li>
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    // onClick={handleShowMap}
-                  >
-                    Ajouter ?
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
@@ -159,6 +153,24 @@ export default function ProgramDetails() {
                 ) : (
                   <p>Oups</p>
                 )}
+                <hr className="custom-hr" />
+                <div style={{ margin: "3%" }}>
+                  <h6>
+                    <UserListIcon
+                      style={{ marginBottom: "0.5%" }}
+                      size={20}
+                      variant={"stroke"}
+                    />
+                    <span style={{ marginLeft: "0.5%" }}>
+                      PERSONNELS DE SERVICE
+                    </span>
+                  </h6>
+                  <div style={{marginTop:"2%"}}>
+                    <AddGuide />
+                    <br />
+                    <AddPorter />
+                  </div>
+                </div>
                 <hr className="custom-hr" />
                 <ListOfferingPlanning programId={programId} />
                 <TableExcursionPlanning programId={programId} />

@@ -225,3 +225,21 @@ box-shadow: 0 0 0 2px rgba(65, 78, 153, 0.25);
   background-color: rgb(201, 201, 201);
   height: 20px;
 }
+
+#buttonMinus, #buttonPlus{
+  margin: 0 5px;
+  background-color: white;
+  border: none;
+  color: #273385;
+  margin-top: -50%;
+}
+.addGuide, .addPorter{
+  display: flex;
+  align-items: center;
+}
+
+.addPorter input{
+  margin: 0px 10px; 
+  width: 18px;
+  height: 18px;
+}
