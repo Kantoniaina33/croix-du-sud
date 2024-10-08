@@ -5,8 +5,7 @@ import MyPagination from "../../../components/util/myPagination";
 import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import TrPlanningProgram from "../../../components/program/trProgramCircuit";
-import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
-import FormProgramPlanning from "../../../components/program/formProgramPlanning";
+
 import Return from "../../../components/util/return";
 import { Link, useLocation, useParams } from "react-router-dom";
 import MySearchBar from "../../../components/util/mySearchBar";
@@ -115,22 +114,6 @@ export default function TablePlanning() {
                   >
                     Nouveau planning
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormProgramPlanning
-                      circuitId={circuitId}
-                      reservationId={reservationId}
-                      method="POST"
-                      onCancel={handleCloseModal}
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <FormHotelPlanning
-                      onCancel={handleCloseNextModal}
-                      programPlanning={programPlanning}
-                      method="POST"
-                    />
-                  </Modal>
                 </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />

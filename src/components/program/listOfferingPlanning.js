@@ -33,7 +33,6 @@ export default function ListOfferingPlanning(props) {
 
   useEffect(() => {
     fetchOfferingTypes();
-    console.log(offeringTypes + "holaaaaaaaaa");
   }, []);
 
   return (

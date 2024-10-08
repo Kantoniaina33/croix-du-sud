@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./program.css";
 
-export default function AddGuide() {
+export default function AddGuide(props) {
+  const { programId } = props;
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
@@ -13,9 +16,39 @@ export default function AddGuide() {
       setCount((prevCount) => prevCount - 1);
     }
   };
+  
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setMessage("");
 
-  const handleValidate = () => {
-    alert(`Vous avez sélectionné ${count} guides.`);
+    try {
+      const response = await fetch(
+        `http://localhost:3030/programs/${programId}/staff`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            programId: programId,
+            roleId: "CJUheJUXJwuY6QsKPawo",
+            number: count
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -54,12 +87,9 @@ export default function AddGuide() {
           </svg>
         </button>
       </span>
-      {/* <button
-        onClick={handleValidate}
-        className="btn btn-outline-primary btn-sm mb-0 me-3"
-      >
+      <button id="buttonValidate" onClick={handleSave}>
         Valider
-      </button> */}
+      </button>
     </div>
   );
 }

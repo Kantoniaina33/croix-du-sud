@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ArrowUpDownIcon, BedDoubleIcon, Moon02Icon, SquareArrowDataTransferHorizontalIcon } from "hugeicons-react";
+import {
+  ArrowUpDownIcon,
+  BedDoubleIcon,
+  Moon02Icon,
+  SquareArrowDataTransferHorizontalIcon,
+} from "hugeicons-react";
 import TrTransferPlanning from "./trTransferPlanning";
 import Modal from "../util/modal";
 import FormTransferPlanning from "./formTransferPlanning";
@@ -57,7 +62,7 @@ export default function TableTransferPlanning(props) {
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <h6>
           <SquareArrowDataTransferHorizontalIcon
-          style={{ marginBottom: "3%" }}
+            style={{ marginBottom: "3%" }}
             size={20}
             variant={"stroke"}
           />{" "}

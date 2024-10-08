@@ -74,6 +74,7 @@ export default function OfferingPlanning(props) {
                   marginLeft: "3%",
                 }}
               >
+                {" "}
                 {offering_type}
               </span>
               <button

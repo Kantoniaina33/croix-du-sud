@@ -14,12 +14,7 @@ export default function AddPorter(props) {
         checked={selectedPorter === roleId}
         onChange={() => onPorterSelect(roleId)}
       />
-      {/* <div
-        className="btn btn-outline-primary btn-sm mb-0 me-3"
-        style={{ marginLeft: "3%" }}
-      >
-        <a onClick={"handleShowForm"}>Valider</a>
-      </div> */}
+      <button id="buttonValidate">Valider</button>
     </div>
   );
 }

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import Aside from "../../../components/template/aside";
 import Modal from "../../../components/util/modal";
-import FormProgramPlanning from "../../../components/program/formProgramPlanning";
 import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
 import LogoutButton from "../../../components/util/logoutButton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TrProgramCircuit from "../../../components/program/trProgramCircuit";
 import ReturnLink from "../../../components/util/returnLink";
 
 export default function CircuitPrograms() {
+  const {id} = useParams();
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -101,26 +101,10 @@ export default function CircuitPrograms() {
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
                     target="blank"
-                    onClick={handleShowMap}
+                    href={`/circuits/${id}/programs/new`}
                   >
-                    Nouveau planning
+                    AJOUTER UN PROGRAMME
                   </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormProgramPlanning
-                      onCancel={handleCloseModal}
-                      // circuitId={circuitId}
-                      // reservationId={reservationId}
-                      method="POST"
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <FormHotelPlanning
-                      onCancel={handleCloseNextModal}
-                      programPlanning={programPlanning}
-                      method="POST"
-                    />
-                  </Modal>
                 </li>
                 <li className="nav-item d-flex align-items-center">
                   <LogoutButton />
@@ -133,7 +117,7 @@ export default function CircuitPrograms() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <ReturnLink/>
+                <ReturnLink />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Programmes</h6>
                 </div>
@@ -159,13 +143,7 @@ export default function CircuitPrograms() {
                             Itinéraires
                           </th>
                           <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            KM
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Hotel
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Guide
+                            Price
                           </th>
                           <th className="text-secondary opacity-7"></th>
                           <th className="text-secondary opacity-7"></th>
@@ -177,12 +155,8 @@ export default function CircuitPrograms() {
                           <TrProgramCircuit
                             planningId={"planning.id"}
                             day={"planning.day"}
-                            distance={"planning.program.distance"}
+                            price={1000}
                             itinerary={"planning.program.itinerary"}
-                            hotel={"planning.hotel"}
-                            guide={"planning.number_of_guide"}
-                            // customerId={id}
-                            // reservationId={reservationId}
                           />
                         </>
                         {/* ))} */}

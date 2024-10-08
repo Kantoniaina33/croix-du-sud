@@ -16,6 +16,7 @@ export default function MiniCardProgram(props) {
     selectedProgram,
     onProgramSelect,
   } = props;
+  
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState();
@@ -104,18 +105,18 @@ export default function MiniCardProgram(props) {
             type="radio"
             name="selectedProgram"
             value={programId}
-            checked={selectedProgram === programId}
-            onChange={() => onProgramSelect(programId)}
+            // checked={selectedProgram === programId}
+            // onChange={() => onProgramSelect(programId)}
           />
         </div>
         <div className="card-header">
           <h5 className="card-title">
             <MapsLocation01Icon
-              size={25}
+              size={20}
               color={"#344767"}
               variant={"stroke"}
             />
-            <span style={{ margin: "3px 0 0 5px" }}>
+            <span style={{ margin: "3px 0 0 5px", textTransform:"uppercase", fontSize:"15px" }}>
               {departure} - {arrival}
             </span>
           </h5>

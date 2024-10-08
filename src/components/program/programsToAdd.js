@@ -8,6 +8,7 @@ export default function ProgramsToAdd(props) {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const [programs, setPrograms] = useState([]);
+  const [day, setDay] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -15,6 +16,7 @@ export default function ProgramsToAdd(props) {
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedProgramId, setSelectedProgramId] = useState(null);
 
   const limit = 4;
   const programsPerPage = 4;
@@ -36,7 +38,6 @@ export default function ProgramsToAdd(props) {
     setMessage("");
     try {
       const url = `http://localhost:3030/programs/circuits/${circuitId}?limit=${limit}&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
-      console.log(url);
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -78,6 +79,49 @@ export default function ProgramsToAdd(props) {
     setCurrentPage(pageNumber);
   };
 
+  const handleChange = (e) => {
+    setDay(e.target.value);
+  };
+
+
+  const handleProgramIdSelect = (e) => {
+    const programId = e.target.value;
+    setSelectedProgramId(programId);
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    console.log(Number(day));
+    console.log(selectedProgramId);
+    
+
+    try {
+      const response = await fetch(
+        `http://localhost:3030/circuit/${circuitId}/programs/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ day: Number(day), programId: selectedProgramId}),
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -89,19 +133,26 @@ export default function ProgramsToAdd(props) {
             color: "#273385",
           }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus-circle"
-            viewBox="0 0 16 16"
-            style={{ marginBottom: "0%" }}
-          >
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-          </svg>
-          <h7 style={{ marginLeft: "1%" }}>Choisir un programme</h7>
+          <h7>Choisir un programme</h7>
+        </div>
+      </div>
+      <div style={{ marginLeft: "2%" }}>
+        <div className="row mb-3">
+          <div className="col">
+            <label htmlFor="nom" className="form-label fw-bold">
+              JOUR
+            </label>
+            <input
+              style={{ width: "20%" }}
+              type="number"
+              className="form-control"
+              id="nom"
+              value={day}
+              onChange={handleChange}
+              name="day"
+              required
+            />
+          </div>
         </div>
       </div>
       <div className="card-body px-0 pt-0 pb-2 mt-4">
@@ -130,6 +181,8 @@ export default function ProgramsToAdd(props) {
                     marginBottom: "20px",
                   }}
                   circuitId={circuitId}
+                  selectedProgram={selectedProgramId}
+                  onProgramSelect={handleProgramIdSelect}
                 />
               ))}
             </div>
@@ -140,8 +193,9 @@ export default function ProgramsToAdd(props) {
                 type="submit"
                 className="btn btn-primary"
                 style={{
-                  marginTop: "1%",
+                  margin: "1%",
                 }}
+                onClick={handleSave}
               >
                 {isLoading ? (
                   <div

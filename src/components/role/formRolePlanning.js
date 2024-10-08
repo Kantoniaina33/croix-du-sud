@@ -1,21 +1,25 @@
 import React, { useEffect } from "react";
 import { Hotel01Icon } from "hugeicons-react";
 import { useState } from "react";
-import ListTransferToAdd from "./listTransferToAdd";
+import SelectCities from "../util/selectCities";
+import Modal from "../util/modal";
+import CardMap from "../geo/cardMap";
+import { useNavigate } from "react-router-dom";
+import ListRoleToAdd from "./listRoleToAdd";
 
-export default function FormTransferPlanning(props) {
+export default function FormRolePlanning(props) {
   const { onCancel, programId } = props;
 
-  const [transfers, setTransfers] = useState([]);
-  const [transfersId, setTransfersId] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [rolesData, setRolesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const fetchTransfers = async () => {
+  const fetchRoles = async () => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/transfers`;
+      const url = `http://localhost:3030/roles`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -25,14 +29,14 @@ export default function FormTransferPlanning(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch transfers");
+        setMessage("Failed to fetch roles");
         return;
       }
       const data = await response.json();
-      setTransfers(data);
+      setRoles(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching transfers");
+      setMessage("Error fetching roles");
     } finally {
       setLoading(false);
     }
@@ -42,15 +46,17 @@ export default function FormTransferPlanning(props) {
     e.preventDefault();
     setMessage("");
     
+    console.log(rolesData);
+    
     try {
       const response = await fetch(
-        `http://localhost:3030/programs/${programId}/transfers`,
+        `http://localhost:3030/programs/${programId}/staff`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ transfersId }),
+          body: JSON.stringify({ rolesData }),
         }
       );
 
@@ -62,14 +68,14 @@ export default function FormTransferPlanning(props) {
         }
         return;
       }
+
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
   useEffect(() => {
-    fetchTransfers();
+    fetchRoles();
   }, []);
 
   return (
@@ -98,7 +104,7 @@ export default function FormTransferPlanning(props) {
           <span
             style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
           >
-            Transfert
+            Role
           </span>
         </div>
         <div
@@ -140,7 +146,7 @@ export default function FormTransferPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : transfers.length > 0 ? (
+        ) : roles.length > 0 ? (
           <form
             id="myForm"
             autocomplete="off"
@@ -149,13 +155,12 @@ export default function FormTransferPlanning(props) {
           >
             <table className="table align-items-center mb-0">
               <tbody>
-                {transfers.slice(0, 3).map((transfer) => (
-                  <ListTransferToAdd
-                    key={transfer.id}
-                    transfer={transfer.departure + " - " + transfer.arrival}
-                    price={transfer.price}
-                    setTransfersId={setTransfersId}
-                    transferId={transfer.id}
+                {roles.map((role) => (
+                  <ListRoleToAdd
+                    key={role.id}
+                    roleName={role.name}
+                    setRolesData={setRolesData}
+                    roleId={role.id}
                   />
                 ))}
               </tbody>
@@ -189,7 +194,7 @@ export default function FormTransferPlanning(props) {
             </div>
           </form>
         ) : (
-          <div>Aucun tranfert.</div>
+          <div>Aucune role disponible.</div>
         )}
       </div>
     </div>

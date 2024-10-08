@@ -49,7 +49,7 @@ export default function ChooseProgram() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <Return href="/circuits" />
+                <Return href={`/circuits/${id}/programs`} />
                 <ProgramsToAdd circuitId={id} />
               </div>
             </div>

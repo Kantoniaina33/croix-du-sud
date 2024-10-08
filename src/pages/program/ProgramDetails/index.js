@@ -13,6 +13,7 @@ import ListOfferingPlanning from "../../../components/program/listOfferingPlanni
 import AddPorter from "../../../components/program/addPorter";
 import AddGuide from "../../../components/program/addGuide";
 import { UserListIcon } from "hugeicons-react";
+import TableStaffPlanning from "../../../components/role/tableStaffPlanning";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
@@ -154,23 +155,7 @@ export default function ProgramDetails() {
                   <p>Oups</p>
                 )}
                 <hr className="custom-hr" />
-                <div style={{ margin: "3%" }}>
-                  <h6>
-                    <UserListIcon
-                      style={{ marginBottom: "0.5%" }}
-                      size={20}
-                      variant={"stroke"}
-                    />
-                    <span style={{ marginLeft: "0.5%" }}>
-                      PERSONNELS DE SERVICE
-                    </span>
-                  </h6>
-                  <div style={{marginTop:"2%"}}>
-                    <AddGuide />
-                    <br />
-                    <AddPorter />
-                  </div>
-                </div>
+                <TableStaffPlanning programId={programId} />
                 <hr className="custom-hr" />
                 <ListOfferingPlanning programId={programId} />
                 <TableExcursionPlanning programId={programId} />

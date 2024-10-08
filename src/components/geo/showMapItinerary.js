@@ -109,9 +109,6 @@ function ShowMapItinerary(props) {
         initialCoordinates.arrival,
       ]);
 
-      console.log(initialCoordinates.departure);
-      console.log(initialCoordinates.arrival);
-
       if (markerRef.current.length === 2) {
         calculateRoute(
           markerRef.current[0].getLatLng(),

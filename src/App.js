@@ -111,10 +111,7 @@ function App() {
             path="/circuits/:id/programs/all"
             element={<CircuitPrograms />}
           />
-          <Route
-            path="/programs/:programId"
-            element={<ProgramDetails />}
-          />
+          <Route path="/programs/:programId" element={<ProgramDetails />} />
         </Routes>
       </div>
     </Router>
