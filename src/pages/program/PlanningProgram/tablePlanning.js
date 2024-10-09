@@ -129,9 +129,9 @@ export default function TablePlanning() {
                 <ReturnLink
                   href={`/customers/${id}/reservations`}
                   state={customerInfo}
-                />      
+                />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-                  <h6>Planning itinéraires et hébergement</h6>
+                  <h6>Planning de voyage</h6>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
@@ -158,13 +158,7 @@ export default function TablePlanning() {
                               Itinéraires
                             </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              KM
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Hotel
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Guide
+                              Prix
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
@@ -174,6 +168,7 @@ export default function TablePlanning() {
                           {programPlannings.map((planning) => (
                             <>
                               <TrPlanningProgram
+                                price={1000}
                                 planningId={planning.id}
                                 day={planning.day}
                                 date={planning.formatted_date}

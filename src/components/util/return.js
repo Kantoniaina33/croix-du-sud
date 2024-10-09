@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "./util.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Return(props) {
-  const { href } = props;
+export default function Return() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(-1);
+  };
   return (
     <a
-      href={href}
-      style={{ padding: "1.5% 0% 0% 2.5%", color: "#7580cf" }}
+      onClick={handleClick}
+      style={{ cursor:"pointer", padding: "1.5% 0% 0% 2.5%", color: "#7580cf" }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

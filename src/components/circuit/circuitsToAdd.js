@@ -1,14 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import MiniCardProgram from "./miniCardProgram";
+import MiniCardCircuit from "./miniCardCircuit";
 import MyPaginationFront from "../util/myPaginationFront";
 import { useNavigate } from "react-router-dom";
 
-export default function ProgramsToAdd(props) {
+export default function CircuitsToAdd(props) {
   const { title, circuitId } = props;
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
-  const [programs, setPrograms] = useState([]);
+  const [circuits, setCircuits] = useState([]);
   const [day, setDay] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -17,20 +17,20 @@ export default function ProgramsToAdd(props) {
   const [sort, setSort] = useState("departure");
   const [order, setOrder] = useState("asc");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProgramId, setSelectedProgramId] = useState(null);
+  const [selectedCircuitId, setSelectedCircuitId] = useState(null);
   const navigate = useNavigate();
 
   const limit = 4;
-  const programsPerPage = 4;
+  const circuitsPerPage = 4;
 
-  const indexOfLastProgram = currentPage * programsPerPage;
-  const indexOfFirstProgram = indexOfLastProgram - programsPerPage;
-  const currentPrograms = programs.slice(
-    indexOfFirstProgram,
-    indexOfLastProgram
+  const indexOfLastCircuit = currentPage * circuitsPerPage;
+  const indexOfFirstCircuit = indexOfLastCircuit - circuitsPerPage;
+  const currentCircuits = circuits.slice(
+    indexOfFirstCircuit,
+    indexOfLastCircuit
   );
 
-  const fetchPrograms = async (
+  const fetchCircuits = async (
     sort = "departure",
     order = "asc",
     search = "",
@@ -39,7 +39,7 @@ export default function ProgramsToAdd(props) {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/circuits/${circuitId}?limit=${limit}&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
+      const url = `http://localhost:3030/circuits/circuits/${circuitId}?limit=${limit}&&orderBy=${sort}&&order=${order}&&searchField=${searchField}&&search=${search}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -49,14 +49,14 @@ export default function ProgramsToAdd(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch programs");
+        setMessage("Failed to fetch circuits");
         return;
       }
       const data = await response.json();
-      setPrograms(data.programs);
+      setCircuits(data.circuits);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching programs");
+      setMessage("Error fetching circuits");
     } finally {
       setLoading(false);
     }
@@ -74,7 +74,7 @@ export default function ProgramsToAdd(props) {
   };
 
   useEffect(() => {
-    fetchPrograms(sort, order, search, searchField);
+    fetchCircuits(sort, order, search, searchField);
   }, [sort, order, search, searchField]);
 
   const handlePageChange = (pageNumber) => {
@@ -86,8 +86,8 @@ export default function ProgramsToAdd(props) {
   };
 
 
-  const handleProgramIdSelect = (programId) => {
-    setSelectedProgramId(programId);
+  const handleCircuitIdSelect = (circuitId) => {
+    setSelectedCircuitId(circuitId);
   };
 
   const handleSave = async (e) => {
@@ -95,13 +95,13 @@ export default function ProgramsToAdd(props) {
     setMessage("");
     try {
       const response = await fetch(
-        `http://localhost:3030/circuits/${circuitId}/programs/`,
+        `http://localhost:3030/circuits/${circuitId}/circuits/`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ day: Number(day), programId: selectedProgramId}),
+          body: JSON.stringify({ day: Number(day), circuitId: selectedCircuitId}),
         }
       );
 
@@ -113,7 +113,7 @@ export default function ProgramsToAdd(props) {
         }
         return;
       }
-      navigate(`/circuits/${circuitId}/programs`);
+      navigate(`/circuits/${circuitId}/circuits`);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -130,7 +130,7 @@ export default function ProgramsToAdd(props) {
             color: "#273385",
           }}
         >
-          <h7>Choisir un programme</h7>
+          <h7>Choisir un circuitme</h7>
         </div>
       </div>
       <div style={{ marginLeft: "2%" }}>
@@ -161,32 +161,32 @@ export default function ProgramsToAdd(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : programs.length > 0 ? (
+        ) : circuits.length > 0 ? (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0px" }}>
-              {currentPrograms.map((program) => (
-                <MiniCardProgram
-                  key={program.id}
-                  programId={program.id}
-                  departure={program.departure}
-                  arrival={program.arrival}
-                  distance={program.distance}
-                  duration={program.duration}
+              {currentCircuits.map((circuit) => (
+                <MiniCardCircuit
+                  key={circuit.id}
+                  circuitId={circuit.id}
+                  departure={circuit.departure}
+                  arrival={circuit.arrival}
+                  distance={circuit.distance}
+                  duration={circuit.duration}
                   style={{
                     flex: "1 1 calc(25% - 10px)",
                     boxSizing: "border-box",
                     marginBottom: "20px",
                   }}
-                  circuitId={circuitId}
-                  selectedProgram={selectedProgramId}
-                  onProgramSelect={handleProgramIdSelect}
+                  // circuitId={circuitId}
+                  selectedCircuit={selectedCircuitId}
+                  onCircuitSelect={handleCircuitIdSelect}
                 />
               ))}
             </div>
             <div className="d-flex justify-content-between align-items-center p-3">
               <p></p>
               <a
-                href={`/circuits/${circuitId}/programs/configuration`}
+                href={`/circuits/${circuitId}/circuits/configuration`}
                 type="submit"
                 className="btn btn-primary"
                 style={{
@@ -207,10 +207,10 @@ export default function ProgramsToAdd(props) {
               </a>
             </div>
             {/* <div style={{ margin: "2% 0 0 40%" }}>
-              {programs.length > programsPerPage && (
+              {circuits.length > circuitsPerPage && (
                 <MyPaginationFront
-                  totalPrograms={programs.length}
-                  programsPerPage={programsPerPage}
+                  totalCircuits={circuits.length}
+                  circuitsPerPage={circuitsPerPage}
                   currentPage={currentPage}
                   onPageChange={handlePageChange}
                 />
@@ -219,7 +219,7 @@ export default function ProgramsToAdd(props) {
           </>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "14px" }}>
-            Aucun programme à choisir
+            Aucun circuitme à choisir
           </p>
         )}
       </div>

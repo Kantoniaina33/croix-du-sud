@@ -73,6 +73,11 @@ function App() {
             path="customers/:id/reservations/:reservationId/planning"
             element={<TablePlanning />}
           />
+          {/* Test */}
+          <Route
+            path="customers/reservations/planning"
+            element={<TablePlanning />}
+          />
           <Route
             path="customers/:id/reservations/:reservationId/planning/:planningId/details"
             element={<PlanningDetails />}

@@ -4,15 +4,92 @@ import TrMealPlanning from "../../components/meal/trMealPlanning";
 import { Coffee02Icon } from "hugeicons-react";
 import ListExcursionToAdd from "../../components/excursion/listExcursionToAdd";
 import TrExcursionPlanning from "../../components/excursion/trExcursionPlanning";
+import Return from "../../components/util/return";
+import Aside from "../../components/template/aside";
+import Header from "../../components/template/header";
+
 
 function Home() {
   return (
-    <div className="card card-plain mt-1">
-      {/* <TrMealPlanning icon={Coffee02Icon} meal={"Meal"} price={1000} /> */}
-      <TrExcursionPlanning
-        place_name={"excursion.place_name"}
-        price={"excursion.price"}
-      />
+    <div>
+      <Aside />
+      <main
+        id="listCircuit"
+        className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+      >
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+          rel="stylesheet"
+        />
+        <Header />
+        <div className="container-fluid py-4">
+          <div className="row">
+            <div className="col-12">
+              <div className="card mb-4">
+                <Return />
+                <>
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />
+                  <TrExcursionPlanning
+                    place_name={"excursion.place_name"}
+                    price={"excursion.price"}
+                  />{" "}
+                </>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

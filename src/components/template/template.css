@@ -21,3 +21,46 @@
 .nav-item .nav-link:active .icon {
     background-color: #0056b3;
 }
+
+.sidebarIcon{
+    margin-left: 15%;
+    color:grey;
+}
+
+/*  */
+
+/* Sidebar ouverte */
+.sidebar-open {
+  width: 250px;
+  transition: width 0.3s ease;
+   background-color:white; 
+  z-Index: 1;
+}
+
+/* Sidebar fermée */
+#sidebar-closed {
+  /* width: 80px;
+  transition: width 0.3s ease; */
+  overflow: hidden;
+  width: 70px;
+  background-color:red; 
+  padding: -2%;
+  z-Index: 1;
+}
+
+#sidebar-close #sidebarIcons{
+    background-color: blue;
+}
+
+/* Ajuste le contenu en fonction de l'état de la sidebar */
+/* .sidenav .nav-link-text {
+  display: inline-block;
+}
+
+.sidebar-closed .nav-link-text {
+  display: none;
+}
+
+.sidebarIcon {
+  cursor: pointer;
+} */

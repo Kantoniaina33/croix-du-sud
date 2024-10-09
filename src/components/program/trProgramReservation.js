@@ -35,6 +35,9 @@ export default function TrProgramCircuit(props) {
           </div>
         </td>
         <td>
+          <p className="text-sm font-weight-bold mb-0">{"jeu. 29/12/24"}</p>
+        </td>
+        <td>
           <p className="text-sm font-weight-bold mb-0">{itinerary}</p>
         </td>
         <td>

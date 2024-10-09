@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import "./program.css";
+import "./circuit.css";
 import { Delete02Icon, Edit02Icon, MapsLocation01Icon } from "hugeicons-react";
-import FormProgram from "./formProgram";
-import AlertDelete from "../util/alertDelete";
-
-export default function MiniCardProgram(props) {
+export default function MiniCardCircuit(props) {
   const {
-    programId,
-    departure,
-    arrival,
-    distance,
-    duration,
-    icon,
     circuitId,
-    selectedProgram,
-    onProgramSelect,
+    name,
+    price,
+    selectedCircuit,
+    onCircuitSelect,
   } = props;
   
   const [show, setShow] = useState(false);
@@ -34,7 +27,7 @@ export default function MiniCardProgram(props) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ programId }),
+          // body: JSON.stringify({ circuitId }),
         }
       );
 
@@ -58,11 +51,11 @@ export default function MiniCardProgram(props) {
     setMessage("");
 
     try {
-      const url = `http://localhost:3030/circuits/${circuitId}/programs/${programId}`;
+      const url = `http://localhost:3030/circuits/${circuitId}/programs}`;
       console.log(url);
 
       const response = await fetch(
-        `http://localhost:3030/circuits/${circuitId}/programs/${programId}`,
+        `http://localhost:3030/circuits/${circuitId}/programs/`,
         {
           method: "DELETE",
           headers: {
@@ -90,9 +83,6 @@ export default function MiniCardProgram(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const durationHours = Math.floor(distance / 60);
-  const roundedDistance = Math.floor(distance);
-
   return (
     <div className="card-horizontal mb-3" id="mini_programs">
       <link
@@ -103,10 +93,10 @@ export default function MiniCardProgram(props) {
         <div className="radio">
           <input
             type="radio"
-            name="selectedProgram"
-            value={programId}
-            checked={selectedProgram === programId}
-            onChange={() => onProgramSelect(programId)}
+            name="selectedCircuit"
+            value={circuitId}
+            checked={selectedCircuit === circuitId}
+            onChange={() => onCircuitSelect(circuitId)}
           />
         </div>
         <div className="card-header">
@@ -123,7 +113,7 @@ export default function MiniCardProgram(props) {
                 fontSize: "15px",
               }}
             >
-              {departure} - {arrival}
+              {name}
             </span>
           </h5>
           <div
@@ -139,7 +129,7 @@ export default function MiniCardProgram(props) {
         </div>
         <div className="card-content">
           <div className="card-description">
-            {roundedDistance} Km | {durationHours} h
+            {price} Ar
           </div>
         </div>
       </div>

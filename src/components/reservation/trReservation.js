@@ -47,16 +47,17 @@ export default function TrReservation(props) {
         <p className="text-sm font-weight-bold mb-0">{circuit}</p>
       </td>
       <td>
-        <p className="text-sm font-weight-bold mb-0">
+        {/* <p className="text-sm font-weight-bold mb-0"> */}
           <Link
             to={`/customers/${customerId}/reservations/${reservationId}/planning`}
-            state={{customerInfo, circuitId}}
+            // to={`/customers/reservations/planning`}
+            state={{ customerInfo, circuitId }}
             style={{ textDecoration: "underline" }}
           >
             Planning
             <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
           </Link>
-        </p>
+        {/* </p> */}
       </td>
       {/* <td className="align-middle text-center">
         <span className="text-secondary text-xs font-weight-bold">

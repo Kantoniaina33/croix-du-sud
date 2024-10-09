@@ -7,6 +7,7 @@ import LogoutButton from "../../../components/util/logoutButton";
 import { Link, useParams } from "react-router-dom";
 import TrProgramCircuit from "../../../components/program/trProgramCircuit";
 import ReturnLink from "../../../components/util/returnLink";
+import Return from "../../../components/util/return";
 
 export default function CircuitPrograms() {
   const {id} = useParams();
@@ -16,49 +17,38 @@ export default function CircuitPrograms() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
-  const [programPlanning, setProgramPlanning] = useState(null);
-  const [programPlannings, setProgramPlannings] = useState([]);
+  const [circuitPrograms, setCircuitPrograms] = useState([]);
 
-  const fetchProgramPlannings = async () => {
-    // setLoading(true);
-    // setMessage("");
-    // try {
-    //   const url = `http://localhost:3030/reservations/${reservationId}/program_plannings`;
-    //   console.log(url);
-    //   const response = await fetch(url, {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //     },
-    //   });
-    //   if (!response.ok) {
-    //     setMessage("Failed to fetch plannings");
-    //     return;
-    //   }
-    //   const data = await response.json();
-    //   setProgramPlannings(data);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   setMessage("Error fetching plannings");
-    // } finally {
-    //   setLoading(false);
-    // }
+  const fetchCircuitProgram = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const url = `http://localhost:3030/circuits/${id}/programs`;
+      console.log(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (!response.ok) {
+        setMessage("Failed to fetch plannings");
+        return;
+      }
+      const data = await response.json();
+      setCircuitPrograms(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("Error fetching plannings");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchProgramPlannings();
+    fetchCircuitProgram();
   }, []);
-
-  const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowMap = () => setIsMapModalOpen(true);
-  const handleCloseNextModal = () => setIsNextModalOpen(false);
-
-  const handleNext = (programPlanning) => {
-    setProgramPlanning(programPlanning);
-    setIsMapModalOpen(false);
-    setIsNextModalOpen(true);
-  };
 
   return (
     <div>
@@ -117,13 +107,13 @@ export default function CircuitPrograms() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <ReturnLink />
+                <Return />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Programmes</h6>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
-                  {/* {loading ? (
+                  {loading ? (
                     <div
                       className="spinner-border spinner-border-sm"
                       role="status"
@@ -131,43 +121,47 @@ export default function CircuitPrograms() {
                     >
                       <span className="visually-hidden">Loading...</span>
                     </div>
-                  ) : programPlannings.length > 0 ? ( */}
-                  <div className="table-responsive p-0">
-                    <table className="table align-items-center mb-0">
-                      <thead>
-                        <tr>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Jour
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Itinéraires
-                          </th>
-                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                            Price
-                          </th>
-                          <th className="text-secondary opacity-7"></th>
-                          <th className="text-secondary opacity-7"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {/* {programPlannings.map((planning) => ( */}
-                        <>
-                          <TrProgramCircuit
-                            planningId={"planning.id"}
-                            day={"planning.day"}
-                            price={1000}
-                            itinerary={"planning.program.itinerary"}
-                          />
-                        </>
-                        {/* ))} */}
-                      </tbody>
-                    </table>
-                  </div>
-                  {/* ) : (
+                  ) : circuitPrograms.length > 0 ? (
+                    <div className="table-responsive p-0">
+                      <table className="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Jour
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Itinéraires
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Prix
+                            </th>
+                            <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {circuitPrograms.map((circuitProgram) => (
+                            <>
+                              <TrProgramCircuit
+                                day={circuitProgram.program_day}
+                                price={1000}
+                                itinerary={
+                                  circuitProgram.program.departure +
+                                  " - " +
+                                  circuitProgram.program.arrival
+                                }
+                                programId={circuitProgram.programId}
+                              />
+                            </>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
                     <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
                       Aucun programme
                     </p>
-                  )} */}
+                  )}
                 </div>
               </div>
             </div>

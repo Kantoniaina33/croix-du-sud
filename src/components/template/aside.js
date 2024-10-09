@@ -2,8 +2,12 @@ import { Hotel01Icon, Tree06Icon } from "hugeicons-react";
 import React, { useEffect, useState } from "react";
 import "./template.css";
 
-export default function Aside(props) {
+export default function Aside() {
   const [agency, setAgency] = useState([]);
+  const [isOpen, setIsOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   const fetchAgency = async () => {
     try {
@@ -50,18 +54,31 @@ export default function Aside(props) {
           aria-hidden="true"
           id="iconSidenav"
         ></i>
-        <a
-          className="navbar-brand m-0"
-          href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html "
-          target="_blank"
-        >
+        <div className="navbar-brand m-0" target="_blank">
           <img
             src={agency.image}
             style={{ objectFit: "cover", width: "40px", height: "55px" }}
             alt="logo"
           />
-          <span className="ms-1 font-weight-bold">{agency.name}</span>
-        </a>
+          <a href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html ">
+            <span className="ms-1 font-weight-bold">{agency.name}</span>
+          </a>
+          <span className="sidebarIcon">
+            <a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="25"
+                fill="currentColor"
+                class="bi bi-layout-sidebar-inset-reverse"
+                viewBox="0 0 16 16"
+              >
+                <path d="M2 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
+                <path d="M13 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" />
+              </svg>
+            </a>
+          </span>
+        </div>
       </div>
       <hr className="horizontal dark mt-0" />
       <div>

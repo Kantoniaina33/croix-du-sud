@@ -3,15 +3,15 @@ import TrCircuit from "../../../components/circuit/trCircuit";
 import "../../../assets/css/soft-ui-dashboard.min.css";
 import "./style.css";
 import Aside from "../../../components/template/aside";
-import ProgramsCircuit from "../../../components/circuit/programsCircuit";
-import ProgramsToAdd from "../../../components/program/programsToAdd";
+import CircuitsCircuit from "../../../components/circuit/programsCircuit";
+import CircuitsToAdd from "../../../components/program/programsToAdd";
 import Modal from "../../../components/util/modal";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
 
-export default function ChooseProgram() {
+export default function ChooseCircuit() {
   const { id } = useParams();
   return (
     <div>
@@ -39,7 +39,7 @@ export default function ChooseProgram() {
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Programmes
+                  Circuitmes
                 </li>
               </ol>
             </nav>
@@ -50,7 +50,7 @@ export default function ChooseProgram() {
             <div className="col-12">
               <div className="card mb-4">
                 <Return />
-                <ProgramsToAdd circuitId={id} />
+                <CircuitsToAdd circuitId={id} />
               </div>
             </div>
           </div>
