@@ -161,8 +161,8 @@ export default function ListExcursion() {
           className="card-body px-0 pt-0 pb-2"
           style={{
             backgroundColor: "white",
-            width: "90%",
-            margin: "2% 0 0 4%",
+            width: "96%",
+            margin: "2% 0 0 2%",
             borderRadius: "10px",
           }}
         >

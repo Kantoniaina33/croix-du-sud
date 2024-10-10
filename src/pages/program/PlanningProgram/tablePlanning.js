@@ -4,12 +4,12 @@ import Aside from "../../../components/template/aside";
 import MyPagination from "../../../components/util/myPagination";
 import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
-import TrPlanningProgram from "../../../components/program/trProgramCircuit";
 
 import Return from "../../../components/util/return";
 import { Link, useLocation, useParams } from "react-router-dom";
 import MySearchBar from "../../../components/util/mySearchBar";
 import ReturnLink from "../../../components/util/returnLink";
+import TrPlanningProgram from "../../../components/program/trPlanningProgram";
 
 export default function TablePlanning() {
   const location = useLocation();
@@ -31,8 +31,6 @@ export default function TablePlanning() {
     setMessage("");
     try {
       const url = `http://localhost:3030/reservations/${reservationId}/program_plannings`;
-      console.log(url);
-
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -162,21 +160,22 @@ export default function TablePlanning() {
                             </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
+                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {programPlannings.map((planning) => (
+                          {programPlannings.map((programPlanning) => (
                             <>
                               <TrPlanningProgram
                                 price={1000}
-                                planningId={planning.id}
-                                day={planning.day}
-                                date={planning.formatted_date}
-                                distance={planning.program.distance}
-                                itinerary={planning.program.itinerary}
-                                hotel={planning.hotel}
-                                guide={planning.number_of_guide}
-                                customerId={id}
+                                day={programPlanning.program_day}
+                                programId={programPlanning.program.id}
+                                date={programPlanning.formatted_date}
+                                itinerary={
+                                  programPlanning.program.departure +
+                                  " - " +
+                                  programPlanning.program.arrival
+                                }
                                 reservationId={reservationId}
                               />
                             </>
@@ -186,7 +185,7 @@ export default function TablePlanning() {
                     </div>
                   ) : (
                     <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>
-                      Aucun planning
+                      Aucun programPlanning
                     </p>
                   )}
                 </div>

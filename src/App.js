@@ -35,6 +35,7 @@ import SheetProviderPage from "./pages/provider/ListProvider/sheetProviderPage";
 import ListOffering from "./pages/provider/ListOffering";
 import ListOfferingDetail from "./pages/offering/ListOfferingDetail";
 import ListTransfer from "./pages/transfer/ListTransfer";
+import ChooseCircuit from "./pages/reservation/NewReservation/chooseCircuit";
 
 function App() {
   return (
@@ -73,10 +74,9 @@ function App() {
             path="customers/:id/reservations/:reservationId/planning"
             element={<TablePlanning />}
           />
-          {/* Test */}
           <Route
-            path="customers/reservations/planning"
-            element={<TablePlanning />}
+            path="customers/:id/reservation/circuit"
+            element={<ChooseCircuit />}
           />
           <Route
             path="customers/:id/reservations/:reservationId/planning/:planningId/details"
@@ -92,7 +92,7 @@ function App() {
           <Route path="/customers" element={<ListCustomer />} />
           <Route path="/customers/register" element={<Register />} />
           <Route
-            path="/customers/:id/reservation"
+            path="/customers/:id/reservation/informations"
             element={<NewReservation />}
           />
           <Route

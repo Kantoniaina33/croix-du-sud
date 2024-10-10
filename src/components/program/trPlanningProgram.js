@@ -3,6 +3,7 @@ import {
   Delete02Icon,
   DollarCircleIcon,
   Edit02Icon,
+  LinkSquare02Icon,
   Location01Icon,
 } from "hugeicons-react";
 import { useState } from "react";
@@ -11,18 +12,8 @@ import Modal from "../util/modal";
 import { useNavigate } from "react-router-dom";
 
 export default function TrPlanningProgram(props) {
-  const {
-    day,
-    date,
-    itinerary,
-    distance,
-    hotel,
-    guide,
-    customerId,
-    reservationId,
-    planningId,
-  } = props;
-  const roundedDistance = Math.floor(distance);
+  const { day, date, itinerary, customerId, reservationId, planningId, price, programId } =
+    props;
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const handleAlert = () => setAlert(true);
@@ -35,7 +26,7 @@ export default function TrPlanningProgram(props) {
 
   return (
     <>
-      <tr onClick={handleOnClick} style={{ cursor: "pointer" }}>
+      <tr style={{ cursor: "pointer" }}>
         <td>
           <div className="d-flex px-2 py-1">
             <div
@@ -53,13 +44,15 @@ export default function TrPlanningProgram(props) {
           <p className="text-sm font-weight-bold mb-0">{itinerary}</p>
         </td>
         <td>
-          <p className="text-sm font-weight-bold mb-0">{roundedDistance}</p>
+          <p className="text-sm font-weight-bold mb-0">{price}</p>
         </td>
         <td>
-          <p className="text-sm font-weight-bold mb-0">{hotel}</p>
-        </td>
-        <td>
-          <p className="text-sm font-weight-bold mb-0">{guide}</p>
+          <span className="text-xs">
+            <a href={`/programs/${programId}`}>
+              <span style={{ textDecoration: "underline" }}>Details</span>
+              <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
+            </a>
+          </span>
         </td>
         <td className="align-middle text-center">
           <button

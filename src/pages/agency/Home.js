@@ -13,7 +13,7 @@ function Home() {
   return (
     <div>
       <Aside />
-      <main
+      {/* <main
         id="listCircuit"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
@@ -89,7 +89,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </main>
+      </main> */}
     </div>
   );
 }

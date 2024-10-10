@@ -8,6 +8,11 @@ export default function Aside() {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
   const fetchAgency = async () => {
     try {
@@ -89,13 +94,33 @@ export default function Aside() {
               className={`nav-link ${
                 window.location.pathname === "/providers" ? "active" : ""
               }`}
-              href="/providers"
+              href="#!"
+              onClick={toggleDropdown} // Toggle le dropdown au clic
             >
               <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <Hotel01Icon size={50} color={"#000000"} variant={"stroke"} />
               </div>
               <span className="nav-link-text ms-1">Prestataires</span>
             </a>
+            {dropdownVisible && (
+              <ul className="dropdown-menu custom-dropdown">
+                <li>
+                  <a href="/bootstrap-icons" className="dropdown-item">
+                    Bootstrap Icons
+                  </a>
+                </li>
+                <li>
+                  <a href="/remix-icons" className="dropdown-item">
+                    Remix Icons
+                  </a>
+                </li>
+                <li>
+                  <a href="/boxicons" className="dropdown-item">
+                    Boxicons
+                  </a>
+                </li>
+              </ul>
+            )}
           </li>
           <li className="nav-item">
             <a

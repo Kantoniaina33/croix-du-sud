@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import TrCircuit from "../../../components/circuit/trCircuit";
 import "../../../assets/css/soft-ui-dashboard.min.css";
-import "./style.css";
 import Aside from "../../../components/template/aside";
 import CircuitsCircuit from "../../../components/circuit/programsCircuit";
-import CircuitsToAdd from "../../../components/program/programsToAdd";
 import Modal from "../../../components/util/modal";
 import { useParams } from "react-router-dom";
 import Return from "../../../components/util/return";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
+import CircuitsToAdd from "../../../components/circuit/circuitsToAdd";
 
 export default function ChooseCircuit() {
   const { id } = useParams();
@@ -50,7 +49,7 @@ export default function ChooseCircuit() {
             <div className="col-12">
               <div className="card mb-4">
                 <Return />
-                <CircuitsToAdd circuitId={id} />
+                <CircuitsToAdd />
               </div>
             </div>
           </div>

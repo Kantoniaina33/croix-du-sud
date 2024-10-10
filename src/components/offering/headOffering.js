@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StarIcon,
-  Call02Icon,
-  Mail01Icon,
-} from "hugeicons-react";
+import { StarIcon, Call02Icon, Mail01Icon } from "hugeicons-react";
 import { useParams } from "react-router-dom";
 
 export default function HeadOffering(props) {
@@ -30,10 +26,9 @@ export default function HeadOffering(props) {
   };
   useEffect(() => {
     fetchOffering();
-    console.log((offering));
-    
+    console.log(offering);
   }, []);
-  
+
   return (
     <div className="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
       <div className="row gx-4">
@@ -53,7 +48,9 @@ export default function HeadOffering(props) {
           </div>
         </div>
         <div className="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-          <div className="nav-wrapper position-relative end-0">
+          <div
+            className="nav-wrapper position-relative end-0"
+          >
             <ul
               className="nav nav-pills nav-fill p-1 bg-transparent"
               role="tablist"

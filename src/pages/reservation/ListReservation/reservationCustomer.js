@@ -137,7 +137,7 @@ export default function ReservationCustomer() {
                 <li className="nav-item d-flex align-items-center">
                   <a
                     className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    href="/reservations/register"
+                    href={`/customers/${id}/reservation/circuit`}
                   >
                     Nouvelle reservation
                   </a>

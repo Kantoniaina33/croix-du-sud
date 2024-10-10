@@ -6,18 +6,16 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function FormReservation(props) {
   const {
-    title,
     method,
     budget,
     startDate,
     duration,
-    customerId,
     circuitId,
     reservationId,
+    customerId,
     onCancel,
   } = props;
 
-  const { id } = useParams(); //customerId
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +25,7 @@ export default function FormReservation(props) {
     budget: budget,
     startDate: startDate,
     duration: duration,
-    customerId: id,
+    customerId: customerId,
     circuitId: circuitId,
   });
 
@@ -42,7 +40,7 @@ export default function FormReservation(props) {
   const fetchCustomer = async () => {
     setMessage("");
     try {
-      const url = `http://localhost:3030/customers/${id}`;
+      const url = `http://localhost:3030/customers/${customerId}`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -98,7 +96,7 @@ export default function FormReservation(props) {
       }
       const data = await response.json();
       const reservation = data.reservation;
-      navigate(`/customers`);
+      // navigate(`/customers`);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -146,14 +144,6 @@ export default function FormReservation(props) {
         </p>
         <form id="myForm" autocomplete="off" style={{ marginTop: "0%" }}>
           <div className="row mb-3">
-            <div className="col">
-              <label className="form-label fw-bold">Circuit</label>
-              <SelectCircuits
-                value={formValues.circuitId}
-                onChange={handleChange}
-                name="circuitId"
-              />
-            </div>
             <div className="col">
               <label className="form-label fw-bold">Date du voyage</label>
               <input

@@ -1,0 +1,90 @@
+/* Style général pour l'item de navigation */
+.nav-item .nav-link {
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  padding: 10px 15px;
+  background-color: #f8f9fc;
+  border-radius: 8px;
+}
+
+.nav-item .nav-link:hover {
+  transform: scale(1.01);
+  background-color: #e2e6ea;
+  color: #4e73df;
+}
+
+.nav-item .nav-link:active {
+  transform: scale(0.95);
+}
+
+.nav-item .nav-link:active .icon {
+  background-color: #0056b3;
+}
+
+.sidebarIcon {
+  margin-left: 15%;
+  color: grey;
+}
+
+/* Style pour le lien de la nav */
+.nav-item {
+  list-style: none;
+  margin-bottom: 1rem;
+  position: relative;
+  /* Permet de positionner correctement le dropdown */
+}
+
+.nav-link:hover .icon {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour le dropdown */
+.custom-dropdown {
+  padding: 0.5rem 0;
+  /* position: absolute; */
+  z-index: 1000;
+  margin-top: 10px;
+  list-style: none;
+  width: 200px;
+  font-size: 14px;
+  margin-left: 15%;
+  position: relative;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  /* Ajoutez ce wrapper */
+}
+
+.custom-dropdown .dropdown-item {
+  position: relative;
+  padding-left: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.custom-dropdown .dropdown-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background-color: rgba(78, 115, 223, 0.1);
+  color: #4e73df;
+}
+
+.nav-link .fas {
+  font-size: 12px;
+  margin-left: auto;
+}
