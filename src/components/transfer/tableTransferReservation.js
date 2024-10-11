@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
-import FormRolePlanning from "./formRolePlanning";
-import TrRolePlanning from "./trRolePlanning";
-import Modal from "../util/modal";
-import { UserListIcon } from "hugeicons-react";
+import { useParams } from "react-router-dom";
+import {
+  SquareArrowDataTransferHorizontalIcon,
+} from "hugeicons-react";
+import TrTransferReservation from "./trTransferReservation";
 
-export default function TableStaffPlanning(props) {
-  const { programId} = props;
+export default function TableTransferReservation(props) {
+  const { programId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-  const handleCloseModal = () => setIsMapModalOpen(false);
-  const handleShowForm = () => setIsMapModalOpen(true);
-  const [programStaff, setProgramStaff] = useState([]);
+  const [transfers, setTransfers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const fetchProgramStaff = async () => {
+  const fetchTransfers = async () => {
     setLoading(true);
     setMessage("");
     try {
-      const url = `http://localhost:3030/programs/${programId}/staff`;
+      const url = `http://localhost:3030/programs/${programId}/transfers`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -28,24 +27,24 @@ export default function TableStaffPlanning(props) {
       });
 
       if (!response.ok) {
-        setMessage("Failed to fetch programStaff");
+        setMessage("Failed to fetch transfers");
         return;
       }
       const data = await response.json();
-      setProgramStaff(data);
+      setTransfers(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching programStaff");
+      setMessage("Error fetching transfers");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProgramStaff();
-    console.log(programStaff+ " jjjjjjjjjjjj");
-    
+    fetchTransfers();
   }, []);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+  const handleShowForm = () => setIsMapModalOpen(true);
 
   return (
     <div
@@ -53,27 +52,17 @@ export default function TableStaffPlanning(props) {
       style={{
         backgroundColor: "white",
         borderRadius: "10px",
-        marginTop: "-2%",
       }}
     >
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <h6>
-          <UserListIcon
-            style={{ marginBottom: "0.5%" }}
+          <SquareArrowDataTransferHorizontalIcon
+            style={{ marginBottom: "3%" }}
             size={20}
             variant={"stroke"}
-          />
-          <span style={{ marginLeft: "1%" }}>PERSONNELS DE SERVICE</span>
+          />{" "}
+          TRANSFERTS
         </h6>
-        <div
-          className="btn btn-outline-primary btn-sm mb-0 me-3"
-          style={{ marginLeft: "3%" }}
-        >
-          <a onClick={handleShowForm}>Ajouter</a>
-        </div>
-        <Modal isOpen={isMapModalOpen}>
-          <FormRolePlanning onCancel={handleCloseModal} programId={programId} />
-        </Modal>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
         {loading ? (
@@ -84,42 +73,36 @@ export default function TableStaffPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : programStaff.length > 0 ? (
+        ) : transfers.length > 0 ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
                 <tr>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Role
+                    Transfert
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Nombre
+                    Prix
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Tarif
+                    Prix par personne
                   </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Total
-                  </th>
-                  <th className="text-secondary opacity-7"></th>
-                  <th className="text-secondary opacity-7"></th>
                 </tr>
               </thead>
               <tbody>
-                {programStaff.map((programStaff) => (
-                  <TrRolePlanning
-                    roleId={programStaff.role.id}
-                    roleName={programStaff.role.name}
-                    number={programStaff.number}
-                    price={programStaff.role.hourlyWage}
-                    programId={programId}
+                {transfers.map((transfer) => (
+                  <TrTransferReservation
+                    departure={transfer.transfer.departure}
+                    arrival={transfer.transfer.arrival}
+                    price={transfer.transfer.price}
+                    totalPersons={5}
                   />
                 ))}
               </tbody>
             </table>
           </div>
         ) : (
-          <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>Aucun role.</p>
+          <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>
         )}
       </div>
     </div>

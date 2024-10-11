@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import OfferingReservation from "../offering/offeringReservation";
+import OfferingPlanning from "../offering/offeringPlanning";
 
 export default function ListOfferingReservation(props) {
   const { programId } = props;
@@ -48,7 +48,7 @@ export default function ListOfferingReservation(props) {
       ) : offeringTypes.length > 0 ? (
         offeringTypes.map((offeringType) => (
           <>
-            <OfferingReservation
+            <OfferingPlanning
               offering_type={offeringType.name}
               programId={programId}
               offering_typeId={offeringType.id}

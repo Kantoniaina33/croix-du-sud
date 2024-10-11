@@ -36,6 +36,7 @@ import ListOffering from "./pages/provider/ListOffering";
 import ListOfferingDetail from "./pages/offering/ListOfferingDetail";
 import ListTransfer from "./pages/transfer/ListTransfer";
 import ChooseCircuit from "./pages/reservation/NewReservation/chooseCircuit";
+import ProgramDetailReservation from "./pages/program/ProgramDetails/programDetailReservation";
 
 function App() {
   return (
@@ -117,6 +118,7 @@ function App() {
             element={<CircuitPrograms />}
           />
           <Route path="/programs/:programId" element={<ProgramDetails />} />
+          <Route path="/reservations/programs/:programId/" element={<ProgramDetailReservation />} />
         </Routes>
       </div>
     </Router>

@@ -19,6 +19,7 @@ export default function TablePlanning() {
   const { id, reservationId } = useParams(); //id : customerId
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
+  const [showButton, setShowButton] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -58,6 +59,7 @@ export default function TablePlanning() {
   }, []);
 
   const handleCloseModal = () => setIsMapModalOpen(false);
+  const handlePersonnalize = () => setShowButton(!showButton);
   const handleShowMap = () => setIsMapModalOpen(true);
   const handleCloseNextModal = () => setIsNextModalOpen(false);
 
@@ -130,6 +132,13 @@ export default function TablePlanning() {
                 />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Planning de voyage</h6>
+                  <a
+                    style={{ cursor: "pointer" }}
+                    className="btn btn-outline-primary btn-sm mb-0 me-3"
+                    onClick={handlePersonnalize}
+                  >
+                    {showButton ? "Enregistrer" : "Personnaliser"}
+                  </a>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
@@ -167,9 +176,11 @@ export default function TablePlanning() {
                           {programPlannings.map((programPlanning) => (
                             <>
                               <TrPlanningProgram
+                                showButton={showButton}
                                 price={1000}
                                 day={programPlanning.program_day}
-                                programId={programPlanning.program.id}
+                                programId={programPlanning.programId}
+                                included={programPlanning.included}
                                 date={programPlanning.formatted_date}
                                 itinerary={
                                   programPlanning.program.departure +
@@ -177,6 +188,7 @@ export default function TablePlanning() {
                                   programPlanning.program.arrival
                                 }
                                 reservationId={reservationId}
+                                id={programPlanning.id}
                               />
                             </>
                           ))}

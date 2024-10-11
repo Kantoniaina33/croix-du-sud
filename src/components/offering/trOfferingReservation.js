@@ -7,7 +7,7 @@ import Modal from "../util/modal";
 import FormProvider from "../provider/formProvider";
 import { Link } from "react-router-dom";
 
-export default function TrOfferingPlanning(props) {
+export default function TrOfferingReservation(props) {
   const {
     providerId,
     logo,

@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import TrOffering from "./trOffering";
 import Modal from "../util/modal";
 import AlertDelete from "../util/alertDelete";
-import TrOfferingPlanning from "./trOfferingPlanning";
-import TableRestaurationDetailPlanning from "../offeringDetail/tableRestaurationDetailPlanning";
+import TrOfferingReservation from "./trOfferingReservation";
+import TableOfferingDetailReservation from "../offeringDetail/tableOfferingDetailReservation";
 
-export default function OfferingPlanning(props) {
+export default function OfferingReservation(props) {
   const { offering_typeId, offering_type, programId } = props;
   const [message, setMessage] = useState("");
   const [offering, setOffering] = useState([]);
@@ -78,24 +78,6 @@ export default function OfferingPlanning(props) {
                 {" "}
                 {offering_type}
               </span>
-              <button
-                style={{ backgroundColor: "white", border: "none" }}
-                // onClick={handleAlert}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  fill="currentColor"
-                  class="bi bi-dash-circle"
-                  viewBox="0 0 16 16"
-                  color="red"
-                  style={{ marginBottom: "20%" }}
-                >
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-                </svg>{" "}
-              </button>
             </h6>
           </div>
           <div
@@ -143,7 +125,7 @@ export default function OfferingPlanning(props) {
                           <th className="text-secondary opacity-7"></th>
                         </tr>
                       </thead>
-                      <TrOfferingPlanning
+                      <TrOfferingReservation
                         id={offering.id}
                         logo={offering.image}
                         name={offering.name}
@@ -158,11 +140,7 @@ export default function OfferingPlanning(props) {
                         distance={200}
                         average_price={2000}
                       />
-                      {offering.isRestauration == true && (
-                        <TableRestaurationDetailPlanning
-                          programId={programId}
-                        />
-                      )}
+                      <TableOfferingDetailReservation programId={programId} />
                     </table>
                   </div>
                   <br />

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import FormRolePlanning from "./formRolePlanning";
-import TrRolePlanning from "./trRolePlanning";
 import Modal from "../util/modal";
 import { UserListIcon } from "hugeicons-react";
+import TrRoleReservation from "./trRoleReservation";
 
-export default function TableStaffPlanning(props) {
+export default function TableStaffReservation(props) {
   const { programId} = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
@@ -65,15 +65,6 @@ export default function TableStaffPlanning(props) {
           />
           <span style={{ marginLeft: "1%" }}>PERSONNELS DE SERVICE</span>
         </h6>
-        <div
-          className="btn btn-outline-primary btn-sm mb-0 me-3"
-          style={{ marginLeft: "3%" }}
-        >
-          <a onClick={handleShowForm}>Ajouter</a>
-        </div>
-        <Modal isOpen={isMapModalOpen}>
-          <FormRolePlanning onCancel={handleCloseModal} programId={programId} />
-        </Modal>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
         {loading ? (
@@ -99,20 +90,19 @@ export default function TableStaffPlanning(props) {
                     Tarif
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Total
+                    A payer personne
                   </th>
-                  <th className="text-secondary opacity-7"></th>
-                  <th className="text-secondary opacity-7"></th>
                 </tr>
               </thead>
               <tbody>
                 {programStaff.map((programStaff) => (
-                  <TrRolePlanning
+                  <TrRoleReservation
                     roleId={programStaff.role.id}
                     roleName={programStaff.role.name}
                     number={programStaff.number}
                     price={programStaff.role.hourlyWage}
                     programId={programId}
+                    totalPersons={5}
                   />
                 ))}
               </tbody>
