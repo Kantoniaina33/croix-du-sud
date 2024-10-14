@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { SpoonAndKnifeIcon } from "hugeicons-react";
 import { useParams } from "react-router-dom";
-import TrOfferingDetailReservation from "./trOfferingDetailReservation";
-import Modal from "../util/modal";
-import FormOfferingDetailReservation from "./formOfferingDetailReservation";
+import TrRestaurationReservation from "./trRestaurationReservation";
 
-export default function TableOfferingDetailReservation(props) {
-  const { programId, reservationId } = props;
+export default function TableRestaurationReservation(props) {
+  const { programId } = props;
   const [message, setMessage] = useState("");
-  const [offeringDetails, setOfferingDetails] = useState([]);
+  const [restaurationDetails, setRestaurationDetails] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchOfferingDetails = async () => {
+  const fetchRestaurationDetails = async () => {
     setMessage("");
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3030/reservations/${reservationId}/offerings/details`,
+        `http://localhost:3030/programs/${programId}/restauration/details`,
         {
           method: "GET",
           headers: {
@@ -26,22 +24,22 @@ export default function TableOfferingDetailReservation(props) {
       );
 
       if (!response.ok) {
-        setMessage("Failed to fetch offering details");
+        setMessage("Failed to fetch restauration details");
         return;
       }
 
       const data = await response.json();
-      setOfferingDetails(data);
+      setRestaurationDetails(data);
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error fetching offering details");
+      setMessage("Error fetching restauration details");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchOfferingDetails();
+    fetchRestaurationDetails();
   }, []);
 
   return (
@@ -54,7 +52,7 @@ export default function TableOfferingDetailReservation(props) {
     >
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
         <h6>
-          <SpoonAndKnifeIcon style={{ marginBottom: "5%" }} /> DETAILS
+          <SpoonAndKnifeIcon style={{ marginBottom: "5%" }} /> REPAS
         </h6>
       </div>
       <div className="card-body px-0 pt-0 pb-2">
@@ -66,44 +64,34 @@ export default function TableOfferingDetailReservation(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : offeringDetails.length > 0 ? (
+        ) : restaurationDetails.length > 0 ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
                 <tr>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Offre
+                    Repas
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Quantite
+                    Prix par personne
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Prix
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Prix Total
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Periode de tarification
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    A payer par personne
+                    Prix total
                   </th>
                 </tr>
               </thead>
-              {offeringDetails.map((offeringDetailPlanning) => (
-                <TrOfferingDetailReservation
-                  key={offeringDetailPlanning.id}
-                  programId={programId}
-                  quantity={offeringDetailPlanning.quantity}
-                  offeringName={offeringDetailPlanning.offeringDetail.name}
-                  tarifPeriod={offeringDetailPlanning.offeringDetail.unit}
-                  price={offeringDetailPlanning.offeringDetail.unit_price}
-                  personNumber={5}
-                  reservationId={reservationId}
-                  id={offeringDetailPlanning.id}
-                />
-              ))}
+              {restaurationDetails.map((restaurationDetailPlanning) =>
+                restaurationDetailPlanning.included === true && (
+                  <TrRestaurationReservation
+                    key={restaurationDetailPlanning.id}
+                    programId={programId}
+                    meal={restaurationDetailPlanning.restauration.name}
+                    price={restaurationDetailPlanning.restauration.unit_price}
+                    personNumber={5}
+                    id={restaurationDetailPlanning.id}
+                  />
+                )
+              )}
             </table>
           </div>
         ) : (

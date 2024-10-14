@@ -118,7 +118,7 @@ function App() {
             element={<CircuitPrograms />}
           />
           <Route path="/programs/:programId" element={<ProgramDetails />} />
-          <Route path="/reservations/programs/:programId/" element={<ProgramDetailReservation />} />
+          <Route path="/reservations/:reservationId/programs/:programId/" element={<ProgramDetailReservation />} />
         </Routes>
       </div>
     </Router>

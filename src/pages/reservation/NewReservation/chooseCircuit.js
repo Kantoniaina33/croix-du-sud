@@ -38,7 +38,7 @@ export default function ChooseCircuit() {
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Circuitmes
+                  Circuits
                 </li>
               </ol>
             </nav>

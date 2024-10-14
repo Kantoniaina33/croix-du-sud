@@ -27,6 +27,7 @@ export default function SheetProgram(props) {
     departureLongitude,
     arrivalLatitude,
     arrivalLongitude,
+    isReservation,
   } = props;
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -70,38 +71,40 @@ export default function SheetProgram(props) {
                   </span>
                 </h6>
               </div>
-              <div className="card-actions">
-                <button
-                  style={{
-                    backgroundColor: "white",
-                    border: "transparent",
-                  }}
-                  onClick={handleShowMap}
-                >
-                  <Edit02Icon
-                    color="#273385"
-                    size={23}
-                    style={{ marginTop: "-10%" }}
-                  />
-                </button>
-                <Modal isOpen={isMapModalOpen}>
-                  <FormProgram
-                    title="MODIFIER UN PROGRAMME"
-                    method="PUT"
-                    programId={programId}
-                    departure={departure}
-                    arrival={arrival}
-                    distance={distance}
-                    duration={duration}
-                    description={description}
-                    departureLatitude={departureLatitude}
-                    departureLongitude={departureLongitude}
-                    arrivalLatitude={arrivalLatitude}
-                    arrivalLongitude={arrivalLongitude}
-                    onCancel={handleCloseModal}
-                  />
-                </Modal>
-              </div>
+              {!isReservation && (
+                <div className="card-actions">
+                  <button
+                    style={{
+                      backgroundColor: "white",
+                      border: "transparent",
+                    }}
+                    onClick={handleShowMap}
+                  >
+                    <Edit02Icon
+                      color="#273385"
+                      size={23}
+                      style={{ marginTop: "-10%" }}
+                    />
+                  </button>
+                  <Modal isOpen={isMapModalOpen}>
+                    <FormProgram
+                      title="MODIFIER UN PROGRAMME"
+                      method="PUT"
+                      programId={programId}
+                      departure={departure}
+                      arrival={arrival}
+                      distance={distance}
+                      duration={duration}
+                      description={description}
+                      departureLatitude={departureLatitude}
+                      departureLongitude={departureLongitude}
+                      arrivalLatitude={arrivalLatitude}
+                      arrivalLongitude={arrivalLongitude}
+                      onCancel={handleCloseModal}
+                    />
+                  </Modal>
+                </div>
+              )}
             </div>
             <div className="info">
               <p>
@@ -132,7 +135,6 @@ export default function SheetProgram(props) {
                   <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
                   <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
                 </svg>
-                <span>{durationHours} h</span>
               </p>
             </div>
             <p className="description">{description}</p>

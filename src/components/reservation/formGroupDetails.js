@@ -1,35 +1,48 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import "./reservation.css";
-import SelectCircuits from "../util/selectCircuits";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./reservation.css";
 
 export default function FormGroupDetails(props) {
   const {
-    title,
     method,
-    budget,
-    startDate,
-    duration,
-    customerId,
-    circuitId,
     reservationId,
+    totalPersons,
+    totalCouple,
+    customerId,
     onCancel,
   } = props;
 
-  const { id } = useParams(); //customerId
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [customer, setCustomer] = useState([]);
+  const [customer, setCustomer] = useState({});
+  const [rows, setRows] = useState([{ familyMembers: "", familyCount: "" }]);
 
   const [formValues, setFormValues] = useState({
-    budget: budget,
-    startDate: startDate,
-    duration: duration,
-    customerId: id,
-    circuitId: circuitId,
+    totalPersons: totalPersons,
+    totalCouple: totalCouple,
+    familyDetails: rows,
   });
 
+  // Gestion de l'ajout d'une nouvelle ligne
+  const handleAddRow = () => {
+    setRows([...rows, { familyMembers: "", familyCount: "" }]);
+  };
+
+  // Gestion de la suppression d'une ligne
+  const handleRemoveRow = (index) => {
+    const newRows = rows.filter((_, i) => i !== index);
+    setRows(newRows);
+  };
+
+  // Gestion de la modification des valeurs dans les inputs
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
+    const newRows = [...rows];
+    newRows[index][name] = value;
+    setRows(newRows);
+  };
+
+  // Mise à jour des valeurs du formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
@@ -41,8 +54,7 @@ export default function FormGroupDetails(props) {
   const fetchCustomer = async () => {
     setMessage("");
     try {
-      const url = `http://localhost:3030/customers/${id}`;
-
+      const url = `http://localhost:3030/customers/${customerId}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -55,6 +67,7 @@ export default function FormGroupDetails(props) {
         setMessage("Failed to fetch customer");
         return;
       }
+
       const data = await response.json();
       setCustomer(data);
     } catch (error) {
@@ -72,21 +85,25 @@ export default function FormGroupDetails(props) {
     setMessage("");
     setIsLoading(true);
 
+    const updatedFormValues = {
+      ...formValues,
+      familyDetails: rows,
+    };
+
+    console.log(updatedFormValues);
     try {
       const idUrl = method === "PUT" ? `/${reservationId}` : "";
-
       const response = await fetch(
-        `http://localhost:3030/reservations${idUrl}`,
+        `http://localhost:3030/reservations/${reservationId}/travel_participants${idUrl}`,
         {
           method: method,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(formValues),
+          body: JSON.stringify(updatedFormValues),
         }
       );
-
       if (!response.ok) {
         if (response.status === 401) {
           setMessage("Problem");
@@ -103,24 +120,21 @@ export default function FormGroupDetails(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "60%", marginTop:"1%" }}>
+    <div
+      className="card p-4 shadow-lg rounded-3"
+      style={{ width: "60%", marginTop: "1%" }}
+    >
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flex: 1,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
             height="25"
             fill="currentColor"
-            class="bi bi-luggage-fill"
+            className="bi bi-luggage-fill"
             viewBox="0 0 16 16"
           >
             <path d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z" />
@@ -137,11 +151,10 @@ export default function FormGroupDetails(props) {
         className="card-body"
         style={{ marginBottom: "-3%", marginTop: "-5%" }}
       >
-        <p>REF: 476HBV79KKN</p>
         <p>
           Réservation au nom de: {customer.firstName} {customer.name}
         </p>
-        <form id="myForm" autocomplete="off" style={{ marginTop: "0%" }}>
+        <form id="myForm" autoComplete="off" style={{ marginTop: "0%" }}>
           <div className="row mb-3">
             <div className="col">
               <label className="form-label fw-bold">
@@ -150,9 +163,9 @@ export default function FormGroupDetails(props) {
               <input
                 type="number"
                 className="form-control"
-                value={formValues.startDate}
+                value={formValues.totalPersons}
                 onChange={handleChange}
-                name="startDate"
+                name="totalPersons"
               />
             </div>
           </div>
@@ -164,89 +177,91 @@ export default function FormGroupDetails(props) {
               <input
                 type="number"
                 className="form-control"
-                value={formValues.startDate}
+                value={formValues.totalCouple}
                 onChange={handleChange}
-                name="startDate"
+                name="totalCouple"
               />
-            </div>
-          </div>
-          <label className="form-label fw-bold">Famille(s)</label>
-          <div className="row mb-3 align-items-end">
-            <div className="col-6">
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.startDate}
-                onChange={handleChange}
-                name="startDate"
-                placeholder="Membres de la famille"
-              />
-            </div>
-            <div className="col-4">
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.startDate}
-                onChange={handleChange}
-                name="startDate"
-                placeholder="Nombre de familles"
-              />
-            </div>
-            <div className="col-2">
-              <button
-                type="submit"
-                className="form-control"
-                style={{}}
-                onClick={handleSave}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-plus-lg"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center">
-            {/* <button
-              type="button"
-              className="btn"
-              style={{
-                float: "right",
-                borderRadius: "20px",
-                marginTop: "1%",
-                border: "solid 1px rgb(231, 231, 231)",
-              }}
-            >
-              <a>Retour</a>
-            </button> */}
-            <p></p>
+          <label className="form-label fw-bold">Famille(s)</label>
+          {rows.map((row, index) => (
+            <div key={index} className="row mb-3 align-items-end">
+              <div className="col-6">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={row.familyMembers}
+                  onChange={(e) => handleInputChange(index, e)}
+                  name="familyMembers"
+                  placeholder="Membres de la famille"
+                />
+              </div>
+              <div className="col-4">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={row.familyCount}
+                  onChange={(e) => handleInputChange(index, e)}
+                  name="familyCount"
+                  placeholder="Nombre de familles"
+                />
+              </div>
+              <div className="col-2">
+                {index === 0 ? (
+                  <button
+                    type="button"
+                    className="form-control"
+                    onClick={handleAddRow}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2z"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="form-control"
+                    onClick={() => handleRemoveRow(index)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-dash-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8z"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <div className="d-flex justify-content-between mt-4">
+            <span></span>
             <button
               type="submit"
               className="btn btn-primary"
-              style={{
-                float: "right",
-                borderRadius: "20px",
-                marginTop: "1%",
-              }}
               onClick={handleSave}
+              disabled={isLoading}
             >
-              {isLoading ? (
-                <div className="spinner-border spinner-border-sm" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              ) : (
-                "Enregistrer"
-              )}
+              {isLoading ? "Chargement..." : "Enregistrer"}
             </button>
           </div>
         </form>

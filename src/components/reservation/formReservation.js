@@ -72,31 +72,31 @@ export default function FormReservation(props) {
     setIsLoading(true);
 
     try {
-      const idUrl = method === "PUT" ? `/${reservationId}` : "";
+      // const idUrl = method === "PUT" ? `/${reservationId}` : "";
 
-      const response = await fetch(
-        `http://localhost:3030/reservations${idUrl}`,
-        {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
+      // const response = await fetch(
+      //   `http://localhost:3030/reservations${idUrl}`,
+      //   {
+      //     method: method,
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //     },
+      //     body: JSON.stringify(formValues),
+      //   }
+      // );
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          setMessage("Problem");
-        } else {
-          setMessage("Failed");
-        }
-        return;
-      }
-      const data = await response.json();
-      const reservation = data.reservation;
-      // navigate(`/customers`);
+      // if (!response.ok) {
+      //   if (response.status === 401) {
+      //     setMessage("Problem");
+      //   } else {
+      //     setMessage("Failed");
+      //   }
+      //   return;
+      // }
+      // const data = await response.json();
+      // const reservation = data.reservation;
+      navigate(`/customers/${customerId}/reservation/group_details`);
     } catch (error) {
       console.error("Error:", error);
     } finally {

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./customer.css";
 import { useNavigate } from "react-router-dom";
+import Return from "../util/return";
 
 export default function FormCustomer(props) {
   const { title, method, name, firstName, contact, customerId, onCancel } =
@@ -29,29 +30,27 @@ export default function FormCustomer(props) {
     setMessage("");
     setIsLoading(true);
     try {
-      const idUrl = method === "PUT" ? `/${customerId}` : "";
-
-      const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(formValues),
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          setMessage("Problem");
-        } else {
-          setMessage("Failed");
-        }
-        return;
-      }
-
-      const data = await response.json();
-      const customer = data.customer;
-      navigate(`/customers/${customer.id}/reservation`);
+      // const idUrl = method === "PUT" ? `/${customerId}` : "";
+      // const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
+      //   method: method,
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //   },
+      //   body: JSON.stringify(formValues),
+      // });
+      // if (!response.ok) {
+      //   if (response.status === 401) {
+      //     setMessage("Problem");
+      //   } else {
+      //     setMessage("Failed");
+      //   }
+      //   return;
+      // }
+      // const data = await response.json();
+      // const customer = data.customer;
+      // navigate(`/customers/${customer.id}/reservation/circuit`);
+      navigate(`/customers/${"tXAlXF7xUdVd1wqD4I0a"}/reservation/circuit`);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -60,7 +59,10 @@ export default function FormCustomer(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%", marginTop:"-8%" }}>
+      <div style={{ marginLeft: "3%" }}>
+        <Return />
+      </div>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}

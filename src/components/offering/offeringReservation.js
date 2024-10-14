@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { SpoonAndKnifeIcon } from "hugeicons-react";
-import { useParams } from "react-router-dom";
-import TrOffering from "./trOffering";
-import Modal from "../util/modal";
-import AlertDelete from "../util/alertDelete";
 import TrOfferingReservation from "./trOfferingReservation";
+import TableRestaurationReservation from "../offeringDetail/tableRestaurationReservation";
 import TableOfferingDetailReservation from "../offeringDetail/tableOfferingDetailReservation";
+import Modal from "../util/modal";
+import FormOfferingDetailReservation from "../offeringDetail/formOfferingDetailReservation";
 
 export default function OfferingReservation(props) {
-  const { offering_typeId, offering_type, programId } = props;
+  const { offering_typeId, offering_type, programId, isRestauration, reservationId } = props;
   const [message, setMessage] = useState("");
   const [offering, setOffering] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchOffering = async () => {
     setMessage("");
@@ -46,6 +45,11 @@ export default function OfferingReservation(props) {
     fetchOffering();
   }, []);
 
+
+  const handleShowForm = () => setIsMapModalOpen(true);
+  const handleCloseModal = () => setIsMapModalOpen(false);
+
+
   return (
     <>
       {offering && (
@@ -76,7 +80,7 @@ export default function OfferingReservation(props) {
                 }}
               >
                 {" "}
-                {offering_type}
+                {offering_type} {isRestauration}
               </span>
             </h6>
           </div>
@@ -115,12 +119,6 @@ export default function OfferingReservation(props) {
                           <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                             Téléphone
                           </th>
-                          {/* <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                      Prix
-                    </th>
-                    <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                      Distance
-                    </th> */}
                           <th className="text-secondary opacity-7"></th>
                           <th className="text-secondary opacity-7"></th>
                         </tr>
@@ -140,8 +138,34 @@ export default function OfferingReservation(props) {
                         distance={200}
                         average_price={2000}
                       />
-                      <TableOfferingDetailReservation programId={programId} />
                     </table>
+                    {isRestauration ? (
+                      <TableRestaurationReservation programId={programId} />
+                    ) : (
+                      <>
+                      <br/>
+                        <div
+                          className="btn btn-outline-primary btn-sm mb-0 me-3"
+                          style={{ marginLeft: "2%" }}
+                        >
+                          <a onClick={handleShowForm}>Ajouter</a>
+                        </div>
+                        <Modal isOpen={isMapModalOpen}>
+                          <FormOfferingDetailReservation
+                            onCancel={handleCloseModal}
+                            offeringTypeId={offering.offering_typeId}
+                            offeringId={offering.id}
+                            reservationId={reservationId}
+                          />
+                        </Modal>
+                        <TableOfferingDetailReservation
+                          programId={programId}
+                          offeringTypeId={offering.offering_typeId}
+                          offeringId={offering.id}
+                          reservationId={reservationId}
+                        />
+                      </>
+                    )}
                   </div>
                   <br />
                   <hr className="custom-hr" />

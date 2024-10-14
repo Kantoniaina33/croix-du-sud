@@ -142,7 +142,7 @@ export default function CircuitsToAdd() {
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 ) : (
-                  "Enregistrer"
+                  "Suivant"
                 )}
               </Link>
             </div>

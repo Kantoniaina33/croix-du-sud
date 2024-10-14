@@ -6,13 +6,13 @@ import SheetProgram from "../../../components/program/sheetProgram";
 import ChooseOffering from "../../../components/offering/ChooseOffering";
 import ChooseOfferingType from "../../../components/offeringType/chooseOfferingType";
 import TableStaffReservation from "../../../components/role/tableStaffReservation";
-import ListOfferingReservation from "../../../components/program/listOfferingPlanning";
 import TableExcursionReservation from "../../../components/excursion/tableExcursionReservation";
 import TableTransferReservation from "../../../components/transfer/tableTransferReservation";
+import ListOfferingReservation from "../../../components/program/listOfferingReservation";
 
 export default function ProgramDetailReservation() {
   const [program, setProgram] = useState([]);
-  const { programId } = useParams();
+  const { programId, reservationId } = useParams();
   const [message, setMessage] = useState("");
   const [offeringTypeId, setOfferingTypeId] = useState("");
   const [loading, setLoading] = useState(false);
@@ -92,32 +92,7 @@ export default function ProgramDetailReservation() {
               id="navbar"
             >
               <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-              <ul className="navbar-nav justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    onClick={handleShowMap}
-                  >
-                    Ajouter une prestation
-                  </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <ChooseOfferingType
-                      method="POST"
-                      onCancel={handleCloseModal}
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <ChooseOffering
-                      onCancel={handleCloseNextModal}
-                      offering_typeId={offeringTypeId}
-                      programId={programId}
-                      method="POST"
-                    />
-                  </Modal>
-                </li>
-              </ul>
+              <ul className="navbar-nav justify-content-end"></ul>
             </div>
           </div>
         </nav>
@@ -135,6 +110,7 @@ export default function ProgramDetailReservation() {
                   </div>
                 ) : program && program.departureCoordinates ? (
                   <SheetProgram
+                    isReservation={true}
                     programId={program.id}
                     departure={program.departure}
                     arrival={program.arrival}
@@ -152,7 +128,7 @@ export default function ProgramDetailReservation() {
                 <hr className="custom-hr" />
                 <TableStaffReservation programId={programId} />
                 <hr className="custom-hr" />
-                <ListOfferingReservation programId={programId} />
+                <ListOfferingReservation programId={programId} reservationId={reservationId} />
                 <TableExcursionReservation programId={programId} />
                 <hr className="custom-hr" />
                 <TableTransferReservation programId={programId} />

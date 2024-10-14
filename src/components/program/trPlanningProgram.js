@@ -115,7 +115,7 @@ export default function TrPlanningProgram(props) {
         </td>
         <td>
           <span className="text-xs">
-            <a href={`/reservations/programs/${programId}`}>
+            <a href={`/reservations/${reservationId}/programs/${programId}`}>
               <span style={{ textDecoration: "underline" }}>Details</span>
               <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
             </a>

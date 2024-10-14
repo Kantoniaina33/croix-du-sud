@@ -40,7 +40,6 @@ function Register() {
             <div className="row">
               <div className="col-12">
                 <div className="card mb-4"> */}
-                  <Return />
                   <FormCustomer method="POST" />  
                 {/* </div>
               </div>

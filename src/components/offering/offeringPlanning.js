@@ -158,12 +158,10 @@ export default function OfferingPlanning(props) {
                         distance={200}
                         average_price={2000}
                       />
-                      {offering.isRestauration == true && (
-                        <TableRestaurationDetailPlanning
-                          programId={programId}
-                        />
-                      )}
                     </table>
+                    {offering.isRestauration == true && (
+                      <TableRestaurationDetailPlanning programId={programId} />
+                    )}
                   </div>
                   <br />
                   <hr className="custom-hr" />
