@@ -24,7 +24,6 @@ export default function FormRoleEmployee(props) {
     setMessage("");
     console.log(formValues);
     try {
-
       const response = await fetch(
         `http://localhost:3030/employees/${employee.id}/role`,
         {
@@ -66,8 +65,8 @@ export default function FormRoleEmployee(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             className="bi bi-buildings"
             viewBox="0 0 16 16"
@@ -77,7 +76,7 @@ export default function FormRoleEmployee(props) {
             <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
           >
             Poste
           </span>
@@ -90,8 +89,8 @@ export default function FormRoleEmployee(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             class="bi bi-x-circle"
             viewBox="0 0 16 16"
@@ -103,7 +102,10 @@ export default function FormRoleEmployee(props) {
           </svg>
         </div>
       </div>
-      <div className="card-body" style={{ marginBottom: "-3%", textAlign:"left" }}>
+      <div
+        className="card-body"
+        style={{ marginBottom: "-3%", textAlign: "left" }}
+      >
         <h5>
           {employee.firstName} {employee.name}
         </h5>

@@ -4,7 +4,7 @@ import "./offeringOption.css";
 import { useNavigate } from "react-router-dom";
 
 export default function FormOfferingOption(props) {
-  const { title, method, name, offeringOptionId, onCancel,typeId} = props;
+  const { title, method, name, offeringOptionId, onCancel, typeId } = props;
   const [message, setMessage] = useState("");
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
@@ -28,7 +28,7 @@ export default function FormOfferingOption(props) {
     console.log(formValues);
     try {
       const idUrl = method === "PUT" ? `/${offeringOptionId}` : "";
-      
+
       const response = await fetch(
         `http://localhost:3030/offerings/types/${typeId}/options${idUrl}`,
         {
@@ -70,8 +70,8 @@ export default function FormOfferingOption(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             className="bi bi-buildings"
             viewBox="0 0 16 16"
@@ -81,7 +81,7 @@ export default function FormOfferingOption(props) {
             <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
           >
             Option de prestation
           </span>
@@ -95,8 +95,8 @@ export default function FormOfferingOption(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             class="bi bi-x-circle"
             viewBox="0 0 16 16"

@@ -108,6 +108,7 @@ export default function TableTransferPlanning(props) {
               <tbody>
                 {transfers.map((transfer) => (
                   <TrTransferPlanning
+                    id={transfer.id}
                     departure={transfer.transfer.departure}
                     arrival={transfer.transfer.arrival}
                     price={transfer.transfer.price}

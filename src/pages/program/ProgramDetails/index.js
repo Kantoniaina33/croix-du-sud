@@ -115,6 +115,7 @@ export default function ProgramDetails() {
                   </Modal>
                   <Modal isOpen={isNextModalOpen}>
                     <ChooseOffering
+                      urlSave={`http://localhost:3030/programs/${programId}/offerings`}
                       onCancel={handleCloseNextModal}
                       offering_typeId={offeringTypeId}
                       programId={programId}

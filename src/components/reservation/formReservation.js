@@ -119,8 +119,8 @@ export default function FormReservation(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             class="bi bi-luggage-fill"
             viewBox="0 0 16 16"
@@ -129,7 +129,7 @@ export default function FormReservation(props) {
             <path d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z" />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
           >
             Réservation de voyage
           </span>

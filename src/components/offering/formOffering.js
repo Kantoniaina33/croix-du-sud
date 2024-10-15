@@ -52,7 +52,7 @@ export default function FormOffering(props) {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;    
+    const { name, value } = e.target;
     if (name === "image" && e.target.files.length > 0) {
       setFormValues((prevValues) => ({
         ...prevValues,
@@ -89,13 +89,16 @@ export default function FormOffering(props) {
     try {
       const idUrl = method === "PUT" ? `/${offeringId}` : "";
 
-      const response = await fetch(`http://localhost:3030/providers/${providerId}/offerings${idUrl}`, {
-        method: method,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `http://localhost:3030/providers/${providerId}/offerings${idUrl}`,
+        {
+          method: method,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 401) {
@@ -142,8 +145,8 @@ export default function FormOffering(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             className="bi bi-buildings"
             viewBox="0 0 16 16"
@@ -153,7 +156,7 @@ export default function FormOffering(props) {
             <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
           >
             Prestations
           </span>

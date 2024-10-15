@@ -59,7 +59,10 @@ export default function FormCustomer(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "50%", marginTop:"-8%" }}>
+    <div
+      className="card p-4 shadow-lg rounded-3"
+      style={{ width: "50%", marginTop: "-8%" }}
+    >
       <div style={{ marginLeft: "3%" }}>
         <Return />
       </div>
@@ -76,8 +79,8 @@ export default function FormCustomer(props) {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="22"
+            height="22"
             fill="currentColor"
             class="bi bi-person-circle"
             viewBox="0 0 16 16"
@@ -89,7 +92,7 @@ export default function FormCustomer(props) {
             />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "25px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
           >
             Informations du client
           </span>

@@ -5,7 +5,7 @@ import Modal from "../util/modal";
 import { UserListIcon } from "hugeicons-react";
 
 export default function TableStaffPlanning(props) {
-  const { programId} = props;
+  const { programId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
@@ -43,8 +43,7 @@ export default function TableStaffPlanning(props) {
 
   useEffect(() => {
     fetchProgramStaff();
-    console.log(programStaff+ " jjjjjjjjjjjj");
-    
+    console.log(programStaff + " jjjjjjjjjjjj");
   }, []);
 
   return (
@@ -108,11 +107,13 @@ export default function TableStaffPlanning(props) {
               <tbody>
                 {programStaff.map((programStaff) => (
                   <TrRolePlanning
+                    id={programStaff.id}
                     roleId={programStaff.role.id}
                     roleName={programStaff.role.name}
                     number={programStaff.number}
                     price={programStaff.role.hourlyWage}
                     programId={programId}
+                    totalPrice={programStaff.total_price}
                   />
                 ))}
               </tbody>

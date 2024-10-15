@@ -12,6 +12,8 @@ export default function OfferingPlanning(props) {
   const [message, setMessage] = useState("");
   const [offering, setOffering] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const handleAlert = () => setAlert(true);
 
   const fetchOffering = async () => {
     setMessage("");
@@ -80,7 +82,7 @@ export default function OfferingPlanning(props) {
               </span>
               <button
                 style={{ backgroundColor: "white", border: "none" }}
-                // onClick={handleAlert}
+                onClick={handleAlert}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +98,12 @@ export default function OfferingPlanning(props) {
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
                 </svg>{" "}
               </button>
+              <AlertDelete
+                alertMessage={`Êtes-vous sûr de vouloir supprimer blabla ?`}
+                show={alert}
+                setAlert={setAlert}
+                url={`http://localhost:3030/programs/${programId}/offerings/types/${offering_typeId}`}
+              />
             </h6>
           </div>
           <div
@@ -157,6 +165,7 @@ export default function OfferingPlanning(props) {
                         offering_type={offering_type}
                         distance={200}
                         average_price={2000}
+                        programId={programId}
                       />
                     </table>
                     {offering.isRestauration == true && (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function ListExcursionToAdd(props) {
-  const { place_name, price, setExcursionsId, excursionId } = props;
+  const { place_name, price, setExcursionsId, excursionId, image } = props;
   const [isSelected, setIsSelected] = useState(false);
 
   const handleAddExcursion = (e) => {
@@ -29,6 +29,13 @@ export default function ListExcursionToAdd(props) {
     <tr>
       <td>
         <div className="d-flex px-3 py-1">
+          <div>
+            <img
+              src={image}
+              alt="image"
+              style={{ width: "45px", height: "45px", objectFit: "cover" }}
+            />
+          </div>
           <div
             className="d-flex flex-column justify-content-center"
             style={{ marginLeft: "3%" }}

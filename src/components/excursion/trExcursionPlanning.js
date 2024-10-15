@@ -6,40 +6,13 @@ import {
   Location01Icon,
 } from "hugeicons-react";
 import { useState } from "react";
+import AlertDelete from "../util/alertDelete";
 
 export default function TrExcursionPlanning(props) {
-  const { excursionId, image, place_name, price, programId } = props;
+  const { excursionId, image, place_name, price, programId, id } = props;
   const [message, setMessage] = useState("");
-
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    setMessage("");
-
-    // try {
-    //   const response = await fetch(
-    //     `http://localhost:3030/reservations/${reservationId}/program_plannings/${planningId}/excursions/${excursionId}`,
-    //     {
-    //       method: "DELETE",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   if (!response.ok) {
-    //     if (response.status === 401) {
-    //       setMessage("Problem");
-    //     } else {
-    //       setMessage("Failed");
-    //     }
-    //     return;
-    //   }
-
-    //   window.location.reload();
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-  };
+  const [alert, setAlert] = useState(false);
+  const handleAlert = () => setAlert(true);
 
   return (
     <tr>
@@ -70,7 +43,7 @@ export default function TrExcursionPlanning(props) {
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}
-            onClick={handleDelete}
+            onClick={handleAlert}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +58,12 @@ export default function TrExcursionPlanning(props) {
               <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
             </svg>{" "}
           </button>
+          <AlertDelete
+            alertMessage={`Êtes-vous sûr de vouloir retirer cette excursion ?`}
+            show={alert}
+            setAlert={setAlert}
+            url={`http://localhost:3030/programs/${programId}/excursions/${id}`}
+          />
         </span>
       </td>
       <td className="align-middle text-center">

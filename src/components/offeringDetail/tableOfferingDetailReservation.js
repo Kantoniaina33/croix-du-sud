@@ -6,7 +6,7 @@ import Modal from "../util/modal";
 import FormOfferingDetailReservation from "./formOfferingDetailReservation";
 
 export default function TableOfferingDetailReservation(props) {
-  const { programId, reservationId } = props;
+  const { programId, reservationId, offeringId } = props;
   const [message, setMessage] = useState("");
   const [offeringDetails, setOfferingDetails] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ export default function TableOfferingDetailReservation(props) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3030/reservations/${reservationId}/offerings/details`,
+        `http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details`,
         {
           method: "GET",
           headers: {
@@ -102,6 +102,7 @@ export default function TableOfferingDetailReservation(props) {
                   personNumber={5}
                   reservationId={reservationId}
                   id={offeringDetailPlanning.id}
+                  offeringId={offeringDetailPlanning.offeringId}
                 />
               ))}
             </table>

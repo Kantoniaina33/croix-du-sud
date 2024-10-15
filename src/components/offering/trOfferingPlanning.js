@@ -6,6 +6,7 @@ import "../../assets/css/soft-ui-dashboard.min.css";
 import Modal from "../util/modal";
 import FormProvider from "../provider/formProvider";
 import { Link } from "react-router-dom";
+import ChooseOffering from "./ChooseOffering";
 
 export default function TrOfferingPlanning(props) {
   const {
@@ -18,6 +19,7 @@ export default function TrOfferingPlanning(props) {
     offering_typeId,
     distance,
     average_price,
+    programId,
     id,
   } = props;
   const [show, setShow] = useState(false);
@@ -89,6 +91,15 @@ export default function TrOfferingPlanning(props) {
             >
               Remplacer
             </button>
+            <Modal isOpen={isMapModalOpen}>
+              <ChooseOffering
+                urlSave={`http://localhost:3030/programs/${programId}/offerings`}
+                offering_typeId={offering_typeId}
+                programId={programId}
+                onCancel={handleCloseModal}
+                method="POST"
+              />
+            </Modal>
           </span>
         </td>
       </tr>

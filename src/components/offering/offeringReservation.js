@@ -17,7 +17,7 @@ export default function OfferingReservation(props) {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3030/programs/${programId}/offerings/types/${offering_typeId}`,
+        `http://localhost:3030/reservations/${reservationId}/programs/${programId}/offerings/types/${offering_typeId}`,
         {
           method: "GET",
           headers: {
@@ -137,6 +137,8 @@ export default function OfferingReservation(props) {
                         offering_type={offering_type}
                         distance={200}
                         average_price={2000}
+                        programId={programId}
+                        reservationId={reservationId}
                       />
                     </table>
                     {isRestauration ? (

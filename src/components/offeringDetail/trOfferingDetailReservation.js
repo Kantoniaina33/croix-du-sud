@@ -5,6 +5,7 @@ import AlertDelete from "../util/alertDelete";
 
 export default function TrOfferingDetailReservation(props) {
   const {
+    offeringId,
     offeringName,
     quantity,
     price,
@@ -90,7 +91,7 @@ export default function TrOfferingDetailReservation(props) {
             alertMessage={`Êtes-vous sûr de vouloir supprimer ca?`}
             show={alert}
             setAlert={setAlert}
-            url={`http://localhost:3030/reservations/${reservationId}/offerings/details/${id}`}
+            url={`http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details/${id}`}
           />
         </span>
       </td>

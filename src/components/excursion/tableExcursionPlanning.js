@@ -113,6 +113,7 @@ export default function TableExcursionPlanning(props) {
               <tbody>
                 {excursions.map((excursionPlanning) => (
                   <TrExcursionPlanning
+                    id={excursionPlanning.id}
                     excursionId={excursionPlanning.excursion.id}
                     image={excursionPlanning.excursion.image}
                     place_name={excursionPlanning.excursion.place_name}
