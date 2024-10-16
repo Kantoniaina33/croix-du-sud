@@ -9,6 +9,8 @@ export default function TableOfferingDetailReservation(props) {
   const { programId, reservationId, offeringId } = props;
   const [message, setMessage] = useState("");
   const [offeringDetails, setOfferingDetails] = useState([]);
+  const [quotation, setQuotation] = useState(0);
+
   const [loading, setLoading] = useState(false);
 
   const fetchOfferingDetails = async () => {
@@ -31,7 +33,8 @@ export default function TableOfferingDetailReservation(props) {
       }
 
       const data = await response.json();
-      setOfferingDetails(data);
+      setOfferingDetails(data.reservationOfferingDetails);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching offering details");
@@ -103,9 +106,11 @@ export default function TableOfferingDetailReservation(props) {
                   reservationId={reservationId}
                   id={offeringDetailPlanning.id}
                   offeringId={offeringDetailPlanning.offeringId}
+                  totalPrice={offeringDetailPlanning.total_price}
                 />
               ))}
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>

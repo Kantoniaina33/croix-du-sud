@@ -65,12 +65,9 @@ export default function TrOfferingReservation(props) {
         <td>
           <p className="mb-0 text-sm">{phone}</p>
         </td>
-        {/* <td>
+        <td>
           <p className="mb-0 text-sm">{average_price} Ar</p>
         </td>
-        <td>
-          <p className="mb-0 text-sm">{rounded_distance} Km</p>
-        </td> */}
         <td>
           <span className="text-xs">
             <Link

@@ -37,9 +37,6 @@ export default function TrExcursionPlanning(props) {
         <h6 className="mb-0 text-sm">{price} Ar</h6>
       </td>
       <td>
-        <h6 className="mb-0 text-sm">{price} Ar</h6>
-      </td>
-      <td>
         <span className="text-secondary text-xs font-weight-bold">
           <button
             style={{ backgroundColor: "white", border: "none" }}

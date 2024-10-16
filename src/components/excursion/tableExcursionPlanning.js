@@ -9,6 +9,7 @@ export default function TableExcursionPlanning(props) {
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
   const [excursions, setExcursions] = useState([]);
+  const [quotation, setQuotation] = useState(0);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -31,7 +32,8 @@ export default function TableExcursionPlanning(props) {
         return;
       }
       const data = await response.json();
-      setExcursions(data);
+      setExcursions(data.program_excursions);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching excursions");
@@ -42,6 +44,8 @@ export default function TableExcursionPlanning(props) {
 
   useEffect(() => {
     fetchExcursions();
+    console.log(excursions);
+    
   }, []);
 
   return (
@@ -93,7 +97,7 @@ export default function TableExcursionPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : excursions.length > 0 ? (
+        ) : excursions ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -102,10 +106,7 @@ export default function TableExcursionPlanning(props) {
                     Excursion
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Prix par personne
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Prix total
+                    Prix
                   </th>
                   <th className="text-secondary opacity-7"></th>
                 </tr>
@@ -123,6 +124,7 @@ export default function TableExcursionPlanning(props) {
                 ))}
               </tbody>
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

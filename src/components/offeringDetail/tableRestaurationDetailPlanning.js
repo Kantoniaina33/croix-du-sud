@@ -8,6 +8,8 @@ export default function TableRestaurationDetailPlanning(props) {
   const [message, setMessage] = useState("");
   const [restaurationDetails, setRestaurationDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [quotation, setQuotation] = useState(0);
+
 
   const fetchRestaurationDetails = async () => {
     setMessage("");
@@ -29,7 +31,8 @@ export default function TableRestaurationDetailPlanning(props) {
       }
 
       const data = await response.json();
-      setRestaurationDetails(data);
+      setRestaurationDetails(data.program_restaurations);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching restauration details");
@@ -89,6 +92,7 @@ export default function TableRestaurationDetailPlanning(props) {
                 />
               ))}
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>

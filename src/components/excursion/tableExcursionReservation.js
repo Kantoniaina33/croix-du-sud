@@ -7,6 +7,7 @@ export default function TableExcursionReservation(props) {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
+  const [quotation, setQuotation] = useState(0);
   const [excursions, setExcursions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -30,7 +31,8 @@ export default function TableExcursionReservation(props) {
         return;
       }
       const data = await response.json();
-      setExcursions(data);
+      setExcursions(data.program_excursions);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching excursions");
@@ -108,6 +110,7 @@ export default function TableExcursionReservation(props) {
                 ))}
               </tbody>
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

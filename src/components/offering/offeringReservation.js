@@ -136,7 +136,7 @@ export default function OfferingReservation(props) {
                         offering_typeId={offering.offering_typeId}
                         offering_type={offering_type}
                         distance={200}
-                        average_price={2000}
+                        average_price={offering.average_price}
                         programId={programId}
                         reservationId={reservationId}
                       />
@@ -145,7 +145,7 @@ export default function OfferingReservation(props) {
                       <TableRestaurationReservation programId={programId} />
                     ) : (
                       <>
-                      <br/>
+                        <br />
                         <div
                           className="btn btn-outline-primary btn-sm mb-0 me-3"
                           style={{ marginLeft: "2%" }}

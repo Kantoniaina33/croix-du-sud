@@ -15,6 +15,7 @@ export default function TableTransferPlanning(props) {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [transfers, setTransfers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [quotation, setQuotation] = useState(0);
   const [message, setMessage] = useState("");
 
   const fetchTransfers = async () => {
@@ -36,7 +37,9 @@ export default function TableTransferPlanning(props) {
         return;
       }
       const data = await response.json();
-      setTransfers(data);
+      setTransfers(data.program_transfers);
+      setQuotation(data.quotation);
+
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching transfers");
@@ -116,6 +119,7 @@ export default function TableTransferPlanning(props) {
                 ))}
               </tbody>
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>

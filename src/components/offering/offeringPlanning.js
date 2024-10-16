@@ -141,6 +141,9 @@ export default function OfferingPlanning(props) {
                           <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                             Téléphone
                           </th>
+                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                            Prix services
+                          </th>
                           {/* <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                       Prix
                     </th>
@@ -163,8 +166,7 @@ export default function OfferingPlanning(props) {
                         location={offering.location}
                         offering_typeId={offering.offering_typeId}
                         offering_type={offering_type}
-                        distance={200}
-                        average_price={2000}
+                        average_price={offering.average_price}
                         programId={programId}
                       />
                     </table>

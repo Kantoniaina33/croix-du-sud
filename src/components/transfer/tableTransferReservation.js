@@ -9,6 +9,7 @@ export default function TableTransferReservation(props) {
   const { programId } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [transfers, setTransfers] = useState([]);
+  const [quotation, setQuotation] = useState(0);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -31,7 +32,8 @@ export default function TableTransferReservation(props) {
         return;
       }
       const data = await response.json();
-      setTransfers(data);
+      setTransfers(data.program_transfers);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching transfers");
@@ -100,6 +102,7 @@ export default function TableTransferReservation(props) {
                 ))}
               </tbody>
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>

@@ -10,6 +10,7 @@ export default function TableStaffPlanning(props) {
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
   const [programStaff, setProgramStaff] = useState([]);
+  const [quotation, setQuotation] = useState(0);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -32,7 +33,8 @@ export default function TableStaffPlanning(props) {
         return;
       }
       const data = await response.json();
-      setProgramStaff(data);
+      setProgramStaff(data.program_staffs);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching programStaff");
@@ -43,7 +45,6 @@ export default function TableStaffPlanning(props) {
 
   useEffect(() => {
     fetchProgramStaff();
-    console.log(programStaff + " jjjjjjjjjjjj");
   }, []);
 
   return (
@@ -118,6 +119,7 @@ export default function TableStaffPlanning(props) {
                 ))}
               </tbody>
             </table>
+            <p>Total: {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>Aucun role.</p>

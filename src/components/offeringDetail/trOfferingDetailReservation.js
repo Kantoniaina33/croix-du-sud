@@ -12,6 +12,7 @@ export default function TrOfferingDetailReservation(props) {
     tarifPeriod,
     personNumber,
     reservationId,
+    totalPrice,
     id,
   } = props;
   const [alert, setAlert] = useState(false);
@@ -44,7 +45,7 @@ export default function TrOfferingDetailReservation(props) {
       <td>
         <div className="d-flex px-2">
           <div className="my-auto">
-            <h6 className="mb-0 text-sm">{price * quantity} Ar</h6>
+            <h6 className="mb-0 text-sm">{totalPrice} Ar</h6>
           </div>
         </div>
       </td>
