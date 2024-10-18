@@ -198,6 +198,9 @@ export default function ListCircuit() {
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Nom
                             </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                              Prix
+                            </th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
                             <th className="text-secondary opacity-7"></th>
@@ -210,6 +213,7 @@ export default function ListCircuit() {
                                 key={circuit.id}
                                 circuitId={circuit.id}
                                 name={circuit.name}
+                                price={circuit.price}
                               />
                             </>
                           ))}

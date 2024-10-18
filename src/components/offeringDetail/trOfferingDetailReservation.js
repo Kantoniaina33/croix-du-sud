@@ -10,7 +10,7 @@ export default function TrOfferingDetailReservation(props) {
     quantity,
     price,
     tarifPeriod,
-    personNumber,
+    totalPersons,
     reservationId,
     totalPrice,
     id,
@@ -62,7 +62,7 @@ export default function TrOfferingDetailReservation(props) {
         <div className="d-flex px-2">
           <div className="my-auto">
             <h6 className="mb-0 text-sm">
-              {(price * quantity) / personNumber} Ar
+              {(price * quantity) / totalPersons} Ar
             </h6>
           </div>
         </div>

@@ -189,6 +189,7 @@ export default function TablePlanning() {
                                 }
                                 reservationId={reservationId}
                                 id={programPlanning.id}
+                                totalPersons = {linkData.totalPersons}
                               />
                             </>
                           ))}

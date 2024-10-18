@@ -6,7 +6,7 @@ import {
 import TrTransferReservation from "./trTransferReservation";
 
 export default function TableTransferReservation(props) {
-  const { programId } = props;
+  const { programId, totalPersons } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [transfers, setTransfers] = useState([]);
   const [quotation, setQuotation] = useState(0);
@@ -97,7 +97,7 @@ export default function TableTransferReservation(props) {
                     departure={transfer.transfer.departure}
                     arrival={transfer.transfer.arrival}
                     price={transfer.transfer.price}
-                    totalPersons={5}
+                    totalPersons={totalPersons}
                   />
                 ))}
               </tbody>

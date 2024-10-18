@@ -3,7 +3,7 @@ import Modal from "../util/modal";
 import TrExcursionReservation from "./trExcursionReservation";
 
 export default function TableExcursionReservation(props) {
-  const { programId } = props;
+  const { programId, totalPersons } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
@@ -93,9 +93,6 @@ export default function TableExcursionReservation(props) {
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Prix
                   </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Prix par personne
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -106,11 +103,12 @@ export default function TableExcursionReservation(props) {
                     place_name={excursionPlanning.excursion.place_name}
                     price={excursionPlanning.excursion.price}
                     programId={programId}
+                    totalPersons={totalPersons}
                   />
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation} Ar</p>
+            <p>Total: {quotation*totalPersons} Ar</p>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 
 export default function TrExcursionReservation(props) {
-  const { excursionId, image, place_name, price, programId } = props;
+  const { excursionId, image, place_name, price, programId, totalPersons } = props;
   const [message, setMessage] = useState("");
 
   const handleDelete = async (e) => {
@@ -62,12 +62,6 @@ export default function TrExcursionReservation(props) {
       </td>
       <td>
         <h6 className="mb-0 text-sm">{price} Ar</h6>
-      </td>
-      <td>
-        <h6 className="mb-0 text-sm">{price} Ar</h6>
-      </td>
-      <td className="align-middle text-center">
-        <span className="text-secondary text-xs font-weight-bold"></span>
       </td>
     </tr>
   );

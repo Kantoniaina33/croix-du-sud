@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import AlertDelete from "../util/alertDelete";
 import Modal from "../util/modal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./program.css";
 
 export default function TrPlanningProgram(props) {
@@ -25,6 +25,7 @@ export default function TrPlanningProgram(props) {
     showButton,
     id,
     included,
+    totalPersons
   } = props;
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
@@ -115,10 +116,14 @@ export default function TrPlanningProgram(props) {
         </td>
         <td>
           <span className="text-xs">
-            <a href={`/reservations/${reservationId}/programs/${programId}`}>
-              <span style={{ textDecoration: "underline" }}>Details</span>
-              <LinkSquare02Icon size={15} style={{ marginLeft: "2%" }} />
-            </a>
+            <Link
+              to={`/reservations/${reservationId}/programs/${programId}`}
+              state={{ totalPersons }}
+              style={{ textDecoration: "underline" }}
+            >
+              Details
+              <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
+            </Link>
           </span>
         </td>
         {showButton && (

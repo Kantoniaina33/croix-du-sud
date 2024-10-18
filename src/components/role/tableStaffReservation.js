@@ -5,7 +5,7 @@ import { UserListIcon } from "hugeicons-react";
 import TrRoleReservation from "./trRoleReservation";
 
 export default function TableStaffReservation(props) {
-  const { programId} = props;
+  const { programId, reservationId, totalPersons } = props;
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const handleCloseModal = () => setIsMapModalOpen(false);
   const handleShowForm = () => setIsMapModalOpen(true);
@@ -100,14 +100,15 @@ export default function TableStaffReservation(props) {
                     roleId={programStaff.role.id}
                     roleName={programStaff.role.name}
                     number={programStaff.number}
-                    price={programStaff.role.hourlyWage}
+                    price={programStaff.total_price}
                     programId={programId}
-                    totalPersons={5}
+                    totalPersons={totalPersons}
                   />
                 ))}
               </tbody>
             </table>
             <p>Total: {quotation} Ar</p>
+            <p>Total par personne: {quotation/totalPersons} Ar</p>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>Aucun role.</p>

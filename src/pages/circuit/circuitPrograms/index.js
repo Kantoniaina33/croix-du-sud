@@ -144,7 +144,7 @@ export default function CircuitPrograms() {
                             <>
                               <TrProgramCircuit
                                 day={circuitProgram.program_day}
-                                price={1000}
+                                price={circuitProgram.price}
                                 itinerary={
                                   circuitProgram.program.departure +
                                   " - " +

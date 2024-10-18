@@ -14,6 +14,7 @@ export default function TrReservation(props) {
     circuitId,
     customerId,
     customerInfo,
+    totalPersons,
   } = props;
 
   const [show, setShow] = useState(false);
@@ -44,37 +45,20 @@ export default function TrReservation(props) {
         <p className="text-sm font-weight-bold mb-0">{reservationDate}</p>
       </td>
       <td>
-        <p className="text-sm font-weight-bold mb-0">{circuit}</p>
+        <p className="text-sm font-weight-bold mb-0">
+          {circuit} {totalPersons} hey
+        </p>
       </td>
-      <td>
-        {/* <p className="text-sm font-weight-bold mb-0"> */}
-          <Link
-            to={`/customers/${customerId}/reservations/${reservationId}/planning`}
-            // to={`/customers/reservations/planning`}
-            state={{ customerInfo, circuitId }}
-            style={{ textDecoration: "underline" }}
-          >
-            Planning
-            <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
-          </Link>
-        {/* </p> */}
+      <td className="text-xs">
+        <Link
+          to={`/customers/${customerId}/reservations/${reservationId}/planning`}
+          state={{ customerInfo, circuitId, totalPersons }}
+          style={{ textDecoration: "underline" }}
+        >
+          Planning
+          <LinkSquare02Icon size={15} style={{ marginLeft: "3%" }} />
+        </Link>
       </td>
-      {/* <td className="align-middle text-center">
-        <span className="text-secondary text-xs font-weight-bold">
-          <button
-            style={{ backgroundColor: "white", border: "none" }}
-            onClick={handleAlert}
-          >
-            <Delete02Icon color="rgb(219, 1, 1)" size={23} />
-          </button>
-          <AlertDelete
-            alertMessage={`Êtes-vous sûr de vouloir supprimer ${name} ?`}
-            show={alert}
-            setAlert={setAlert}
-            url={`http://localhost:3030/customers/${customerId}`}
-          />
-        </span>
-      </td> */}
     </tr>
   );
 }

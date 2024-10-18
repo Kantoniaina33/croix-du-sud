@@ -6,7 +6,7 @@ import Modal from "../util/modal";
 import FormOfferingDetailReservation from "./formOfferingDetailReservation";
 
 export default function TableOfferingDetailReservation(props) {
-  const { programId, reservationId, offeringId } = props;
+  const { programId, reservationId, offeringId, totalPersons } = props;
   const [message, setMessage] = useState("");
   const [offeringDetails, setOfferingDetails] = useState([]);
   const [quotation, setQuotation] = useState(0);
@@ -16,6 +16,10 @@ export default function TableOfferingDetailReservation(props) {
   const fetchOfferingDetails = async () => {
     setMessage("");
     setLoading(true);
+    console.log(
+      `http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details`
+    );
+
     try {
       const response = await fetch(
         `http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details`,
@@ -69,7 +73,7 @@ export default function TableOfferingDetailReservation(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : offeringDetails.length > 0 ? (
+        ) : offeringDetails ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -96,13 +100,13 @@ export default function TableOfferingDetailReservation(props) {
               </thead>
               {offeringDetails.map((offeringDetailPlanning) => (
                 <TrOfferingDetailReservation
+                  totalPersons={totalPersons}
                   key={offeringDetailPlanning.id}
                   programId={programId}
                   quantity={offeringDetailPlanning.quantity}
                   offeringName={offeringDetailPlanning.offeringDetail.name}
                   tarifPeriod={offeringDetailPlanning.offeringDetail.unit}
                   price={offeringDetailPlanning.offeringDetail.unit_price}
-                  personNumber={5}
                   reservationId={reservationId}
                   id={offeringDetailPlanning.id}
                   offeringId={offeringDetailPlanning.offeringId}

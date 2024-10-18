@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import TrRestaurationReservation from "./trRestaurationReservation";
 
 export default function TableRestaurationReservation(props) {
-  const { programId } = props;
+  const { programId, totalPersons } = props;
   const [message, setMessage] = useState("");
   const [restaurationDetails, setRestaurationDetails] = useState([]);
+  const [quotation, setQuotation] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const fetchRestaurationDetails = async () => {
@@ -29,7 +30,8 @@ export default function TableRestaurationReservation(props) {
       }
 
       const data = await response.json();
-      setRestaurationDetails(data);
+      setRestaurationDetails(data.program_restaurations);
+      setQuotation(data.quotation);
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching restauration details");
@@ -40,6 +42,7 @@ export default function TableRestaurationReservation(props) {
 
   useEffect(() => {
     fetchRestaurationDetails();
+    console.log(restaurationDetails + " heyyyyyyyyyy");
   }, []);
 
   return (
@@ -80,19 +83,21 @@ export default function TableRestaurationReservation(props) {
                   </th>
                 </tr>
               </thead>
-              {restaurationDetails.map((restaurationDetailPlanning) =>
-                restaurationDetailPlanning.included === true && (
-                  <TrRestaurationReservation
-                    key={restaurationDetailPlanning.id}
-                    programId={programId}
-                    meal={restaurationDetailPlanning.restauration.name}
-                    price={restaurationDetailPlanning.restauration.unit_price}
-                    personNumber={5}
-                    id={restaurationDetailPlanning.id}
-                  />
-                )
+              {restaurationDetails.map(
+                (restaurationDetailPlanning) =>
+                  restaurationDetailPlanning.included === true && (
+                    <TrRestaurationReservation
+                      key={restaurationDetailPlanning.id}
+                      programId={programId}
+                      meal={restaurationDetailPlanning.restauration.name}
+                      price={restaurationDetailPlanning.restauration.unit_price}
+                      totalPersons={totalPersons}
+                      id={restaurationDetailPlanning.id}
+                    />
+                  )
               )}
             </table>
+            <p>Total : {quotation} Ar</p>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>

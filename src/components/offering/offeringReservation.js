@@ -6,7 +6,7 @@ import Modal from "../util/modal";
 import FormOfferingDetailReservation from "../offeringDetail/formOfferingDetailReservation";
 
 export default function OfferingReservation(props) {
-  const { offering_typeId, offering_type, programId, isRestauration, reservationId } = props;
+  const { offering_typeId, offering_type, programId, isRestauration, reservationId, totalPersons } = props;
   const [message, setMessage] = useState("");
   const [offering, setOffering] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -142,7 +142,10 @@ export default function OfferingReservation(props) {
                       />
                     </table>
                     {isRestauration ? (
-                      <TableRestaurationReservation programId={programId} />
+                      <TableRestaurationReservation
+                        programId={programId}
+                        totalPersons={totalPersons}
+                      />
                     ) : (
                       <>
                         <br />
@@ -161,6 +164,7 @@ export default function OfferingReservation(props) {
                           />
                         </Modal>
                         <TableOfferingDetailReservation
+                          totalPersons={totalPersons}
                           programId={programId}
                           offeringTypeId={offering.offering_typeId}
                           offeringId={offering.id}

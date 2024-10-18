@@ -193,6 +193,7 @@ export default function ListProgram() {
                         }
                         arrivalLatitude={program.arrivalCoordinates.latitude}
                         arrivalLongitude={program.arrivalCoordinates.longitude}
+                        price={program.price}
                       />
                       <br />
                     </div>

@@ -3,7 +3,7 @@ import { Edit02Icon, Tick02Icon } from "hugeicons-react";
 import { useParams } from "react-router-dom";
 
 export default function TrRestaurationReservation(props) {
-  const { meal, price, programId, personNumber } = props;
+  const { meal, price, programId, totalPersons } = props;
 
   const [message, setMessage] = useState("");
 
@@ -26,7 +26,7 @@ export default function TrRestaurationReservation(props) {
       <td>
         <div className="d-flex px-2">
           <div className="my-auto">
-            <h6 className="mb-0 text-sm">{price * personNumber} Ar</h6>
+            <h6 className="mb-0 text-sm">{price * totalPersons} Ar</h6>
           </div>
         </div>
       </td>

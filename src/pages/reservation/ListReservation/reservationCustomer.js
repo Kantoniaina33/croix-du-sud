@@ -200,6 +200,9 @@ export default function ReservationCustomer() {
                                 circuitId={reservation.circuit.id}
                                 customerId={id}
                                 customerInfo={customerInfo}
+                                totalPersons={
+                                  reservation.total_travel_participants
+                                }
                               />
                             </>
                           ))}

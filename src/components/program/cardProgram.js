@@ -17,6 +17,7 @@ export default function CardProgram(props) {
     departureLongitude,
     arrivalLatitude,
     arrivalLongitude,
+    price
   } = props;
 
   const [show, setShow] = useState(false);
@@ -60,7 +61,7 @@ export default function CardProgram(props) {
             </h5>
           </div>
           <span className="card-price">
-            {roundedDistance} Km | {durationHours} h
+            {price} Ar
           </span>{" "}
         </div>
         <p className="card-description">{description}</p>

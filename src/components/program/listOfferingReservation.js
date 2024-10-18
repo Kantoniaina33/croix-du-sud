@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OfferingReservation from "../offering/offeringReservation";
 
 export default function ListOfferingReservation(props) {
-  const { programId, reservationId } = props;
+  const { programId, reservationId, totalPersons } = props;
   const [offeringTypes, setOfferingTypes] = useState([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ export default function ListOfferingReservation(props) {
               offering_typeId={offeringType.id}
               isRestauration={offeringType.is_restauration}
               reservationId={reservationId}
+              totalPersons={totalPersons}
             />
           </>
         ))

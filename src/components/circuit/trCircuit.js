@@ -12,7 +12,7 @@ import AlertDelete from "../util/alertDelete";
 import Modal from "../util/modal";
 
 export default function TrCircuit(props) {
-  const { circuitId, name } = props;
+  const { circuitId, name, price } = props;
 
   const [show, setShow] = useState(false);
   const [showAddProgram, setShowAddProgram] = useState(false);
@@ -36,6 +36,16 @@ export default function TrCircuit(props) {
               style={{ marginLeft: "3%" }}
             >
               <h6 className="mb-0 text-sm">{name}</h6>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className="d-flex px-2 py-1">
+            <div
+              className="d-flex flex-column justify-content-center"
+              style={{ marginLeft: "3%" }}
+            >
+              <h6 className="mb-0 text-sm">{price} Ar</h6>
             </div>
           </div>
         </td>

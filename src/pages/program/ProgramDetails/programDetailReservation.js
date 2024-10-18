@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Aside from "../../../components/template/aside";
 import Modal from "../../../components/util/modal";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import SheetProgram from "../../../components/program/sheetProgram";
 import ChooseOffering from "../../../components/offering/ChooseOffering";
 import ChooseOfferingType from "../../../components/offeringType/chooseOfferingType";
@@ -11,6 +11,8 @@ import TableTransferReservation from "../../../components/transfer/tableTransfer
 import ListOfferingReservation from "../../../components/program/listOfferingReservation";
 
 export default function ProgramDetailReservation() {
+  const location = useLocation();
+  const linkData = location.state;
   const [program, setProgram] = useState([]);
   const { programId, reservationId } = useParams();
   const [message, setMessage] = useState("");
@@ -100,6 +102,7 @@ export default function ProgramDetailReservation() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
+                <p>TotalPersons: {linkData.totalPersons}</p>
                 {loading ? (
                   <div
                     className="spinner-border spinner-border-sm"
@@ -126,12 +129,26 @@ export default function ProgramDetailReservation() {
                   <p>Oups</p>
                 )}
                 <hr className="custom-hr" />
-                <TableStaffReservation programId={programId} />
+                <TableStaffReservation
+                  programId={programId}
+                  totalPersons={linkData.totalPersons}
+                />
                 <hr className="custom-hr" />
-                <ListOfferingReservation programId={programId} reservationId={reservationId} />
-                <TableExcursionReservation programId={programId} />
+                <ListOfferingReservation
+                  programId={programId}
+                  reservationId={reservationId}
+                  totalPersons={linkData.totalPersons}
+                />
+                <TableExcursionReservation
+                  programId={programId}
+                  totalPersons={linkData.totalPersons}
+                />
                 <hr className="custom-hr" />
-                <TableTransferReservation programId={programId} />
+                <TableTransferReservation
+                  programId={programId}
+                  reservationId={reservationId}
+                  totalPersons={linkData.totalPersons}
+                />
               </div>
             </div>
           </div>

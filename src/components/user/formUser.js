@@ -5,17 +5,16 @@ export default function FormUser() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const handleLogin = async (e) => {
+  const handleLogin= async (e) => {
     e.preventDefault();
     setMessage("");
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3030/users/login", {
+      const response = await fetch("http://localhost:3030/users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -24,13 +23,11 @@ export default function FormUser() {
         if (response.status === 401) {
           setMessage("Email ou mot de passe invalide");
         } else {
-          setMessage("Login failed");
+          setMessage("Signup failed");
         }
         return;
       }
 
-      const data = await response.json();
-      localStorage.setItem("userToken", data.token);
     } catch (error) {
       console.error("Error:", error);
     } finally {
