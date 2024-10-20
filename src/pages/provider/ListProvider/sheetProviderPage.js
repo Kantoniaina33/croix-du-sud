@@ -57,13 +57,13 @@ export default function SheetProviderPage() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Programmes</span>
+                  <span>Prestataires</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Détails
+                  Fiche
                 </li>
               </ol>
             </nav>
@@ -81,20 +81,21 @@ export default function SheetProviderPage() {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               ) : provider ? (
-                <SheetProvider
-                  key={provider.id}
-                  providerId={provider.id}
-                  name={provider.name}
-                  address={provider.address}
-                  email={provider.email}
-                  phone={provider.phone}
-                  city={provider.city}
-                  logo={provider.image}
-                  setMeals={provider.setMeals}
-                  latitude={provider.coordinates.latitude}
-                  longitude={provider.coordinates.longitude}
-                  location={provider.coordinates.location}
-                />
+                <p></p>
+                // <SheetProvider
+                //   key={provider.id}
+                //   providerId={provider.id}
+                //   name={provider.name}
+                //   address={provider.address}
+                //   email={provider.email}
+                //   phone={provider.phone}
+                //   city={provider.city}
+                //   logo={provider.image}
+                //   setMeals={provider.setMeals}
+                //   latitude={provider.coordinates.latitude}
+                //   longitude={provider.coordinates.longitude}
+                //   location={provider.coordinates.location}
+                // />
               ) : (
                 <p>Oups</p>
               )}

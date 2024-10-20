@@ -39,7 +39,6 @@ export default function TableTransferPlanning(props) {
       const data = await response.json();
       setTransfers(data.program_transfers);
       setQuotation(data.quotation);
-
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching transfers");
@@ -94,7 +93,7 @@ export default function TableTransferPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : transfers.length > 0 ? (
+        ) : transfers ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -119,7 +118,9 @@ export default function TableTransferPlanning(props) {
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>

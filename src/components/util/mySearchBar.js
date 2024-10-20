@@ -4,7 +4,7 @@ import "./util.css";
 export default function MySearchBar(props) {
   const { placeholder ,search, setSearch, handleClearSearch, handleSearch } = props;
   return (
-    <div className="input-group">
+    <div className="input-group" style={{width:"250px"}}>
       <span className="input-group-text text-body">
         <i className="fas fa-search" aria-hidden="true"></i>
       </span>

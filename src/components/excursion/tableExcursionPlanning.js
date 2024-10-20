@@ -45,7 +45,6 @@ export default function TableExcursionPlanning(props) {
   useEffect(() => {
     fetchExcursions();
     console.log(excursions);
-    
   }, []);
 
   return (
@@ -124,7 +123,9 @@ export default function TableExcursionPlanning(props) {
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

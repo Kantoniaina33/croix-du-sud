@@ -31,23 +31,23 @@
 }
 
 /* Style pour le lien de la nav */
-.nav-item {
+#aside .nav-item {
   list-style: none;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   position: relative;
   /* Permet de positionner correctement le dropdown */
 }
 
-.nav-link:hover .icon {
+#aside .nav-link:hover .icon {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Styles pour le dropdown */
-.custom-dropdown {
-  padding: 0.5rem 0;
+#aside .custom-dropdown {
+  /* padding: 0.5rem 0; */
   /* position: absolute; */
   z-index: 1000;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   list-style: none;
   width: 200px;
   font-size: 14px;
@@ -55,23 +55,23 @@
   position: relative;
 }
 
-.dropdown-wrapper {
+#aside .dropdown-wrapper {
   position: relative;
   /* Ajoutez ce wrapper */
 }
 
-.custom-dropdown .dropdown-item {
+#aside .custom-dropdown .dropdown-item {
   position: relative;
   padding-left: 25px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
 }
 
-.custom-dropdown .dropdown-item::before {
+#aside .custom-dropdown .dropdown-item::before {
   content: "";
   position: absolute;
   left: 5px;
-  top: 50%;
+  /* top: 50%; */
   transform: translateY(-50%);
   width: 7px;
   height: 7px;
@@ -79,12 +79,12 @@
   border: 1px solid black;
 }
 
-.custom-dropdown .dropdown-item:hover {
+#aside .custom-dropdown .dropdown-item:hover {
   background-color: rgba(78, 115, 223, 0.1);
   color: #4e73df;
 }
 
-.nav-link .fas {
+#aside .nav-link .fas {
   font-size: 12px;
   margin-left: auto;
 }

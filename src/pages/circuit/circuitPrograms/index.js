@@ -4,13 +4,14 @@ import Aside from "../../../components/template/aside";
 import Modal from "../../../components/util/modal";
 import FormHotelPlanning from "../../../components/hotel/formHotelPlanning";
 import LogoutButton from "../../../components/util/logoutButton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import TrProgramCircuit from "../../../components/program/trProgramCircuit";
 import ReturnLink from "../../../components/util/returnLink";
 import Return from "../../../components/util/return";
+import Header from "../../../components/template/header";
 
 export default function CircuitPrograms() {
-  const {id} = useParams();
+  const { id } = useParams();
   const [message, setMessage] = useState("");
   const [next, setNext] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export default function CircuitPrograms() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
   const [circuitPrograms, setCircuitPrograms] = useState([]);
+  const navigate = useNavigate();
 
   const fetchCircuitProgram = async () => {
     setLoading(true);
@@ -50,6 +52,10 @@ export default function CircuitPrograms() {
     fetchCircuitProgram();
   }, []);
 
+  const handleNewProgram = (e) => {
+    navigate(`/circuits/${id}/programs/new`);
+  };
+
   return (
     <div>
       <Aside />
@@ -61,48 +67,12 @@ export default function CircuitPrograms() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
           rel="stylesheet"
         />
-        <nav
-          className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
-          id="navbarBlur"
-          navbar-scroll="true"
-        >
-          <div className="container-fluid py-1 px-3">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li className="breadcrumb-item text-sm">
-                  <span>Programme</span>
-                </li>
-                <li
-                  className="breadcrumb-item text-sm text-dark active"
-                  aria-current="page"
-                >
-                  Planning
-                </li>
-              </ol>
-              {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
-            </nav>
-            <div
-              className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-              id="navbar"
-            >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-              <ul className="navbar-nav justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    href={`/circuits/${id}/programs/new`}
-                  >
-                    AJOUTER UN PROGRAMME
-                  </a>
-                </li>
-                <li className="nav-item d-flex align-items-center">
-                  <LogoutButton />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Header
+          pages="Circuits"
+          slash="Planning programmes"
+          buttonText="Ajouter un programme"
+          handleOnClick={handleNewProgram}
+        />
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">

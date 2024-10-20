@@ -114,7 +114,9 @@ export default function TableOfferingDetailReservation(props) {
                 />
               ))}
             </table>
-            <p>Total: {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>

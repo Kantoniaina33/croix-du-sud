@@ -57,13 +57,13 @@ export default function SheetExcursionPage() {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li className="breadcrumb-item text-sm">
-                  <span>Programmes</span>
+                  <span>Excursions</span>
                 </li>
                 <li
                   className="breadcrumb-item text-sm text-dark active"
                   aria-current="page"
                 >
-                  Détails
+                  Fiche
                 </li>
               </ol>
             </nav>

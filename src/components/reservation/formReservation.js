@@ -72,31 +72,31 @@ export default function FormReservation(props) {
     setIsLoading(true);
 
     try {
-      // const idUrl = method === "PUT" ? `/${reservationId}` : "";
+      const idUrl = method === "PUT" ? `/${reservationId}` : "";
 
-      // const response = await fetch(
-      //   `http://localhost:3030/reservations${idUrl}`,
-      //   {
-      //     method: method,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //     },
-      //     body: JSON.stringify(formValues),
-      //   }
-      // );
+      const response = await fetch(
+        `http://localhost:3030/reservations${idUrl}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
 
-      // if (!response.ok) {
-      //   if (response.status === 401) {
-      //     setMessage("Problem");
-      //   } else {
-      //     setMessage("Failed");
-      //   }
-      //   return;
-      // }
-      // const data = await response.json();
-      // const reservation = data.reservation;
-      navigate(`/customers/${customerId}/reservation/group_details`);
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+      const data = await response.json();
+      const reservation = data.reservation;
+      navigate(`/customers/${customerId}/reservation/${reservation.id}/group_details`);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -105,7 +105,7 @@ export default function FormReservation(props) {
   };
 
   return (
-    <div className="card p-4 shadow-lg rounded-3" style={{ width: "60%" }}>
+    <div className="card p-4 shadow-lg rounded-3" style={{ width: "60%", marginTop:"-5%" }}>
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{ marginBottom: "2%", height: "50px" }}
@@ -129,9 +129,9 @@ export default function FormReservation(props) {
             <path d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z" />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "18px", color: "#273385", textTransform:"uppercase" }}
           >
-            Réservation de voyage
+            Informations du voyage
           </span>
         </div>
       </div>
@@ -201,7 +201,7 @@ export default function FormReservation(props) {
               style={{
                 float: "right",
                 borderRadius: "20px",
-                marginTop: "1%",
+                marginTop: "2%",
               }}
               onClick={handleSave}
             >

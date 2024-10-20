@@ -45,7 +45,7 @@ export default function ListOfferingPlanning(props) {
         >
           <span className="visually-hidden">Loading...</span>
         </div>
-      ) : offeringTypes.length > 0 ? (
+      ) : offeringTypes? (
         offeringTypes.map((offeringType) => (
           <>
             <OfferingPlanning

@@ -97,7 +97,9 @@ export default function TableRestaurationReservation(props) {
                   )
               )}
             </table>
-            <p>Total : {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation * totalPersons} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun employé</p>

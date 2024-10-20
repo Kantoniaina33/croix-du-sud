@@ -9,6 +9,7 @@ import { SpartanHelmetIcon } from "hugeicons-react";
 import Modal from "../../../components/util/modal";
 import LogoutButton from "../../../components/util/logoutButton";
 import MySearchBar from "../../../components/util/mySearchBar";
+import Header from "../../../components/template/header";
 
 export default function ListExcursion() {
   const [show, setShow] = useState(false);
@@ -99,63 +100,25 @@ export default function ListExcursion() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
           rel="stylesheet"
         />
-        <nav
-          className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
-          id="navbarBlur"
-          navbar-scroll="true"
-        >
-          <div className="container-fluid py-1 px-3">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li className="breadcrumb-item text-sm">
-                  <span>Excursions</span>
-                </li>
-                <li
-                  className="breadcrumb-item text-sm text-dark active"
-                  aria-current="page"
-                >
-                  Liste
-                </li>
-              </ol>
-              {/* <h6 className="font-weight-bolder mb-0">Tables</h6> */}
-            </nav>
-            <div
-              className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-              id="navbar"
-            >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center w-35">
-                <MySearchBar
-                  placeholder="Rechercher une excursion..."
-                  search={search}
-                  setSearch={setSearch}
-                  handleClearSearch={handleClearSearch}
-                  handleSearch={handleSearchExcursion}
-                />
-              </div>
-              <ul className="navbar-nav  justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    onClick={handleShowMap}
-                  >
-                    Nouvelle excursion
-                  </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <FormExcursion
-                      method="POST"
-                      isOpen={isMapModalOpen}
-                      title="AJOUTER UNE EXCURSION"
-                      onCancel={handleCloseModal}
-                    />
-                  </Modal>
-                </li>
-                <li className="nav-item d-flex align-items-center">
-                  <LogoutButton />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Header
+          pages="Excursions"
+          slash="Liste"
+          searchPlaceholder="Rechercher un excursion ..."
+          search={search}
+          setSearch={setSearch}
+          handleClearSearch={handleClearSearch}
+          handleSearch={handleSearchExcursion}
+          buttonText="Nouvelle excursion"
+          handleOnClick={handleShowMap}
+        />
+        <Modal isOpen={isMapModalOpen}>
+          <FormExcursion
+            method="POST"
+            isOpen={isMapModalOpen}
+            title="AJOUTER UNE EXCURSION"
+            onCancel={handleCloseModal}
+          />
+        </Modal>
 
         <div
           className="card-body px-0 pt-0 pb-2"

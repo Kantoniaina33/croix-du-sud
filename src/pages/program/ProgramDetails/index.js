@@ -14,6 +14,7 @@ import AddPorter from "../../../components/program/addPorter";
 import AddGuide from "../../../components/program/addGuide";
 import { UserListIcon } from "hugeicons-react";
 import TableStaffPlanning from "../../../components/role/tableStaffPlanning";
+import Header from "../../../components/template/header";
 
 export default function ProgramDetails() {
   const [program, setProgram] = useState([]);
@@ -73,60 +74,28 @@ export default function ProgramDetails() {
         id="listHotel"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
       >
-        <nav
-          className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
-          id="navbarBlur"
-          navbar-scroll="true"
-        >
-          <div className="container-fluid py-1 px-3">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li className="breadcrumb-item text-sm">
-                  <span>Programmes</span>
-                </li>
-                <li
-                  className="breadcrumb-item text-sm text-dark active"
-                  aria-current="page"
-                >
-                  Details
-                </li>
-              </ol>
-            </nav>
-            <div
-              className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-              id="navbar"
-            >
-              <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-              <ul className="navbar-nav justify-content-end">
-                <li className="nav-item d-flex align-items-center">
-                  <a
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    target="blank"
-                    onClick={handleShowMap}
-                  >
-                    Ajouter une prestation
-                  </a>
-                  <Modal isOpen={isMapModalOpen}>
-                    <ChooseOfferingType
-                      method="POST"
-                      onCancel={handleCloseModal}
-                      onClose={handleNext}
-                    />
-                  </Modal>
-                  <Modal isOpen={isNextModalOpen}>
-                    <ChooseOffering
-                      urlSave={`http://localhost:3030/programs/${programId}/offerings`}
-                      onCancel={handleCloseNextModal}
-                      offering_typeId={offeringTypeId}
-                      programId={programId}
-                      method="POST"
-                    />
-                  </Modal>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Header
+          pages="Programmes"
+          slash="Details"
+          buttonText="Ajouter une prestation"
+          handleOnClick={handleShowMap}
+        />
+        <Modal isOpen={isMapModalOpen}>
+          <ChooseOfferingType
+            method="POST"
+            onCancel={handleCloseModal}
+            onClose={handleNext}
+          />
+        </Modal>
+        <Modal isOpen={isNextModalOpen}>
+          <ChooseOffering
+            urlSave={`http://localhost:3030/programs/${programId}/offerings`}
+            onCancel={handleCloseNextModal}
+            offering_typeId={offeringTypeId}
+            programId={programId}
+            method="POST"
+          />
+        </Modal>
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">

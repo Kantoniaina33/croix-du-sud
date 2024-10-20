@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  SquareArrowDataTransferHorizontalIcon,
-} from "hugeicons-react";
+import { SquareArrowDataTransferHorizontalIcon } from "hugeicons-react";
 import TrTransferReservation from "./trTransferReservation";
 
 export default function TableTransferReservation(props) {
@@ -75,7 +73,7 @@ export default function TableTransferReservation(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : transfers.length > 0 ? (
+        ) : transfers ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -102,7 +100,9 @@ export default function TableTransferReservation(props) {
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ fontSize: "15px", marginLeft: "2.5%" }}>Aucun tranfert</p>

@@ -52,15 +52,59 @@
   background-color: blue;
 }
 
-/* Ajuste le contenu en fonction de l'état de la sidebar */
-/* .sidenav .nav-link-text {
-  display: inline-block;
+
+/* Style pour le lien de la nav */
+#aside .nav-item {
+  list-style: none;
+  position: relative;
+  /* Permet de positionner correctement le dropdown */
 }
 
-.sidebar-closed .nav-link-text {
-  display: none;
+#aside .nav-link:hover .icon {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.sidebarIcon {
-  cursor: pointer;
-} */
+#aside .custom-dropdown {
+  padding: 0;
+  z-index: 1000;
+  margin-top: 10px;
+  list-style: none;
+  width: 200px;
+  font-size: 14px;
+  margin-left: 20%;
+  position: relative;
+}
+
+#aside .dropdown-wrapper {
+  position: relative;
+  /* Ajoutez ce wrapper */
+}
+
+#aside .custom-dropdown .dropdown-item {
+  position: relative;
+  padding-left: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#aside .custom-dropdown .dropdown-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+#aside .custom-dropdown .dropdown-item:hover {
+  background-color: rgba(78, 115, 223, 0.1);
+  color: #4e73df;
+}
+
+#aside .nav-link .fas {
+  font-size: 12px;
+  margin-left: auto;
+}

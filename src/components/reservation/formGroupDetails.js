@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./reservation.css";
 
 export default function FormGroupDetails(props) {
@@ -16,6 +16,7 @@ export default function FormGroupDetails(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState({});
   const [rows, setRows] = useState([{ familyMembers: "", familyCount: "" }]);
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     totalPersons: totalPersons,
@@ -23,18 +24,15 @@ export default function FormGroupDetails(props) {
     familyDetails: rows,
   });
 
-  // Gestion de l'ajout d'une nouvelle ligne
   const handleAddRow = () => {
     setRows([...rows, { familyMembers: "", familyCount: "" }]);
   };
 
-  // Gestion de la suppression d'une ligne
   const handleRemoveRow = (index) => {
     const newRows = rows.filter((_, i) => i !== index);
     setRows(newRows);
   };
 
-  // Gestion de la modification des valeurs dans les inputs
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
     const newRows = [...rows];
@@ -42,7 +40,6 @@ export default function FormGroupDetails(props) {
     setRows(newRows);
   };
 
-  // Mise à jour des valeurs du formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
@@ -112,6 +109,7 @@ export default function FormGroupDetails(props) {
         }
         return;
       }
+      navigate(`/customers/${customerId}/reservations/${reservationId}/planning`);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -122,7 +120,7 @@ export default function FormGroupDetails(props) {
   return (
     <div
       className="card p-4 shadow-lg rounded-3"
-      style={{ width: "60%", marginTop: "1%" }}
+      style={{ width: "70%", marginTop: "1%" }}
     >
       <div
         className="card-header d-flex justify-content-between align-items-center"
@@ -260,8 +258,19 @@ export default function FormGroupDetails(props) {
               className="btn btn-primary"
               onClick={handleSave}
               disabled={isLoading}
+              style={{
+                float: "right",
+                borderRadius: "20px",
+                marginTop: "3%",
+              }}
             >
-              {isLoading ? "Chargement..." : "Enregistrer"}
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Enregistrer"
+              )}
             </button>
           </div>
         </form>

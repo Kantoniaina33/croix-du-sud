@@ -46,7 +46,7 @@ export default function TrReservation(props) {
       </td>
       <td>
         <p className="text-sm font-weight-bold mb-0">
-          {circuit} {totalPersons} hey
+          {circuit}
         </p>
       </td>
       <td className="text-xs">

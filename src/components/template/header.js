@@ -1,13 +1,32 @@
 import { Hotel01Icon, LogoutSquare02Icon, Tree06Icon } from "hugeicons-react";
 import React, { useEffect, useState } from "react";
-// import "./template.css";
+import MySearchBar from "../util/mySearchBar";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+export default function Header(props) {
+  const {
+    pages,
+    slash,
+    pageTitle,
+    searchPlaceholder,
+    search,
+    setSearch,
+    handleClearSearch,
+    handleSearch,
+    buttonText,
+    handleOnClick,
+  } = props;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const toggleDropdown = () => {
-      setIsDropdownOpen(!isDropdownOpen);
-    };
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <nav
       className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -28,17 +47,17 @@ export default function Header() {
           <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li className="breadcrumb-item text-sm">
               <a className="opacity-5 text-dark" href="javascript:;">
-                Pages
+                {pages}
               </a>
             </li>
             <li
               className="breadcrumb-item text-sm text-dark active"
               aria-current="page"
             >
-              Dashboard
+              {slash}
             </li>
           </ol>
-          <h6 className="font-weight-bolder mb-0">Dashboard</h6>
+          <h6 className="font-weight-bolder mb-0">{pageTitle}</h6>
         </nav>
         <div
           className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -46,35 +65,29 @@ export default function Header() {
         >
           <div className="ms-md-auto pe-md-3 d-flex align-items-center">
             <div className="input-group">
-              <span className="input-group-text text-body">
-                <i className="fas fa-search" aria-hidden="true"></i>
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Type here..."
-              />
+              {searchPlaceholder && (
+                <MySearchBar
+                  placeholder={searchPlaceholder}
+                  search={search}
+                  setSearch={setSearch}
+                  handleClearSearch={handleClearSearch}
+                  handleSearch={handleSearch}
+                />
+              )}
             </div>
           </div>
           <ul className="navbar-nav  justify-content-end">
-            <li className="nav-item d-flex align-items-center">
-              <a
-                className="btn btn-outline-primary btn-sm mb-0 me-3"
-                target="_blank"
-                href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard"
-              >
-                Online Builder
-              </a>
-            </li>
-            <li className="nav-item d-flex align-items-center">
-              <a
-                href="javascript:;"
-                className="nav-link text-body font-weight-bold px-0"
-              >
-                <i className="fa fa-user me-sm-1"></i>
-                <span className="d-sm-inline d-none">Sign In</span>
-              </a>
-            </li>
+            {buttonText && (
+              <li className="nav-item d-flex align-items-center">
+                <a
+                  className="btn btn-outline-primary btn-sm mb-0 me-3"
+                  target="_blank"
+                  onClick={handleOnClick}
+                >
+                  {buttonText}
+                </a>
+              </li>
+            )}
             <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a
                 href="javascript:;"
@@ -122,9 +135,9 @@ export default function Header() {
                   isDropdownOpen ? "show" : ""
                 }`}
                 aria-labelledby="dropdownMenuButton"
-                style={{ display: isDropdownOpen ? "block" : "none" }}
+                style={{ display: isDropdownOpen ? "block" : "none", zIndex:"1000" }}
               >
-                <li className="mb-2">
+                <li className="mb-2" onClick={handleLogout}>
                   <a className="dropdown-item border-radius-md">
                     <div className="d-flex py-1">
                       <svg

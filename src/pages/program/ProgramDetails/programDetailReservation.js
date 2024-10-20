@@ -102,7 +102,6 @@ export default function ProgramDetailReservation() {
           <div className="row">
             <div className="col-12">
               <div className="card mb-4">
-                <p>TotalPersons: {linkData.totalPersons}</p>
                 {loading ? (
                   <div
                     className="spinner-border spinner-border-sm"
@@ -124,6 +123,7 @@ export default function ProgramDetailReservation() {
                     departureLongitude={program.departureCoordinates.longitude}
                     arrivalLatitude={program.arrivalCoordinates.latitude}
                     arrivalLongitude={program.arrivalCoordinates.longitude}
+                    price={program.price}
                   />
                 ) : (
                   <p>Oups</p>

@@ -47,7 +47,7 @@ export default function TrTransferReservation(props) {
         <div className="d-flex py-1">
           <div
             className="d-flex flex-column justify-content-center"
-            style={{ marginLeft: "3%" }}
+            style={{ marginLeft: "5%" }}
           >
             <h6 className="text-uppercase mb-0 text-sm">
               {departure} - {arrival}

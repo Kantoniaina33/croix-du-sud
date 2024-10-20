@@ -82,7 +82,7 @@ export default function TableExcursionReservation(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : excursions.length > 0 ? (
+        ) : excursions ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -108,7 +108,9 @@ export default function TableExcursionReservation(props) {
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation*totalPersons} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation * totalPersons} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>

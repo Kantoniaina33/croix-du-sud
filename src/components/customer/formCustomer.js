@@ -30,27 +30,26 @@ export default function FormCustomer(props) {
     setMessage("");
     setIsLoading(true);
     try {
-      // const idUrl = method === "PUT" ? `/${customerId}` : "";
-      // const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
-      //   method: method,
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //   },
-      //   body: JSON.stringify(formValues),
-      // });
-      // if (!response.ok) {
-      //   if (response.status === 401) {
-      //     setMessage("Problem");
-      //   } else {
-      //     setMessage("Failed");
-      //   }
-      //   return;
-      // }
-      // const data = await response.json();
-      // const customer = data.customer;
-      // navigate(`/customers/${customer.id}/reservation/circuit`);
-      navigate(`/customers/${"tXAlXF7xUdVd1wqD4I0a"}/reservation/circuit`);
+      const idUrl = method === "PUT" ? `/${customerId}` : "";
+      const response = await fetch(`http://localhost:3030/customers${idUrl}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formValues),
+      });
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessage("Problem");
+        } else {
+          setMessage("Failed");
+        }
+        return;
+      }
+      const data = await response.json();
+      const customer = data.customer;
+      navigate(`/customers/${customer.id}/reservation/circuit`);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -61,9 +60,9 @@ export default function FormCustomer(props) {
   return (
     <div
       className="card p-4 shadow-lg rounded-3"
-      style={{ width: "50%", marginTop: "-8%" }}
+      style={{ width: "60%", marginTop: "-8%" }}
     >
-      <div style={{ marginLeft: "3%" }}>
+      <div style={{ marginLeft: "2%", marginBottom:"3%" }}>
         <Return />
       </div>
       <div
@@ -92,7 +91,7 @@ export default function FormCustomer(props) {
             />
           </svg>
           <span
-            style={{ marginLeft: "2%", fontSize: "20px", color: "#273385" }}
+            style={{ marginLeft: "2%", fontSize: "18px", color: "#273385",textTransform:"uppercase" }}
           >
             Informations du client
           </span>
@@ -103,7 +102,7 @@ export default function FormCustomer(props) {
             alignItems: "center",
           }}
         >
-          <button
+          {/* <button
             className="modal-close-button"
             style={{
               background: "none",
@@ -124,7 +123,7 @@ export default function FormCustomer(props) {
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
             </svg>
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="card-body" style={{ marginBottom: "-3%" }}>
@@ -166,26 +165,14 @@ export default function FormCustomer(props) {
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <button
-              type="button"
-              className="btn"
-              style={{
-                float: "right",
-                borderRadius: "20px",
-                marginTop: "1%",
-                border: "solid 1px rgb(231, 231, 231)",
-              }}
-              onClick={onCancel}
-            >
-              Annuler
-            </button>
+            <p></p>
             <button
               type="submit"
               className="btn btn-primary"
               style={{
                 float: "right",
                 borderRadius: "20px",
-                marginTop: "1%",
+                marginTop: "3%",
               }}
               onClick={handleSave}
             >

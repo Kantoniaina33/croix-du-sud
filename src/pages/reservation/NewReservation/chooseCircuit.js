@@ -23,7 +23,7 @@ export default function ChooseCircuit() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
           rel="stylesheet"
         />
-        <nav
+        {/* <nav
           className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
           id="navbarBlur"
           navbar-scroll="true"
@@ -43,7 +43,7 @@ export default function ChooseCircuit() {
               </ol>
             </nav>
           </div>
-        </nav>
+        </nav> */}
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">

@@ -7,12 +7,13 @@ import TrExcursionPlanning from "../../components/excursion/trExcursionPlanning"
 import Return from "../../components/util/return";
 import Aside from "../../components/template/aside";
 import Header from "../../components/template/header";
+import Aside2 from "../../components/template/aside copy";
 
 
 function Home() {
   return (
     <div>
-      <Aside />
+      <Aside2 />
       <main
         id="listCircuit"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"

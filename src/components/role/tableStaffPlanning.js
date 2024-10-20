@@ -57,14 +57,20 @@ export default function TableStaffPlanning(props) {
       }}
     >
       <div className="card-header pb-0 d-flex justify-content-between align-items-center">
-        <h6>
-          <UserListIcon
-            style={{ marginBottom: "0.5%" }}
-            size={20}
-            variant={"stroke"}
-          />
-          <span style={{ marginLeft: "1%" }}>PERSONNELS DE SERVICE</span>
-        </h6>
+        <div className="d-flex align-items-center">
+          <div>
+            <h6>
+              <UserListIcon
+                style={{ marginBottom: "0.5%" }}
+                size={20}
+                variant={"stroke"}
+              />
+            </h6>
+          </div>
+          <div style={{ marginLeft: "3%", width:"200px" }}>
+            <h6>PERSONNELS DE SERVICE</h6>
+          </div>
+        </div>
         <div
           className="btn btn-outline-primary btn-sm mb-0 me-3"
           style={{ marginLeft: "3%" }}
@@ -84,7 +90,7 @@ export default function TableStaffPlanning(props) {
           >
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : programStaff.length > 0 ? (
+        ) : programStaff ? (
           <div className="table-responsive p-0">
             <table className="table align-items-center mb-0">
               <thead>
@@ -119,7 +125,9 @@ export default function TableStaffPlanning(props) {
                 ))}
               </tbody>
             </table>
-            <p>Total: {quotation} Ar</p>
+            <div style={{ margin: "1% 0 -1% 3%" }}>
+              <p>Total: {quotation} Ar</p>
+            </div>
           </div>
         ) : (
           <p style={{ marginLeft: "2.5%", fontSize: "15px" }}>Aucun role.</p>

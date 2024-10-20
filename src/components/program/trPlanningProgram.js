@@ -112,7 +112,7 @@ export default function TrPlanningProgram(props) {
           <p className="text-sm font-weight-bold mb-0">{itinerary}</p>
         </td>
         <td>
-          <p className="text-sm font-weight-bold mb-0">{price}</p>
+          <p className="text-sm font-weight-bold mb-0">{price} Ar</p>
         </td>
         <td>
           <span className="text-xs">
