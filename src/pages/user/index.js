@@ -23,14 +23,14 @@ export default function NewUser() {
         />
         <Header />
         <div className="container-fluid py-4">
-            <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
-              <div className="card z-index-0">
-                <div className="card-header text-center pt-4"></div>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="card mb-4">
-                      <Return />
-                      <FormUser />
+          <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
+            <div className="card z-index-0">
+              <div className="card-header text-center pt-4"></div>
+              <div className="row">
+                <div className="col-12">
+                  <div className="card mb-4" style={{ position: "inherit" }}>
+                    <Return />
+                    <FormUser />
                   </div>
                 </div>
               </div>
@@ -41,4 +41,3 @@ export default function NewUser() {
     </div>
   );
 }
-

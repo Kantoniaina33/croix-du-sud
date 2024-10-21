@@ -81,21 +81,16 @@ export default function SheetProviderPage() {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               ) : provider ? (
-                <p></p>
-                // <SheetProvider
-                //   key={provider.id}
-                //   providerId={provider.id}
-                //   name={provider.name}
-                //   address={provider.address}
-                //   email={provider.email}
-                //   phone={provider.phone}
-                //   city={provider.city}
-                //   logo={provider.image}
-                //   setMeals={provider.setMeals}
-                //   latitude={provider.coordinates.latitude}
-                //   longitude={provider.coordinates.longitude}
-                //   location={provider.coordinates.location}
-                // />
+                <SheetProvider
+                  key={provider.id}
+                  providerId={provider.id}
+                  name={provider.name}
+                  address={provider.address}
+                  email={provider.email}
+                  phone={provider.phone}
+                  city={provider.city}
+                  logo={provider.image}
+                />
               ) : (
                 <p>Oups</p>
               )}

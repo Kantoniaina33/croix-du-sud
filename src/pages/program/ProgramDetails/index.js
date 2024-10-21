@@ -99,7 +99,7 @@ export default function ProgramDetails() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 {loading ? (
                   <div
                     className="spinner-border spinner-border-sm"

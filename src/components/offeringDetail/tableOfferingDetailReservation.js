@@ -16,10 +16,6 @@ export default function TableOfferingDetailReservation(props) {
   const fetchOfferingDetails = async () => {
     setMessage("");
     setLoading(true);
-    console.log(
-      `http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details`
-    );
-
     try {
       const response = await fetch(
         `http://localhost:3030/reservations/${reservationId}/offerings/${offeringId}/details`,
@@ -82,6 +78,9 @@ export default function TableOfferingDetailReservation(props) {
                     Offre
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                    Capacite
+                  </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     Quantite
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -91,11 +90,9 @@ export default function TableOfferingDetailReservation(props) {
                     Prix Total
                   </th>
                   <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                    Periode de tarification
-                  </th>
-                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                     A payer par personne
                   </th>
+                  <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"></th>
                 </tr>
               </thead>
               {offeringDetails.map((offeringDetailPlanning) => (
@@ -105,12 +102,12 @@ export default function TableOfferingDetailReservation(props) {
                   programId={programId}
                   quantity={offeringDetailPlanning.quantity}
                   offeringName={offeringDetailPlanning.offeringDetail.name}
-                  tarifPeriod={offeringDetailPlanning.offeringDetail.unit}
                   price={offeringDetailPlanning.offeringDetail.unit_price}
                   reservationId={reservationId}
                   id={offeringDetailPlanning.id}
                   offeringId={offeringDetailPlanning.offeringId}
                   totalPrice={offeringDetailPlanning.total_price}
+                  capacity={offeringDetailPlanning.offeringDetail.capacity}
                 />
               ))}
             </table>

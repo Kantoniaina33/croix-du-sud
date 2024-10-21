@@ -9,11 +9,10 @@ import Aside from "../../components/template/aside";
 import Header from "../../components/template/header";
 import Aside2 from "../../components/template/aside copy";
 
-
 function Home() {
   return (
     <div>
-      <Aside2 />
+      <Aside />
       <main
         id="listCircuit"
         className="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
@@ -22,55 +21,30 @@ function Home() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
           rel="stylesheet"
         />
-        <Header />
-        {/* <div className="container-fluid py-4">
+        <Header
+          pages="Prestataires"
+          slash="Liste"
+          searchPlaceholder="Rechercher un prestataire"
+          search={"search"}
+          setSearch={"setSearch"}
+          buttonText="Nouveau prestataire"
+          handleOnClick={"handleShowMap"}
+        />
+        <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{position:"inherit"}}>
                 <Return />
                 <>
                   <TrExcursionPlanning
                     place_name={"excursion.place_name"}
                     price={"excursion.price"}
                   />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
-                  <TrExcursionPlanning
-                    place_name={"excursion.place_name"}
-                    price={"excursion.price"}
-                  />
- 
                 </>
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </main>
     </div>
   );

@@ -10,7 +10,6 @@ export default function TrAddOfferingDetailReservation(props) {
     offeringDetailId,
     option,
     offering_name,
-    unit,
     unit_price,
     capacity,
     setOfferingDetailsData,
@@ -105,9 +104,6 @@ export default function TrAddOfferingDetailReservation(props) {
       </td>
       <td>
         <p className="text-sm font-weight-bold mb-0">{unit_price} Ar/</p>
-      </td>
-      <td>
-        <p className="text-sm font-weight-bold mb-0">{unit}</p>
       </td>
       {isEditing && (
         <td>

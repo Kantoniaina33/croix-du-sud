@@ -87,7 +87,7 @@ export default function PlanningDetails(props) {
         <div className="container-fluid py-4">
           <div className="row" style={{ overflowY: "auto", height: "80vh" }}>
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 <div
                   className="card-header pb-0"
                   style={{ marginBottom: "-2%" }}

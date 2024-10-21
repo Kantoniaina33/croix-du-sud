@@ -93,7 +93,7 @@ export default function ListMeal() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 <Return href="/hotels" />
                 <div className="card-header pb-0">
                   <h6>Tarif repas</h6>

@@ -7,14 +7,7 @@ import FormProvider from "./formProvider";
 import Modal from "../util/modal";
 
 export default function TrProvider(props) {
-  const {
-    providerId,
-    logo,
-    name,
-    phone,
-    email,
-    setMeals,
-  } = props;
+  const { providerId, logo, name, phone, email, setMeals } = props;
   const [show, setShow] = useState(false);
 
   const [alert, setAlert] = useState(false);
@@ -47,9 +40,7 @@ export default function TrProvider(props) {
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
-              <a href={`/providers/${providerId}`}>
-                <h6 className="mb-0 text-sm">{name}</h6>
-              </a>
+              <h6 className="mb-0 text-sm">{name}</h6>
             </div>
           </div>
         </td>
@@ -103,7 +94,7 @@ export default function TrProvider(props) {
               />
             </Modal>
           </span>
-        {/* </td>
+          {/* </td>
         <td className="align-middle text-center"> */}
           <span className="text-secondary text-xs font-weight-bold px-5">
             <button

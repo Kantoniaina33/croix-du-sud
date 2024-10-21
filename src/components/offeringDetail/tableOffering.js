@@ -73,10 +73,7 @@ export default function TableOfferingPlanning() {
                   Produit/Service
                 </th>
                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Tarif unitaire
-                </th>
-                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Periode de tarification
+                  Tarif (par jour)
                 </th>
                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                   Capacite

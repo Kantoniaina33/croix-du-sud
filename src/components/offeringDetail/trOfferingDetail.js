@@ -11,7 +11,6 @@ export default function TrOfferingDetail(props) {
     offering_id,
     option,
     offering_name,
-    unit,
     unit_price,
     capacity,
     total,
@@ -46,9 +45,6 @@ export default function TrOfferingDetail(props) {
         <p className="text-sm font-weight-bold mb-0">{unit_price}</p>
       </td>
       <td className="align-middle text-center">
-        <p className="text-sm font-weight-bold mb-0">{unit}</p>
-      </td>
-      <td className="align-middle text-center">
         <p className="text-sm font-weight-bold mb-0">{capacity}</p>
       </td>
       <td className="align-middle text-center">
@@ -68,7 +64,6 @@ export default function TrOfferingDetail(props) {
               method="PUT"
               id={id}
               offering_name={offering_name}
-              unit={unit}
               unit_price={unit_price}
               number_of_offerings={total}
               onCancel={handleCloseModal}

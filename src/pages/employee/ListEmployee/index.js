@@ -143,7 +143,7 @@ export default function ListEmployee() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Liste des employés</h6>
                   {/* <div className="col-md-2">

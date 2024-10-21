@@ -28,7 +28,6 @@ export default function ReservationCustomer() {
   const [reservation, setReservation] = useState(null);
   const navigate = useNavigate();
 
-
   const limit = 8;
   const fetchReservations = async (
     nextDoc = null,
@@ -116,7 +115,7 @@ export default function ReservationCustomer() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 <Return href={`/customers`} />
                 <div className="card-header pb-0">
                   <h6>
@@ -139,16 +138,16 @@ export default function ReservationCustomer() {
                       <table className="table align-items-center mb-0">
                         <thead>
                           <tr>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              REF
-                            </th>
-                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                              Date de reservation
-                            </th>
                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                               Circuit
                             </th>
-                            <th className="text-secondary opacity-7"></th>{" "}
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Date de reservation
+                            </th>
+                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                              Date du voyage
+                            </th>
+                            <th className="text-secondary opacity-7"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -158,7 +157,10 @@ export default function ReservationCustomer() {
                                 key={reservation.id}
                                 reservationRef={reservation.id}
                                 reservationId={reservation.id}
-                                reservationDate={reservation.reservationDate}
+                                reservationDate={
+                                  reservation.formattedReservationDate
+                                }
+                                startDate={reservation.formattedStartDate}
                                 circuit={reservation.circuit.name}
                                 circuitId={reservation.circuit.id}
                                 customerId={id}

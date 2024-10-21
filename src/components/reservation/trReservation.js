@@ -15,6 +15,7 @@ export default function TrReservation(props) {
     customerId,
     customerInfo,
     totalPersons,
+    startDate
   } = props;
 
   const [show, setShow] = useState(false);
@@ -37,7 +38,7 @@ export default function TrReservation(props) {
             className="d-flex flex-column justify-content-center"
             style={{ marginLeft: "3%" }}
           >
-            <h6 className="mb-0 text-sm">{reservationRef}</h6>
+            <h6 className="mb-0 text-sm">{circuit}</h6>
           </div>
         </div>
       </td>
@@ -45,9 +46,7 @@ export default function TrReservation(props) {
         <p className="text-sm font-weight-bold mb-0">{reservationDate}</p>
       </td>
       <td>
-        <p className="text-sm font-weight-bold mb-0">
-          {circuit}
-        </p>
+        <p className="text-sm font-weight-bold mb-0">{startDate}</p>
       </td>
       <td className="text-xs">
         <Link

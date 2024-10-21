@@ -124,7 +124,7 @@ export default function ListOfferingDetail() {
                     onClick={handleShowMap}
                     id="addOffering"
                   >
-                    Nouveau
+                    Ajouter
                   </a>
                   <Modal isOpen={isMapModalOpen}>
                     <FormOfferingDetail
@@ -152,7 +152,7 @@ export default function ListOfferingDetail() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 <Return href={`/providers/${providerId}/offerings`} />
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   {/* <h6>Liste des services</h6> */}
@@ -189,7 +189,7 @@ export default function ListOfferingDetail() {
                               Type
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Tarif unitaire
+                              Tarif (par jour)
                               <a href="#">
                                 <ArrowUpDownIcon
                                   id="sortIcon"
@@ -201,9 +201,6 @@ export default function ListOfferingDetail() {
                                   }}
                                 />
                               </a>
-                            </th>
-                            <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Periode de facturation
                             </th>
                             <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                               Capacite
@@ -249,7 +246,6 @@ export default function ListOfferingDetail() {
                               offering_typeId={offeringDetail.offering_typeId}
                               offering_name={offeringDetail.name}
                               capacity={offeringDetail.capacity}
-                              unit={offeringDetail.unit}
                               unit_price={offeringDetail.unit_price}
                               price_category={offeringDetail.price_category}
                               total={offeringDetail.total_number}

@@ -46,7 +46,7 @@ export default function FormConfProgram(props) {
   }, []);
 
   return (
-    <div className="card mb-4">
+    <div className="card mb-4" style={{ position: "inherit" }}>
       {loading ? (
         <div
           className="spinner-border spinner-border-sm"

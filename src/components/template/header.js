@@ -101,11 +101,11 @@ export default function Header(props) {
                 </div>
               </a>
             </li>
-            <li className="nav-item px-3 d-flex align-items-center">
+            {/* <li className="nav-item px-3 d-flex align-items-center">
               <a href="javascript:;" className="nav-link text-body p-0">
                 <i className="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
-            </li>
+            </li> */}
             <li className="nav-item dropdown pe-2 d-flex align-items-center">
               <a
                 onClick={toggleDropdown}
@@ -117,8 +117,8 @@ export default function Header(props) {
                 <svg
                   className="fixed-plugin-button-nav cursor-pointer"
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="25"
+                  height="25"
                   fill="currentColor"
                   class="bi bi-person-circle"
                   viewBox="0 0 16 16"
@@ -135,7 +135,7 @@ export default function Header(props) {
                   isDropdownOpen ? "show" : ""
                 }`}
                 aria-labelledby="dropdownMenuButton"
-                style={{ display: isDropdownOpen ? "block" : "none", zIndex:"1000" }}
+                style={{ display: isDropdownOpen ? "block" : "none", zIndex:2000, position:"absolute"}}
               >
                 <li className="mb-2" onClick={handleLogout}>
                   <a className="dropdown-item border-radius-md">

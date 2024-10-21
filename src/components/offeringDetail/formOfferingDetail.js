@@ -9,7 +9,6 @@ export default function FormOfferingDetail(props) {
     method,
     offering_optionId,
     name,
-    unit,
     unit_price,
     capacity,
     total,
@@ -24,7 +23,6 @@ export default function FormOfferingDetail(props) {
   const [formValues, setFormValues] = useState({
     offering_optionId: offering_optionId || "",
     name: name || "",
-    unit: unit,
     unit_price: unit_price,
     capacity: capacity || 1,
     total: total || 1,
@@ -150,41 +148,6 @@ export default function FormOfferingDetail(props) {
                 name="name"
               />
             </div>
-            <div className="col">
-              <label className="form-label fw-bold">Type</label>
-              <SelectOfferingOptions
-                value={formValues.offering_optionId}
-                onChange={handleChange}
-                name="offering_optionId"
-                typeId={offering_typeId}
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="nom" className="form-label fw-bold">
-                Capacite
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.capacity}
-                onChange={handleChange}
-                name="capacity"
-              />
-            </div>
-            <div className="col">
-              <label htmlFor="nom" className="form-label fw-bold">
-                Total
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                value={formValues.total}
-                onChange={handleChange}
-                name="total"
-              />
-            </div>
           </div>
           <div className="row mb-3">
             <div className="col">
@@ -201,8 +164,31 @@ export default function FormOfferingDetail(props) {
           </div>
           <div className="row mb-3">
             <div className="col">
+              <label className="form-label fw-bold">Type</label>
+              <SelectOfferingOptions
+                value={formValues.offering_optionId}
+                onChange={handleChange}
+                name="offering_optionId"
+                typeId={offering_typeId}
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="nom" className="form-label fw-bold">
+                Capacite
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                value={formValues.capacity}
+                onChange={handleChange}
+                name="capacity"
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
               <label htmlFor="prenom" className="form-label fw-bold">
-                Tarif unitaire
+                Tarif (par jour)
               </label>
               <input
                 type="number"
@@ -213,15 +199,15 @@ export default function FormOfferingDetail(props) {
               />
             </div>
             <div className="col">
-              <label className="form-label fw-bold">
-                Periode de tarification
+              <label htmlFor="nom" className="form-label fw-bold">
+                Total
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                value={formValues.unit}
+                value={formValues.total}
                 onChange={handleChange}
-                name="unit"
+                name="total"
               />
             </div>
           </div>

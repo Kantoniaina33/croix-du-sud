@@ -127,6 +127,9 @@ export default function OfferingReservation(props) {
                           <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                             Téléphone
                           </th>
+                          <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                            Prix moyen des services
+                          </th>
                           <th className="text-secondary opacity-7"></th>
                           <th className="text-secondary opacity-7"></th>
                         </tr>

@@ -15,13 +15,8 @@ export default function SheetProvider(props) {
     logo,
     name,
     address,
-    city,
     phone,
     email,
-    setMeals,
-    latitude,
-    longitude,
-    location,
   } = props;
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);

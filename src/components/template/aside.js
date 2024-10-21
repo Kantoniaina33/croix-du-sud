@@ -1,13 +1,38 @@
 import { Hotel01Icon, Tree06Icon } from "hugeicons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./template.css";
 
 export default function Aside() {
-  const [openDropdown, setOpenDropdown] = useState(null); // Indique quel dropdown est ouvert
+  const [agency, setAgency] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const toggleDropdown = (index) => {
-    setOpenDropdown(openDropdown === index ? null : index); // Ouvre/ferme le dropdown correspondant
+    setOpenDropdown(openDropdown === index ? null : index);
   };
+
+  const fetchAgency = async () => {
+    try {
+      const response = await fetch("http://localhost:3030/agencies", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      setAgency(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAgency();
+  }, []);
 
   return (
     <aside
@@ -17,12 +42,12 @@ export default function Aside() {
       <div className="sidenav-header">
         <div className="navbar-brand m-0">
           <img
-            src={"agency.image"} // Utilisation de l'image de l'agence
+            src={agency.image} 
             style={{ objectFit: "cover", width: "40px", height: "55px" }}
             alt="logo"
           />
           <a href="/">
-            <span className="ms-1 font-weight-bold">{"agency.name"}</span>
+            <span className="ms-1 font-weight-bold">{agency.name}</span>
           </a>
         </div>
       </div>

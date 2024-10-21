@@ -49,7 +49,7 @@ export default function TrOffering(props) {
               className="d-flex flex-column justify-content-center"
               style={{ marginLeft: "3%" }}
             >
-              <a href={`/providers/${providerId}`}>
+              <a href={`/offerings/${id}`}>
                 <h6 className="mb-0 text-sm">{name}</h6>
               </a>
             </div>

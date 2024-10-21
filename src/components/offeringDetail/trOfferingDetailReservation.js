@@ -8,8 +8,8 @@ export default function TrOfferingDetailReservation(props) {
     offeringId,
     offeringName,
     quantity,
+    capacity,
     price,
-    tarifPeriod,
     totalPersons,
     reservationId,
     totalPrice,
@@ -25,6 +25,13 @@ export default function TrOfferingDetailReservation(props) {
         <div className="d-flex px-4">
           <div className="my-auto">
             <h6 className="mb-0 text-sm">{offeringName}</h6>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div className="d-flex px-2">
+          <div className="my-auto">
+            <h6 className="mb-0 text-sm">{capacity}</h6>
           </div>
         </div>
       </td>
@@ -53,21 +60,11 @@ export default function TrOfferingDetailReservation(props) {
         <div className="d-flex px-2">
           <div className="my-auto">
             <h6 className="mb-0 text-sm">
-              {tarifPeriod}
-            </h6>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div className="d-flex px-2">
-          <div className="my-auto">
-            <h6 className="mb-0 text-sm">
               {(price * quantity) / totalPersons} Ar
             </h6>
           </div>
         </div>
       </td>
-
 
       <td>
         <span className="text-secondary text-xs font-weight-bold">

@@ -51,8 +51,7 @@ export default function TablePlanning() {
     } catch (error) {
       console.error("Error:", error);
       setMessage("Error fetching reservation");
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -115,7 +114,7 @@ export default function TablePlanning() {
         <div className="container-fluid py-4">
           <div className="row">
             <div className="col-12">
-              <div className="card mb-4">
+              <div className="card mb-4" style={{ position: "inherit" }}>
                 {/* <ReturnLink
                   href={`/customers/${id}/reservations`}
                   state={customerInfo}
@@ -132,13 +131,34 @@ export default function TablePlanning() {
                 )}
                 <div className="card-header pb-0 d-flex justify-content-between align-items-center">
                   <h6>Planning de voyage</h6>
-                  <a
-                    style={{ cursor: "pointer" }}
-                    className="btn btn-outline-primary btn-sm mb-0 me-3"
-                    onClick={handlePersonnalize}
-                  >
-                    {showButton ? "Enregistrer" : "Personnaliser"}
-                  </a>
+                  <div className="d-flex align-items-center">
+                    <a
+                      style={{ cursor: "pointer" }}
+                      className="btn btn-outline-primary btn-sm mb-0 me-3"
+                      onClick={handlePersonnalize}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-file-earmark-arrow-down"
+                        viewBox="0 0 16 16"
+                    
+                      >
+                        <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z" />
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                      </svg>{" "}
+                      Telecharger
+                    </a>
+                    <a
+                      style={{ cursor: "pointer" }}
+                      className="btn btn-outline-primary btn-sm mb-0 me-3"
+                      onClick={handlePersonnalize}
+                    >
+                      {showButton ? "Enregistrer" : "Personnaliser"}
+                    </a>
+                  </div>
                 </div>
 
                 <div className="card-body px-0 pt-0 pb-2">
@@ -176,7 +196,7 @@ export default function TablePlanning() {
                             <>
                               <TrPlanningProgram
                                 showButton={showButton}
-                                price={programPlanning.program.price}
+                                price={programPlanning.programPrice}
                                 day={programPlanning.program_day}
                                 programId={programPlanning.programId}
                                 included={programPlanning.included}
